@@ -227,6 +227,19 @@ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
 .choose.picked .choice[aria-selected="false"]{opacity:1}
 .choose.picked .choice[aria-selected="false"]:hover .s{color:var(--green)}
 .nav .brand{white-space:nowrap;font-size:clamp(15px,4.4vw,20px);letter-spacing:.18em}
+.consent{display:grid;gap:6px;background:var(--cream-2);border:1px solid rgba(168,135,74,.35);border-radius:6px;padding:14px 16px}
+.ck{display:grid!important;grid-template-columns:22px 1fr;gap:10px;align-items:start;font-weight:400!important;font-size:14px;line-height:1.55;color:var(--ink)}
+.ck input{width:20px;height:20px;margin:1px 0 0;padding:0;accent-color:var(--green)}
+.ck a{color:var(--green);font-weight:500}
+.consent-sub{margin:0 0 0 32px;font-size:12.5px;color:var(--ink-soft)}
+.ck.invalid{color:#A3402B}
+.ck.invalid input{outline:2px solid #A3402B;outline-offset:2px}
+.policy{background:var(--cream);padding-block:28px;border-top:1px solid var(--cream-2)}
+.policy summary{cursor:pointer;font-weight:600;color:var(--green);font-size:16px}
+.policy-body{max-width:760px;margin-top:14px;font-size:14px;color:var(--ink-soft)}
+.policy-body h3{font-size:15px;color:var(--green);margin:16px 0 4px}
+.policy-body p{margin:0}
+.policy-body .upd{font-size:12.5px;color:var(--gold-deep)}
 </style>
 <style>body{margin:0}img{max-width:100%}</style>
 </head>
@@ -412,6 +425,12 @@ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
           </div>
           <label for="fNote">Mô tả thêm<textarea id="fNote" name="note" placeholder="Số thành viên, độ tuổi của bé hoặc người già, yêu cầu riêng..."></textarea></label>
         </div>
+        <div class="consent" data-consent>
+          <label class="ck" for="consent1"><input type="checkbox" id="consent1" name="consent" value="Đồng ý" data-req="Vui lòng tick đồng ý xử lý dữ liệu cá nhân để gửi thông tin.">
+            <span>Tôi đồng ý để Premium Home thu thập và xử lý dữ liệu cá nhân tôi cung cấp (họ tên, số điện thoại, email, khu vực và nhu cầu dịch vụ) nhằm mục đích liên hệ tư vấn và giới thiệu người hỗ trợ phù hợp, theo <a href="#bao-mat" data-policy>Chính sách bảo vệ dữ liệu cá nhân</a>. *</span>
+          </label>
+          <p class="consent-sub">Tôi có thể yêu cầu xem, sửa, xóa dữ liệu hoặc rút lại sự đồng ý bất cứ lúc nào qua Zalo 0948 919 598.</p>
+        </div>
         <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <p class="step-err" data-msg role="alert"></p>
         <div class="nav-btns">
@@ -572,7 +591,13 @@ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
           </fieldset>
           <label for="cNote">Ghi chú thêm<textarea id="cNote" name="note" placeholder="Điều Anh/Chị muốn Premium Home biết thêm..."></textarea></label>
         </div>
-<input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="consent" data-consent>
+          <label class="ck" for="consent2"><input type="checkbox" id="consent2" name="consent" value="Đồng ý" data-req="Vui lòng tick đồng ý xử lý dữ liệu cá nhân để gửi thông tin.">
+            <span>Tôi đồng ý để Premium Home thu thập và xử lý dữ liệu cá nhân tôi cung cấp (họ tên, số điện thoại, năm sinh, quê quán, nơi ở, kinh nghiệm và kỹ năng) nhằm mục đích tuyển chọn, liên hệ phỏng vấn và giới thiệu hồ sơ của tôi tới gia đình, cơ quan có nhu cầu, theo <a href="#bao-mat" data-policy>Chính sách bảo vệ dữ liệu cá nhân</a>. *</span>
+          </label>
+          <p class="consent-sub">Tôi có thể yêu cầu xem, sửa, xóa dữ liệu hoặc rút lại sự đồng ý bất cứ lúc nào qua Zalo 0948 919 598.</p>
+        </div>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <p class="step-err" data-msg role="alert"></p>
         <div class="nav-btns">
           <button class="btn btn-line" type="button" data-back hidden>Quay lại</button>
@@ -607,11 +632,36 @@ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
   </div>
 </section>
 
+<section class="policy" id="bao-mat">
+  <div class="wrap">
+    <details id="policyBox">
+      <summary>Chính sách bảo vệ dữ liệu cá nhân</summary>
+      <div class="policy-body">
+        <p class="upd">Áp dụng từ ngày 12/10/2026 · Căn cứ Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15</p>
+        <h3>1. Bên kiểm soát và xử lý dữ liệu</h3>
+        <p>Premium Home – dịch vụ kết nối người hỗ trợ gia đình tại Hà Nội. Liên hệ: Zalo / Hotline 0948 919 598.</p>
+        <h3>2. Dữ liệu được thu thập</h3>
+        <p><b>Khách hàng:</b> họ tên hoặc tên đơn vị, số điện thoại, email, khu vực, loại nhà ở, nhu cầu dịch vụ và mô tả do khách tự cung cấp.<br><b>Ứng viên:</b> họ tên, số điện thoại, năm sinh, quê quán, nơi ở hiện tại, vị trí mong muốn, mức lương mong muốn, kinh nghiệm, kỹ năng, ngoại ngữ.<br>Website không thu thập số CCCD, tài khoản ngân hàng hay thông tin sức khỏe. Giấy tờ tùy thân của ứng viên chỉ được kiểm tra trực tiếp khi phỏng vấn.</p>
+        <h3>3. Mục đích xử lý</h3>
+        <p>Khách hàng: liên hệ tư vấn, đề xuất và giới thiệu người hỗ trợ phù hợp.<br>Ứng viên: liên hệ phỏng vấn, đánh giá, giới thiệu hồ sơ tới gia đình hoặc cơ quan có nhu cầu tuyển dụng.<br>Dữ liệu không được bán, cho thuê hoặc dùng cho mục đích quảng cáo của bên khác.</p>
+        <h3>4. Cách lưu trữ và chia sẻ</h3>
+        <p>Dữ liệu được lưu trên Google Sheets thuộc tài khoản do Premium Home quản lý, chỉ người phụ trách được truy cập. Hồ sơ ứng viên chỉ được chia sẻ với gia đình, cơ quan đang có nhu cầu tuyển dụng phù hợp và ở mức thông tin cần thiết.</p>
+        <h3>5. Thời gian lưu trữ</h3>
+        <p>Tối đa 24 tháng kể từ lần liên hệ gần nhất, hoặc đến khi chủ thể dữ liệu rút lại sự đồng ý; sau đó dữ liệu được xóa.</p>
+        <h3>6. Quyền của chủ thể dữ liệu</h3>
+        <p>Được biết, xem, chỉnh sửa, yêu cầu xóa dữ liệu, hạn chế xử lý, rút lại sự đồng ý và khiếu nại theo quy định pháp luật. Gửi yêu cầu qua Zalo 0948 919 598; Premium Home phản hồi trong thời hạn luật định. Việc rút lại sự đồng ý không ảnh hưởng đến các xử lý đã thực hiện trước đó.</p>
+        <h3>7. Sự đồng ý</h3>
+        <p>Dữ liệu chỉ được gửi khi người dùng chủ động tick ô đồng ý trong form. Thời điểm đồng ý được ghi nhận cùng hồ sơ.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <span class="brand">PREMIUM HOME</span>
     Người hỗ trợ gia đình cao cấp tại Hà Nội · Zalo / Hotline <b>0948 919 598</b><br>
-    Fanpage Facebook: Premium Home – Hỗ trợ gia đình cao cấp<br><a href="#ung-tuyen" style="color:var(--gold)">Ứng tuyển làm người hỗ trợ</a>
+    Fanpage Facebook: Premium Home – Hỗ trợ gia đình cao cấp<br><a href="#bao-mat" data-policy style="color:var(--gold)">Chính sách bảo vệ dữ liệu cá nhân</a> · <a href="#ung-tuyen" style="color:var(--gold)">Ứng tuyển làm người hỗ trợ</a>
   </div>
 </footer>
 
@@ -649,6 +699,7 @@ document.querySelectorAll('a[href="#tim-nguoi"],a[href="#ung-tuyen"]').forEach(a
 window.addEventListener('hashchange',fromHash);
 fromHash();
 
+document.querySelectorAll('[data-policy]').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();const d=document.getElementById('policyBox');d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}));
 /* ----- Kiểm tra dữ liệu ----- */
 const CHECK={
   phone:v=>/^(\+?84|0)\d{8,10}$/.test(v.replace(/[\s.\-]/g,''))||'Số điện thoại chưa đúng, ví dụ 0912 345 678.',
@@ -661,6 +712,7 @@ function checkStep(step){
   const fail=(el,m)=>{el.classList.add('invalid');if(!first){first=el;msg=m}};
   step.querySelectorAll('fieldset[data-req], [data-req], [data-check]').forEach(el=>{
     if(el.tagName==='FIELDSET'){if(!el.querySelector('input:checked'))fail(el,el.dataset.req);return}
+    if(el.type==='checkbox'){if(el.dataset.req&&!el.checked)fail(el.closest('label')||el,el.dataset.req);return}
     const v=el.value.trim(), box=el.closest('label')||el;
     if(el.dataset.req&&!v){fail(box,el.dataset.req);return}
     if(v&&el.dataset.check){const r=CHECK[el.dataset.check](v);if(r!==true)fail(box,r)}
@@ -681,12 +733,14 @@ function setupWizard(form,cfg){
     cur=n;steps.forEach((s,k)=>s.hidden=k!==n);
     [...bars.children].forEach((b,k)=>b.classList.toggle('on',k<=n));
     label.innerHTML='Bước '+(n+1)+'/'+steps.length+' · <b>'+steps[n].dataset.title+'</b>';
-    back.hidden=n===0;next.hidden=n===steps.length-1;submit.hidden=n!==steps.length-1;
+    back.hidden=n===0;next.hidden=n===steps.length-1;submit.hidden=n!==steps.length-1;const cbx=form.querySelector('[data-consent]');if(cbx)cbx.hidden=n!==steps.length-1;
     msg.textContent='';
     if(scroll)form.closest('.panel').scrollIntoView({behavior:'smooth',block:'start'});
   }
   function guard(){
-    const {first,msg:m}=checkStep(steps[cur]);
+    let {first,msg:m}=checkStep(steps[cur]);
+    const cb=form.querySelector('[data-consent]');
+    if(!first&&cur===steps.length-1&&cb){const r=checkStep(cb);first=r.first;m=r.msg}
     if(first){msg.textContent=m;first.scrollIntoView({behavior:'smooth',block:'center'});const i=first.querySelector?first.querySelector('input,select,textarea'):null;if(i&&i.type!=='radio'&&i.type!=='checkbox')setTimeout(()=>i.focus({preventScroll:true}),350);return false}
     return true;
   }
@@ -704,6 +758,7 @@ function setupWizard(form,cfg){
     const data={};
     for(const [k] of fd.entries()){if(k==='website'||k in data)continue;data[k]=fd.getAll(k).map(v=>v.toString().trim()).filter(Boolean).join(', ')}
     if(cfg.transform)cfg.transform(data);
+    const stamp='[Đã đồng ý xử lý DLCN theo Chính sách 12/10/2026 lúc '+new Date().toLocaleString('vi-VN')+']';data.note=data.note?data.note+' '+stamp:stamp;delete data.consent;
     data.page=location.hostname||'preview';
     submit.disabled=true;const sl=submit.textContent;submit.textContent='Đang gửi...';
     let sent=false;
