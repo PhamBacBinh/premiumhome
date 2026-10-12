@@ -150,6 +150,9 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
 .mbar .c{background:var(--gold);color:var(--green-deep)}
 @media (max-width:760px){.mbar{display:flex}}
 @media (min-width:761px){footer{padding-block:40px}}
+.perks{list-style:none;padding:0;margin:20px 0;display:grid;gap:14px}
+.perks li{border-left:2px solid var(--gold);padding-left:14px;color:var(--ink-soft);font-size:15px}
+.perks b{display:block;font-family:var(--f-display);font-size:21px;font-weight:600;color:var(--green)}
 </style>
 <style>body{margin:0}img{max-width:100%}</style>
 </head>
@@ -164,6 +167,7 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
       <li><a href="#doi-tuong">Khách hàng</a></li>
       <li><a href="#cam-ket">Cam kết</a></li>
       <li><a href="#quy-trinh">Quy trình</a></li>
+      <li><a href="#ung-tuyen">Ứng tuyển</a></li>
     </ul>
     <a class="call" href="#lien-he">Nhận tư vấn</a>
   </div>
@@ -264,6 +268,7 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
     </div>
 
     <form id="needForm" novalidate>
+      <input type="hidden" name="formType" value="khach">
       <div class="form-step">Nhu cầu của gia đình</div>
       <fieldset class="fs">
         <legend>Quý khách là</legend>
@@ -319,18 +324,106 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
         </label>
       </div>
       <input class="hp" id="fWeb" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn btn-gold" type="submit" id="submitBtn">Gửi yêu cầu tư vấn</button>
-      <p class="note" id="formMsg" role="status">Thông tin của quý khách được bảo mật và chỉ dùng để tư vấn.</p>
+      <button class="btn btn-gold" type="submit">Gửi yêu cầu tư vấn</button>
+      <p class="note" data-msg role="status">Thông tin của quý khách được bảo mật và chỉ dùng để tư vấn.</p>
 
-      <div class="ok" id="okBox" aria-live="polite">
+      <div class="ok" data-ok aria-live="polite">
         <h3>Đã nhận yêu cầu</h3>
         <p>Cảm ơn quý khách. Premium Home sẽ liên hệ lại trong ngày làm việc.</p>
       </div>
-      <div class="result" id="result" aria-live="polite">
+      <div class="result" data-fallback aria-live="polite">
         Hệ thống đang được kết nối. Quý khách vui lòng bấm <b>Sao chép</b>, mở Zalo 0948 919 598 và dán tin nhắn.
-        <pre id="msgText"></pre>
+        <pre data-text></pre>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn btn-gold" type="button" id="copyMsg" style="background:var(--gold);color:var(--green-deep)">Sao chép</button>
+          <button class="btn btn-gold" type="button" data-copy style="background:var(--gold);color:var(--green-deep)">Sao chép</button>
+          <a class="btn btn-line" href="https://zalo.me/0948919598" target="_blank" rel="noopener">Mở Zalo</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="ung-tuyen">
+  <div class="wrap grid2">
+    <div class="info">
+      <span class="eyebrow">Tuyển người hỗ trợ</span>
+      <h2>Gia nhập đội ngũ Premium Home</h2>
+      <p>Premium Home tìm người giúp việc, bảo mẫu, người chăm sóc người già, quản gia và đầu bếp gia đình làm việc tại Hà Nội.</p>
+      <ul class="perks">
+        <li><b>Gia đình uy tín</b>Làm việc cho gia đình Việt, gia đình nước ngoài và cơ quan ngoại giao.</li>
+        <li><b>Công việc phù hợp</b>Được tư vấn vị trí đúng kinh nghiệm, sở trường và mong muốn.</li>
+        <li><b>Có người đồng hành</b>Premium Home hỗ trợ trong suốt quá trình làm việc.</li>
+      </ul>
+      <p class="note">Hồ sơ được xem xét trong 1–2 ngày làm việc. Giấy tờ tùy thân sẽ được kiểm tra khi phỏng vấn trực tiếp.</p>
+    </div>
+
+    <form id="candForm" novalidate>
+      <input type="hidden" name="formType" value="ungvien">
+      <div class="form-step">Thông tin cá nhân</div>
+      <div class="f2">
+        <label for="cName">Họ tên *<input id="cName" name="name" autocomplete="name" placeholder="Nguyễn Thị B"></label>
+        <label for="cPhone">Số điện thoại / Zalo *<input id="cPhone" name="phone" type="tel" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+      </div>
+      <div class="f2">
+        <label for="cYear">Năm sinh *<input id="cYear" name="birthYear" inputmode="numeric" maxlength="4" placeholder="1985"></label>
+        <label for="cHome">Quê quán<input id="cHome" name="hometown" placeholder="Ví dụ: Nam Định"></label>
+      </div>
+      <label for="cLive">Nơi ở hiện tại<input id="cLive" name="currentAddress" placeholder="Quận/huyện, tỉnh/thành"></label>
+
+      <div class="form-step">Công việc mong muốn</div>
+      <fieldset class="fs">
+        <legend>Vị trí ứng tuyển <span>(chọn một hoặc nhiều)</span></legend>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" name="position" value="Giúp việc gia đình"><span>Giúp việc gia đình</span></label>
+          <label class="chip"><input type="checkbox" name="position" value="Bảo mẫu, chăm bé"><span>Bảo mẫu, chăm bé</span></label>
+          <label class="chip"><input type="checkbox" name="position" value="Chăm sóc người già"><span>Chăm sóc người già</span></label>
+          <label class="chip"><input type="checkbox" name="position" value="Quản gia"><span>Quản gia</span></label>
+          <label class="chip"><input type="checkbox" name="position" value="Đầu bếp gia đình"><span>Đầu bếp gia đình</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="fs">
+        <legend>Hình thức làm việc</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="mode" value="Ở lại cùng gia đình" checked><span>Ở lại cùng gia đình</span></label>
+          <label class="chip"><input type="radio" name="mode" value="Theo giờ / theo ca"><span>Theo giờ / theo ca</span></label>
+          <label class="chip"><input type="radio" name="mode" value="Cả hai"><span>Cả hai</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="fs">
+        <legend>Nấu ăn được <span>(nếu có)</span></legend>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" name="cooking" value="Món Việt truyền thống"><span>Món Việt</span></label>
+          <label class="chip"><input type="checkbox" name="cooking" value="Món Á"><span>Món Á</span></label>
+          <label class="chip"><input type="checkbox" name="cooking" value="Món Âu"><span>Món Âu</span></label>
+          <label class="chip"><input type="checkbox" name="cooking" value="Đồ ăn trẻ nhỏ"><span>Đồ ăn trẻ nhỏ</span></label>
+        </div>
+      </fieldset>
+      <div class="f2">
+        <label for="cExpY">Số năm kinh nghiệm
+          <select id="cExpY" name="expYears"><option>Chưa có</option><option>Dưới 1 năm</option><option>1–3 năm</option><option>3–5 năm</option><option>Trên 5 năm</option></select>
+        </label>
+        <label for="cLang">Ngoại ngữ
+          <select id="cLang" name="language"><option>Không</option><option>Tiếng Anh cơ bản</option><option>Tiếng Anh giao tiếp tốt</option><option>Ngoại ngữ khác (ghi ở mô tả)</option></select>
+        </label>
+      </div>
+      <label for="cExp">Kinh nghiệm đã làm<textarea id="cExp" name="experience" placeholder="Đã làm cho gia đình nào, công việc gì, bao lâu..."></textarea></label>
+      <div class="f2">
+        <label for="cSalary">Mức lương mong muốn<input id="cSalary" name="salary" placeholder="Ví dụ: 9–10 triệu/tháng"></label>
+        <label for="cStart">Có thể bắt đầu từ<input id="cStart" name="start" placeholder="Ví dụ: ngay, 1/11"></label>
+      </div>
+      <label for="cNote">Ghi chú thêm<textarea id="cNote" name="note" placeholder="Điều Anh/Chị muốn Premium Home biết thêm..."></textarea></label>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn-gold" type="submit">Gửi hồ sơ ứng tuyển</button>
+      <p class="note" data-msg role="status">Thông tin của Anh/Chị chỉ dùng cho việc tuyển chọn.</p>
+      <div class="ok" data-ok aria-live="polite">
+        <h3>Đã nhận hồ sơ</h3>
+        <p>Cảm ơn Anh/Chị. Premium Home sẽ gọi lại trong 1–2 ngày làm việc.</p>
+      </div>
+      <div class="result" data-fallback aria-live="polite">
+        Hệ thống đang được kết nối. Anh/Chị vui lòng bấm <b>Sao chép</b>, mở Zalo 0948 919 598 và dán tin nhắn.
+        <pre data-text></pre>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-gold" type="button" data-copy style="background:var(--gold);color:var(--green-deep)">Sao chép</button>
           <a class="btn btn-line" href="https://zalo.me/0948919598" target="_blank" rel="noopener">Mở Zalo</a>
         </div>
       </div>
@@ -342,7 +435,7 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
   <div class="wrap">
     <span class="brand">PREMIUM HOME</span>
     Người hỗ trợ gia đình cao cấp tại Hà Nội · Zalo / Hotline <b>0948 919 598</b><br>
-    Fanpage Facebook: Premium Home – Hỗ trợ gia đình cao cấp
+    Fanpage Facebook: Premium Home – Hỗ trợ gia đình cao cấp<br><a href="#ung-tuyen" style="color:var(--gold)">Ứng tuyển làm người hỗ trợ</a>
   </div>
 </footer>
 
@@ -352,51 +445,52 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
 </div>
 
 <script>
-/* Dán URL Web App của Google Apps Script vào đây sau khi triển khai */
-const SHEET_ENDPOINT = '';
+/* Dán URL Web App của Google Apps Script vào đây */
+const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzEBi_npUbpXLAc65JOQC6HDY93vThbXBSna6h5JuJ0wc4vM5vQQPDT7W5FtaNEFC8ojw/exec';
 
-function copyText(text, btn, done){
-  const ok=()=>{const t=btn.textContent;btn.textContent=done;setTimeout(()=>btn.textContent=t,1800)};
-  const fallback=()=>{
-    const el=btn.id==='copyMsg'?document.getElementById('msgText'):document.getElementById('phone');
-    const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);
-    btn.textContent='Đã chọn, nhấn giữ để sao chép';
-  };
+function copyText(text, btn, el){
+  const ok=()=>{const t=btn.textContent;btn.textContent='Đã sao chép';setTimeout(()=>btn.textContent=t,1800)};
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Đã chọn, nhấn giữ để sao chép'};
   try{navigator.clipboard.writeText(text).then(ok).catch(fallback)}catch(e){fallback()}
 }
-document.getElementById('copyPhone').addEventListener('click',e=>copyText('0948919598',e.currentTarget,'Đã sao chép'));
+document.getElementById('copyPhone').addEventListener('click',e=>copyText('0948919598',e.currentTarget,document.getElementById('phone')));
 
-const form=document.getElementById('needForm');
-form.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const msg=document.getElementById('formMsg'), btn=document.getElementById('submitBtn');
-  const fd=new FormData(form);
-  const get=n=>(fd.get(n)||'').toString().trim();
-  const services=fd.getAll('service').join(', ');
-  if(!get('name')||!get('phone')){msg.textContent='Vui lòng nhập họ tên và số điện thoại để Premium Home liên hệ lại.';(get('name')?form.elements.phone:form.elements.name).focus();return}
-  if(!services){msg.textContent='Vui lòng chọn ít nhất một dịch vụ.';return}
-  if(get('website'))return; /* chặn spam tự động */
-  const data={client:get('client'),services,mode:get('mode'),area:get('area'),start:get('start'),lang:get('lang'),house:get('house'),note:get('note'),name:get('name'),phone:get('phone'),email:get('email'),contactTime:get('contactTime'),page:location.hostname};
+function setupForm(form, cfg){
+  const $=s=>form.querySelector(s);
+  const msg=$('[data-msg]'), btn=form.querySelector('button[type=submit]'), okBox=$('[data-ok]'), fb=$('[data-fallback]'), txt=$('[data-text]');
+  const label=btn.textContent;
+  $('[data-copy]').addEventListener('click',e=>copyText(txt.textContent,e.currentTarget,txt));
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const fd=new FormData(form);
+    if((fd.get('website')||'').toString())return;
+    const data={};
+    for(const [k] of fd.entries()){ if(k==='website'||k in data)continue; data[k]=fd.getAll(k).map(v=>v.toString().trim()).filter(Boolean).join(', ') }
+    const err=cfg.validate(data);
+    if(err){msg.textContent=err;return}
+    msg.textContent='';
+    data.page=location.hostname||'preview';
+    btn.disabled=true;btn.textContent='Đang gửi...';
+    let sent=false;
+    if(SHEET_ENDPOINT){try{await fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams(data)});sent=true}catch(_){}}
+    btn.disabled=false;btn.textContent=label;
+    if(sent){
+      form.reset();fb.classList.remove('show');okBox.classList.add('show');okBox.scrollIntoView({behavior:'smooth',block:'nearest'});return;
+    }
+    txt.textContent=cfg.message(data);
+    fb.classList.add('show');fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+}
+const line=(l,v)=>v?'- '+l+': '+v:null;
 
-  btn.disabled=true;btn.textContent='Đang gửi...';msg.textContent='';
-  let sent=false;
-  if(SHEET_ENDPOINT){
-    try{await fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams(data)});sent=true}catch(err){sent=false}
-  }
-  btn.disabled=false;btn.textContent='Gửi yêu cầu tư vấn';
-  if(sent){
-    form.querySelectorAll('input:not([type=radio]):not([type=checkbox]),textarea').forEach(i=>i.value='');
-    form.querySelectorAll('input[type=checkbox]').forEach(i=>i.checked=false);
-    const ok=document.getElementById('okBox');ok.classList.add('show');ok.scrollIntoView({behavior:'smooth',block:'nearest'});
-    return;
-  }
-  const lines=['Chào Premium Home, tôi cần tư vấn:','- Khách hàng: '+data.client,'- Dịch vụ: '+services,'- Hình thức: '+data.mode,
-    '- Họ tên: '+data.name,'- SĐT/Zalo: '+data.phone];
-  [['email','Email'],['area','Khu vực'],['start','Bắt đầu'],['lang','Ngôn ngữ'],['house','Loại nhà'],['note','Mô tả']].forEach(([k,l])=>{if(data[k])lines.push('- '+l+': '+data[k])});
-  document.getElementById('msgText').textContent=lines.join('\n');
-  const r=document.getElementById('result');r.classList.add('show');r.scrollIntoView({behavior:'smooth',block:'nearest'});
+setupForm(document.getElementById('needForm'),{
+  validate:d=>!d.name||!d.phone?'Vui lòng nhập họ tên và số điện thoại để Premium Home liên hệ lại.':!d.service?'Vui lòng chọn ít nhất một dịch vụ.':'',
+  message:d=>['Chào Premium Home, tôi cần tư vấn:',line('Khách hàng',d.client),line('Dịch vụ',d.service),line('Hình thức',d.mode),line('Họ tên',d.name),line('SĐT/Zalo',d.phone),line('Email',d.email),line('Khu vực',d.area),line('Bắt đầu',d.start),line('Ngôn ngữ',d.lang),line('Loại nhà',d.house),line('Mô tả',d.note)].filter(Boolean).join('\n')
 });
-document.getElementById('copyMsg').addEventListener('click',e=>copyText(document.getElementById('msgText').textContent,e.currentTarget,'Đã sao chép'));
+setupForm(document.getElementById('candForm'),{
+  validate:d=>!d.name||!d.phone||!d.birthYear?'Vui lòng nhập họ tên, số điện thoại và năm sinh.':!/^(19|20)\d\d$/.test(d.birthYear)?'Năm sinh cần 4 chữ số, ví dụ 1985.':!d.position?'Vui lòng chọn ít nhất một vị trí ứng tuyển.':'',
+  message:d=>['Chào Premium Home, tôi muốn ứng tuyển:',line('Họ tên',d.name),line('Năm sinh',d.birthYear),line('SĐT/Zalo',d.phone),line('Quê quán',d.hometown),line('Nơi ở',d.currentAddress),line('Vị trí',d.position),line('Hình thức',d.mode),line('Nấu ăn',d.cooking),line('Kinh nghiệm',d.expYears),line('Ngoại ngữ',d.language),line('Chi tiết',d.experience),line('Lương mong muốn',d.salary),line('Bắt đầu',d.start),line('Ghi chú',d.note)].filter(Boolean).join('\n')
+});
 </script>
 
 </body>
