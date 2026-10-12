@@ -1,17 +1,17 @@
-# Premium Home
+# Giúp việc Elite (Elite Helpers)
 
-> Premium Home là dịch vụ kết nối người hỗ trợ gia đình cao cấp tại Hà Nội: giúp việc gia đình, bảo mẫu, chăm sóc người già, quản gia, đầu bếp gia đình và hỗ trợ ngắn hạn. Ứng viên được xác minh lý lịch và phỏng vấn trực tiếp trước khi giới thiệu tới gia đình Việt Nam, gia đình nước ngoài, đại sứ quán và tổ chức quốc tế.
+> Giúp việc Elite là dịch vụ kết nối người hỗ trợ gia đình cao cấp tại Hà Nội: giúp việc gia đình, bảo mẫu, chăm sóc người già, quản gia, đầu bếp gia đình và hỗ trợ ngắn hạn. Ứng viên được xác minh lý lịch và phỏng vấn trực tiếp trước khi giới thiệu tới gia đình Việt Nam, gia đình nước ngoài, đại sứ quán và tổ chức quốc tế.
 
-Khu vực phục vụ: Hà Nội, Việt Nam. Liên hệ: Zalo / Hotline 0948 919 598 (https://zalo.me/0948919598). Fanpage Facebook: Premium Home - Hỗ trợ gia đình cao cấp.
+Khu vực phục vụ: Hà Nội, Việt Nam. Liên hệ: Zalo / Hotline 0948 919 598 (https://zalo.me/0948919598). Fanpage Facebook: Elite Helpers - Hỗ trợ gia đình cao cấp.
 
 ## Dịch vụ
 
-- [Giúp việc gia đình](https://phambacbinh.github.io/premiumhome/#giup-viec-gia-dinh): Dọn dẹp, giặt ủi, nấu ăn hằng ngày. Lựa chọn ở lại cùng gia đình hoặc làm theo ca.
-- [Bảo mẫu, chăm bé](https://phambacbinh.github.io/premiumhome/#bao-mau-cham-be): Người có kinh nghiệm chăm trẻ sơ sinh, trẻ nhỏ; nắm nếp ăn ngủ, vệ sinh và an toàn cho bé.
-- [Chăm sóc người già](https://phambacbinh.github.io/premiumhome/#cham-soc-nguoi-gia): Hỗ trợ sinh hoạt, ăn uống, nhắc lịch thuốc và đồng hành hằng ngày với sự kiên nhẫn, chu đáo.
-- [Quản gia](https://phambacbinh.github.io/premiumhome/#quan-gia): Điều phối công việc trong nhà, quản lý đồ dùng, tiếp khách và sắp xếp lịch sinh hoạt cho gia chủ.
-- [Đầu bếp gia đình](https://phambacbinh.github.io/premiumhome/#dau-bep-gia-dinh): Nấu ăn theo khẩu vị gia đình: món Á, món Âu, món Việt truyền thống. Lên thực đơn riêng cho trẻ nhỏ, người lớn tuổi và tiệc tiếp khách.
-- [Hỗ trợ ngắn hạn](https://phambacbinh.github.io/premiumhome/#ho-tro-ngan-han): Người hỗ trợ dịp Tết, khi gia đình có việc gấp, hoặc thay thế tạm thời trong thời gian người cũ nghỉ.
+- [Giúp việc gia đình](https://giupviecelite.vn/#giup-viec-gia-dinh): Dọn dẹp, giặt ủi, nấu ăn hằng ngày. Lựa chọn ở lại cùng gia đình hoặc làm theo ca.
+- [Bảo mẫu, chăm bé](https://giupviecelite.vn/#bao-mau-cham-be): Người có kinh nghiệm chăm trẻ sơ sinh, trẻ nhỏ; nắm nếp ăn ngủ, vệ sinh và an toàn cho bé.
+- [Chăm sóc người già](https://giupviecelite.vn/#cham-soc-nguoi-gia): Hỗ trợ sinh hoạt, ăn uống, nhắc lịch thuốc và đồng hành hằng ngày với sự kiên nhẫn, chu đáo.
+- [Quản gia](https://giupviecelite.vn/#quan-gia): Điều phối công việc trong nhà, quản lý đồ dùng, tiếp khách và sắp xếp lịch sinh hoạt cho gia chủ.
+- [Đầu bếp gia đình](https://giupviecelite.vn/#dau-bep-gia-dinh): Nấu ăn theo khẩu vị gia đình: món Á, món Âu, món Việt truyền thống. Lên thực đơn riêng cho trẻ nhỏ, người lớn tuổi và tiệc tiếp khách.
+- [Hỗ trợ ngắn hạn](https://giupviecelite.vn/#ho-tro-ngan-han): Người hỗ trợ dịp Tết, khi gia đình có việc gấp, hoặc thay thế tạm thời trong thời gian người cũ nghỉ.
 
 ## Khách hàng
 
@@ -25,37 +25,37 @@ Khu vực phục vụ: Hà Nội, Việt Nam. Liên hệ: Zalo / Hotline 0948 91
 - Lý lịch rõ ràng: ứng viên được xác minh giấy tờ tùy thân, nơi cư trú và kinh nghiệm làm việc trước khi giới thiệu.
 - Phỏng vấn trực tiếp: đánh giá tác phong, kỹ năng và tính cách, đảm bảo phù hợp với nếp sinh hoạt của gia đình.
 - Kín đáo, tôn trọng: thông tin gia đình được bảo mật; người hỗ trợ được hướng dẫn chuẩn mực ứng xử trong gia đình cao cấp.
-- Đồng hành lâu dài: Premium Home theo dõi, hỗ trợ cả gia đình và người làm trong suốt quá trình làm việc.
+- Đồng hành lâu dài: Giúp việc Elite theo dõi, hỗ trợ cả gia đình và người làm trong suốt quá trình làm việc.
 
 ## Quy trình
 
 1. Tiếp nhận nhu cầu: Trao đổi qua Zalo hoặc điện thoại về công việc, thời gian, mức lương mong muốn và yêu cầu riêng.
-2. Giới thiệu ứng viên: Premium Home gửi hồ sơ ứng viên phù hợp đã qua phỏng vấn và xác minh.
+2. Giới thiệu ứng viên: Giúp việc Elite gửi hồ sơ ứng viên phù hợp đã qua phỏng vấn và xác minh.
 3. Gặp mặt, làm thử: Gia đình gặp trực tiếp và cho làm thử để đánh giá trước khi quyết định.
-4. Bắt đầu và theo dõi: Hai bên thống nhất công việc. Premium Home tiếp tục liên hệ để đảm bảo mọi việc ổn định.
+4. Bắt đầu và theo dõi: Hai bên thống nhất công việc. Giúp việc Elite tiếp tục liên hệ để đảm bảo mọi việc ổn định.
 
 ## Câu hỏi thường gặp
 
-### Premium Home hỗ trợ những công việc nào trong gia đình?
-Premium Home giới thiệu sáu nhóm người hỗ trợ: giúp việc gia đình, bảo mẫu chăm bé, chăm sóc người già, quản gia, đầu bếp gia đình và hỗ trợ ngắn hạn (dịp Tết, khi gia đình có việc gấp hoặc cần người thay thế tạm thời). Mỗi vị trí được tư vấn riêng theo số thành viên, diện tích nhà, lịch sinh hoạt và yêu cầu đặc thù.
+### Giúp việc Elite hỗ trợ những công việc nào trong gia đình?
+Giúp việc Elite giới thiệu sáu nhóm người hỗ trợ: giúp việc gia đình, bảo mẫu chăm bé, chăm sóc người già, quản gia, đầu bếp gia đình và hỗ trợ ngắn hạn (dịp Tết, khi gia đình có việc gấp hoặc cần người thay thế tạm thời). Mỗi vị trí được tư vấn riêng theo số thành viên, diện tích nhà, lịch sinh hoạt và yêu cầu đặc thù.
 
 ### Người hỗ trợ ở lại cùng gia đình hay làm theo giờ?
-Gia đình có thể chọn người ở lại cùng gia đình hoặc làm theo giờ, theo ca. Nếu chưa rõ hình thức nào phù hợp, quý khách chọn “Cần tư vấn thêm” trong form để Premium Home trao đổi cụ thể.
+Gia đình có thể chọn người ở lại cùng gia đình hoặc làm theo giờ, theo ca. Nếu chưa rõ hình thức nào phù hợp, quý khách chọn “Cần tư vấn thêm” trong form để Giúp việc Elite trao đổi cụ thể.
 
 ### Ứng viên được kiểm tra như thế nào trước khi giới thiệu?
-Ứng viên được xác minh giấy tờ tùy thân, nơi cư trú và kinh nghiệm làm việc, sau đó được phỏng vấn trực tiếp để đánh giá tác phong, kỹ năng và tính cách trước khi Premium Home gửi hồ sơ tới gia đình.
+Ứng viên được xác minh giấy tờ tùy thân, nơi cư trú và kinh nghiệm làm việc, sau đó được phỏng vấn trực tiếp để đánh giá tác phong, kỹ năng và tính cách trước khi Giúp việc Elite gửi hồ sơ tới gia đình.
 
 ### Gia đình có được gặp và cho làm thử trước khi quyết định không?
-Có. Sau khi nhận hồ sơ ứng viên phù hợp, gia đình gặp trực tiếp và cho làm thử để đánh giá trước khi quyết định. Khi hai bên đã thống nhất công việc, Premium Home tiếp tục liên hệ để đảm bảo mọi việc ổn định.
+Có. Sau khi nhận hồ sơ ứng viên phù hợp, gia đình gặp trực tiếp và cho làm thử để đánh giá trước khi quyết định. Khi hai bên đã thống nhất công việc, Giúp việc Elite tiếp tục liên hệ để đảm bảo mọi việc ổn định.
 
-### Premium Home có người hỗ trợ nói tiếng Anh cho gia đình nước ngoài không?
-Có. Theo yêu cầu, Premium Home giới thiệu người hỗ trợ giao tiếp được tiếng Anh, quen nếp sinh hoạt và ẩm thực quốc tế. Premium Home cũng phục vụ đại sứ quán, cơ quan ngoại giao, tổ chức quốc tế và văn phòng đại diện tại Hà Nội.
+### Giúp việc Elite có người hỗ trợ nói tiếng Anh cho gia đình nước ngoài không?
+Có. Theo yêu cầu, Giúp việc Elite giới thiệu người hỗ trợ giao tiếp được tiếng Anh, quen nếp sinh hoạt và ẩm thực quốc tế. Giúp việc Elite cũng phục vụ đại sứ quán, cơ quan ngoại giao, tổ chức quốc tế và văn phòng đại diện tại Hà Nội.
 
-### Sau khi người hỗ trợ bắt đầu làm việc, Premium Home có theo dõi tiếp không?
-Có. Premium Home theo dõi và hỗ trợ cả gia đình lẫn người làm trong suốt quá trình làm việc.
+### Sau khi người hỗ trợ bắt đầu làm việc, Giúp việc Elite có theo dõi tiếp không?
+Có. Giúp việc Elite theo dõi và hỗ trợ cả gia đình lẫn người làm trong suốt quá trình làm việc.
 
-### Sau khi gửi yêu cầu, bao lâu Premium Home liên hệ lại?
-Với yêu cầu tìm người hỗ trợ, Premium Home liên hệ lại trong ngày làm việc. Với hồ sơ ứng tuyển, Premium Home gọi lại trong 1-2 ngày làm việc. Quý khách cũng có thể nhắn Zalo hoặc gọi hotline 0948 919 598.
+### Sau khi gửi yêu cầu, bao lâu Giúp việc Elite liên hệ lại?
+Với yêu cầu tìm người hỗ trợ, Giúp việc Elite liên hệ lại trong ngày làm việc. Với hồ sơ ứng tuyển, Giúp việc Elite gọi lại trong 1-2 ngày làm việc. Quý khách cũng có thể nhắn Zalo hoặc gọi hotline 0948 919 598.
 
 ### Tôi muốn làm người hỗ trợ gia đình, cần chuẩn bị gì?
 Anh/Chị điền hồ sơ ứng tuyển trên website gồm thông tin cá nhân, công việc mong muốn, kinh nghiệm và kỹ năng. Giấy tờ tùy thân được kiểm tra trực tiếp khi phỏng vấn; website không thu thập số CCCD hay tài khoản ngân hàng.
@@ -65,7 +65,7 @@ Dữ liệu chỉ dùng để tư vấn, tuyển chọn và giới thiệu; khô
 
 ## Liên kết
 
-- [Gửi yêu cầu tìm người hỗ trợ](https://phambacbinh.github.io/premiumhome/#tim-nguoi)
-- [Gửi hồ sơ ứng tuyển](https://phambacbinh.github.io/premiumhome/#ung-tuyen)
-- [Chính sách bảo vệ dữ liệu cá nhân](https://phambacbinh.github.io/premiumhome/#bao-mat)
+- [Gửi yêu cầu tìm người hỗ trợ](https://giupviecelite.vn/#tim-nguoi)
+- [Gửi hồ sơ ứng tuyển](https://giupviecelite.vn/#ung-tuyen)
+- [Chính sách bảo vệ dữ liệu cá nhân](https://giupviecelite.vn/#bao-mat)
 - Fanpage Facebook: https://www.facebook.com/PremiumMaidHanoi
