@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://phambacbinh.github.io/premiumhome/sitemap.xml

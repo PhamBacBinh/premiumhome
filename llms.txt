@@ -1,0 +1,16 @@
+# Premium Home
+
+> Premium Home là dịch vụ kết nối người hỗ trợ gia đình cao cấp tại Hà Nội, Việt Nam: giúp việc gia đình, bảo mẫu chăm bé, chăm sóc người già, quản gia, đầu bếp gia đình và hỗ trợ ngắn hạn.
+
+- Khu vực phục vụ: Hà Nội
+- Khách hàng: gia đình Việt Nam, gia đình người nước ngoài, đại sứ quán, cơ quan ngoại giao, tổ chức quốc tế, văn phòng đại diện
+- Hình thức: ở lại cùng gia đình hoặc theo giờ, theo ca
+- Tuyển chọn: xác minh giấy tờ tùy thân, nơi cư trú, kinh nghiệm; phỏng vấn trực tiếp; gia đình gặp mặt và làm thử trước khi quyết định
+- Ngôn ngữ: tiếng Việt; có ứng viên giao tiếp tiếng Anh theo yêu cầu
+- Liên hệ: Zalo / Hotline 0948 919 598
+- Slogan: Trao trọn niềm tin – Nâng tầm tổ ấm
+
+## Trang
+- [Trang chủ](https://phambacbinh.github.io/premiumhome/): dịch vụ, đối tượng phục vụ, cam kết, quy trình, đăng ký tìm người và ứng tuyển
+- [Hỏi đáp](https://phambacbinh.github.io/premiumhome/#hoi-dap)
+- [Chính sách bảo vệ dữ liệu cá nhân](https://phambacbinh.github.io/premiumhome/#bao-mat)
