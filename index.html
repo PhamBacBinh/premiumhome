@@ -153,6 +153,52 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
 .perks{list-style:none;padding:0;margin:20px 0;display:grid;gap:14px}
 .perks li{border-left:2px solid var(--gold);padding-left:14px;color:var(--ink-soft);font-size:15px}
 .perks b{display:block;font-family:var(--f-display);font-size:21px;font-weight:600;color:var(--green)}
+[hidden]{display:none!important}
+.reg{max-width:820px}
+#dang-ky,.panel{scroll-margin-top:84px}
+.choose{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.choose{grid-template-columns:1fr}}
+.choice{position:relative;text-align:left;display:grid;gap:4px;align-content:start;font:inherit;color:var(--ink);background:var(--cream);border:1.5px solid #CFC5B3;border-radius:8px;padding:20px 52px 20px 20px;cursor:pointer;transition:background .2s,border-color .2s,color .2s,opacity .2s;min-width:0}
+.choice::after{content:"";position:absolute;top:20px;right:18px;width:20px;height:20px;border-radius:50%;border:1.5px solid #B9AE99;background:transparent;transition:all .2s}
+.choice:hover{border-color:var(--gold-deep)}
+.choice .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);font-weight:500}
+.choice .t{font-family:var(--f-display);font-size:26px;line-height:1.15;color:var(--green);font-weight:600}
+.choice .d{font-size:14px;color:var(--ink-soft)}
+.choice[aria-selected="true"]{background:var(--green);border-color:var(--green);color:var(--cream)}
+.choice[aria-selected="true"] .t{color:var(--cream)}
+.choice[aria-selected="true"] .d{color:var(--on-green-soft)}
+.choice[aria-selected="true"] .k{color:var(--gold)}
+.choice[aria-selected="true"]::after{background:var(--gold);border-color:var(--gold);box-shadow:inset 0 0 0 4px var(--green)}
+.choose.picked .choice[aria-selected="false"]{opacity:.62}
+.pick-hint{text-align:center;color:var(--ink-soft);font-size:14px;margin:18px 0 0}
+.panel{margin-top:18px;background:var(--cream);border:1px solid rgba(168,135,74,.4);border-radius:8px;overflow:hidden}
+.panel-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--green-deep);color:var(--cream);padding:14px 22px}
+.panel-top small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.panel-top b{font-family:var(--f-display);font-size:22px;font-weight:600}
+.swap{font:inherit;font-size:13px;background:transparent;color:var(--on-green-soft);border:1px solid rgba(203,171,109,.5);border-radius:999px;padding:6px 14px;cursor:pointer}
+.swap:hover{color:var(--gold);border-color:var(--gold)}
+.panel form{border:0;border-radius:0;background:transparent}
+.step{display:grid;gap:16px}
+.prog{display:grid;gap:8px}
+.bars{display:flex;gap:6px}
+.bars span{flex:1;height:4px;border-radius:2px;background:var(--cream-2)}
+.bars span.on{background:var(--gold)}
+.prog-label{margin:0;font-size:13px;color:var(--ink-soft)}
+.prog-label b{color:var(--green);font-weight:600}
+.nav-btns{display:flex;gap:10px;flex-wrap:wrap}
+.nav-btns .btn{justify-self:auto}
+form .btn-line{color:var(--green);border-color:var(--green)}
+.step-err{margin:0;min-height:0;color:#A3402B;font-size:14px;font-weight:500}
+.step-err:empty{display:none}
+label.invalid input,label.invalid select,label.invalid textarea{border-color:#A3402B;box-shadow:0 0 0 3px rgba(163,64,43,.15)}
+label.invalid{color:#A3402B}
+fieldset.invalid legend{color:#A3402B}
+fieldset.invalid .chip span{border-color:#A3402B}
+.reach{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 16px;text-align:center;color:var(--ink-soft);font-size:14px}
+.reach b{font-size:20px;color:var(--green);letter-spacing:.03em;font-variant-numeric:tabular-nums;user-select:all}
+.reach-btns{display:flex;gap:8px}
+.reach .btn{padding:8px 16px;font-size:14px}
+.reach .btn-line{color:var(--green);border-color:var(--green)}
 </style>
 <style>body{margin:0}img{max-width:100%}</style>
 </head>
@@ -169,7 +215,7 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
       <li><a href="#quy-trinh">Quy trình</a></li>
       <li><a href="#ung-tuyen">Ứng tuyển</a></li>
     </ul>
-    <a class="call" href="#lien-he">Nhận tư vấn</a>
+    <a class="call" href="#tim-nguoi">Nhận tư vấn</a>
   </div>
 </nav>
 
@@ -181,8 +227,8 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
     <p class="lead">Kết nối gia đình với người giúp việc, bảo mẫu và người chăm sóc được tuyển chọn kỹ, phù hợp nếp nhà và nhịp sống của từng gia đình.</p>
     <div class="slogan"><span>Trao trọn niềm tin</span><span>Nâng tầm tổ ấm</span></div>
     <div class="cta">
-      <a class="btn btn-gold" href="#lien-he">Gửi nhu cầu</a>
-      <a class="btn btn-line" href="https://zalo.me/0948919598" target="_blank" rel="noopener">Nhắn Zalo</a>
+      <a class="btn btn-gold" href="#tim-nguoi">Tìm người hỗ trợ</a>
+      <a class="btn btn-line" href="#ung-tuyen">Ứng tuyển làm việc</a>
     </div>
   </div>
 </header>
@@ -251,183 +297,218 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
   </div>
 </section>
 
-<section class="contact" id="lien-he">
-  <div class="wrap grid2">
-    <div class="info">
-      <span class="eyebrow">Liên hệ</span>
-      <h2>Cho Premium Home biết gia đình cần gì</h2>
-      <p>Điền thông tin vào form, hoặc nhắn Zalo trực tiếp. Premium Home phản hồi trong ngày làm việc.</p>
-      <div class="phone-card">
-        <small>Zalo / Hotline</small>
-        <div class="num" id="phone">0948 919 598</div>
-        <div class="row">
-          <a class="btn btn-gold" href="https://zalo.me/0948919598" target="_blank" rel="noopener">Mở Zalo</a>
-          <button class="btn btn-line" type="button" id="copyPhone">Sao chép số</button>
-        </div>
-      </div>
+<section class="contact" id="dang-ky">
+  <div class="wrap reg">
+    <div class="head">
+      <span class="eyebrow">Đăng ký</span>
+      <h2>Quý khách đang cần gì?</h2>
+      <p>Chọn một mục bên dưới, form phù hợp sẽ hiện ra.</p>
     </div>
 
-    <form id="needForm" novalidate>
-      <input type="hidden" name="formType" value="khach">
-      <div class="form-step">Nhu cầu của gia đình</div>
-      <fieldset class="fs">
-        <legend>Quý khách là</legend>
-        <div class="chips">
-          <label class="chip"><input type="radio" name="client" value="Gia đình Việt Nam" checked><span>Gia đình Việt Nam</span></label>
-          <label class="chip"><input type="radio" name="client" value="Gia đình nước ngoài"><span>Gia đình nước ngoài</span></label>
-          <label class="chip"><input type="radio" name="client" value="Đại sứ quán / Cơ quan ngoại giao"><span>Đại sứ quán</span></label>
-          <label class="chip"><input type="radio" name="client" value="Tổ chức quốc tế / VPĐD"><span>Tổ chức, VPĐD</span></label>
-        </div>
-      </fieldset>
-      <fieldset class="fs">
-        <legend>Dịch vụ cần <span>(chọn một hoặc nhiều)</span></legend>
-        <div class="chips">
-          <label class="chip"><input type="checkbox" name="service" value="Giúp việc gia đình"><span>Giúp việc gia đình</span></label>
-          <label class="chip"><input type="checkbox" name="service" value="Bảo mẫu, chăm bé"><span>Bảo mẫu, chăm bé</span></label>
-          <label class="chip"><input type="checkbox" name="service" value="Chăm sóc người già"><span>Chăm sóc người già</span></label>
-          <label class="chip"><input type="checkbox" name="service" value="Quản gia"><span>Quản gia</span></label>
-          <label class="chip"><input type="checkbox" name="service" value="Đầu bếp gia đình"><span>Đầu bếp gia đình</span></label>
-          <label class="chip"><input type="checkbox" name="service" value="Hỗ trợ ngắn hạn"><span>Hỗ trợ ngắn hạn</span></label>
-        </div>
-      </fieldset>
-      <fieldset class="fs">
-        <legend>Hình thức làm việc</legend>
-        <div class="chips">
-          <label class="chip"><input type="radio" name="mode" value="Ở lại cùng gia đình" checked><span>Ở lại cùng gia đình</span></label>
-          <label class="chip"><input type="radio" name="mode" value="Theo giờ / theo ca"><span>Theo giờ / theo ca</span></label>
-          <label class="chip"><input type="radio" name="mode" value="Cần tư vấn thêm"><span>Cần tư vấn thêm</span></label>
-        </div>
-      </fieldset>
-      <div class="f2">
-        <label for="fArea">Khu vực (quận/huyện)<input id="fArea" name="area" placeholder="Ví dụ: Tây Hồ, Ba Đình"></label>
-        <label for="fStart">Thời gian cần bắt đầu<input id="fStart" name="start" placeholder="Ví dụ: đầu tháng 11"></label>
-      </div>
-      <div class="f2">
-        <label for="fLang">Ngôn ngữ giao tiếp
-          <select id="fLang" name="lang"><option>Tiếng Việt</option><option>Tiếng Anh cơ bản</option><option>Tiếng Anh giao tiếp tốt</option><option>Khác (ghi ở mô tả)</option></select>
-        </label>
-        <label for="fHouse">Loại nhà ở
-          <select id="fHouse" name="house"><option>Căn hộ</option><option>Nhà phố</option><option>Biệt thự</option><option>Dinh thự / Nhà công vụ</option></select>
-        </label>
-      </div>
-      <label for="fNote">Mô tả thêm<textarea id="fNote" name="note" placeholder="Số thành viên, độ tuổi của bé hoặc người già, yêu cầu riêng về nấu ăn..."></textarea></label>
+    <div class="choose" role="tablist" aria-label="Chọn loại đăng ký">
+      <button class="choice" type="button" role="tab" id="tab-khach" data-key="khach" aria-selected="false" aria-controls="panel-khach">
+        <span class="k">Gia đình · Cơ quan</span>
+        <span class="t">Tôi cần tìm người hỗ trợ</span>
+        <span class="d">Giúp việc, bảo mẫu, chăm người già, quản gia, đầu bếp</span>
+      </button>
+      <button class="choice" type="button" role="tab" id="tab-ungvien" data-key="ungvien" aria-selected="false" aria-controls="panel-ungvien">
+        <span class="k">Người lao động</span>
+        <span class="t">Tôi muốn ứng tuyển</span>
+        <span class="d">Gửi hồ sơ làm người hỗ trợ gia đình tại Hà Nội</span>
+      </button>
+    </div>
+    <p class="pick-hint" id="pickHint">Bấm vào một trong hai thẻ trên để bắt đầu.</p>
 
-      <div class="form-step">Thông tin liên hệ</div>
-      <div class="f2">
-        <label for="fName">Họ tên / Đơn vị *<input id="fName" name="name" autocomplete="name" placeholder="Nguyễn Văn A"></label>
-        <label for="fPhone">Số điện thoại / Zalo *<input id="fPhone" name="phone" type="tel" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+    <!-- FORM KHÁCH HÀNG -->
+    <div class="panel" id="panel-khach" role="tabpanel" aria-labelledby="tab-khach" hidden>
+      <div class="panel-top">
+        <div><small>Đang điền</small><b>Yêu cầu tìm người hỗ trợ</b></div>
+        <button type="button" class="swap" data-go="ungvien">Chuyển sang Ứng tuyển</button>
       </div>
-      <div class="f2">
-        <label for="fEmail">Email<input id="fEmail" name="email" type="email" autocomplete="email" placeholder="ten@email.com"></label>
-        <label for="fTime">Thời gian thuận tiện liên hệ
-          <select id="fTime" name="contactTime"><option>Bất kỳ lúc nào</option><option>Buổi sáng</option><option>Buổi chiều</option><option>Buổi tối</option></select>
-        </label>
-      </div>
-      <input class="hp" id="fWeb" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn btn-gold" type="submit">Gửi yêu cầu tư vấn</button>
-      <p class="note" data-msg role="status">Thông tin của quý khách được bảo mật và chỉ dùng để tư vấn.</p>
+      <form id="needForm" novalidate>
+        <input type="hidden" name="formType" value="khach">
+        <div class="prog"><div class="bars"></div><p class="prog-label"></p></div>
 
-      <div class="ok" data-ok aria-live="polite">
-        <h3>Đã nhận yêu cầu</h3>
-        <p>Cảm ơn quý khách. Premium Home sẽ liên hệ lại trong ngày làm việc.</p>
-      </div>
-      <div class="result" data-fallback aria-live="polite">
-        Hệ thống đang được kết nối. Quý khách vui lòng bấm <b>Sao chép</b>, mở Zalo 0948 919 598 và dán tin nhắn.
-        <pre data-text></pre>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn btn-gold" type="button" data-copy style="background:var(--gold);color:var(--green-deep)">Sao chép</button>
-          <a class="btn btn-line" href="https://zalo.me/0948919598" target="_blank" rel="noopener">Mở Zalo</a>
+        <div class="step" data-title="Nhu cầu">
+          <fieldset class="fs" data-req="Vui lòng chọn Quý khách là gia đình hay cơ quan.">
+            <legend>Quý khách là</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="client" value="Gia đình Việt Nam"><span>Gia đình Việt Nam</span></label>
+              <label class="chip"><input type="radio" name="client" value="Gia đình nước ngoài"><span>Gia đình nước ngoài</span></label>
+              <label class="chip"><input type="radio" name="client" value="Đại sứ quán / Cơ quan ngoại giao"><span>Đại sứ quán</span></label>
+              <label class="chip"><input type="radio" name="client" value="Tổ chức quốc tế / VPĐD"><span>Tổ chức, VPĐD</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="fs" data-req="Vui lòng chọn ít nhất một dịch vụ.">
+            <legend>Dịch vụ cần <span>(chọn một hoặc nhiều)</span></legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="service" value="Giúp việc gia đình"><span>Giúp việc gia đình</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Bảo mẫu, chăm bé"><span>Bảo mẫu, chăm bé</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Chăm sóc người già"><span>Chăm sóc người già</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Quản gia"><span>Quản gia</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Đầu bếp gia đình"><span>Đầu bếp gia đình</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Hỗ trợ ngắn hạn"><span>Hỗ trợ ngắn hạn</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="fs">
+            <legend>Hình thức làm việc</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="mode" value="Ở lại cùng gia đình" checked><span>Ở lại cùng gia đình</span></label>
+              <label class="chip"><input type="radio" name="mode" value="Theo giờ / theo ca"><span>Theo giờ / theo ca</span></label>
+              <label class="chip"><input type="radio" name="mode" value="Cần tư vấn thêm"><span>Cần tư vấn thêm</span></label>
+            </div>
+          </fieldset>
+          <div class="f2">
+            <label for="fArea">Khu vực (quận/huyện)<input id="fArea" name="area" placeholder="Ví dụ: Tây Hồ, Ba Đình"></label>
+            <label for="fStart">Thời gian cần bắt đầu<input id="fStart" name="start" placeholder="Ví dụ: đầu tháng 11"></label>
+          </div>
         </div>
-      </div>
-    </form>
-  </div>
-</section>
 
-<section id="ung-tuyen">
-  <div class="wrap grid2">
-    <div class="info">
-      <span class="eyebrow">Tuyển người hỗ trợ</span>
-      <h2>Gia nhập đội ngũ Premium Home</h2>
-      <p>Premium Home tìm người giúp việc, bảo mẫu, người chăm sóc người già, quản gia và đầu bếp gia đình làm việc tại Hà Nội.</p>
-      <ul class="perks">
-        <li><b>Gia đình uy tín</b>Làm việc cho gia đình Việt, gia đình nước ngoài và cơ quan ngoại giao.</li>
-        <li><b>Công việc phù hợp</b>Được tư vấn vị trí đúng kinh nghiệm, sở trường và mong muốn.</li>
-        <li><b>Có người đồng hành</b>Premium Home hỗ trợ trong suốt quá trình làm việc.</li>
-      </ul>
-      <p class="note">Hồ sơ được xem xét trong 1–2 ngày làm việc. Giấy tờ tùy thân sẽ được kiểm tra khi phỏng vấn trực tiếp.</p>
+        <div class="step" data-title="Liên hệ" hidden>
+          <div class="f2">
+            <label for="fName">Họ tên / Đơn vị *<input id="fName" name="name" autocomplete="name" placeholder="Nguyễn Văn A" data-req="Vui lòng nhập họ tên hoặc tên đơn vị."></label>
+            <label for="fPhone">Số điện thoại / Zalo *<input id="fPhone" name="phone" type="tel" autocomplete="tel" placeholder="09xx xxx xxx" data-req="Vui lòng nhập số điện thoại." data-check="phone"></label>
+          </div>
+          <div class="f2">
+            <label for="fEmail">Email<input id="fEmail" name="email" type="email" autocomplete="email" placeholder="ten@email.com" data-check="email"></label>
+            <label for="fTime">Thời gian thuận tiện liên hệ
+              <select id="fTime" name="contactTime"><option>Bất kỳ lúc nào</option><option>Buổi sáng</option><option>Buổi chiều</option><option>Buổi tối</option></select>
+            </label>
+          </div>
+          <div class="f2">
+            <label for="fLang">Ngôn ngữ giao tiếp
+              <select id="fLang" name="lang"><option>Tiếng Việt</option><option>Tiếng Anh cơ bản</option><option>Tiếng Anh giao tiếp tốt</option><option>Khác (ghi ở mô tả)</option></select>
+            </label>
+            <label for="fHouse">Loại nhà ở
+              <select id="fHouse" name="house"><option>Căn hộ</option><option>Nhà phố</option><option>Biệt thự</option><option>Dinh thự / Nhà công vụ</option></select>
+            </label>
+          </div>
+          <label for="fNote">Mô tả thêm<textarea id="fNote" name="note" placeholder="Số thành viên, độ tuổi của bé hoặc người già, yêu cầu riêng..."></textarea></label>
+        </div>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="step-err" data-msg role="alert"></p>
+        <div class="nav-btns">
+          <button class="btn btn-line" type="button" data-back hidden>Quay lại</button>
+          <button class="btn btn-gold" type="button" data-next>Tiếp tục</button>
+          <button class="btn btn-gold" type="submit" data-submit hidden>Gửi yêu cầu tư vấn</button>
+        </div>
+        <p class="note">Thông tin của quý khách được bảo mật và chỉ dùng để tư vấn.</p>
+        <div class="ok" data-ok aria-live="polite">
+          <h3>Đã nhận yêu cầu</h3>
+          <p>Cảm ơn quý khách. Premium Home sẽ liên hệ lại trong ngày làm việc.</p>
+          <button class="btn btn-line" type="button" data-again style="margin-top:14px">Gửi thêm một yêu cầu</button>
+        </div>
+        <div class="result" data-fallback aria-live="polite">
+          Chưa gửi được qua hệ thống. Vui lòng bấm <b>Sao chép</b>, mở Zalo 0948 919 598 và dán tin nhắn.
+          <pre data-text></pre>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-gold" type="button" data-copy style="background:var(--gold);color:var(--green-deep)">Sao chép</button>
+            <a class="btn btn-line" href="https://zalo.me/0948919598" target="_blank" rel="noopener">Mở Zalo</a>
+          </div>
+        </div>
+      </form>
     </div>
 
-    <form id="candForm" novalidate>
-      <input type="hidden" name="formType" value="ungvien">
-      <div class="form-step">Thông tin cá nhân</div>
-      <div class="f2">
-        <label for="cName">Họ tên *<input id="cName" name="name" autocomplete="name" placeholder="Nguyễn Thị B"></label>
-        <label for="cPhone">Số điện thoại / Zalo *<input id="cPhone" name="phone" type="tel" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+    <!-- FORM ỨNG VIÊN -->
+    <div class="panel" id="panel-ungvien" role="tabpanel" aria-labelledby="tab-ungvien" hidden>
+      <div class="panel-top">
+        <div><small>Đang điền</small><b>Hồ sơ ứng tuyển người hỗ trợ</b></div>
+        <button type="button" class="swap" data-go="khach">Chuyển sang Tìm người</button>
       </div>
-      <div class="f2">
-        <label for="cYear">Năm sinh *<input id="cYear" name="birthYear" inputmode="numeric" maxlength="4" placeholder="1985"></label>
-        <label for="cHome">Quê quán<input id="cHome" name="hometown" placeholder="Ví dụ: Nam Định"></label>
-      </div>
-      <label for="cLive">Nơi ở hiện tại<input id="cLive" name="currentAddress" placeholder="Quận/huyện, tỉnh/thành"></label>
+      <form id="candForm" novalidate>
+        <input type="hidden" name="formType" value="ungvien">
+        <div class="prog"><div class="bars"></div><p class="prog-label"></p></div>
 
-      <div class="form-step">Công việc mong muốn</div>
-      <fieldset class="fs">
-        <legend>Vị trí ứng tuyển <span>(chọn một hoặc nhiều)</span></legend>
-        <div class="chips">
-          <label class="chip"><input type="checkbox" name="position" value="Giúp việc gia đình"><span>Giúp việc gia đình</span></label>
-          <label class="chip"><input type="checkbox" name="position" value="Bảo mẫu, chăm bé"><span>Bảo mẫu, chăm bé</span></label>
-          <label class="chip"><input type="checkbox" name="position" value="Chăm sóc người già"><span>Chăm sóc người già</span></label>
-          <label class="chip"><input type="checkbox" name="position" value="Quản gia"><span>Quản gia</span></label>
-          <label class="chip"><input type="checkbox" name="position" value="Đầu bếp gia đình"><span>Đầu bếp gia đình</span></label>
+        <div class="step" data-title="Thông tin cá nhân">
+          <div class="f2">
+            <label for="cName">Họ tên *<input id="cName" name="name" autocomplete="name" placeholder="Nguyễn Thị B" data-req="Vui lòng nhập họ tên."></label>
+            <label for="cPhone">Số điện thoại / Zalo *<input id="cPhone" name="phone" type="tel" autocomplete="tel" placeholder="09xx xxx xxx" data-req="Vui lòng nhập số điện thoại." data-check="phone"></label>
+          </div>
+          <div class="f2">
+            <label for="cYear">Năm sinh *<input id="cYear" name="birthYear" inputmode="numeric" maxlength="4" placeholder="1985" data-req="Vui lòng nhập năm sinh." data-check="year"></label>
+            <label for="cHome">Quê quán<input id="cHome" name="hometown" placeholder="Ví dụ: Nam Định"></label>
+          </div>
+          <label for="cLive">Nơi ở hiện tại<input id="cLive" name="currentAddress" placeholder="Quận/huyện, tỉnh/thành"></label>
         </div>
-      </fieldset>
-      <fieldset class="fs">
-        <legend>Hình thức làm việc</legend>
-        <div class="chips">
-          <label class="chip"><input type="radio" name="mode" value="Ở lại cùng gia đình" checked><span>Ở lại cùng gia đình</span></label>
-          <label class="chip"><input type="radio" name="mode" value="Theo giờ / theo ca"><span>Theo giờ / theo ca</span></label>
-          <label class="chip"><input type="radio" name="mode" value="Cả hai"><span>Cả hai</span></label>
+
+        <div class="step" data-title="Công việc mong muốn" hidden>
+          <fieldset class="fs" data-req="Vui lòng chọn ít nhất một vị trí ứng tuyển.">
+            <legend>Vị trí ứng tuyển <span>(chọn một hoặc nhiều)</span></legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="position" value="Giúp việc gia đình"><span>Giúp việc gia đình</span></label>
+              <label class="chip"><input type="checkbox" name="position" value="Bảo mẫu, chăm bé"><span>Bảo mẫu, chăm bé</span></label>
+              <label class="chip"><input type="checkbox" name="position" value="Chăm sóc người già"><span>Chăm sóc người già</span></label>
+              <label class="chip"><input type="checkbox" name="position" value="Quản gia"><span>Quản gia</span></label>
+              <label class="chip"><input type="checkbox" name="position" value="Đầu bếp gia đình"><span>Đầu bếp gia đình</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="fs">
+            <legend>Hình thức làm việc</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="mode" value="Ở lại cùng gia đình" checked><span>Ở lại cùng gia đình</span></label>
+              <label class="chip"><input type="radio" name="mode" value="Theo giờ / theo ca"><span>Theo giờ / theo ca</span></label>
+              <label class="chip"><input type="radio" name="mode" value="Cả hai"><span>Cả hai</span></label>
+            </div>
+          </fieldset>
+          <div class="f2">
+            <label for="cSalary">Mức lương mong muốn<input id="cSalary" name="salary" placeholder="Ví dụ: 9–10 triệu/tháng"></label>
+            <label for="cStart">Có thể bắt đầu từ<input id="cStart" name="start" placeholder="Ví dụ: ngay, 1/11"></label>
+          </div>
         </div>
-      </fieldset>
-      <fieldset class="fs">
-        <legend>Nấu ăn được <span>(nếu có)</span></legend>
-        <div class="chips">
-          <label class="chip"><input type="checkbox" name="cooking" value="Món Việt truyền thống"><span>Món Việt</span></label>
-          <label class="chip"><input type="checkbox" name="cooking" value="Món Á"><span>Món Á</span></label>
-          <label class="chip"><input type="checkbox" name="cooking" value="Món Âu"><span>Món Âu</span></label>
-          <label class="chip"><input type="checkbox" name="cooking" value="Đồ ăn trẻ nhỏ"><span>Đồ ăn trẻ nhỏ</span></label>
+
+        <div class="step" data-title="Kinh nghiệm" hidden>
+          <div class="f2">
+            <label for="cExpY">Số năm kinh nghiệm
+              <select id="cExpY" name="expYears"><option>Chưa có</option><option>Dưới 1 năm</option><option>1–3 năm</option><option>3–5 năm</option><option>Trên 5 năm</option></select>
+            </label>
+            <label for="cLang">Ngoại ngữ
+              <select id="cLang" name="language"><option>Không</option><option>Tiếng Anh cơ bản</option><option>Tiếng Anh giao tiếp tốt</option><option>Ngoại ngữ khác (ghi ở ghi chú)</option></select>
+            </label>
+          </div>
+          <fieldset class="fs">
+            <legend>Nấu ăn được <span>(nếu có)</span></legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="cooking" value="Món Việt truyền thống"><span>Món Việt</span></label>
+              <label class="chip"><input type="checkbox" name="cooking" value="Món Á"><span>Món Á</span></label>
+              <label class="chip"><input type="checkbox" name="cooking" value="Món Âu"><span>Món Âu</span></label>
+              <label class="chip"><input type="checkbox" name="cooking" value="Đồ ăn trẻ nhỏ"><span>Đồ ăn trẻ nhỏ</span></label>
+            </div>
+          </fieldset>
+          <label for="cExp">Kinh nghiệm đã làm<textarea id="cExp" name="experience" placeholder="Đã làm cho gia đình nào, công việc gì, bao lâu..."></textarea></label>
+          <label for="cNote">Ghi chú thêm<textarea id="cNote" name="note" placeholder="Điều Anh/Chị muốn Premium Home biết thêm..."></textarea></label>
         </div>
-      </fieldset>
-      <div class="f2">
-        <label for="cExpY">Số năm kinh nghiệm
-          <select id="cExpY" name="expYears"><option>Chưa có</option><option>Dưới 1 năm</option><option>1–3 năm</option><option>3–5 năm</option><option>Trên 5 năm</option></select>
-        </label>
-        <label for="cLang">Ngoại ngữ
-          <select id="cLang" name="language"><option>Không</option><option>Tiếng Anh cơ bản</option><option>Tiếng Anh giao tiếp tốt</option><option>Ngoại ngữ khác (ghi ở mô tả)</option></select>
-        </label>
-      </div>
-      <label for="cExp">Kinh nghiệm đã làm<textarea id="cExp" name="experience" placeholder="Đã làm cho gia đình nào, công việc gì, bao lâu..."></textarea></label>
-      <div class="f2">
-        <label for="cSalary">Mức lương mong muốn<input id="cSalary" name="salary" placeholder="Ví dụ: 9–10 triệu/tháng"></label>
-        <label for="cStart">Có thể bắt đầu từ<input id="cStart" name="start" placeholder="Ví dụ: ngay, 1/11"></label>
-      </div>
-      <label for="cNote">Ghi chú thêm<textarea id="cNote" name="note" placeholder="Điều Anh/Chị muốn Premium Home biết thêm..."></textarea></label>
-      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn btn-gold" type="submit">Gửi hồ sơ ứng tuyển</button>
-      <p class="note" data-msg role="status">Thông tin của Anh/Chị chỉ dùng cho việc tuyển chọn.</p>
-      <div class="ok" data-ok aria-live="polite">
-        <h3>Đã nhận hồ sơ</h3>
-        <p>Cảm ơn Anh/Chị. Premium Home sẽ gọi lại trong 1–2 ngày làm việc.</p>
-      </div>
-      <div class="result" data-fallback aria-live="polite">
-        Hệ thống đang được kết nối. Anh/Chị vui lòng bấm <b>Sao chép</b>, mở Zalo 0948 919 598 và dán tin nhắn.
-        <pre data-text></pre>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn btn-gold" type="button" data-copy style="background:var(--gold);color:var(--green-deep)">Sao chép</button>
-          <a class="btn btn-line" href="https://zalo.me/0948919598" target="_blank" rel="noopener">Mở Zalo</a>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="step-err" data-msg role="alert"></p>
+        <div class="nav-btns">
+          <button class="btn btn-line" type="button" data-back hidden>Quay lại</button>
+          <button class="btn btn-gold" type="button" data-next>Tiếp tục</button>
+          <button class="btn btn-gold" type="submit" data-submit hidden>Gửi hồ sơ ứng tuyển</button>
         </div>
-      </div>
-    </form>
+        <p class="note">Thông tin chỉ dùng cho việc tuyển chọn. Giấy tờ tùy thân được kiểm tra khi phỏng vấn trực tiếp.</p>
+        <div class="ok" data-ok aria-live="polite">
+          <h3>Đã nhận hồ sơ</h3>
+          <p>Cảm ơn Anh/Chị. Premium Home sẽ gọi lại trong 1–2 ngày làm việc.</p>
+          <button class="btn btn-line" type="button" data-again style="margin-top:14px">Gửi thêm một hồ sơ</button>
+        </div>
+        <div class="result" data-fallback aria-live="polite">
+          Chưa gửi được qua hệ thống. Vui lòng bấm <b>Sao chép</b>, mở Zalo 0948 919 598 và dán tin nhắn.
+          <pre data-text></pre>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-gold" type="button" data-copy style="background:var(--gold);color:var(--green-deep)">Sao chép</button>
+            <a class="btn btn-line" href="https://zalo.me/0948919598" target="_blank" rel="noopener">Mở Zalo</a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="reach">
+      <span>Hoặc nhắn trực tiếp Zalo / Hotline</span>
+      <b id="phone">0948 919 598</b>
+      <span class="reach-btns">
+        <a class="btn btn-gold" href="https://zalo.me/0948919598" target="_blank" rel="noopener">Mở Zalo</a>
+        <button class="btn btn-line" type="button" id="copyPhone">Sao chép số</button>
+      </span>
+    </div>
   </div>
 </section>
 
@@ -445,51 +526,104 @@ footer b{color:var(--gold);font-variant-numeric:tabular-nums}
 </div>
 
 <script>
-/* Dán URL Web App của Google Apps Script vào đây */
 const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzEBi_npUbpXLAc65JOQC6HDY93vThbXBSna6h5JuJ0wc4vM5vQQPDT7W5FtaNEFC8ojw/exec';
 
 function copyText(text, btn, el){
-  const ok=()=>{const t=btn.textContent;btn.textContent='Đã sao chép';setTimeout(()=>btn.textContent=t,1800)};
+  const label=btn.textContent;
+  const ok=()=>{btn.textContent='Đã sao chép';setTimeout(()=>btn.textContent=label,1800)};
   const fallback=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Đã chọn, nhấn giữ để sao chép'};
   try{navigator.clipboard.writeText(text).then(ok).catch(fallback)}catch(e){fallback()}
 }
 document.getElementById('copyPhone').addEventListener('click',e=>copyText('0948919598',e.currentTarget,document.getElementById('phone')));
 
-function setupForm(form, cfg){
-  const $=s=>form.querySelector(s);
-  const msg=$('[data-msg]'), btn=form.querySelector('button[type=submit]'), okBox=$('[data-ok]'), fb=$('[data-fallback]'), txt=$('[data-text]');
-  const label=btn.textContent;
-  $('[data-copy]').addEventListener('click',e=>copyText(txt.textContent,e.currentTarget,txt));
+/* ----- Chọn loại đăng ký ----- */
+const tabs=[...document.querySelectorAll('.choice')];
+const panels={khach:document.getElementById('panel-khach'),ungvien:document.getElementById('panel-ungvien')};
+function choose(key,scrollTo){
+  tabs.forEach(t=>t.setAttribute('aria-selected',String(t.dataset.key===key)));
+  Object.entries(panels).forEach(([k,p])=>p.hidden=k!==key);
+  document.getElementById('pickHint').hidden=!!key;
+  document.querySelector('.choose').classList.toggle('picked',!!key);
+  if(scrollTo&&key)panels[key].scrollIntoView({behavior:'smooth',block:'start'});
+}
+tabs.forEach(t=>t.addEventListener('click',()=>choose(t.dataset.key,true)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.go,true)));
+const HASH={'tim-nguoi':'khach','ung-tuyen':'ungvien'};
+function fromHash(){const k=HASH[location.hash.slice(1)];if(k)choose(k,true)}
+document.querySelectorAll('a[href="#tim-nguoi"],a[href="#ung-tuyen"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();choose(HASH[a.getAttribute('href').slice(1)],true)}));
+window.addEventListener('hashchange',fromHash);
+fromHash();
+
+/* ----- Kiểm tra dữ liệu ----- */
+const CHECK={
+  phone:v=>/^(\+?84|0)\d{8,10}$/.test(v.replace(/[\s.\-]/g,''))||'Số điện thoại chưa đúng, ví dụ 0912 345 678.',
+  email:v=>(/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v)&&!/\.(con|cmo|ocm|comm|vnn)$/i.test(v)&&!/@(gmai|gmial|gamil|gmal)\./i.test(v))||'Email chưa đúng, vui lòng kiểm tra lại (ví dụ ten@gmail.com).',
+  year:v=>{const y=+v;return(/^\d{4}$/.test(v)&&y>=1950&&y<=new Date().getFullYear()-18)||'Năm sinh cần 4 chữ số, ví dụ 1985.'}
+};
+function checkStep(step){
+  step.querySelectorAll('.invalid').forEach(e=>e.classList.remove('invalid'));
+  let first=null,msg='';
+  const fail=(el,m)=>{el.classList.add('invalid');if(!first){first=el;msg=m}};
+  step.querySelectorAll('fieldset[data-req], [data-req], [data-check]').forEach(el=>{
+    if(el.tagName==='FIELDSET'){if(!el.querySelector('input:checked'))fail(el,el.dataset.req);return}
+    const v=el.value.trim(), box=el.closest('label')||el;
+    if(el.dataset.req&&!v){fail(box,el.dataset.req);return}
+    if(v&&el.dataset.check){const r=CHECK[el.dataset.check](v);if(r!==true)fail(box,r)}
+  });
+  return {first,msg};
+}
+
+/* ----- Form nhiều bước ----- */
+function setupWizard(form,cfg){
+  const steps=[...form.querySelectorAll('.step')];
+  const bars=form.querySelector('.bars'), label=form.querySelector('.prog-label');
+  const back=form.querySelector('[data-back]'), next=form.querySelector('[data-next]'), submit=form.querySelector('[data-submit]');
+  const msg=form.querySelector('[data-msg]'), okBox=form.querySelector('[data-ok]'), fb=form.querySelector('[data-fallback]'), txt=form.querySelector('[data-text]');
+  const navs=[form.querySelector('.prog'),form.querySelector('.nav-btns'),form.querySelector('.note')];
+  bars.innerHTML=steps.map(()=>'<span></span>').join('');
+  let cur=0;
+  function show(n,scroll){
+    cur=n;steps.forEach((s,k)=>s.hidden=k!==n);
+    [...bars.children].forEach((b,k)=>b.classList.toggle('on',k<=n));
+    label.innerHTML='Bước '+(n+1)+'/'+steps.length+' · <b>'+steps[n].dataset.title+'</b>';
+    back.hidden=n===0;next.hidden=n===steps.length-1;submit.hidden=n!==steps.length-1;
+    msg.textContent='';
+    if(scroll)form.closest('.panel').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function guard(){
+    const {first,msg:m}=checkStep(steps[cur]);
+    if(first){msg.textContent=m;first.scrollIntoView({behavior:'smooth',block:'center'});const i=first.querySelector?first.querySelector('input,select,textarea'):null;if(i&&i.type!=='radio'&&i.type!=='checkbox')setTimeout(()=>i.focus({preventScroll:true}),350);return false}
+    return true;
+  }
+  form.addEventListener('input',e=>{const box=e.target.closest('.invalid');if(box){box.classList.remove('invalid');if(!form.querySelector('.invalid'))msg.textContent=''}});
+  form.addEventListener('change',e=>{const box=e.target.closest('.invalid');if(box){box.classList.remove('invalid');if(!form.querySelector('.invalid'))msg.textContent=''}});
+  next.addEventListener('click',()=>{if(guard())show(cur+1,true)});
+  back.addEventListener('click',()=>show(cur-1,true));
+  form.querySelector('[data-copy]').addEventListener('click',e=>copyText(txt.textContent,e.currentTarget,txt));
+  form.querySelector('[data-again]').addEventListener('click',()=>{form.reset();okBox.classList.remove('show');navs.forEach(x=>x.hidden=false);show(0,true)});
   form.addEventListener('submit',async e=>{
     e.preventDefault();
+    if(!guard())return;
     const fd=new FormData(form);
     if((fd.get('website')||'').toString())return;
     const data={};
-    for(const [k] of fd.entries()){ if(k==='website'||k in data)continue; data[k]=fd.getAll(k).map(v=>v.toString().trim()).filter(Boolean).join(', ') }
-    const err=cfg.validate(data);
-    if(err){msg.textContent=err;return}
-    msg.textContent='';
+    for(const [k] of fd.entries()){if(k==='website'||k in data)continue;data[k]=fd.getAll(k).map(v=>v.toString().trim()).filter(Boolean).join(', ')}
     data.page=location.hostname||'preview';
-    btn.disabled=true;btn.textContent='Đang gửi...';
+    submit.disabled=true;const sl=submit.textContent;submit.textContent='Đang gửi...';
     let sent=false;
     if(SHEET_ENDPOINT){try{await fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams(data)});sent=true}catch(_){}}
-    btn.disabled=false;btn.textContent=label;
-    if(sent){
-      form.reset();fb.classList.remove('show');okBox.classList.add('show');okBox.scrollIntoView({behavior:'smooth',block:'nearest'});return;
-    }
-    txt.textContent=cfg.message(data);
-    fb.classList.add('show');fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+    submit.disabled=false;submit.textContent=sl;
+    if(sent){steps.forEach(s=>s.hidden=true);navs.forEach(x=>x.hidden=true);fb.classList.remove('show');okBox.classList.add('show');okBox.scrollIntoView({behavior:'smooth',block:'center'});return}
+    txt.textContent=cfg.message(data);fb.classList.add('show');fb.scrollIntoView({behavior:'smooth',block:'nearest'});
   });
+  show(0,false);
 }
 const line=(l,v)=>v?'- '+l+': '+v:null;
-
-setupForm(document.getElementById('needForm'),{
-  validate:d=>!d.name||!d.phone?'Vui lòng nhập họ tên và số điện thoại để Premium Home liên hệ lại.':!d.service?'Vui lòng chọn ít nhất một dịch vụ.':'',
+setupWizard(document.getElementById('needForm'),{
   message:d=>['Chào Premium Home, tôi cần tư vấn:',line('Khách hàng',d.client),line('Dịch vụ',d.service),line('Hình thức',d.mode),line('Họ tên',d.name),line('SĐT/Zalo',d.phone),line('Email',d.email),line('Khu vực',d.area),line('Bắt đầu',d.start),line('Ngôn ngữ',d.lang),line('Loại nhà',d.house),line('Mô tả',d.note)].filter(Boolean).join('\n')
 });
-setupForm(document.getElementById('candForm'),{
-  validate:d=>!d.name||!d.phone||!d.birthYear?'Vui lòng nhập họ tên, số điện thoại và năm sinh.':!/^(19|20)\d\d$/.test(d.birthYear)?'Năm sinh cần 4 chữ số, ví dụ 1985.':!d.position?'Vui lòng chọn ít nhất một vị trí ứng tuyển.':'',
-  message:d=>['Chào Premium Home, tôi muốn ứng tuyển:',line('Họ tên',d.name),line('Năm sinh',d.birthYear),line('SĐT/Zalo',d.phone),line('Quê quán',d.hometown),line('Nơi ở',d.currentAddress),line('Vị trí',d.position),line('Hình thức',d.mode),line('Nấu ăn',d.cooking),line('Kinh nghiệm',d.expYears),line('Ngoại ngữ',d.language),line('Chi tiết',d.experience),line('Lương mong muốn',d.salary),line('Bắt đầu',d.start),line('Ghi chú',d.note)].filter(Boolean).join('\n')
+setupWizard(document.getElementById('candForm'),{
+  message:d=>['Chào Premium Home, tôi muốn ứng tuyển:',line('Họ tên',d.name),line('Năm sinh',d.birthYear),line('SĐT/Zalo',d.phone),line('Quê quán',d.hometown),line('Nơi ở',d.currentAddress),line('Vị trí',d.position),line('Hình thức',d.mode),line('Kinh nghiệm',d.expYears),line('Ngoại ngữ',d.language),line('Nấu ăn',d.cooking),line('Chi tiết',d.experience),line('Lương mong muốn',d.salary),line('Bắt đầu',d.start),line('Ghi chú',d.note)].filter(Boolean).join('\n')
 });
 </script>
 
