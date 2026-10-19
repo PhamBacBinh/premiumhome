@@ -1,5 +1,8 @@
 /**
- * ELITE HELPERS (Giúp việc Elite) – Nhận form giupviecelite.vn về Google Sheets (bản 10)
+ * ELITE HELPERS (Giúp việc Elite) – Nhận form giupviecelite.vn về Google Sheets (bản 11)
+ * Bản 11: phân tích hành vi (chỉ khi khách đồng ý cookie): ghi sự kiện vào tab SuKien (xóa sau 12 tháng),
+ *         tổng hợp số liệu cho tab Phân tích ở /quan-tri, gắn mã truy cập vào hồ sơ, báo khách cũ quay lại
+ *         (tab QuayLai + email), lưu lựa chọn nhận tin chăm sóc. Không lưu địa chỉ IP.
  * Bản 10: trang quản trị xóa được hồ sơ: xóa dòng trong tab KhachHang/UngVien, lưu bản sao vào tab ThungRac
  *         (tự xóa hẳn sau 30 ngày) để khôi phục khi lỡ tay.
  * Bản 9: trang quản trị lấy dữ liệu qua GET (JSONP) như bộ đếm, chạy ổn định trên iPhone.
@@ -25,7 +28,7 @@ const FORMS = {
     title: 'Khách hàng mới',
     cols: [['Họ tên / Đơn vị','name'],['SĐT / Zalo','phone'],['Email','email'],['Khách hàng','client'],
       ['Dịch vụ','service'],['Hình thức','mode'],['Khu vực','area'],['Bắt đầu','start'],['Ngôn ngữ','lang'],
-      ['Loại nhà','house'],['Giờ liên hệ','contactTime'],['Mô tả','note']]
+      ['Loại nhà','house'],['Giờ liên hệ','contactTime'],['Mô tả','note'],['Nhận tin chăm sóc','optin'],['Mã truy cập web','visitor']]
   },
   ungvien: {
     sheet: 'UngVien',
@@ -33,7 +36,7 @@ const FORMS = {
     cols: [['Họ tên','name'],['SĐT / Zalo','phone'],['Năm sinh','birthYear'],['Quê quán','hometown'],
       ['Nơi ở hiện tại','currentAddress'],['Vị trí','position'],['Hình thức','mode'],['Nấu ăn','cooking'],
       ['Kinh nghiệm','expYears'],['Ngoại ngữ','language'],['Chi tiết kinh nghiệm','experience'],
-      ['Lương mong muốn','salary'],['Bắt đầu','start'],['Ghi chú','note']]
+      ['Lương mong muốn','salary'],['Bắt đầu','start'],['Ghi chú','note'],['Mã truy cập web','visitor']]
   }
 };
 
@@ -98,6 +101,7 @@ function doPost(e) {
     const p = (e && e.parameter) || {};
     if (p.action === 'hit') return hit_(p);                  // bộ đếm lượt truy cập
     if (p.action === 'feed') return feed_(p);                // trang quản trị lấy danh sách hồ sơ mới
+    if (p.action === 'ev') return ev_(p);                    // sự kiện phân tích hành vi (đã đồng ý cookie)
     if (p.website) return out_(true);                         // bẫy bot: giả vờ thành công
     if (!p.name || !p.phone) return out_(false, 'missing');   // thiếu thông tin bắt buộc
     const f = FORMS[p.formType] || FORMS.khach;
@@ -112,7 +116,10 @@ function doPost(e) {
       vals = f.cols.map(c => clean_(p[c[1]], c[1] === 'experience' || c[1] === 'note' ? 2000 : 300));
       const row = vals.map((v, i) => (f.cols[i][1] === 'phone' && v ? "'" + v : safeCell_(v)));
       const status = suspicious ? 'Nghi spam (' + rc + ')' : 'Mới';
-      getSS_().getSheetByName(f.sheet).appendRow([new Date(), status].concat(row));
+      const sh = getSS_().getSheetByName(f.sheet);
+      ensureHead_(sh, f);
+      sh.appendRow([new Date(), status].concat(row));
+      if (!suspicious && p.visitor) rememberLead_(clean_(p.visitor, 24), clean_(p.name, 60), clean_(p.phone, 30), f.sheet);
     } finally {
       lock.releaseLock();
     }
@@ -160,6 +167,13 @@ function feed_(p) {
       items.push(o);
     });
   });
+  const ql = ss.getSheetByName('QuayLai');
+  if (ql && ql.getLastRow() > 1) {
+    const n = Math.min(20, ql.getLastRow() - 1);
+    ql.getRange(ql.getLastRow() - n + 1, 1, n, 6).getValues().forEach(r => {
+      items.push({ type: 'quaylai', time: isoOf_(r[0]), status: 'Mới', name: String(r[1]), phone: String(r[2]).replace(/^'/, ''), page: String(r[3]), src: String(r[4]), device: String(r[5]) });
+    });
+  }
   items.sort((a, b) => (a.time < b.time ? 1 : -1));
   return ContentService.createTextOutput(JSON.stringify({ ok: true, items: items.slice(0, 40) })).setMimeType(ContentService.MimeType.JSON);
 }
@@ -215,6 +229,196 @@ function purgeTrash_(tr) {
   }
 }
 
+// Thêm tiêu đề cho các cột mới (bản 11) nếu tab được tạo từ bản cũ
+function ensureHead_(sh, f) {
+  const need = 2 + f.cols.length;
+  if (sh.getLastColumn() >= need && String(sh.getRange(1, need).getValue())) return;
+  const head = ['Thời gian', 'Trạng thái'].concat(f.cols.map(c => c[0]));
+  sh.getRange(1, 1, 1, need).setValues([head]).setFontWeight('bold').setBackground('#2A453E').setFontColor('#F4EEE3');
+}
+// Nhớ mã truy cập của khách đã để lại thông tin (tối đa 300 mã gần nhất) để nhận diện khi quay lại
+function rememberLead_(vid, name, phone, sheet) {
+  if (!/^[a-z0-9]{8,24}$/i.test(vid)) return;
+  const props = PropertiesService.getScriptProperties();
+  let m = {};
+  try { m = JSON.parse(props.getProperty('LEAD_VIDS') || '{}'); } catch (e) {}
+  m[vid] = { n: name, p: phone, s: sheet, t: Date.now() };
+  const keys = Object.keys(m);
+  if (keys.length > 300) keys.sort((a, b) => m[a].t - m[b].t).slice(0, keys.length - 300).forEach(k => delete m[k]);
+  props.setProperty('LEAD_VIDS', JSON.stringify(m));
+}
+
+// ---- Phân tích hành vi: nhận sự kiện từ website ----
+const EV_SHEET = 'SuKien';
+const EV_HEAD = ['Thời gian', 'Mã khách', 'Phiên', 'Lượt xem', 'Loại', 'Trang', 'Tiêu đề', 'Hành động', 'Nhãn', 'Cuộn %', 'Giây',
+  'Nguồn', 'Kênh', 'Chiến dịch', 'Trang vào', 'Thiết bị', 'Hệ điều hành', 'Trình duyệt', 'Màn hình', 'Ngôn ngữ', 'Múi giờ', 'Vào trang'];
+const EV_KEEP_DAYS = 365;
+function ev_(p) {
+  let d;
+  try { d = JSON.parse(String(p.d || '').slice(0, 20000)); } catch (e) { return out_(false, 'bad'); }
+  const id = (x) => String(x || '').replace(/[^a-z0-9]/gi, '').slice(0, 24);
+  const vid = id(d && d.v), sid = id(d && d.s);
+  const evs = Array.isArray(d && d.e) ? d.e.slice(0, 40) : [];
+  if (vid.length < 8 || sid.length < 8 || !evs.length) return out_(false, 'bad');
+  const cache = CacheService.getScriptCache();
+  const nS = Number(cache.get('evs_' + sid) || 0);
+  const nAll = Number(cache.get('ev_all') || 0);
+  if (nS > 400 || nAll > 6000) return out_(false, 'rate');   // chống spam
+  cache.put('evs_' + sid, String(nS + evs.length), 3600);
+  cache.put('ev_all', String(nAll + evs.length), 600);
+  const u = d.u || {}, src = d.src || {};
+  const s = (v, n) => safeCell_(clean_(v, n || 120));
+  const now = Date.now();
+  const rows = evs.map(e => {
+    const ts = Number(e.ts);
+    const t = new Date(Math.abs(ts - now) < 86400000 ? ts : now);
+    const typ = ['pv', 'pe', 'ac'].indexOf(e.t) >= 0 ? e.t : 'ac';
+    return [t, vid, sid, id(e.pv), typ, s(e.p, 160), s(e.ti, 100), s(e.n, 40), s(e.l, 60),
+      Math.max(0, Math.min(100, Number(e.sc) || 0)) || '', Math.max(0, Math.min(1800, Number(e.sec) || 0)) || '',
+      s(src.src, 60), s(src.med, 30), s(src.camp, 60), s(src.land, 160), s(u.dev, 20), s(u.os, 20), s(u.br, 20), s(u.scr, 12), s(u.lang, 10), s(u.tz, 40),
+      e.t === 'pv' && Number(e.land) === 1 ? 1 : ''];
+  });
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return out_(false, 'busy');
+  try {
+    const ss = getSS_();
+    let sh = ss.getSheetByName(EV_SHEET);
+    if (!sh) {
+      sh = ss.insertSheet(EV_SHEET);
+      sh.getRange(1, 1, 1, EV_HEAD.length).setValues([EV_HEAD]).setFontWeight('bold').setBackground('#2A453E').setFontColor('#F4EEE3');
+      sh.setFrozenRows(1);
+    }
+    sh.getRange(sh.getLastRow() + 1, 1, rows.length, EV_HEAD.length).setValues(rows);
+    purgeEvents_(sh, cache);
+  } finally {
+    lock.releaseLock();
+  }
+  // Khách cũ (đã để lại thông tin) quay lại website: ghi tab QuayLai + email báo (mỗi khách tối đa 1 lần/6 giờ)
+  try {
+    const landing = rows.find(r => r[4] === 'pv' && r[21] === 1);
+    if (landing && !cache.get('ret_' + vid)) {
+      let m = {};
+      try { m = JSON.parse(PropertiesService.getScriptProperties().getProperty('LEAD_VIDS') || '{}'); } catch (e) {}
+      const L = m[vid];
+      if (L && now - L.t > 600000) {                          // bỏ qua 10 phút ngay sau khi vừa gửi form
+        cache.put('ret_' + vid, '1', 21600);
+        const ss = getSS_();
+        const sh = ss.getSheetByName('QuayLai') || ss.insertSheet('QuayLai');
+        if (sh.getLastRow() === 0) sh.appendRow(['Thời gian', 'Họ tên', 'SĐT', 'Đang xem trang', 'Nguồn', 'Thiết bị', 'Mã khách', 'Tab hồ sơ']);
+        sh.appendRow([new Date(), L.n, "'" + L.p, landing[5], landing[11], landing[15] + ' · ' + landing[17], vid, L.s]);
+        MailApp.sendEmail(NOTIFY_EMAIL, '[Elite Helpers] Khách cũ quay lại website: ' + L.n,
+          L.n + ' (' + L.p + ') vừa quay lại website.\nĐang xem: ' + landing[5] + '\nNguồn: ' + landing[11] + '\nThiết bị: ' + landing[15] + ' · ' + landing[17] +
+          '\n\nGợi ý: liên hệ trong 30 phút tới khi khách còn đang quan tâm.');
+      }
+    }
+  } catch (err) {}
+  return out_(true);
+}
+// Mỗi ngày 1 lần: xóa sự kiện cũ hơn 12 tháng
+function purgeEvents_(sh, cache) {
+  const day = Utilities.formatDate(new Date(), TZ, 'yyyyMMdd');
+  if (cache.get('evpurge') === day) return;
+  cache.put('evpurge', day, 86400);
+  const n = sh.getLastRow() - 1;
+  if (n < 1) return;
+  const limit = Date.now() - EV_KEEP_DAYS * 86400000;
+  const col = sh.getRange(2, 1, n, 1).getValues();
+  let k = 0;
+  while (k < n && col[k][0] instanceof Date && col[k][0].getTime() < limit) k++;
+  if (k > 0) sh.deleteRows(2, k);
+}
+
+// ---- Trang quản trị: tổng hợp số liệu phân tích ----
+function stats_(p) {
+  const er = auth_(p);
+  if (er) return out_(false, er);
+  const days = [1, 7, 30, 90].indexOf(Number(p.days)) >= 0 ? Number(p.days) : 7;
+  const cache = CacheService.getScriptCache();
+  const ck = 'stats_' + days;
+  const hit = cache.get(ck);
+  if (hit && p.fresh !== '1') return ContentService.createTextOutput(hit).setMimeType(ContentService.MimeType.JSON);
+  const ss = getSS_();
+  const sh = ss.getSheetByName(EV_SHEET);
+  const startToday = new Date(Utilities.formatDate(new Date(), TZ, "yyyy-MM-dd'T'00:00:00XXX")).getTime();
+  const from = startToday - (days - 1) * 86400000;
+  const rows = sh && sh.getLastRow() > 1 ? sh.getRange(2, 1, sh.getLastRow() - 1, EV_HEAD.length).getValues() : [];
+  let m = {};
+  try { m = JSON.parse(PropertiesService.getScriptProperties().getProperty('LEAD_VIDS') || '{}'); } catch (e) {}
+  const seenBefore = {}, S = {}, PV = {}, vids = {};
+  const cnt = (o, k) => { k = String(k || '(không rõ)'); o[k] = (o[k] || 0) + 1; };
+  rows.forEach(r => {
+    const t = r[0] instanceof Date ? r[0].getTime() : 0;
+    if (!t) return;
+    if (t < from) { seenBefore[r[1]] = 1; return; }
+    const sid = r[2], typ = r[4];
+    vids[r[1]] = 1;
+    const s = S[sid] || (S[sid] = { sid: sid, vid: r[1], start: t, end: t, src: r[11], med: r[12], camp: r[13], land: r[14], dev: r[15], os: r[16], br: r[17], pages: [], acts: [], pvs: 0, conv: 0 });
+    if (t < s.start) s.start = t;
+    if (t > s.end) s.end = t;
+    if (typ === 'pv') {
+      s.pvs++;
+      s.pages.push({ p: r[5], t: t });
+      PV[r[3]] = PV[r[3]] || { p: r[5], sid: sid, t: t, sc: 0, sec: 0 };
+    } else if (typ === 'pe') {
+      const v = PV[r[3]] || (PV[r[3]] = { p: r[5], sid: sid, t: t, sc: 0, sec: 0 });
+      v.sc = Math.max(v.sc, Number(r[9]) || 0);
+      v.sec = Math.max(v.sec, Number(r[10]) || 0);
+    } else {
+      s.acts.push({ n: r[7], l: r[8], p: r[5], t: t });
+      if (r[7] === 'form_submit') s.conv = 1;
+    }
+  });
+  const sessions = Object.keys(S).map(k => S[k]).filter(s => s.pvs > 0);
+  const pages = {}, entries = {}, exits = {}, sources = {}, devs = {}, oss = {}, brs = {}, acts = {}, daily = {};
+  let secSum = 0, secN = 0, bounce = 0, conv = 0, pvTotal = 0;
+  Object.keys(PV).forEach(k => {
+    const v = PV[k];
+    const g = pages[v.p] || (pages[v.p] = { p: v.p, pv: 0, sec: 0, secN: 0, sc: 0, scN: 0 });
+    g.pv++; pvTotal++;
+    if (v.sec) { g.sec += v.sec; g.secN++; secSum += v.sec; secN++; }
+    if (v.sc) { g.sc += v.sc; g.scN++; }
+    const dk = Utilities.formatDate(new Date(v.t), TZ, 'dd/MM');
+    const dd = daily[dk] || (daily[dk] = { d: dk, pv: 0, s: 0, ts: v.t });
+    dd.pv++;
+  });
+  sessions.forEach(s => {
+    s.pages.sort((a, b) => a.t - b.t);
+    cnt(entries, s.pages[0].p);
+    cnt(exits, s.pages[s.pages.length - 1].p);
+    cnt(sources, s.src + (s.med && s.med !== 'direct' ? ' / ' + s.med : ''));
+    cnt(devs, s.dev); cnt(oss, s.os); cnt(brs, s.br);
+    s.acts.forEach(a => cnt(acts, a.n));
+    if (s.pvs === 1 && !s.acts.some(a => /^(click_|form_|dialog_|copy_|nudge_click)/.test(a.n))) bounce++;
+    if (s.conv) conv++;
+    const dk = Utilities.formatDate(new Date(s.start), TZ, 'dd/MM');
+    const dd = daily[dk] || (daily[dk] = { d: dk, pv: 0, s: 0, ts: s.start });
+    dd.s++;
+  });
+  const top = (o, n) => Object.keys(o).map(k => ({ k: k, n: o[k] })).sort((a, b) => b.n - a.n).slice(0, n || 10);
+  const vidList = Object.keys(vids);
+  const res = {
+    ok: true, days: days, updated: new Date().toISOString(),
+    kpi: {
+      visitors: vidList.length, returning: vidList.filter(v => seenBefore[v]).length, sessions: sessions.length, pageviews: pvTotal,
+      pagesPerSession: sessions.length ? Math.round(pvTotal / sessions.length * 10) / 10 : 0,
+      avgSec: secN ? Math.round(secSum / secN) : 0, bounce: sessions.length ? Math.round(bounce / sessions.length * 100) : 0,
+      leads: conv, conv: sessions.length ? Math.round(conv / sessions.length * 1000) / 10 : 0
+    },
+    daily: Object.keys(daily).map(k => daily[k]).sort((a, b) => a.ts - b.ts).map(x => ({ d: x.d, pv: x.pv, s: x.s })),
+    pages: Object.keys(pages).map(k => pages[k]).sort((a, b) => b.pv - a.pv).slice(0, 12)
+      .map(g => ({ p: g.p, pv: g.pv, sec: g.secN ? Math.round(g.sec / g.secN) : 0, sc: g.scN ? Math.round(g.sc / g.scN) : 0 })),
+    entries: top(entries), exits: top(exits), sources: top(sources), devices: top(devs, 5), os: top(oss, 6), browsers: top(brs, 8), actions: top(acts, 12),
+    recent: sessions.sort((a, b) => b.start - a.start).slice(0, 30).map(s => ({
+      start: new Date(s.start).toISOString(), sec: Math.round((s.end - s.start) / 1000), src: s.src, med: s.med, camp: s.camp,
+      dev: s.dev, os: s.os, br: s.br, ret: seenBefore[s.vid] ? 1 : 0, lead: m[s.vid] ? m[s.vid].n : '',
+      pages: s.pages.map(x => x.p).slice(0, 15), acts: s.acts.slice(0, 15).map(a => a.n + (a.l ? ':' + a.l : ''))
+    }))
+  };
+  const out = JSON.stringify(res);
+  if (out.length < 90000) cache.put(ck, out, 120);
+  return ContentService.createTextOutput(out).setMimeType(ContentService.MimeType.JSON);
+}
+
 // ---- Bộ đếm lượt truy cập: 1 phiên trình duyệt = 1 lượt; "đang xem" = phiên hoạt động trong 5 phút ----
 const TZ = 'Asia/Ho_Chi_Minh';
 function hit_(p) {
@@ -267,9 +471,9 @@ function jsonOut_(o) {
 
 function doGet(e) {
   const p = (e && e.parameter) || {};
-  if (p.action === 'feed' || p.action === 'del') {
+  if (p.action === 'feed' || p.action === 'del' || p.action === 'stats') {
     const cbf = String(p.cb || '').replace(/[^A-Za-z0-9_$.]/g, '').slice(0, 40);
-    const out = (p.action === 'del' ? del_(p) : feed_(p)).getContent();
+    const out = (p.action === 'del' ? del_(p) : p.action === 'stats' ? stats_(p) : feed_(p)).getContent();
     if (cbf) return ContentService.createTextOutput(cbf + '(' + out + ');').setMimeType(ContentService.MimeType.JAVASCRIPT);
     return ContentService.createTextOutput(out).setMimeType(ContentService.MimeType.JSON);
   }

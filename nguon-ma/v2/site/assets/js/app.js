@@ -15,7 +15,7 @@
     FORM_ENDPOINT: 'https://script.google.com/macros/s/AKfycbzEBi_npUbpXLAc65JOQC6HDY93vThbXBSna6h5JuJ0wc4vM5vQQPDT7W5FtaNEFC8ojw/exec',
     PHONE: '0948919598',
     ZALO_URL: 'https://zalo.me/0948919598',
-    CONSENT_VERSION: '12/10/2026',
+    CONSENT_VERSION: '19/10/2026',
     // Google reCAPTCHA v3 (vô hình). Dán Site key vào đây; để trống = tắt.
     RECAPTCHA_SITE_KEY: '6Lf_LOstAAAAAAW7U-XMW4TKlpRWiiezMTTwXEAD',
     // Google Analytics 4: dán Measurement ID dạng 'G-XXXXXXXXXX'; để trống = tắt.
@@ -28,10 +28,33 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const smooth = reduceMotion ? 'auto' : 'smooth';
 
-  /* Đo lường: đẩy sự kiện vào dataLayer (dùng được với GA4 / GTM sau này) */
+  /* ---------------- Lưu trữ trên trình duyệt (an toàn khi bị chặn) ---------------- */
+  const store = {
+    get(k, s) { try { return (s ? sessionStorage : localStorage).getItem(k); } catch (e) { return null; } },
+    set(k, v, s) { try { (s ? sessionStorage : localStorage).setItem(k, v); } catch (e) {} },
+    del(k, s) { try { (s ? sessionStorage : localStorage).removeItem(k); } catch (e) {} },
+  };
+  const rid = (n) => Math.random().toString(36).slice(2, 2 + n) + Date.now().toString(36);
+  // Mã phiên (1 lần mở trình duyệt = 1 phiên), dùng chung cho bộ đếm và phân tích
+  const SESS = (() => {
+    let sid = store.get('eh_sid', 1), isNew = false;
+    if (!sid) { sid = rid(8); isNew = true; store.set('eh_sid', sid, 1); }
+    return { sid, isNew };
+  })();
+
+  /* ---------------- Đồng ý cookie (Luật Bảo vệ dữ liệu cá nhân) ----------------
+   * Chưa đồng ý hoặc chọn "Chỉ cần thiết": KHÔNG tải Google Analytics, KHÔNG ghi hành vi. */
+  const CONSENT_KEY = 'eh_consent_v1';
+  let consent = null;
+  try { consent = (JSON.parse(store.get(CONSENT_KEY) || 'null') || {}).c || null; } catch (e) {}
+  const analyticsOn = () => consent === 'all';
+
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-  if (CONFIG.GA4_ID) {
+  let gaLoaded = false;
+  function loadGA() {
+    if (gaLoaded || !CONFIG.GA4_ID || !analyticsOn()) return;
+    gaLoaded = true;
     const g = document.createElement('script');
     g.async = true;
     g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(CONFIG.GA4_ID);
@@ -39,11 +62,14 @@
     gtag('js', new Date());
     gtag('config', CONFIG.GA4_ID, { anonymize_ip: true });
   }
+  let fpEvent = null; // gán ở phần phân tích hành vi bên dưới
   const track = (event, params = {}) => {
-    window.dataLayer.push({ event, ...params });
-    if (CONFIG.GA4_ID) gtag('event', event, params);
-    // Gửi form thành công = khách hàng tiềm năng (sự kiện chính có sẵn trong GA4)
-    if (CONFIG.GA4_ID && event === 'form_submit') gtag('event', 'qualify_lead', { form_name: params.form || '' });
+    if (gaLoaded) {
+      gtag('event', event, params);
+      // Gửi form thành công = khách hàng tiềm năng (sự kiện chính có sẵn trong GA4)
+      if (event === 'form_submit') gtag('event', 'qualify_lead', { form_name: params.form || '' });
+    }
+    if (fpEvent) fpEvent(event, params);
   };
 
   /* ---------------- Toast & sao chép ---------------- */
@@ -467,6 +493,7 @@
       data.consent = `Đồng ý xử lý dữ liệu cá nhân theo Chính sách ${CONFIG.CONSENT_VERSION}`;
       data.consentAt = new Date().toISOString();
       data.page = location.origin + location.pathname;
+      withVisitor(data);
 
       const label = submit.textContent;
       submit.disabled = true;
@@ -487,6 +514,7 @@
         done.hidden = false;
         done.focus({ preventScroll: true });
         track('form_submit', { form: key, mode: result });
+        if (key === 'khach') store.set('eh_lead', '1');
       } else {
         prog.textContent = 'Gửi qua Zalo';
         fbText.textContent = MESSAGES[key](data);
@@ -528,6 +556,7 @@
       data.consent = 'Agreed to personal data processing (EN form, policy ' + CONFIG.CONSENT_VERSION + ')';
       data.consentAt = new Date().toISOString();
       data.page = location.origin + location.pathname;
+      withVisitor(data);
       const label = btn.textContent;
       btn.disabled = true; btn.textContent = 'Sending...';
       let ok = false;
@@ -538,6 +567,7 @@
         msg.textContent = 'Thank you! We have received your request and will contact you within the same working day.';
         form.reset();
         track('form_submit', { form: 'khach_en' });
+        store.set('eh_lead', '1');
       } else {
         msg.innerHTML = 'Sorry, the form could not be sent. Please message us on <a class="underline" href="' + CONFIG.ZALO_URL + '" target="_blank" rel="noopener">Zalo</a> or email <a class="underline" href="mailto:lienhe@giupviecelite.vn">lienhe@giupviecelite.vn</a>.';
         track('form_fallback', { form: 'khach_en' });
@@ -574,14 +604,7 @@
     return j;
   };
   const runVisits = async () => {
-    let sid = null, isNew = '0';
-    try { sid = sessionStorage.getItem('eh_sid'); } catch (e) {}
-    if (!sid) {
-      sid = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
-      isNew = '1';
-      try { sessionStorage.setItem('eh_sid', sid); } catch (e) {}
-    }
-    const params = { action: 'hit', vid: sid, n: isNew };
+    const params = { action: 'hit', vid: SESS.sid, n: SESS.isNew ? '1' : '0' };
     try { vRender(await viaJsonp(params)); } catch (e) {
       try { vRender(await viaPost(params)); } catch (e2) { /* lỗi mạng: ẩn bộ đếm */ }
     }
@@ -593,6 +616,214 @@
     EVS.forEach((ev) => addEventListener(ev, kick, { passive: true, once: true }));
     setTimeout(kick, 4000);
   }
+
+  /* ==================================================================
+   * PHÂN TÍCH HÀNH VI FIRST-PARTY (chỉ chạy khi khách bấm "Đồng ý")
+   * Ghi: trang xem, nguồn, trang vào/thoát, mức cuộn, thời gian, nút bấm,
+   * thiết bị, hệ điều hành, trình duyệt. Không lưu IP. Gửi về Apps Script (tab SuKien).
+   * ================================================================== */
+  const EV = { on: false, vid: '', pv: '', q: [], active: 0, visSince: 0, maxSc: 0, timer: 0 };
+  function uaInfo() {
+    const ua = navigator.userAgent;
+    const ipad = /Macintosh/.test(ua) && navigator.maxTouchPoints > 1;
+    const os = /iPhone|iPod/.test(ua) ? 'iOS' : (/iPad/.test(ua) || ipad) ? 'iPadOS' : /Android/.test(ua) ? 'Android'
+      : /Windows/.test(ua) ? 'Windows' : /CrOS/.test(ua) ? 'ChromeOS' : /Mac OS X/.test(ua) ? 'macOS' : /Linux/.test(ua) ? 'Linux' : 'Khác';
+    const br = /Zalo/i.test(ua) ? 'Zalo' : /FBAN|FBAV|FB_IAB/.test(ua) ? 'Facebook' : /Instagram/.test(ua) ? 'Instagram'
+      : /coc_coc|CocCoc/i.test(ua) ? 'Cốc Cốc' : /Edg[A]?\//.test(ua) ? 'Edge' : /OPR\//.test(ua) ? 'Opera' : /SamsungBrowser/.test(ua) ? 'Samsung'
+      : /CriOS|Chrome\//.test(ua) ? 'Chrome' : /FxiOS|Firefox\//.test(ua) ? 'Firefox' : /Safari\//.test(ua) ? 'Safari' : 'Khác';
+    const dev = (os === 'iPadOS' || (/Android/.test(ua) && !/Mobile/.test(ua))) ? 'Máy tính bảng' : /Mobi|iPhone|Android/.test(ua) ? 'Điện thoại' : 'Máy tính';
+    let tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    return { os, br, dev, scr: screen.width + 'x' + screen.height, lang: (navigator.language || '').slice(0, 10), tz };
+  }
+  function sessionSource() {
+    try { const s = JSON.parse(store.get('eh_src', 1) || 'null'); if (s) return s; } catch (e) {}
+    const p = new URLSearchParams(location.search);
+    let src = p.get('utm_source') || '', med = p.get('utm_medium') || '';
+    const camp = p.get('utm_campaign') || '';
+    let host = '';
+    try { host = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch (e) {}
+    if (!src) {
+      if (p.get('gclid')) { src = 'google'; med = 'cpc'; }
+      else if (p.get('fbclid') || /FBAN|FBAV|FB_IAB/.test(navigator.userAgent)) { src = 'facebook'; med = med || 'social'; }
+      else if (p.get('zarsrc') || /Zalo/i.test(navigator.userAgent)) { src = 'zalo'; med = 'social'; }
+      else if (!host || host === location.hostname) { src = '(trực tiếp)'; med = 'direct'; }
+      else if (/(^|\.)google\./.test(host)) { src = 'google'; med = 'organic'; }
+      else if (/bing\.com$/.test(host)) { src = 'bing'; med = 'organic'; }
+      else if (/coccoc/.test(host)) { src = 'coccoc'; med = 'organic'; }
+      else if (/facebook\.com|fb\.com|messenger\.com/.test(host)) { src = 'facebook'; med = 'social'; }
+      else if (/zalo/.test(host)) { src = 'zalo'; med = 'social'; }
+      else if (/chatgpt|openai|perplexity|claude\.ai|gemini|copilot/.test(host)) { src = host; med = 'ai'; }
+      else { src = host; med = 'referral'; }
+    }
+    const o = { src: src.slice(0, 60), med: med.slice(0, 30), camp: camp.slice(0, 60), land: location.pathname };
+    store.set('eh_src', JSON.stringify(o), 1);
+    return o;
+  }
+  function evSend(final) {
+    if (!EV.on || !CONFIG.FORM_ENDPOINT) return;
+    if (final) evPageEnd();
+    if (!EV.q.length) return;
+    const body = new URLSearchParams({
+      action: 'ev',
+      d: JSON.stringify({ v: EV.vid, s: SESS.sid, u: uaInfo(), src: sessionSource(), e: EV.q.splice(0, 40) }),
+    });
+    let ok = false;
+    try { ok = navigator.sendBeacon && navigator.sendBeacon(CONFIG.FORM_ENDPOINT, body); } catch (e) {}
+    if (!ok) { try { fetch(CONFIG.FORM_ENDPOINT, { method: 'POST', body, mode: 'no-cors', keepalive: true }); } catch (e) {} }
+    if (EV.q.length) evSend(false);
+  }
+  const evSoon = () => { clearTimeout(EV.timer); EV.timer = setTimeout(() => evSend(false), 2500); };
+  function evPush(o) {
+    if (!EV.on) return;
+    EV.q.push({ p: location.pathname, pv: EV.pv, ts: Date.now(), ...o });
+    evSoon();
+  }
+  function evActiveSec() {
+    return Math.min(1800, Math.round((EV.active + (EV.visSince ? Date.now() - EV.visSince : 0)) / 1000));
+  }
+  function evPageEnd() { if (EV.pv) EV.q.push({ t: 'pe', p: location.pathname, pv: EV.pv, ts: Date.now(), sc: EV.maxSc, sec: evActiveSec() }); }
+  function evScroll() {
+    const h = root.scrollHeight - innerHeight;
+    const pct = h > 0 ? Math.round(Math.min(1, scrollY / h) * 20) * 5 : 100;
+    if (pct > EV.maxSc) EV.maxSc = pct;
+  }
+  function startTracker() {
+    if (EV.on || !analyticsOn() || !CONFIG.FORM_ENDPOINT || navigator.webdriver) return;
+    EV.on = true;
+    EV.vid = store.get('eh_vid') || rid(10);
+    store.set('eh_vid', EV.vid);
+    EV.pv = rid(6);
+    EV.visSince = document.visibilityState === 'visible' ? Date.now() : 0;
+    const src = sessionSource();
+    evPush({ t: 'pv', ti: document.title.slice(0, 90), land: src.land === location.pathname && SESS.isNew ? 1 : 0 });
+    evSend(false);
+    addEventListener('scroll', evScroll, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        if (EV.visSince) { EV.active += Date.now() - EV.visSince; EV.visSince = 0; }
+        evSend(true);
+      } else EV.visSince = Date.now();
+    });
+    addEventListener('pagehide', () => evSend(true));
+  }
+  function stopTracker() {
+    EV.on = false; EV.q = [];
+    store.del('eh_vid');
+    // Xóa cookie Google Analytics (_ga, _ga_*) trên tên miền này
+    document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => /^_ga/.test(n)).forEach((n) => {
+      [location.hostname, '.' + location.hostname.replace(/^www\./, '')].forEach((d) => {
+        document.cookie = n + '=; Max-Age=0; path=/; domain=' + d;
+      });
+      document.cookie = n + '=; Max-Age=0; path=/';
+    });
+  }
+  // Các hành động được ghi lại (gọi, Zalo, mở form, gửi form, hộp gợi ý…)
+  fpEvent = (name, params) => {
+    if (!EV.on || name === 'form_error') return;
+    const l = params.form || params.dialog || params.service || params.step || '';
+    evPush({ t: 'ac', n: String(name).slice(0, 40), l: String(l).slice(0, 60) });
+    if (name === 'form_submit') evSend(false);
+  };
+  // Gắn mã truy cập (ẩn danh) vào hồ sơ form khi khách đã đồng ý cookie, để biết hành trình trước khi để lại thông tin
+  function withVisitor(data) {
+    if (EV.on && EV.vid) data.visitor = EV.vid;
+    if (data.optin) data.optin = 'Có';
+    return data;
+  }
+
+  /* ---------------- Thông báo đồng ý cookie ---------------- */
+  function consentBanner(force) {
+    if ((consent && !force) || $('#ckBar')) return;
+    const en = root.lang === 'en';
+    const el = document.createElement('div');
+    el.id = 'ckBar';
+    el.className = 'ck-bar';
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-label', en ? 'Cookie consent' : 'Đồng ý cookie');
+    el.innerHTML = en
+      ? '<p>We use cookies to understand how visitors use this site (pages viewed, traffic source, device) and to improve our service. No IP address is stored. <a href="/#chinh-sach-bao-mat" lang="vi">Privacy policy</a></p><div class="ck-acts"><button type="button" class="btn btn-ghost-dark ck-no">Necessary only</button><button type="button" class="btn btn-green ck-yes">Accept</button></div>'
+      : '<p>Elite Helpers dùng cookie để hiểu cách khách dùng website (trang đã xem, nguồn truy cập, thiết bị) và cải thiện dịch vụ. Không lưu địa chỉ IP. <a href="#chinh-sach-bao-mat" data-open="policy">Chính sách dữ liệu</a></p><div class="ck-acts"><button type="button" class="btn btn-ghost-dark ck-no">Chỉ cần thiết</button><button type="button" class="btn btn-green ck-yes">Đồng ý</button></div>';
+    document.body.appendChild(el);
+    const set = (c) => {
+      consent = c;
+      store.set(CONSENT_KEY, JSON.stringify({ c, t: new Date().toISOString(), v: CONFIG.CONSENT_VERSION }));
+      el.remove();
+      if (c === 'all') { loadGA(); startTracker(); } else stopTracker();
+      toast(en ? 'Your choice has been saved' : 'Đã lưu lựa chọn của bạn');
+    };
+    $('.ck-yes', el).addEventListener('click', () => set('all'));
+    $('.ck-no', el).addEventListener('click', () => set('necessary'));
+  }
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-cookie-settings]')) { e.preventDefault(); consentBanner(true); }
+  });
+  if (analyticsOn()) { loadGA(); startTracker(); }
+  else if (!consent && !navigator.webdriver) setTimeout(() => consentBanner(false), 1500);
+
+  /* ==================================================================
+   * HỘP GỢI Ý (marketing automation nhẹ): hiện khi khách cuộn sâu, đọc lâu
+   * hoặc định rời trang. Mỗi phiên tối đa 1 lần; đóng thì ẩn 3 ngày.
+   * Không thu thập dữ liệu, chỉ gợi ý mở form / Zalo.
+   * ================================================================== */
+  (() => {
+    const path = location.pathname;
+    if (store.get('eh_nudge', 1)) return;
+    if (Date.now() - Number(store.get('eh_nudge_x') || 0) < 3 * 86400000) return;
+    const en = root.lang === 'en';
+    const lead = store.get('eh_lead') === '1';
+    const svcBtn = $('main [data-open="khach"][data-service]');
+    const svc = svcBtn ? svcBtn.dataset.service : '';
+    let c;
+    if (lead) {
+      c = { k: 'quaylai', h: en ? 'Welcome back' : 'Chào mừng anh/chị quay lại',
+        p: en ? 'We are working on your request. Need to add details or ask anything? Message us on Zalo.' : 'Elite Helpers đang xử lý yêu cầu của gia đình. Cần bổ sung thông tin hay hỏi thêm, anh/chị nhắn Zalo cho chúng tôi nhé.',
+        b: `<a class="btn btn-green" href="${CONFIG.ZALO_URL}" target="_blank" rel="noopener" data-nudge-go>${en ? 'Message on Zalo' : 'Nhắn Zalo'}</a>`, at: 0.3, sec: 12 };
+    } else if (/^\/tuyen-dung/.test(path)) {
+      c = { k: 'ungvien', h: 'Đang tìm việc giúp việc, bảo mẫu?', p: 'Ứng tuyển trong 2 phút. Elite Helpers không thu phí người lao động.',
+        b: '<a class="btn btn-green" href="#ung-tuyen" data-open="ungvien" data-nudge-go>Ứng tuyển ngay</a>', at: 0.45, sec: 35 };
+    } else if (en) {
+      c = { k: 'en', h: 'Need a trusted helper in Hanoi?', p: 'Tell us what you need. We reply within the same working day.',
+        b: `<a class="btn btn-green" href="${path.startsWith('/en') ? '' : '/en/'}#contact" data-nudge-go>Get in touch</a><a class="btn btn-ghost-dark" href="${CONFIG.ZALO_URL}" target="_blank" rel="noopener" data-nudge-go>Zalo</a>`, at: 0.5, sec: 40 };
+    } else {
+      c = { k: 'khach', h: 'Cần người phù hợp cho gia đình?', p: 'Gửi nhu cầu trong 2 phút, tư vấn miễn phí và phản hồi trong ngày làm việc.',
+        b: `<a class="btn btn-green" href="#tim-nguoi" data-open="khach"${svc ? ` data-service="${svc.replace(/"/g, '')}"` : ''} data-nudge-go>Nhận tư vấn</a><a class="btn btn-ghost-dark" href="${CONFIG.ZALO_URL}" target="_blank" rel="noopener" data-nudge-go>Zalo</a>`,
+        at: path === '/' ? 0.6 : 0.5, sec: 40 };
+    }
+    let shown = false, activeMs = 0, last = Date.now();
+    const ready = () => !$('dialog[open]') && !$('#ckBar');
+    function show(why) {
+      if (shown || !ready()) return;
+      shown = true;
+      store.set('eh_nudge', '1', 1);
+      const el = document.createElement('aside');
+      el.className = 'nudge';
+      el.setAttribute('aria-label', c.h);
+      el.innerHTML = `<button type="button" class="nudge-x" aria-label="${en ? 'Close' : 'Đóng'}">×</button><p class="nudge-h">${c.h}</p><p class="nudge-p">${c.p}</p><div class="nudge-b">${c.b}</div>`;
+      document.body.appendChild(el);
+      requestAnimationFrame(() => el.classList.add('in'));
+      track('nudge_show', { form: c.k, step: why });
+      const close = () => { el.classList.remove('in'); setTimeout(() => el.remove(), 400); };
+      $('.nudge-x', el).addEventListener('click', () => { store.set('eh_nudge_x', String(Date.now())); track('nudge_close', { form: c.k }); close(); });
+      el.addEventListener('click', (e) => { if (e.target.closest('[data-nudge-go]')) { track('nudge_click', { form: c.k }); close(); } });
+    }
+    const onScroll = () => {
+      const h = root.scrollHeight - innerHeight;
+      if (h > 0 && scrollY / h >= c.at) show('cuộn');
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    const tick = setInterval(() => {
+      if (shown) { clearInterval(tick); return; }
+      const now = Date.now();
+      if (document.visibilityState === 'visible') activeMs += now - last;
+      last = now;
+      if (activeMs / 1000 >= c.sec) show('thời gian');
+    }, 1000);
+    // Ý định rời trang (máy tính): chuột đi ra mép trên cửa sổ
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      document.addEventListener('mouseout', (e) => { if (!e.relatedTarget && e.clientY <= 0 && activeMs > 8000) show('rời trang'); });
+    }
+  })();
 
   /* Năm hiện tại ở chân trang */
   $$('[data-year]').forEach((el) => { el.textContent = String(new Date().getFullYear()); });

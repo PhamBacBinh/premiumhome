@@ -58,6 +58,32 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 .empty{text-align:center;color:var(--soft);padding:30px 0}
 .err{color:var(--red);font-size:.9rem;margin-top:8px}
 .hint{font-size:.85rem;color:var(--soft)}
+.tag.ql{background:#fbe9d0;color:#8a4b12}
+.views{display:flex;gap:6px;margin:2px 0 12px;border-bottom:1px solid var(--line)}
+.views button{border:0;background:none;font:600 15px system-ui;color:var(--soft);padding:.55rem .8rem;border-bottom:2px solid transparent;cursor:pointer}
+.views button[aria-pressed=true]{color:var(--g);border-bottom-color:var(--b)}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}
+@media(min-width:560px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.kpi b{display:block;font:700 1.45rem/1.1 system-ui;color:var(--ink);font-variant-numeric:tabular-nums}
+.kpi span{font-size:.78rem;color:var(--soft)}
+.sec-h{font-size:1rem;margin:18px 0 6px;color:var(--g)}
+.bars{display:flex;align-items:flex-end;gap:2px;height:120px;padding:8px 4px 0;border-bottom:1px solid var(--line)}
+.bars i{flex:1;min-width:3px;background:var(--g2);border-radius:4px 4px 0 0;position:relative}
+.bars i:hover{background:var(--b)}
+.bars-x{display:flex;justify-content:space-between;font-size:.72rem;color:var(--soft);margin-top:4px}
+.hl{list-style:none;margin:0;padding:0}
+.hl li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.hl li .bg{grid-column:1/-1;height:6px;border-radius:3px;background:#e8e2d4;overflow:hidden}
+.hl li .bg i{display:block;height:100%;background:var(--g2);border-radius:3px}
+.hl li em{font-style:normal;color:var(--soft);font-size:.8rem}
+.hl li b{font-variant-numeric:tabular-nums}
+.grid2{display:grid;gap:4px 18px}
+@media(min-width:640px){.grid2{grid-template-columns:1fr 1fr}}
+.sess{font-size:.88rem}
+.sess .path{margin:.3rem 0 0;color:var(--ink);word-break:break-word}
+.sess .acts2{margin:.25rem 0 0;color:#8a4b12}
+.ranges{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 </style>
 </head>
 <body>
@@ -81,6 +107,11 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   </section>
 
   <section id="app" hidden>
+    <div class="views" role="group" aria-label="Chế độ xem">
+      <button type="button" data-v="hoso" aria-pressed="true">Hồ sơ</button>
+      <button type="button" data-v="phantich" aria-pressed="false">Phân tích</button>
+    </div>
+    <div id="vHoso">
     <div class="tools">
       <div class="tabs" role="group" aria-label="Lọc">
         <button class="tab" data-f="all" aria-pressed="true">Tất cả</button>
@@ -91,6 +122,18 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     </div>
     <p class="meta" id="meta">Đang tải…</p>
     <div id="list"></div>
+    </div>
+    <div id="vStats" hidden>
+      <div class="ranges" role="group" aria-label="Khoảng thời gian">
+        <button class="tab" data-d="1" aria-pressed="false">Hôm nay</button>
+        <button class="tab" data-d="7" aria-pressed="true">7 ngày</button>
+        <button class="tab" data-d="30" aria-pressed="false">30 ngày</button>
+        <button class="tab" data-d="90" aria-pressed="false">90 ngày</button>
+      </div>
+      <p class="meta" id="sMeta">Đang tải…</p>
+      <div id="sBody"></div>
+      <p class="hint" style="margin-top:14px">Chỉ tính khách đã bấm “Đồng ý” cookie trên web (theo luật dữ liệu cá nhân). Tổng lượt truy cập của mọi khách xem ở bộ đếm đầu trang web. Vị trí theo thành phố xem trong Google Analytics.</p>
+    </div>
     <p class="hint" style="margin-top:24px">Trang tự kiểm tra hồ sơ mới mỗi 60 giây khi đang mở. Muốn có thông báo cả khi đóng trang: dùng email về Zoho/Gmail hoặc Telegram.
       · <a href="#" id="logout">Đăng xuất thiết bị này</a></p>
   </section>
@@ -149,14 +192,22 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     badge.hidden = n.length === 0;
     document.title = (n.length ? '(' + n.length + ') ' : '') + 'Quản trị · Elite Helpers';
     if ('setAppBadge' in navigator) { try { n.length ? navigator.setAppBadge(n.length) : navigator.clearAppBadge(); } catch (e) {} }
-    const list = items.filter((x) => filter === 'all' || x.type === filter);
+    const list = items.filter((x) => filter === 'all' || x.type === filter || (filter === 'khach' && x.type === 'quaylai'));
     if (!list.length) { $('#list').innerHTML = '<p class="empty">Chưa có hồ sơ.</p>'; return; }
     $('#list').innerHTML = list.map((x) => {
       const isNew = (!seen || x.time > seen) && !String(x.status).startsWith('Nghi spam');
       const spam = String(x.status).startsWith('Nghi spam');
       const k = x.type === 'khach';
+      if (x.type === 'quaylai') {
+        const qrows = [['Đang xem', pageName(x.page)], ['Nguồn', x.src], ['Thiết bị', x.device]];
+        const qdl = qrows.filter((r) => r[1]).map((r) => '<dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd>').join('');
+        x.phone = cleanPhone(x.phone); const qph = digits(x.phone);
+        return '<article class="card item' + (isNew ? ' new' : '') + '"><div class="top"><span class="tag ql">Khách cũ quay lại</span><span class="time">' + esc(fmt(x.time)) + (isNew ? ' · <b>MỚI</b>' : '') + '</span></div>' +
+          '<h2>' + esc(x.name || '(không tên)') + '</h2><dl>' + qdl + '</dl><p class="hint" style="margin:.4rem 0 0">Khách đang quan tâm, nên liên hệ trong 30 phút.</p>' +
+          (qph ? '<div class="acts"><a class="btn sm" href="tel:' + esc(qph) + '">Gọi ' + esc(x.phone) + '</a><a class="btn alt sm" href="https://zalo.me/' + esc(qph.replace(/^\+84/, '0')) + '" target="_blank" rel="noopener">Zalo</a></div>' : '') + '</article>';
+      }
       const rows = k
-        ? [['Dịch vụ', x.service], ['Hình thức', x.mode], ['Khu vực', x.area], ['Bắt đầu', x.start], ['Khách', x.client], ['Liên hệ lúc', x.contactTime], ['Email', x.email], ['Mô tả', x.note]]
+        ? [['Dịch vụ', x.service], ['Hình thức', x.mode], ['Khu vực', x.area], ['Bắt đầu', x.start], ['Khách', x.client], ['Liên hệ lúc', x.contactTime], ['Email', x.email], ['Nhận tin', x.optin], ['Mô tả', x.note]]
         : [['Vị trí', x.position], ['Hình thức', x.mode], ['Năm sinh', x.birthYear], ['Quê', x.hometown], ['Nơi ở', x.currentAddress], ['Kinh nghiệm', x.expYears], ['Lương mong muốn', x.salary], ['Bắt đầu', x.start]];
       const dl = rows.filter((r) => r[1]).map((r) => '<dt>' + r[0] + '</dt><dd>' + esc(String(r[1]).slice(0, 400)) + '</dd>').join('');
       x.phone = cleanPhone(x.phone); const ph = digits(x.phone);
@@ -233,9 +284,9 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     if (items.length) { seen = items[0].time; store.set('eh_admin_seen', seen); lastNewCount = 0; render(); }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-  document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs .tab').forEach((b) => b.addEventListener('click', () => {
     filter = b.dataset.f;
-    document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-pressed', String(t === b)));
+    document.querySelectorAll('.tabs .tab').forEach((t) => t.setAttribute('aria-pressed', String(t === b)));
     render();
   }));
   $('#notifBtn').addEventListener('click', async () => {
@@ -245,6 +296,72 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     $('#notifBtn').textContent = 'Đã bật chuông' + ('Notification' in window && Notification.permission === 'granted' ? ' & thông báo' : ' & âm thanh');
     chime();
   });
+  // ---------------- Phân tích ----------------
+  const PAGE_NAMES = { '/': 'Trang chủ', '/dich-vu/': 'Dịch vụ', '/giup-viec-gia-dinh/': 'Giúp việc gia đình', '/bao-mau-cham-be/': 'Bảo mẫu', '/cham-soc-nguoi-gia/': 'Chăm sóc người già',
+    '/quan-gia/': 'Quản gia', '/dau-bep-gia-dinh/': 'Đầu bếp', '/ho-tro-ngan-han/': 'Hỗ trợ ngắn hạn', '/tuyen-dung/': 'Tuyển dụng', '/cam-nang/': 'Cẩm nang',
+    '/thue-giup-viec-2026/': 'Thuê giúp việc 2026', '/gia-thue-giup-viec-ha-noi/': 'Bảng lương', '/kinh-nghiem-thue-bao-mau/': 'KN thuê bảo mẫu',
+    '/thue-nguoi-cham-soc-nguoi-gia/': 'Thuê người chăm người già', '/giup-viec-o-lai-hay-theo-gio/': 'Ở lại hay theo giờ', '/hiring-helper-hanoi-expat-guide/': 'Expat guide (EN)', '/en/': 'English' };
+  function pageName(p) { p = String(p || ''); const k = p.endsWith('/') ? p : p + '/'; return PAGE_NAMES[k] || PAGE_NAMES[p] || p; }
+  const ACT_NAMES = { click_call: 'Bấm gọi', click_zalo: 'Bấm Zalo', copy_phone: 'Sao chép SĐT', dialog_open: 'Mở form', form_step: 'Qua bước form', form_submit: '✅ Gửi form',
+    form_fallback: 'Gửi qua Zalo', menu_open: 'Mở menu', nudge_show: 'Hiện hộp gợi ý', nudge_click: 'Bấm hộp gợi ý', nudge_close: 'Đóng hộp gợi ý' };
+  const actName = (a) => { const [n, l] = String(a).split(':'); return (ACT_NAMES[n] || n) + (l && n !== 'form_step' ? ' (' + l + ')' : ''); };
+  const fmtSec = (s) => s >= 60 ? Math.floor(s / 60) + ' phút ' + (s % 60) + ' giây' : s + ' giây';
+  let sDays = 7, sLoaded = 0;
+  function hlist(title, arr, nameFn, unit) {
+    if (!arr || !arr.length) return '<h3 class="sec-h">' + title + '</h3><p class="hint">Chưa có dữ liệu.</p>';
+    const max = Math.max(...arr.map((x) => x.n));
+    return '<h3 class="sec-h">' + title + '</h3><ul class="hl">' + arr.map((x) => '<li><span>' + esc(nameFn ? nameFn(x.k) : x.k) + '</span><b>' + x.n + (unit || '') + '</b><span class="bg"><i style="width:' + Math.max(3, Math.round(x.n / max * 100)) + '%"></i></span></li>').join('') + '</ul>';
+  }
+  function renderStats(s) {
+    const k = s.kpi;
+    const tiles = [[k.visitors, 'Khách truy cập'], [k.sessions, 'Phiên truy cập'], [k.pageviews, 'Lượt xem trang'], [k.leads, 'Hồ sơ gửi từ web'],
+      [k.conv + '%', 'Tỷ lệ gửi hồ sơ'], [fmtSec(k.avgSec), 'TG xem TB / trang'], [k.pagesPerSession, 'Trang / phiên'], [k.bounce + '%', 'Thoát ngay']];
+    let h = '<div class="kpis">' + tiles.map((t) => '<div class="kpi"><b>' + esc(t[0]) + '</b><span>' + t[1] + '</span></div>').join('') + '</div>';
+    if (k.returning) h += '<p class="hint">' + k.returning + ' khách đã từng ghé trước đó và quay lại.</p>';
+    if (s.daily.length > 1) {
+      const mx = Math.max(1, ...s.daily.map((d) => d.s));
+      h += '<h3 class="sec-h">Phiên truy cập theo ngày</h3><div class="bars" role="img" aria-label="Biểu đồ số phiên truy cập theo ngày">' +
+        s.daily.map((d) => '<i style="height:' + Math.max(2, Math.round(d.s / mx * 100)) + '%" title="' + d.d + ': ' + d.s + ' phiên, ' + d.pv + ' lượt xem"></i>').join('') +
+        '</div><div class="bars-x"><span>' + s.daily[0].d + '</span><span>Cao nhất ' + mx + ' phiên/ngày</span><span>' + s.daily[s.daily.length - 1].d + '</span></div>';
+    }
+    h += '<h3 class="sec-h">Trang được xem nhiều</h3><ul class="hl">' + (s.pages.length ? s.pages.map((g) => {
+      const mx = s.pages[0].pv;
+      return '<li><span>' + esc(pageName(g.p)) + ' <em>· ' + (g.sec ? 'xem TB ' + fmtSec(g.sec) + ' · cuộn ' + g.sc + '%' : 'đang đo') + '</em></span><b>' + g.pv + '</b><span class="bg"><i style="width:' + Math.max(3, Math.round(g.pv / mx * 100)) + '%"></i></span></li>';
+    }).join('') : '<li class="hint">Chưa có dữ liệu.</li>') + '</ul>';
+    h += '<div class="grid2"><div>' + hlist('Trang vào đầu tiên', s.entries, pageName) + '</div><div>' + hlist('Trang thoát', s.exits, pageName) + '</div></div>';
+    h += '<div class="grid2"><div>' + hlist('Nguồn khách đến', s.sources) + '</div><div>' + hlist('Hành động', s.actions, (n) => ACT_NAMES[n] || n) + '</div></div>';
+    h += '<div class="grid2"><div>' + hlist('Thiết bị', s.devices) + hlist('Hệ điều hành', s.os) + '</div><div>' + hlist('Trình duyệt', s.browsers) + '</div></div>';
+    h += '<h3 class="sec-h">Hành trình gần đây</h3>' + (s.recent.length ? s.recent.map((r) =>
+      '<article class="card sess"><div class="top"><span class="tag' + (r.lead ? ' ql' : '') + '">' + (r.lead ? 'Khách: ' + esc(r.lead) : (r.ret ? 'Khách quay lại' : 'Khách mới')) + '</span><span class="time">' + esc(fmt(r.start)) + ' · ' + fmtSec(r.sec) + '</span></div>' +
+      '<p class="path">' + r.pages.map((p) => esc(pageName(p))).join(' → ') + '</p>' +
+      (r.acts.length ? '<p class="acts2">' + r.acts.map((a) => esc(actName(a))).join(' · ') + '</p>' : '') +
+      '<p class="hint" style="margin:.25rem 0 0">' + esc([r.src + (r.camp ? ' / ' + r.camp : ''), r.dev, r.os, r.br].filter(Boolean).join(' · ')) + '</p></article>').join('') : '<p class="hint">Chưa có dữ liệu.</p>');
+    $('#sBody').innerHTML = h;
+  }
+  async function loadStats(fresh) {
+    $('#sMeta').textContent = 'Đang tải…';
+    try {
+      const s = await call({ action: 'stats', days: String(sDays), fresh: fresh ? '1' : '0' }, 30000);
+      sLoaded = Date.now();
+      renderStats(s);
+      $('#sMeta').textContent = (sDays === 1 ? 'Hôm nay' : sDays + ' ngày gần nhất') + ' · cập nhật ' + new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    } catch (err) {
+      const m = String(err.message);
+      $('#sMeta').textContent = m === 'timeout' ? 'Chưa tải được: cần cập nhật Apps Script bản 11.' : 'Chưa tải được (' + m + '), thử lại sau.';
+    }
+  }
+  document.querySelectorAll('.views button').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('.views button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    const st = b.dataset.v === 'phantich';
+    $('#vHoso').hidden = st; $('#vStats').hidden = !st;
+    if (st && Date.now() - sLoaded > 120000) loadStats(false);
+  }));
+  document.querySelectorAll('.ranges .tab').forEach((b) => b.addEventListener('click', () => {
+    sDays = Number(b.dataset.d);
+    document.querySelectorAll('.ranges .tab').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    loadStats(false);
+  }));
+
   // Xóa hồ sơ: xóa dòng trong Google Sheet (bản sao vào tab ThungRac, tự xóa hẳn sau 30 ngày)
   $('#list').addEventListener('click', async (e) => {
     const b = e.target.closest('[data-del]');

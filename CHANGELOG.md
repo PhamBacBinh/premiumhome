@@ -7,13 +7,28 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261019n (mới nhất) | **bản 10** | Nút Xóa hồ sơ trên /quan-tri |
+| 20261019p (mới nhất) | **bản 11** | Tab Phân tích, khách cũ quay lại (web vẫn chạy với bản 10, chỉ thiếu phần phân tích) |
+| 20261019n | **bản 10** | Nút Xóa hồ sơ trên /quan-tri |
 | 20261019h – 20261019k | bản 9 trở lên | Trang quản trị tải dữ liệu bằng JSONP |
 | 20261019 (trước 17:30) | bản 8 trở lên | Bộ đếm truy cập dùng tham số `vid` |
 
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261019p] – 19/10/2026 · Đồng ý cookie, phân tích hành vi, hộp gợi ý
+**Web**
+- Thông báo **đồng ý cookie** (Đồng ý / Chỉ cần thiết) + nút "Cài đặt cookie" ở chân trang để đổi lựa chọn. Chưa đồng ý: không tải Google Analytics, không ghi hành vi. Rút lại đồng ý: xóa mã truy cập và cookie GA.
+- **Phân tích hành vi first-party** (chỉ khi đồng ý): trang xem, nguồn (utm, Google, Facebook, Zalo, AI…), trang vào/thoát, % cuộn, thời gian xem, nút bấm, thiết bị, hệ điều hành, trình duyệt, ngôn ngữ, múi giờ. Không lưu IP.
+- **Hộp gợi ý** theo trang (khách / ứng viên / tiếng Anh / khách cũ): hiện khi cuộn sâu, đọc lâu hoặc định rời trang (máy tính); 1 lần mỗi phiên, đóng thì ẩn 3 ngày.
+- Form khách: ô tùy chọn **nhận tin chăm sóc qua Zalo/email**; hồ sơ gắn mã truy cập (nếu đã đồng ý cookie).
+- Chính sách dữ liệu: thêm mục 4a (cookie, phân tích hành vi), thời hạn lưu dữ liệu phân tích 12 tháng; phiên bản chính sách 19/10/2026.
+- Trang quản trị: tab **Phân tích** (KPI, theo ngày, trang, trang vào/thoát, nguồn, thiết bị, hành trình từng phiên); thẻ **Khách cũ quay lại** trong danh sách hồ sơ.
+
+**Apps Script bản 11**
+- `ev`: nhận sự kiện → tab **SuKien** (chống spam, tự xóa sau 12 tháng). `stats`: tổng hợp cho tab Phân tích (cache 2 phút).
+- Cột mới: KhachHang "Nhận tin chăm sóc", "Mã truy cập web"; UngVien "Mã truy cập web" (tự thêm tiêu đề).
+- Khách đã gửi form quay lại web → ghi tab **QuayLai** + email báo (tối đa 1 lần/6 giờ/khách).
 
 ## [20261019n] – 19/10/2026 · Bảo mật + xóa hồ sơ
 **Web**

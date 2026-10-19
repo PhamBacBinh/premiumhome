@@ -151,3 +151,23 @@ a.card .more{display:inline-block;margin-top:.8rem;font-weight:600;font-size:.92
 @keyframes vpulse{0%{box-shadow:0 0 0 0 rgba(95,191,119,.55)}70%{box-shadow:0 0 0 6px rgba(95,191,119,0)}100%{box-shadow:0 0 0 0 rgba(95,191,119,0)}}
 @keyframes vfade{from{opacity:0;transform:translateY(-2px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.visits-head,.visits-head .dot{animation:none}}
+
+/* ---------- Thông báo đồng ý cookie ---------- */
+.ck-bar{position:fixed;z-index:70;left:12px;right:12px;bottom:calc(70px + env(safe-area-inset-bottom));background:var(--color-paper);color:var(--color-ink);border:1px solid rgba(122,96,42,.35);border-radius:16px;padding:14px 16px;box-shadow:0 18px 40px -18px rgba(0,0,0,.45);font-size:.88rem;line-height:1.5;max-width:560px}
+.ck-bar p{margin:0}
+.ck-bar a{color:var(--color-shutter);text-decoration:underline;text-underline-offset:2px}
+.ck-acts{display:flex;gap:8px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap}
+.ck-acts .btn{padding:.55rem 1.1rem;font-size:.88rem;min-height:0}
+@media (min-width:768px){.ck-bar{left:24px;right:auto;bottom:24px}}
+
+/* ---------- Hộp gợi ý (nudge) ---------- */
+.nudge{position:fixed;z-index:65;right:12px;left:12px;bottom:calc(70px + env(safe-area-inset-bottom));background:var(--color-paper);color:var(--color-ink);border:1px solid rgba(203,171,109,.7);border-radius:18px;padding:16px 18px 16px;box-shadow:0 22px 48px -20px rgba(0,0,0,.5);transform:translateY(16px);opacity:0;transition:transform .45s var(--ease-out-soft),opacity .45s var(--ease-out-soft);max-width:380px;margin-left:auto}
+.nudge.in{transform:none;opacity:1}
+.nudge-h{margin:0 28px 4px 0;font-family:var(--font-display);font-weight:600;font-size:1.3rem;line-height:1.2;color:var(--color-shutter)}
+.nudge-p{margin:0;font-size:.9rem;color:var(--color-ink-soft)}
+.nudge-b{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.nudge-b .btn{padding:.55rem 1.1rem;font-size:.88rem;min-height:0}
+.nudge-x{position:absolute;top:8px;right:10px;width:32px;height:32px;border-radius:50%;font-size:1.3rem;line-height:1;color:var(--color-ink-soft);background:transparent;cursor:pointer}
+.nudge-x:hover{background:rgba(0,0,0,.06)}
+@media (min-width:768px){.nudge{right:24px;left:auto;bottom:24px}}
+@media (prefers-reduced-motion:reduce){.nudge{transition:none}}

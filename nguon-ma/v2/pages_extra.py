@@ -275,7 +275,7 @@ def en_footer(g):
   <div class="shell">
     <div class="rule-top flex flex-col gap-2 pt-6 text-[.85rem] sm:flex-row sm:justify-between">
       <p>&copy; <span data-year>2026</span> Elite Helpers (Giúp việc Elite) · Hanoi, Vietnam<br>lienhe@giupviecelite.vn · +84 948 919 598</p>
-      <p><a class="link-quiet" href="/" hreflang="vi" lang="vi">Tiếng Việt</a></p>
+      <p><button type="button" class="link-quiet" data-cookie-settings>Cookie settings</button> · <a class="link-quiet" href="/" hreflang="vi" lang="vi">Tiếng Việt</a></p>
     </div>
   </div>
 </footer>
@@ -387,6 +387,7 @@ def en_page(g):
       <div><label for="enNote">Tell us about your needs</label><textarea id="enNote" name="note" rows="4" maxlength="1500" placeholder="Household size, children's ages, hours, live-in or part-time, English level needed..."></textarea></div>
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <label class="chk"><input type="checkbox" name="agree" required> <span>I agree that Elite Helpers may use these details to contact me about my request, as described in our <a class="underline" href="/#chinh-sach-bao-mat" lang="vi">privacy policy</a> (Vietnamese).</span></label>
+      <label class="chk"><input type="checkbox" name="optin" value="Yes"> <span>Send me helpful updates and offers from Elite Helpers by Zalo/email (optional, unsubscribe anytime).</span></label>
       <div><button type="submit" class="btn btn-brass">Send request</button></div>
       <p class="msg" data-msg role="status" tabindex="-1" hidden></p>
       <p class="text-[.8rem] text-mist">This form is protected by Google reCAPTCHA.</p>
