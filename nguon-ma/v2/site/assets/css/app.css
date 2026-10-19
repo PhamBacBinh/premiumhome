@@ -171,3 +171,8 @@ a.card .more{display:inline-block;margin-top:.8rem;font-weight:600;font-size:.92
 .nudge-x:hover{background:rgba(0,0,0,.06)}
 @media (min-width:768px){.nudge{right:24px;left:auto;bottom:24px}}
 @media (prefers-reduced-motion:reduce){.nudge{transition:none}}
+
+/* ---------- Nút Quản trị (chỉ máy quản trị viên) ---------- */
+.admin-fab{position:fixed;z-index:66;left:12px;bottom:calc(70px + env(safe-area-inset-bottom));display:inline-flex;align-items:center;gap:6px;padding:.5rem .85rem;border-radius:999px;background:var(--color-lacquer);color:var(--color-brass);border:1px solid rgba(203,171,109,.6);font-size:.82rem;font-weight:600;box-shadow:0 10px 24px -12px rgba(0,0,0,.5);text-decoration:none}
+.admin-fab:hover{color:var(--color-paper)}
+@media (min-width:768px){.admin-fab{bottom:24px;left:24px}}

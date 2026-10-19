@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261019p (mới nhất) | **bản 11** | Tab Phân tích, khách cũ quay lại (web vẫn chạy với bản 10, chỉ thiếu phần phân tích) |
+| 20261019q (mới nhất) | **bản 11** | Nút Quản trị trên máy quản trị viên |
+| 20261019p | **bản 11** | Tab Phân tích, khách cũ quay lại (web vẫn chạy với bản 10, chỉ thiếu phần phân tích) |
 | 20261019n | **bản 10** | Nút Xóa hồ sơ trên /quan-tri |
 | 20261019h – 20261019k | bản 9 trở lên | Trang quản trị tải dữ liệu bằng JSONP |
 | 20261019 (trước 17:30) | bản 8 trở lên | Bộ đếm truy cập dùng tham số `vid` |
@@ -15,6 +16,11 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261019q] – 19/10/2026 · Nút Quản trị riêng cho máy quản trị viên
+- Máy đã đăng nhập /quan-tri (cùng trình duyệt) thấy nút **Quản trị** ở góc trái dưới trên mọi trang; khách không thấy.
+- Máy quản trị viên **không bị tính** vào bộ đếm và phân tích, không hiện banner cookie và hộp gợi ý.
+- Trang quản trị: thêm liên kết "Về trang web".
 
 ## [20261019p] – 19/10/2026 · Đồng ý cookie, phân tích hành vi, hộp gợi ý
 **Web**

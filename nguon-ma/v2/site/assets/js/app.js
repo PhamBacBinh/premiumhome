@@ -44,10 +44,12 @@
 
   /* ---------------- Đồng ý cookie (Luật Bảo vệ dữ liệu cá nhân) ----------------
    * Chưa đồng ý hoặc chọn "Chỉ cần thiết": KHÔNG tải Google Analytics, KHÔNG ghi hành vi. */
+  // Máy của quản trị viên (đã đăng nhập /quan-tri trên trình duyệt này): hiện nút Quản trị, không tính vào thống kê
+  const IS_ADMIN = !!store.get('eh_admin_key');
   const CONSENT_KEY = 'eh_consent_v1';
   let consent = null;
   try { consent = (JSON.parse(store.get(CONSENT_KEY) || 'null') || {}).c || null; } catch (e) {}
-  const analyticsOn = () => consent === 'all';
+  const analyticsOn = () => consent === 'all' && !IS_ADMIN;
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
@@ -604,7 +606,7 @@
     return j;
   };
   const runVisits = async () => {
-    const params = { action: 'hit', vid: SESS.sid, n: SESS.isNew ? '1' : '0' };
+    const params = { action: 'hit', vid: SESS.sid, n: SESS.isNew && !IS_ADMIN ? '1' : '0' };
     try { vRender(await viaJsonp(params)); } catch (e) {
       try { vRender(await viaPost(params)); } catch (e2) { /* lỗi mạng: ẩn bộ đếm */ }
     }
@@ -759,7 +761,17 @@
     if (e.target.closest('[data-cookie-settings]')) { e.preventDefault(); consentBanner(true); }
   });
   if (analyticsOn()) { loadGA(); startTracker(); }
-  else if (!consent && !navigator.webdriver) setTimeout(() => consentBanner(false), 1500);
+  else if (!consent && !IS_ADMIN && !navigator.webdriver) setTimeout(() => consentBanner(false), 1500);
+
+  /* Nút Quản trị: chỉ hiện trên máy đã đăng nhập trang quản trị */
+  if (IS_ADMIN) {
+    const a = document.createElement('a');
+    a.href = '/quan-tri/';
+    a.className = 'admin-fab';
+    a.setAttribute('aria-label', 'Mở trang quản trị');
+    a.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span>Quản trị</span>';
+    document.body.appendChild(a);
+  }
 
   /* ==================================================================
    * HỘP GỢI Ý (marketing automation nhẹ): hiện khi khách cuộn sâu, đọc lâu
@@ -768,7 +780,7 @@
    * ================================================================== */
   (() => {
     const path = location.pathname;
-    if (store.get('eh_nudge', 1)) return;
+    if (IS_ADMIN || store.get('eh_nudge', 1)) return;
     if (Date.now() - Number(store.get('eh_nudge_x') || 0) < 3 * 86400000) return;
     const en = root.lang === 'en';
     const lead = store.get('eh_lead') === '1';
