@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261019q (mới nhất) | **bản 11** | Nút Quản trị trên máy quản trị viên |
+| 20261019r (mới nhất) | **bản 11** | Banner 20/10 |
+| 20261019q | **bản 11** | Nút Quản trị trên máy quản trị viên |
 | 20261019p | **bản 11** | Tab Phân tích, khách cũ quay lại (web vẫn chạy với bản 10, chỉ thiếu phần phân tích) |
 | 20261019n | **bản 10** | Nút Xóa hồ sơ trên /quan-tri |
 | 20261019h – 20261019k | bản 9 trở lên | Trang quản trị tải dữ liệu bằng JSONP |
@@ -16,6 +17,10 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261019r] – 19/10/2026 · Banner chúc mừng 20/10
+- Hộp ảnh chúc mừng Ngày Phụ nữ Việt Nam hiện giữa màn hình từ 19/10 21:00 đến hết 22/10/2026 (tự tắt), mỗi trình duyệt 1 lần; bấm ảnh hoặc nút "Nhận tư vấn miễn phí" mở form khách. Không hiện ở trang tiếng Anh.
+- Đo sự kiện promo_show / promo_click / promo_close (tab Phân tích). Ảnh: banner-20-10.webp (76KB).
 
 ## [20261019q] – 19/10/2026 · Nút Quản trị riêng cho máy quản trị viên
 - Máy đã đăng nhập /quan-tri (cùng trình duyệt) thấy nút **Quản trị** ở góc trái dưới trên mọi trang; khách không thấy.

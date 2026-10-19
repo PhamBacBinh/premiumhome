@@ -837,6 +837,50 @@
     }
   })();
 
+  /* ==================================================================
+   * BANNER SỰ KIỆN (hộp ảnh giữa màn hình): chỉ hiện trong khoảng thời gian cấu hình,
+   * mỗi trình duyệt thấy 1 lần. Hết hạn tự tắt, không cần sửa code.
+   * ================================================================== */
+  (() => {
+    const PROMO = {
+      id: 'p2010', from: '2026-10-19T21:00:00+07:00', to: '2026-10-22T23:59:59+07:00',
+      img: '/banner-20-10.webp', w: 720, h: 1280,
+      alt: 'Elite Helpers chúc mừng Ngày Phụ nữ Việt Nam 20/10: Mong người phụ nữ nào cũng được yêu thương như cách họ vẫn yêu thương',
+    };
+    const now = Date.now();
+    if (root.lang === 'en' || now < Date.parse(PROMO.from) || now > Date.parse(PROMO.to)) return;
+    if (store.get('eh_promo_' + PROMO.id)) return;
+    if (/^\/quan-tri/.test(location.pathname) || navigator.webdriver && !/[?&]promo=1/.test(location.search)) return;
+    setTimeout(() => {
+      if ($('dialog[open]')) return;
+      store.set('eh_promo_' + PROMO.id, '1');
+      store.set('eh_nudge', '1', 1); // không hiện thêm hộp gợi ý trong phiên này
+      const d = document.createElement('dialog');
+      d.className = 'promo';
+      d.setAttribute('aria-label', 'Chúc mừng Ngày Phụ nữ Việt Nam 20/10');
+      d.innerHTML = `<button type="button" class="promo-x" aria-label="Đóng">×</button>
+        <a href="#tim-nguoi" class="promo-go" data-promo-go><img src="${PROMO.img}" width="${PROMO.w}" height="${PROMO.h}" alt="${PROMO.alt}"></a>
+        <a href="#tim-nguoi" class="btn btn-brass promo-btn" data-promo-go>Nhận tư vấn miễn phí</a>`;
+      document.body.appendChild(d);
+      d.showModal();
+      track('promo_show', { form: PROMO.id });
+      const close = () => { d.close(); d.remove(); };
+      $('.promo-x', d).addEventListener('click', () => { track('promo_close', { form: PROMO.id }); close(); });
+      d.addEventListener('click', (e) => {
+        if (e.target === d) { track('promo_close', { form: PROMO.id }); close(); return; }
+        if (e.target.closest('[data-promo-go]')) {
+          e.preventDefault();
+          track('promo_click', { form: PROMO.id });
+          close();
+          const b = document.createElement('a');
+          b.href = '#tim-nguoi'; b.dataset.open = 'khach'; b.hidden = true;
+          document.body.appendChild(b); b.click(); b.remove();
+        }
+      });
+      d.addEventListener('cancel', () => { track('promo_close', { form: PROMO.id }); d.remove(); });
+    }, 2200);
+  })();
+
   /* Năm hiện tại ở chân trang */
   $$('[data-year]').forEach((el) => { el.textContent = String(new Date().getFullYear()); });
 })();
