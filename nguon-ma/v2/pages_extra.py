@@ -36,6 +36,48 @@ def recruit_page(g):
     </div>
   </div>
 </section>
+<section id="tim-viec-an-toan" class="on-light bg-linen py-20 lg:py-24" aria-labelledby="at-title">
+  <div class="shell">
+    <span class="eyebrow">Tìm việc an toàn</span>
+    <h2 id="at-title" class="t-h2 mt-3 text-shutter" style="max-width:24ch">Chị em đi làm giúp việc, hãy chọn nơi rõ ràng ngay từ đầu</h2>
+    <p class="mt-4 max-w-[60ch] text-ink-soft">Một công việc tốt luôn bắt đầu từ sự minh bạch. Trước khi nhận việc ở bất cứ đâu, chị em hãy dành vài phút đối chiếu những điểm dưới đây.</p>
+    <div class="safe2">
+      <article class="safe-card safe-warn" aria-labelledby="at-a">
+        <img src="assets/img/tim-viec-can-nhac-480.webp" srcset="assets/img/tim-viec-can-nhac-480.webp 480w, assets/img/tim-viec-can-nhac-760.webp 760w" sizes="(min-width:1024px) 560px, 92vw" width="480" height="316" alt="Người phụ nữ đứng giữa văn phòng giới thiệu việc làm, cầm điện thoại và túi hành lý, vẻ băn khoăn" loading="lazy" decoding="async">
+        <div class="safe-body">
+          <h3 id="at-a">Trước khi nhận việc, hãy <em>cân nhắc</em> nếu…</h3>
+          <ul class="safe-list" role="list">
+            <li>Tin tuyển đăng đi đăng lại</li>
+            <li>Lương báo một đằng, trả một nẻo</li>
+            <li>Thu phí trước khi đi làm</li>
+            <li>Phải ở trọ chờ việc</li>
+            <li>Không rõ thông tin gia đình</li>
+            <li>Không có hợp đồng</li>
+          </ul>
+        </div>
+      </article>
+      <span class="safe-arrow" aria-hidden="true"></span>
+      <article class="safe-card safe-ok" aria-labelledby="at-b">
+        <img src="assets/img/tim-viec-an-tam-480.webp" srcset="assets/img/tim-viec-an-tam-480.webp 480w, assets/img/tim-viec-an-tam-760.webp 760w" sizes="(min-width:1024px) 560px, 92vw" width="480" height="316" alt="Người giúp việc trò chuyện vui vẻ cùng chủ nhà bên bàn trà, cùng xem bản thỏa thuận công việc" loading="lazy" decoding="async">
+        <div class="safe-body">
+          <h3 id="at-b">Ở Elite Helpers,<br>chị em được <em>an tâm</em></h3>
+          <ul class="safe-list" role="list">
+            <li>Không thu bất kỳ khoản phí nào của người lao động</li>
+            <li>Lương đúng như tin đăng</li>
+            <li>Không ở trọ chờ việc</li>
+            <li>Trao đổi kỹ qua điện thoại, Zalo trước khi gặp</li>
+            <li>Gặp gia đình trước khi nhận việc</li>
+            <li>Hợp đồng rõ ràng, luôn đồng hành hỗ trợ</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a class="btn btn-brass" href="#ung-tuyen" data-open="ungvien">Ứng tuyển online (2 phút)</a>
+      <a class="btn btn-ghost-dark" href="https://zalo.me/0948919598" target="_blank" rel="noopener" data-track="zalo">Hỏi trước qua Zalo 0948 919 598</a>
+    </div>
+  </div>
+</section>
 <section class="on-light bg-paper py-20 lg:py-24" aria-labelledby="vt-title">
   <div class="shell">
     <h2 id="vt-title" class="t-h2 text-shutter">Vị trí đang tuyển</h2>

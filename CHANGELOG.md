@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261019s (mới nhất) | **bản 11** | Ảnh mục "Điều gia đình nhận được" |
+| 20261020a (mới nhất) | **bản 11** | Mục "Tìm việc an toàn" trang Tuyển dụng |
+| 20261019s | **bản 11** | Ảnh mục "Điều gia đình nhận được" |
 | 20261019r | **bản 11** | Banner 20/10 |
 | 20261019q | **bản 11** | Nút Quản trị trên máy quản trị viên |
 | 20261019p | **bản 11** | Tab Phân tích, khách cũ quay lại (web vẫn chạy với bản 10, chỉ thiếu phần phân tích) |
@@ -18,6 +19,10 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261020a] – 20/10/2026 · Mục "Tìm việc an toàn" trên trang Tuyển dụng
+- /tuyen-dung: thêm mục ngay dưới phần đầu trang, 2 thẻ cạnh nhau (điện thoại: xếp dọc) – "Trước khi nhận việc, hãy cân nhắc nếu…" (6 dấu ❌) và "Ở Elite Helpers, chị em được an tâm" (6 tick xanh), mũi tên vàng ở giữa; nút Ứng tuyển và Zalo bên dưới.
+- Ảnh mới: tim-viec-can-nhac-480/760.webp, tim-viec-an-tam-480/760.webp (21–42KB). CSS thêm khối .safe-*.
 
 ## [20261019s] – 19/10/2026 · Thay ảnh mục "Điều gia đình nhận được"
 - Ảnh khung vòm trang chủ: thay "cửa chớp và hoa giấy" bằng ảnh người giúp việc cùng gia đình ba thế hệ trong sân vườn biệt thự (gia-dinh-biet-thu-520/900.webp), cập nhật mô tả ảnh (alt). Xóa ảnh cũ cua-chop-ha-noi-*.webp.
