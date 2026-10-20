@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261020b (mới nhất) | **bản 11** | Giữ đăng nhập quản trị khi hệ thống tạm khóa |
+| 20261020c (mới nhất) | **bản 11** | Mục Tuyển dụng trên trang chủ |
+| 20261020b | **bản 11** | Giữ đăng nhập quản trị khi hệ thống tạm khóa |
 | 20261020a | **bản 11** | Mục "Tìm việc an toàn" trang Tuyển dụng |
 | 20261019s | **bản 11** | Ảnh mục "Điều gia đình nhận được" |
 | 20261019r | **bản 11** | Banner 20/10 |
@@ -20,6 +21,11 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261020c] – 20/10/2026 · Mục Tuyển dụng trên trang chủ
+- Trang chủ: thêm mục #viec-lam ngay sau Dịch vụ (2 thẻ Cân nhắc ❌ / An tâm ✅ như trang /tuyen-dung) với nút Ứng tuyển, Xem việc đang tuyển, Zalo.
+- Menu: mục "Ứng tuyển" đổi thành "Tuyển dụng" (cuộn tới #viec-lam).
+- Nút Quản trị: thành nút tròn chuông ở góc phải, không còn che nút "Tìm người hỗ trợ".
 
 ## [20261020b] – 20/10/2026 · Không tự đăng xuất quản trị khi bị tạm khóa
 - Lỗi: khi có người (hoặc bot) nhập sai mã quản trị 10 lần, Apps Script tạm khóa 15 phút cho mọi người; trang /quan-tri trên máy quản trị viên nhận "locked" và xóa mã đã lưu → mất nút chuông Quản trị trên web.

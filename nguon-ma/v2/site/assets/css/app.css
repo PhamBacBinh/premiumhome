@@ -205,3 +205,8 @@ dialog.promo::backdrop{background:rgba(12,22,19,.72);backdrop-filter:blur(2px)}
 .safe-arrow{justify-self:center;align-self:center;width:52px;height:52px;border-radius:50%;background:linear-gradient(180deg,#f3dca0,#c9a35a);border:4px solid #fff;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);position:relative;margin:-2.1rem 0;z-index:2}
 .safe-arrow::after{content:"";position:absolute;left:50%;top:50%;border:9px solid transparent;border-top:12px solid var(--color-lacquer);transform:translate(-50%,-25%)}
 @media(min-width:1024px){.safe-arrow{margin:0 -2.6rem}.safe-arrow::after{border:9px solid transparent;border-left:12px solid var(--color-lacquer);transform:translate(-25%,-50%)}}
+
+/* Nút Quản trị: tròn, góc phải, không che nút chính */
+.admin-fab{left:auto;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));width:46px;height:46px;padding:0;justify-content:center;border-radius:50%;box-shadow:0 8px 20px -6px rgba(0,0,0,.45)}
+.admin-fab span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (min-width:768px){.admin-fab{right:24px;left:auto;bottom:24px}}
