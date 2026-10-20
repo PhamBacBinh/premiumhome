@@ -258,8 +258,12 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
       return true;
     } catch (e) {
       const m = String(e.message);
-      if (m === 'auth' || m === 'nokey' || m === 'locked') {
-        store.del('eh_admin_key'); key = '';
+      if (m === 'locked' && store.get('eh_admin_key')) {
+        // Đang tạm khóa do người khác nhập sai: GIỮ mã đã lưu, tự thử lại sau
+        $('#meta').textContent = 'Hệ thống tạm khóa 15 phút do có người nhập sai mã nhiều lần. Tự kết nối lại sau.';
+      } else if (m === 'auth' || m === 'nokey' || m === 'locked') {
+        if (m === 'auth') store.del('eh_admin_key');
+        key = '';
         show('login');
         $('#loginErr').textContent = m === 'locked' ? 'Nhập sai nhiều lần, vui lòng thử lại sau 15 phút.' : (m === 'nokey' ? 'Chưa đặt ADMIN_KEY trong Apps Script.' : 'Mã quản trị không đúng.');
         stop();
@@ -386,7 +390,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   $('#logout').addEventListener('click', (e) => { e.preventDefault(); store.del('eh_admin_key'); key = ''; stop(); show('login'); });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && key) poll(false); });
 
-  if (key) { show('app'); poll(true).then((ok) => ok && start()); } else { show('login'); }
+  if (key) { show('app'); poll(true).then(() => { if (key) start(); }); } else { show('login'); }
 })();
 </script>
 </body>

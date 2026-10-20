@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261020a (mới nhất) | **bản 11** | Mục "Tìm việc an toàn" trang Tuyển dụng |
+| 20261020b (mới nhất) | **bản 11** | Giữ đăng nhập quản trị khi hệ thống tạm khóa |
+| 20261020a | **bản 11** | Mục "Tìm việc an toàn" trang Tuyển dụng |
 | 20261019s | **bản 11** | Ảnh mục "Điều gia đình nhận được" |
 | 20261019r | **bản 11** | Banner 20/10 |
 | 20261019q | **bản 11** | Nút Quản trị trên máy quản trị viên |
@@ -19,6 +20,10 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261020b] – 20/10/2026 · Không tự đăng xuất quản trị khi bị tạm khóa
+- Lỗi: khi có người (hoặc bot) nhập sai mã quản trị 10 lần, Apps Script tạm khóa 15 phút cho mọi người; trang /quan-tri trên máy quản trị viên nhận "locked" và xóa mã đã lưu → mất nút chuông Quản trị trên web.
+- Sửa: chỉ xóa mã khi mã thật sự sai ("auth"); khi "locked" giữ mã, báo trạng thái và tự thử lại theo chu kỳ.
 
 ## [20261020a] – 20/10/2026 · Mục "Tìm việc an toàn" trên trang Tuyển dụng
 - /tuyen-dung: thêm mục ngay dưới phần đầu trang, 2 thẻ cạnh nhau (điện thoại: xếp dọc) – "Trước khi nhận việc, hãy cân nhắc nếu…" (6 dấu ❌) và "Ở Elite Helpers, chị em được an tâm" (6 tick xanh), mũi tên vàng ở giữa; nút Ứng tuyển và Zalo bên dưới.
