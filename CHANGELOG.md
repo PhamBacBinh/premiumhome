@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261020c (mới nhất) | **bản 11** | Mục Tuyển dụng trên trang chủ |
+| 20261020d (mới nhất) | **bản 11** | Thanh chuyển Trang chủ / Tuyển dụng |
+| 20261020c | **bản 11** | Mục Tuyển dụng trên trang chủ |
 | 20261020b | **bản 11** | Giữ đăng nhập quản trị khi hệ thống tạm khóa |
 | 20261020a | **bản 11** | Mục "Tìm việc an toàn" trang Tuyển dụng |
 | 20261019s | **bản 11** | Ảnh mục "Điều gia đình nhận được" |
@@ -21,6 +22,9 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261020d] – 20/10/2026 · Thanh chuyển "Trang chủ / Tuyển dụng"
+- Đầu trang chủ thêm dòng "Trang chủ / Tuyển dụng" (giống đường dẫn ở /tuyen-dung): bấm "Tuyển dụng" sang trang tuyển dụng, ở đó bấm "Trang chủ" để quay lại.
 
 ## [20261020c] – 20/10/2026 · Mục Tuyển dụng trên trang chủ
 - Trang chủ: thêm mục #viec-lam ngay sau Dịch vụ (2 thẻ Cân nhắc ❌ / An tâm ✅ như trang /tuyen-dung) với nút Ứng tuyển, Xem việc đang tuyển, Zalo.
