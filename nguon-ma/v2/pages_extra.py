@@ -17,11 +17,11 @@ def recruit_page(g):
     crumbs = [('Trang chủ', '/'), ('Tuyển dụng', None)]
     title = 'Tuyển giúp việc, bảo mẫu, chăm sóc người già tại Hà Nội'
     desc = 'Việc làm giúp việc, bảo mẫu, chăm sóc người già, quản gia, đầu bếp tại Hà Nội. Gia đình uy tín, có hợp đồng, không thu phí. Ứng tuyển online 2 phút.'
-    jobs = [('Giúp việc gia đình', 'Ở lại hoặc theo giờ: dọn dẹp, giặt là, đi chợ, nấu ăn. Lương 15–25 triệu đồng/tháng.'),
-            ('Bảo mẫu, chăm bé', 'Chăm trẻ sơ sinh, trẻ nhỏ; ưu tiên người đã có con, có kinh nghiệm. Lương 15–25 triệu đồng/tháng.'),
-            ('Chăm sóc người già', 'Hỗ trợ sinh hoạt, ăn uống, nhắc thuốc, đưa đi khám cho ông bà. Lương 15–25 triệu đồng/tháng.'),
-            ('Quản gia', 'Điều phối việc nhà ở biệt thự, dinh thự; ưu tiên biết tiếng Anh. Lương 20–40 triệu đồng/tháng.'),
-            ('Đầu bếp gia đình', 'Nấu món Việt, Á, Âu; lên thực đơn, nấu tiệc tại nhà. Lương 18–35 triệu đồng/tháng.'),
+    jobs = [('Giúp việc gia đình', 'Ở lại hoặc theo giờ: dọn dẹp, giặt là, đi chợ, nấu ăn. Lương 10–25 triệu đồng/tháng.'),
+            ('Bảo mẫu, chăm bé', 'Chăm trẻ sơ sinh, trẻ nhỏ; ưu tiên người đã có con, có kinh nghiệm. Lương 10–25 triệu đồng/tháng.'),
+            ('Chăm sóc người già', 'Hỗ trợ sinh hoạt, ăn uống, nhắc thuốc, đưa đi khám cho ông bà. Lương 10–25 triệu đồng/tháng.'),
+            ('Quản gia', 'Điều phối việc nhà ở biệt thự, dinh thự; ưu tiên biết tiếng Anh. Lương 18–40 triệu đồng/tháng.'),
+            ('Đầu bếp gia đình', 'Nấu món Việt, Á, Âu; lên thực đơn, nấu tiệc tại nhà. Lương 15–35 triệu đồng/tháng.'),
             ('Hỗ trợ ngắn hạn, dịp Tết', 'Làm theo đợt từ vài ngày đến vài tuần, dịp Tết thu nhập cao.')]
     cards = ''.join(f'<div class="card"><h3>{E(a)}</h3><p>{E(b)}</p></div>' for a, b in jobs)
     main = f'''<section id="top" class="on-dark relative overflow-hidden bg-lacquer text-paper" aria-labelledby="pg-title">
@@ -268,7 +268,7 @@ EN_FAQ = [
  ('What services does Elite Helpers offer?', 'Elite Helpers places housekeepers (live-in or part-time), nannies, elderly caregivers, house managers, family cooks and short-term helpers with families in Hanoi. Each role is matched to the family\'s home, schedule and specific needs.'),
  ('Do your helpers speak English?', 'Yes, on request. We introduce housekeepers, nannies and house managers with basic to good English who are used to international households and cuisine. English level is checked at interview.'),
  ('How are candidates screened?', 'Every candidate has their ID, residence and work history verified and is interviewed in person before being introduced. The family then meets the candidate and arranges a trial period before deciding.'),
- ('How much does a helper cost in Hanoi?', 'Reference monthly salaries with Elite Helpers (paid to the helper): housekeeper 15–25 million VND, nanny 15–25 million VND, elderly caregiver 15–25 million VND, family cook 18–35 million VND, house manager 20–40 million VND. Short-term help is quoted separately based on tasks and duration. The exact figure depends on experience, live-in or part-time, English level and workload.'),
+ ('How much does a helper cost in Hanoi?', 'Reference monthly salaries with Elite Helpers (paid to the helper): housekeeper 10–25 million VND, nanny 10–25 million VND, elderly caregiver 10–25 million VND, family cook 15–35 million VND, house manager 18–40 million VND. Short-term help is quoted separately based on tasks and duration. The exact figure depends on experience, live-in or part-time, English level and workload.'),
  ('Do I need a contract with my helper?', 'Yes. Article 162 of Vietnam\'s 2019 Labour Code requires a written contract with a domestic worker. Employers must also notify the commune-level People\'s Committee when employment starts and ends. Since 10 September 2026, Decree 283/2026/ND-CP fines employers 1–3 million VND for not notifying, and 10–15 million VND for keeping the worker\'s ID papers or not paying the social and health insurance amounts.'),
  ('Which areas do you cover?', 'Central Hanoi, including Tay Ho, Ba Dinh, Hoan Kiem, Dong Da, Cau Giay, Nam Tu Liem and Long Bien, and nearby areas such as Bac Ninh and Hung Yen.'),
  ('Do you work with embassies?', 'Yes. We provide discreet, well-mannered staff for embassies, ambassadors\' residences and international organisations, including house managers, cooks and housekeepers.'),

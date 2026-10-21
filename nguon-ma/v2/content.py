@@ -13,7 +13,7 @@ PROCESS = [
 
 SERVICES = [
  dict(
-  slug='giup-viec-gia-dinh', salary='15–25 triệu đồng/tháng', name='Giúp việc gia đình', img='giup-viec', tag='Ở lại / Theo giờ',
+  slug='giup-viec-gia-dinh', salary='10–25 triệu đồng/tháng', name='Giúp việc gia đình', img='giup-viec', tag='Ở lại / Theo giờ',
   title='Giúp việc gia đình tại Hà Nội: ở lại và theo giờ | Elite Helpers',
   h1='Giúp việc gia đình tại Hà Nội, ở lại hoặc theo giờ',
   desc='Người giúp việc gia đình ở lại hoặc theo giờ tại Hà Nội: dọn dẹp, giặt là, đi chợ, nấu ăn. Xác minh lý lịch, phỏng vấn trực tiếp, làm thử trước khi nhận.',
@@ -28,7 +28,7 @@ SERVICES = [
   related=['bao-mau-cham-be', 'dau-bep-gia-dinh', 'ho-tro-ngan-han'],
  ),
  dict(
-  slug='bao-mau-cham-be', salary='15–25 triệu đồng/tháng', name='Bảo mẫu, chăm bé', img='bao-mau', tag='Sơ sinh & trẻ nhỏ',
+  slug='bao-mau-cham-be', salary='10–25 triệu đồng/tháng', name='Bảo mẫu, chăm bé', img='bao-mau', tag='Sơ sinh & trẻ nhỏ',
   title='Bảo mẫu, người chăm bé tại nhà Hà Nội | Elite Helpers',
   h1='Bảo mẫu chăm bé tại nhà ở Hà Nội',
   desc='Bảo mẫu chăm trẻ sơ sinh, trẻ nhỏ tại nhà ở Hà Nội, có người nói tiếng Anh. Xác minh lý lịch, phỏng vấn trực tiếp, gia đình gặp mặt và cho làm thử.',
@@ -43,7 +43,7 @@ SERVICES = [
   related=['giup-viec-gia-dinh', 'cham-soc-nguoi-gia', 'dau-bep-gia-dinh'],
  ),
  dict(
-  slug='cham-soc-nguoi-gia', salary='15–25 triệu đồng/tháng', name='Chăm sóc người già', img='cham-nguoi-gia', tag='Người cao tuổi',
+  slug='cham-soc-nguoi-gia', salary='10–25 triệu đồng/tháng', name='Chăm sóc người già', img='cham-nguoi-gia', tag='Người cao tuổi',
   title='Chăm sóc người già tại nhà Hà Nội | Elite Helpers',
   h1='Người chăm sóc người già tại nhà ở Hà Nội',
   desc='Người chăm sóc người già tại nhà ở Hà Nội: sinh hoạt, ăn uống, vệ sinh, nhắc thuốc, đưa đi khám. Xác minh lý lịch, phỏng vấn, làm thử trước khi nhận.',
@@ -58,7 +58,7 @@ SERVICES = [
   related=['giup-viec-gia-dinh', 'bao-mau-cham-be', 'ho-tro-ngan-han'],
  ),
  dict(
-  slug='quan-gia', salary='20–40 triệu đồng/tháng', name='Quản gia', img='quan-gia', tag='Biệt thự / Căn hộ lớn',
+  slug='quan-gia', salary='18–40 triệu đồng/tháng', name='Quản gia', img='quan-gia', tag='Biệt thự / Căn hộ lớn',
   title='Quản gia gia đình, quản gia biệt thự tại Hà Nội | Elite Helpers',
   h1='Quản gia gia đình và biệt thự tại Hà Nội',
   desc='Quản gia cho biệt thự, căn hộ lớn, dinh thự đại sứ quán tại Hà Nội: điều phối việc nhà, quản lý đồ dùng, tiếp khách, chuẩn bị tiệc. Kín đáo, chuẩn mực.',
@@ -73,7 +73,7 @@ SERVICES = [
   related=['dau-bep-gia-dinh', 'giup-viec-gia-dinh', 'ho-tro-ngan-han'],
  ),
  dict(
-  slug='dau-bep-gia-dinh', salary='18–35 triệu đồng/tháng', name='Đầu bếp gia đình', img='dau-bep', tag='Bữa cơm gia đình',
+  slug='dau-bep-gia-dinh', salary='15–35 triệu đồng/tháng', name='Đầu bếp gia đình', img='dau-bep', tag='Bữa cơm gia đình',
   title='Đầu bếp gia đình nấu món Việt, Á, Âu tại Hà Nội | Elite Helpers',
   h1='Đầu bếp gia đình tại Hà Nội: món Việt, Á, Âu',
   desc='Đầu bếp gia đình tại Hà Nội: món Việt, Á, Âu, ăn chay, ăn kiêng, thực đơn tuần, nấu tiệc tại nhà. Ứng viên được phỏng vấn và nấu thử trước khi nhận.',

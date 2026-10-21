@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261020d (mới nhất) | **bản 11** | Thanh chuyển Trang chủ / Tuyển dụng |
+| 20261021a (mới nhất) | **bản 11** | Bảng lương mới 10–25 / 15–35 / 18–40 |
+| 20261020d | **bản 11** | Thanh chuyển Trang chủ / Tuyển dụng |
 | 20261020c | **bản 11** | Mục Tuyển dụng trên trang chủ |
 | 20261020b | **bản 11** | Giữ đăng nhập quản trị khi hệ thống tạm khóa |
 | 20261020a | **bản 11** | Mục "Tìm việc an toàn" trang Tuyển dụng |
@@ -22,6 +23,10 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261021a] – 21/10/2026 · Cập nhật bảng lương tham khảo
+- Lương mới (triệu đồng/tháng): giúp việc, bảo mẫu, chăm sóc người già 10–25; đầu bếp 15–35; quản gia 18–40. Thay trên trang chủ (Hỏi đáp), /tuyen-dung, 5 trang dịch vụ (kèm dữ liệu cấu trúc lương), các bài cẩm nang, bản tiếng Anh.
+- Thêm giải thích "Mức lương có thể thay đổi theo nhu cầu của gia đình": ở lại/theo giờ; quy mô nhà, trẻ nhỏ, người già; chứng chỉ, kỹ năng; bằng cấp; ngoại ngữ; kinh nghiệm quản lý (danh sách đầy đủ dưới bảng lương bài /gia-thue-giup-viec-ha-noi).
 
 ## [20261020d] – 20/10/2026 · Thanh chuyển "Trang chủ / Tuyển dụng"
 - Đầu trang chủ thêm dòng "Trang chủ / Tuyển dụng" (giống đường dẫn ở /tuyen-dung): bấm "Tuyển dụng" sang trang tuyển dụng, ở đó bấm "Trang chủ" để quay lại.

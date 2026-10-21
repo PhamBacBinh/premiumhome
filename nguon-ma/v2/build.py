@@ -10,7 +10,7 @@ SRC = os.path.join(ROOT, 'site')
 GEN = os.path.join(ROOT, 'gen')          # generated pages (structured paths)
 DIST = os.path.join(ROOT, 'dist')        # flat output for GitHub upload
 TODAY = '2026-10-19'
-VER = '20261020d'
+VER = '20261021a'
 E = html.escape
 
 home = open(os.path.join(SRC, 'index.html'), encoding='utf-8').read()
@@ -150,7 +150,7 @@ def salary_ld(s):
 
 def salary_html(s):
     if s.get('salary'):
-        return f'<p class="mt-4 text-ink-soft"><b class="text-ink">Mức lương tham khảo: {s["salary"]}</b> (người hỗ trợ nhận). Mức cụ thể tùy kinh nghiệm, hình thức ở lại hay theo giờ và khối lượng công việc. <a class="underline" href="/#hoi-dap-11">Xem bảng lương các vị trí</a>.</p>'
+        return f'<p class="mt-4 text-ink-soft"><b class="text-ink">Mức lương tham khảo: {s["salary"]}</b> (người hỗ trợ nhận). Mức lương có thể thay đổi theo nhu cầu của gia đình: ở lại hay theo giờ, quy mô nhà, yêu cầu chứng chỉ, bằng cấp, ngoại ngữ, kinh nghiệm quản lý. <a class="underline" href="/#hoi-dap-11">Xem bảng lương các vị trí</a>.</p>'
     if s['slug'] == 'ho-tro-ngan-han':
         return '<p class="mt-4 text-ink-soft"><b class="text-ink">Chi phí:</b> báo giá riêng theo công việc, thời gian và địa điểm. <a class="underline" href="/#tim-nguoi" data-open="khach" data-service="Hỗ trợ ngắn hạn">Gửi yêu cầu để nhận báo giá</a>.</p>'
     return ''
