@@ -337,7 +337,14 @@ def add_admin_csp():
     t = t.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="' + csp + '">', 1)
     open(f, 'w', encoding='utf-8').write(t)
 
+def copy_media():
+    """Ảnh/video bài đăng mạng xã hội: giữ nguyên thư mục media/<ngày>/ (không index)."""
+    src = os.path.join(ROOT, 'media')
+    if os.path.isdir(src):
+        shutil.copytree(src, os.path.join(DIST, 'media'))
+
 if __name__ == '__main__':
     p = build()
     minify_dist()
+    copy_media()
     print('pages:', len(p))

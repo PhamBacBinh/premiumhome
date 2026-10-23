@@ -1,35 +1,46 @@
 # Giúp việc Elite - cho phép mọi công cụ tìm kiếm và trợ lý AI đọc nội dung công khai
 User-agent: *
 Allow: /
+Disallow: /media/
 
 User-agent: Googlebot
 Allow: /
+Disallow: /media/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /media/
 
 User-agent: GPTBot
 Allow: /
+Disallow: /media/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /media/
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /media/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /media/
 
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /media/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /media/
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /media/
 
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /media/
 
 Sitemap: https://giupviecelite.vn/sitemap.xml
