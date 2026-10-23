@@ -27,7 +27,7 @@ def page(p):
 .br{{position:absolute;right:56px;bottom:44px;display:flex;align-items:center;gap:12px;background:#F6F1E7;border:2px solid #CBAB6D;border-radius:14px;padding:8px 18px 8px 12px;font-family:BVX;font-size:26px;letter-spacing:.06em;color:#14261F}}
 .br img{{height:52px}}
 </style></head><body><div class="arch"></div><div class="arch2"></div>
-<div class="tag">BẢN TIN NGƯỜI LAO ĐỘNG · BÀI {p['no']}</div><div class="mid"><div class="big">{c['big']}</div><div class="lb">{c['label']}</div></div>
+<div class="tag">BẢN TIN NGƯỜI LAO ĐỘNG</div><div class="mid"><div class="big">{c['big']}</div><div class="lb">{c['label']}</div></div>
 <div class="nt">{c['note']}</div><div class="br"><img src="file://{LOGO}">ELITE HELPERS</div></body></html>'''
 async def main():
     async with async_playwright() as pw:

@@ -791,7 +791,7 @@
       c = { k: 'quaylai', h: en ? 'Welcome back' : 'Chào mừng anh/chị quay lại',
         p: en ? 'We are working on your request. Need to add details or ask anything? Message us on Zalo.' : 'Elite Helpers đang xử lý yêu cầu của gia đình. Cần bổ sung thông tin hay hỏi thêm, anh/chị nhắn Zalo cho chúng tôi nhé.',
         b: `<a class="btn btn-green" href="${CONFIG.ZALO_URL}" target="_blank" rel="noopener" data-nudge-go>${en ? 'Message on Zalo' : 'Nhắn Zalo'}</a>`, at: 0.3, sec: 12 };
-    } else if (/^\/tuyen-dung/.test(path)) {
+    } else if (/^\/tuyen-dung/.test(path) || $('.nw-sapo')) {
       c = { k: 'ungvien', h: 'Đang tìm việc giúp việc, bảo mẫu?', p: 'Ứng tuyển trong 2 phút. Elite Helpers không thu phí người lao động.',
         b: '<a class="btn btn-green" href="#ung-tuyen" data-open="ungvien" data-nudge-go>Ứng tuyển ngay</a>', at: 0.45, sec: 35 };
     } else if (en) {
@@ -803,7 +803,10 @@
         at: path === '/' ? 0.6 : 0.5, sec: 40 };
     }
     let shown = false, activeMs = 0, last = Date.now();
-    const ready = () => !$('dialog[open]') && !$('#ckBar');
+    // Không che bản tin: chưa hiện khi danh sách bài đang trên màn hình, đang hiện thì tự ẩn khi cuộn tới bản tin
+    const news = $('#ban-tin');
+    const inNews = () => { if (!news) return false; const r = news.getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; };
+    const ready = () => !$('dialog[open]') && !$('#ckBar') && !inNews();
     function show(why) {
       if (shown || !ready()) return;
       shown = true;
@@ -816,6 +819,7 @@
       requestAnimationFrame(() => el.classList.add('in'));
       track('nudge_show', { form: c.k, step: why });
       const close = () => { el.classList.remove('in'); setTimeout(() => el.remove(), 400); };
+      if (news) { const hide = () => { if (inNews()) { removeEventListener('scroll', hide); close(); } }; addEventListener('scroll', hide, { passive: true }); }
       $('.nudge-x', el).addEventListener('click', () => { store.set('eh_nudge_x', String(Date.now())); track('nudge_close', { form: c.k }); close(); });
       el.addEventListener('click', (e) => { if (e.target.closest('[data-nudge-go]')) { track('nudge_click', { form: c.k }); close(); } });
     }

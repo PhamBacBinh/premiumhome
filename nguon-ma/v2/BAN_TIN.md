@@ -9,7 +9,7 @@ Mỗi bài có trang riêng `/<slug>`, mở tab mới. Dữ liệu nằm trong `
    văn bản luật: thuvienphapluat.vn, chinhphu.vn). Không trùng chủ đề các bài đã có trong `POSTS`.
 2. Đọc bài gốc, viết lại bằng lời của Elite Helpers (không chép nguyên văn), ghi nguồn + ngày ở cuối (`sources`).
    Số liệu, mức phạt, điều luật phải đúng nguồn. Giọng tích cực, dành cho người lao động (chị em tìm việc).
-3. Thêm dict vào ĐẦU `POSTS`: `no` = số bài trước + 1, `slug`, `date`, `date_vi`, `tag`, `title`, `sapo`, `src_short`,
+3. Thêm dict vào ĐẦU `POSTS`: `no` = số bài trước + 1 (chỉ dùng cho tên ảnh; không hiển thị số bài, bài đầu danh sách tự có nhãn "Tin mới"), `slug`, `date`, `date_vi`, `tag`, `title`, `sapo`, `src_short`,
    `body` (h2, p, ul/ol, table, `<div class="note">` có câu về Elite Helpers), `sources`, `cover` (big/label/note/tone: green|gold|warn),
    `prompt` (prompt Meta AI ảnh 16:9, người và bối cảnh mới, ghi "KÊNH: WEBSITE – BẢN TIN").
 4. `python3 gen_news_covers.py` (tạo `site/assets/img/ban-tin-<no>-640.webp`, `-1200.webp`), xem lại ảnh.

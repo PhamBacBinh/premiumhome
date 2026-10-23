@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Bản tin người lao động (hiển thị toàn bộ trong mục /tuyen-dung, mỗi bài một trang riêng, mở tab mới).
-Thêm bài mới: thêm dict vào đầu POSTS (no tăng dần), tạo ảnh bìa bằng gen_news_covers.py, chạy build.py."""
+Thêm bài mới: thêm dict vào đầu POSTS (no tăng dần, chỉ dùng cho tên ảnh; bài đầu danh sách tự gắn nhãn "Tin mới"), tạo ảnh bìa bằng gen_news_covers.py, chạy build.py."""
 import html
 E = html.escape
 
@@ -141,7 +141,7 @@ def list_section(g):
         items += f'''
       <article class="nw-item">
         <a href="/{p['slug']}" target="_blank" rel="noopener" data-track="news_open">
-          <span class="nw-tag">Bài {p['no']} · {E(p['tag'])}</span>
+          <span class="nw-tag">{'<b class="nw-new">Tin mới</b>' if i == 0 else ''}{E(p['tag'])}</span>
           <h3>{E(p['title'])}</h3>
           <p>{E(p['sapo'])}</p>
           {cover_img(p)}
@@ -165,16 +165,16 @@ def post_page(g, p, idx):
     newer = POSTS[idx - 1] if idx > 0 else None
     older = POSTS[idx + 1] if idx + 1 < len(POSTS) else None
     nav = '<nav class="nw-nav" aria-label="Bài trong chuỗi">'
-    nav += (f'<a href="/{older["slug"]}"><small>← Bài {older["no"]}</small>{E(older["title"])}</a>' if older else '<span></span>')
-    nav += (f'<a class="r" href="/{newer["slug"]}"><small>Bài {newer["no"]} →</small>{E(newer["title"])}</a>' if newer else '<span></span>')
+    nav += (f'<a href="/{older["slug"]}"><small>← Bài trước</small>{E(older["title"])}</a>' if older else '<span></span>')
+    nav += (f'<a class="r" href="/{newer["slug"]}"><small>Bài tiếp theo →</small>{E(newer["title"])}</a>' if newer else '<span></span>')
     nav += '</nav>'
     srcs = '<h2>Nguồn tham khảo</h2><ul class="nw-src">' + ''.join(
         f'<li><a href="{E(u)}" target="_blank" rel="noopener nofollow">{E(t)}</a></li>' for t, u in p['sources']) + '</ul>'
-    others = ''.join(f'<li><a href="/{x["slug"]}">Bài {x["no"]}: {E(x["title"])}</a></li>' for x in POSTS if x is not p)
+    others = ''.join(f'<li><a href="/{x["slug"]}">{E(x["title"])}</a></li>' for x in POSTS if x is not p)
     main = f'''<section id="top" class="on-dark relative overflow-hidden bg-lacquer text-paper" aria-labelledby="pg-title">
   <div class="shell relative pb-14 pt-32 lg:pb-16 lg:pt-40">
     {g['crumbs_html'](crumbs)}
-    <span class="eyebrow">Bài {p['no']} · {E(p['tag'])} · {p['date_vi']}</span>
+    <span class="eyebrow">{'Tin mới · ' if idx == 0 else ''}{E(p['tag'])} · {p['date_vi']}</span>
     <h1 id="pg-title" class="t-display mt-4" style="max-width:26ch;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem)">{E(p['title'])}</h1>
     <p class="byline">Biên soạn: <b>Elite Helpers</b> · Tổng hợp từ {E(p['src_short'])}</p>
   </div>

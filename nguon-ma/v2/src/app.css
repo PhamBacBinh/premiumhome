@@ -388,3 +388,4 @@ a[href="#top"]>svg,.wordmark~svg,span>svg.h-10{height:2.9rem;width:2.45rem}
 .nw-nav a small{display:block;font-size:.78rem;letter-spacing:.08em;color:var(--color-brass-ink);margin-bottom:.3rem}
 .nw-nav a.r{text-align:right}
 @media(max-width:640px){.nw-nav{grid-template-columns:1fr}.nw-nav a.r{text-align:left}}
+.nw-new{display:inline-block;margin-right:.6rem;padding:.2rem .55rem;border-radius:6px;background:#c0392b;color:#fff;letter-spacing:.08em}
