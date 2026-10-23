@@ -84,6 +84,7 @@ def recruit_page(g):
     <div class="cards c3">{cards}</div>
   </div>
 </section>
+{__import__('news').list_section(g)}
 <section class="on-light bg-linen py-20 lg:py-24" aria-labelledby="ql-title">
   <div class="shell grid gap-14 lg:grid-cols-12 lg:gap-12">
     <div class="lg:col-span-6">
@@ -543,7 +544,7 @@ def admin_page(g):
 
 def extra_pages(g):
     import articles as A
-    return [services_hub(g), guides_hub(g), recruit_page(g), guide_page(g), en_page(g), notfound_page(g), admin_page(g)] + A.all_articles(g)
+    return [services_hub(g), guides_hub(g), recruit_page(g), guide_page(g), en_page(g), notfound_page(g), admin_page(g)] + A.all_articles(g) + __import__('news').all_posts(g)
 
 # ======================= META FILES + FLATTEN =======================
 def write_meta_files(g, pages, home_faqs):
