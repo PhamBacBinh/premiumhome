@@ -1,45 +1,53 @@
 # -*- coding: utf-8 -*-
-"""Tin tuyển dụng (mục /tuyen-dung). Mỗi tin có trang riêng /<slug> và nút "Ứng tuyển ngay" mở form ứng viên
-với vị trí, hình thức chọn sẵn; mã tin được ghi vào ô Ghi chú của hồ sơ (trang quản trị và Apps Script giữ nguyên).
+"""Tin tuyển dụng (mục /tuyen-dung).
 
-Thêm tin mới: thêm dict vào ĐẦU JOBS rồi chạy build.py.
-- code: mã tin, dạng EH-<viết tắt vị trí>-<ngày tháng>, ví dụ EH-BM-2510 (BM bảo mẫu, GV giúp việc, NG người già, QG quản gia, DB đầu bếp, NH ngắn hạn).
-- position: đúng 1 trong 5 lựa chọn của form: Giúp việc gia đình | Bảo mẫu, chăm bé | Chăm sóc người già | Quản gia | Đầu bếp gia đình
-- mode: Ở lại cùng gia đình | Theo giờ / theo ca | Cả hai
-- status: 'open' (đang tuyển) hoặc 'closed' (đã tuyển: giữ trang, ẩn nút ứng tuyển, không gửi dữ liệu JobPosting cho Google).
-- valid: ngày hết hạn tin (yyyy-mm-dd); quá hạn thì tự hiện như đã tuyển.
+Nguồn dữ liệu chính: tab TinTuyenDung trong Google Sheets, sửa tại /quan-tri → mục "Tin tuyển dụng" (Apps Script bản 18).
+Website đọc tin qua Apps Script (action=jobs) mỗi lần mở trang. Danh sách SEED dưới đây chỉ là bản dự phòng in sẵn
+trong HTML (hiển thị khi chưa kết nối được Apps Script hoặc tab TinTuyenDung còn trống) và là dữ liệu mẫu để
+"Đưa tin mẫu lên hệ thống" trên trang quản trị.
+
+- /tuyen-dung: thẻ tin gọn (bấm mở tab mới trang chi tiết), nút Ứng tuyển trên từng thẻ.
+- /viec-lam/?ma=<Mã tin>: trang chi tiết (JavaScript dựng từ dữ liệu, có JobPosting cho Google Việc làm).
+- Nút "Ứng tuyển" mở form ứng viên chọn sẵn vị trí, hình thức; mã tin ghi vào đầu ô Ghi chú của hồ sơ.
+
+Trường dữ liệu (trùng tên cột Apps Script):
+ma, trangThai (Đang tuyển | Tạm ẩn | Đã tuyển), nhan (Tuyển gấp | Hot | Mới | trống), thuTu, tenViTri,
+viTri (Giúp việc gia đình | Bảo mẫu, chăm bé | Chăm sóc người già | Quản gia | Đầu bếp gia đình | Hỗ trợ ngắn hạn),
+hinhThuc (Ở lại cùng gia đình | Theo giờ / theo ca | Cả hai), luongTu, luongDen (triệu/tháng), luongGhiChu,
+ngayNghi, thang13, diaDiem, tinh, thoiGianCan, thoiGianLam, moTa, yeuCau, quyenLoi (mỗi dòng 1 ý, "- " thành gạch đầu dòng),
+ngayDang, hanTin (yyyy-mm-dd).
 """
 import html, json
 from datetime import date
 E = html.escape
 
-JOBS = [
-dict(code='EH-BM-2610', slug='tuyen-bao-mau-cham-be-toan-thoi-gian-gamuda-hoang-mai', status='open', urgent=False,
-     date='2026-10-26', date_vi='26/10/2026', valid='2026-11-30',
-     title='Bảo mẫu chăm bé toàn thời gian, ở lại cùng gia đình tại KĐT Gamuda, Hoàng Mai',
-     position='Bảo mẫu, chăm bé', mode='Ở lại cùng gia đình',
-     area='KĐT Gamuda, Hoàng Mai, Hà Nội', locality='Hoàng Mai', region='Hà Nội',
-     salary='15–25 triệu đồng/tháng', sal_min=15000000, sal_max=25000000, salary_note='Có thưởng tháng lương 13',
-     summary='Chăm bé toàn thời gian: ăn, ngủ, tắm, vệ sinh, chơi cùng bé. Ưu tiên người gắn bó lâu dài.',
-     duties=['Chăm bé ăn, ngủ, tắm, vệ sinh', 'Chơi cùng bé, theo dõi nếp sinh hoạt hằng ngày'],
-     family='', reqs=['Đã có kinh nghiệm chăm trẻ toàn thời gian', 'Tận tâm, sạch sẽ, gắn bó lâu dài'],
-     off='Trao đổi cụ thể khi phỏng vấn.'),
-dict(code='EH-BM-2510', slug='tuyen-bao-mau-cham-be-so-sinh-ocean-park-2', status='open', urgent=True,
-     date='2026-10-25', date_vi='25/10/2026', valid='2026-11-30',
-     title='Bảo mẫu chăm bé sơ sinh, ở lại cùng gia đình tại Vinhomes Ocean Park 2',
-     position='Bảo mẫu, chăm bé', mode='Ở lại cùng gia đình',
-     area='Vinhomes Ocean Park 2, Văn Giang, Hưng Yên (gần Gia Lâm, Hà Nội)', locality='Văn Giang', region='Hưng Yên',
-     salary='18–25 triệu đồng/tháng', sal_min=18000000, sal_max=25000000, salary_note='Tùy năng lực, có thưởng tháng 13',
-     summary='Chăm bé sơ sinh 1 tháng tuổi theo phương pháp EASY, nấu 2 bữa trưa, tối cho gia đình 3 người.',
-     duties=['Chăm bé sơ sinh 1 tháng tuổi theo phương pháp EASY',
-             'Rèn nếp sinh hoạt, chuẩn bị ăn dặm khi bé lớn hơn',
-             'Nấu 2 bữa trưa, tối cho gia đình'],
-     family='Hai vợ chồng và 1 bé. Bố mẹ làm việc tại nhà nên luôn có người hỗ trợ. Nhà có máy móc hỗ trợ dọn dẹp và có người dọn theo giờ hằng tuần.',
-     reqs=['Có kinh nghiệm chăm trẻ sơ sinh, thành thạo phương pháp EASY',
-           'Nấu ăn ngon',
-           'Yêu trẻ, quý động vật (nhà có 2 bé mèo)'],
-     off='Được gộp ngày nghỉ để về quê, trao đổi cụ thể khi phỏng vấn.'),
+SEED = [
+dict(ma='EH-GV-2610', trangThai='Đang tuyển', nhan='Mới', thuTu='', ngayDang='2026-10-26', hanTin='2026-11-30',
+     tenViTri='Giúp việc gia đình làm ở lại tại Tây Hồ', viTri='Giúp việc gia đình', hinhThuc='Ở lại cùng gia đình',
+     luongTu='15', luongDen='20', luongGhiChu='Theo kinh nghiệm', ngayNghi='', thang13='',
+     diaDiem='Tây Hồ, Hà Nội', tinh='Hà Nội', thoiGianCan='', thoiGianLam='Ở lại cùng gia đình, làm việc lâu dài',
+     moTa='Gia đình 4 người lớn và 1 bé 2 tuổi. Nhà 3 tầng, khoảng 100 m²/tầng, có sân vườn.\n- Dọn dẹp nhà cửa\n- Giặt giũ quần áo\n- Chăm sóc sân vườn\n- Cho thú cưng ăn',
+     yeuCau='- Có kinh nghiệm giúp việc bài bản\n- Sạch sẽ, gọn gàng, ngăn nắp\n- Quen dùng máy móc gia đình\n- Ưu tiên người đã được đào tạo và làm Housekeeping tại khách sạn',
+     quyenLoi=''),
+dict(ma='EH-BM-2610', trangThai='Đang tuyển', nhan='', thuTu='', ngayDang='2026-10-26', hanTin='2026-11-30',
+     tenViTri='Bảo mẫu chăm bé toàn thời gian tại KĐT Gamuda, Hoàng Mai', viTri='Bảo mẫu, chăm bé', hinhThuc='Ở lại cùng gia đình',
+     luongTu='15', luongDen='25', luongGhiChu='Tùy kinh nghiệm và kỹ năng', ngayNghi='Được gộp để về quê, trao đổi cụ thể khi gặp gia đình', thang13='Có',
+     diaDiem='KĐT Gamuda Gardens, Hoàng Mai, Hà Nội', tinh='Hà Nội', thoiGianCan='', thoiGianLam='Ở lại cùng gia đình, chăm bé toàn thời gian',
+     moTa='- Chăm bé ăn uống, giấc ngủ, tắm rửa, vệ sinh cá nhân\n- Chuẩn bị bữa ăn, đồ dùng riêng; giặt, gấp quần áo của bé\n- Chơi cùng bé, đọc sách, rèn nề nếp sinh hoạt theo lứa tuổi\n- Theo dõi sức khỏe, thói quen của bé và trao đổi với bố mẹ mỗi ngày',
+     yeuCau='- Đã có kinh nghiệm chăm trẻ toàn thời gian, vững nghề\n- Sức khỏe tốt, sạch sẽ, kiên nhẫn, yêu trẻ\n- Trung thực, sẵn sàng gắn bó lâu dài',
+     quyenLoi='- Bao ăn ở\n- Môi trường văn minh, an toàn'),
+dict(ma='EH-BM-2510', trangThai='Đang tuyển', nhan='Tuyển gấp', thuTu='', ngayDang='2026-10-25', hanTin='2026-11-30',
+     tenViTri='Bảo mẫu chăm bé sơ sinh tại Vinhomes Ocean Park 2', viTri='Bảo mẫu, chăm bé', hinhThuc='Ở lại cùng gia đình',
+     luongTu='18', luongDen='25', luongGhiChu='Tùy năng lực', ngayNghi='Được gộp để về quê, trao đổi cụ thể khi phỏng vấn', thang13='Có',
+     diaDiem='Vinhomes Ocean Park 2, Văn Giang, Hưng Yên (gần Gia Lâm, Hà Nội)', tinh='Hưng Yên', thoiGianCan='', thoiGianLam='Ở lại cùng gia đình',
+     moTa='Gia đình 2 vợ chồng và 1 bé. Bố mẹ làm việc tại nhà nên luôn có người hỗ trợ; nhà có máy móc hỗ trợ dọn dẹp và người dọn theo giờ hằng tuần.\n- Chăm bé sơ sinh 1 tháng tuổi theo phương pháp EASY\n- Rèn nếp sinh hoạt, chuẩn bị ăn dặm khi bé lớn hơn\n- Nấu 2 bữa trưa, tối cho gia đình',
+     yeuCau='- Có kinh nghiệm chăm trẻ sơ sinh, thành thạo phương pháp EASY\n- Nấu ăn ngon\n- Yêu trẻ, quý động vật (nhà có 2 bé mèo)',
+     quyenLoi=''),
 ]
+
+# Trang cũ của từng tin (đã chia sẻ link) → chuyển sang trang chi tiết mới
+OLD_SLUGS = {'tuyen-bao-mau-cham-be-so-sinh-ocean-park-2': 'EH-BM-2510',
+             'tuyen-bao-mau-cham-be-toan-thoi-gian-gamuda-hoang-mai': 'EH-BM-2610'}
 
 # Vị trí tuyển thường xuyên (không gắn gia đình cụ thể)
 REGULAR = [
@@ -50,11 +58,36 @@ REGULAR = [
     ('Đầu bếp gia đình', 'Đầu bếp gia đình', 'Nấu món Việt, Á, Âu; lên thực đơn, nấu tiệc tại nhà.', '15–35 triệu đồng/tháng'),
     ('Hỗ trợ ngắn hạn, dịp Tết', '', 'Làm theo đợt từ vài ngày đến vài tuần, dịp Tết thu nhập cao.', 'Báo theo từng đợt'),
 ]
+FORM_POS = ['Giúp việc gia đình', 'Bảo mẫu, chăm bé', 'Chăm sóc người già', 'Quản gia', 'Đầu bếp gia đình']
 
+
+# ---------- định dạng (giữ khớp với hàm cùng tên trong app.js) ----------
+def num(v):
+    try:
+        f = float(str(v).replace(',', '.'))
+        return ('%g' % f).replace('.', ',')
+    except Exception:
+        return ''
+
+def salary(j):
+    a, b = num(j.get('luongTu')), num(j.get('luongDen'))
+    if a and b: return f'{a}–{b} triệu/tháng'
+    if a: return f'Từ {a} triệu/tháng'
+    if b: return f'Đến {b} triệu/tháng'
+    return 'Thỏa thuận'
 
 def is_open(j, today=None):
     today = today or date.today().isoformat()
-    return j['status'] == 'open' and j['valid'] >= today
+    return j['trangThai'] == 'Đang tuyển' and (not j.get('hanTin') or j['hanTin'] >= today)
+
+def date_vi(iso):
+    return f'{iso[8:10]}/{iso[5:7]}/{iso[:4]}' if iso and len(iso) >= 10 else ''
+
+def ordered(jobs):
+    vis = [j for j in jobs if j['trangThai'] != 'Tạm ẩn']
+    op = sorted([j for j in vis if is_open(j)], key=lambda j: (float(j['thuTu']) if num(j.get('thuTu')) else 9e9, ''.join(chr(0x10FFFF - ord(c)) for c in j.get('ngayDang', ''))))
+    done = sorted([j for j in vis if not is_open(j)], key=lambda j: j.get('ngayDang', ''), reverse=True)[:4]
+    return op, done
 
 
 def apply_attrs(code='', title='', pos='', mode=''):
@@ -67,48 +100,49 @@ def apply_attrs(code='', title='', pos='', mode=''):
     return a
 
 
-def apply_btn(j, cls='btn btn-green', label='Ứng tuyển ngay'):
-    return f'<a class="{cls}" href="#ung-tuyen"{apply_attrs(j["code"], j["title"], j["position"], j["mode"])} data-track="job_apply">{label}</a>'
+def badge(j, op):
+    if not op: return '<b class="jl-b jl-done">Đã tuyển</b>'
+    n = j.get('nhan') or ''
+    cls = {'Tuyển gấp': 'jl-hot', 'Hot': 'jl-hot', 'Mới': 'jl-new'}.get(n, 'jl-new')
+    return f'<b class="jl-b {cls}">{E(n)}</b>' if n else ''
 
 
-def job_card(j):
+def card(j):
+    """Thẻ tin gọn. Cả thẻ là liên kết mở tab mới; nút Ứng tuyển nằm trên lớp liên kết."""
     op = is_open(j)
-    badge = ('<b class="jb-hot">Tuyển gấp</b>' if j.get('urgent') else '<b class="jb-open">Đang tuyển</b>') if op else '<b class="jb-done">Đã tuyển</b>'
-    acts = (apply_btn(j) + f'<a class="btn btn-ghost-dark" href="/{j["slug"]}">Xem chi tiết</a>') if op else \
-        f'<a class="btn btn-ghost-dark" href="/{j["slug"]}">Xem tin</a>'
-    return f'''
-      <article class="jb-card{'' if op else ' is-done'}" id="{E(j['code'])}" aria-labelledby="t-{E(j['code'])}">
-        <div class="jb-top">{badge}<span class="jb-code">Mã tin {E(j['code'])} · {j['date_vi']}</span></div>
-        <h3 id="t-{E(j['code'])}"><a href="/{j['slug']}">{E(j['title'])}</a></h3>
-        <ul class="jb-facts" role="list">
-          <li><span>Thu nhập</span><b>{E(j['salary'])}</b></li>
-          <li><span>Hình thức</span>{E(j['mode'])}</li>
-          <li><span>Nơi làm</span>{E(j['area'])}</li>
-        </ul>
-        <p class="jb-sum">{E(j['summary'])}</p>
-        <div class="jb-acts">{acts}</div>
-      </article>'''
+    pos = j['viTri'] if j.get('viTri') in FORM_POS else ''
+    apply = (f'<a class="jl-apply" href="#ung-tuyen"{apply_attrs(j["ma"], j["tenViTri"], pos, j.get("hinhThuc", ""))} data-track="job_apply">Ứng tuyển</a>' if op else '')
+    meta = ' · '.join(x for x in [j.get('hinhThuc', ''), 'Có tháng lương 13' if (j.get('thang13') or '').lower().startswith('có') else ''] if x)
+    return f'''<article class="jl-card{'' if op else ' is-done'}" id="{E(j['ma'])}">
+  <span class="jl-logo" aria-hidden="true"><img src="/arch-mark.svg" alt="" width="34" height="40" loading="lazy"></span>
+  <div class="jl-body">
+    <h3><a class="jl-link" href="/viec-lam/?ma={E(j['ma'])}" target="_blank" rel="noopener" data-track="job_open">{E(j['tenViTri'])}</a></h3>
+    <p class="jl-sal">{E(salary(j))}</p>
+    <p class="jl-loc">{E(j.get('diaDiem', ''))}</p>
+    {f'<p class="jl-meta">{E(meta)}</p>' if meta else ''}
+  </div>
+  <div class="jl-side">{badge(j, op)}{apply}</div>
+</article>'''
 
 
 def jobs_section(g):
-    opened = [j for j in JOBS if is_open(j)]
-    closed = [j for j in JOBS if not is_open(j)][:4]
-    cards = ''.join(job_card(j) for j in opened + closed)
-    if not opened:
-        cards = '''
-      <div class="jb-empty"><p><b>Elite Helpers đang cập nhật tin mới.</b> Chị em gửi hồ sơ trước, khi có gia đình phù hợp Elite Helpers gọi lại ngay.</p>
-        <a class="btn btn-green" href="#ung-tuyen" data-open="ungvien">Gửi hồ sơ ứng tuyển</a></div>''' + cards
+    op, done = ordered(SEED)
+    cards = ''.join(card(j) for j in op + done)
     reg = ''.join(f'''
       <div class="card jb-reg"><h3>{E(n)}</h3><p>{E(d)}</p><p class="jb-reg-sal">{E(s)}</p>
         <a class="jb-link" href="#ung-tuyen"{apply_attrs('', 'Vị trí thường xuyên: ' + n, pos)} data-track="job_apply">Ứng tuyển vị trí này →</a></div>'''
                   for n, pos, d, s in REGULAR)
-    return f'''<section id="viec-dang-tuyen" class="on-light bg-paper py-20 lg:py-24" aria-labelledby="vdt-title">
+    seed = json.dumps(SEED, ensure_ascii=False).replace('</', '<\\/')
+    return f'''<section id="viec-dang-tuyen" class="on-light bg-paper py-16 lg:py-20" aria-labelledby="vdt-title">
   <div class="shell">
-    <span class="eyebrow">Tin tuyển dụng · {len(opened)} việc đang tuyển</span>
-    <h2 id="vdt-title" class="t-h2 mt-3 text-shutter">Việc đang tuyển</h2>
-    <p class="mt-4 max-w-[60ch] text-ink-soft">Mỗi tin là một gia đình cụ thể Elite Helpers đã trao đổi trước. Bấm <b>Ứng tuyển ngay</b>, form tự chọn sẵn vị trí, chị em chỉ cần điền thông tin trong 2 phút.</p>
-    <div class="jb-list">{cards}
+    <div class="jl-head">
+      <h2 id="vdt-title" class="t-h2 text-shutter">Việc đang tuyển</h2>
+      <p class="jl-count" data-jobs-count>{len(op)} việc đang tuyển</p>
     </div>
+    <p class="mt-3 max-w-[60ch] text-ink-soft">Bấm vào tin để xem chi tiết (mở tab mới). Nút <b>Ứng tuyển</b> mở form chọn sẵn vị trí, chị em chỉ cần điền 2 phút.</p>
+    <div class="jl-list" data-jobs-list>{cards}
+    </div>
+    <script type="application/json" id="jobs-seed">{seed}</script>
   </div>
 </section>
 <section id="vi-tri" class="on-light bg-linen py-20 lg:py-24" aria-labelledby="vt-title">
@@ -127,59 +161,46 @@ def tabs(cur):
     return f'<nav class="td-tabs" aria-label="Mục tuyển dụng">{a("/tuyen-dung", "Việc đang tuyển", "jobs")}{a("/tin-tuc", "Tin tức", "news")}</nav>'
 
 
-def job_page(g, j, others):
-    SITE = g['SITE']; path = '/' + j['slug']
-    op = is_open(j)
-    crumbs = [('Trang chủ', '/'), ('Tuyển dụng', '/tuyen-dung'), ('Mã tin ' + j['code'], None)]
-    li = lambda xs: ''.join(f'<li>{E(x)}</li>' for x in xs)
-    acts = (f'''<div class="mt-9 flex flex-wrap gap-3">
-      {apply_btn(j, 'btn btn-brass', 'Ứng tuyển ngay (2 phút)')}
-      <a class="btn btn-ghost-light" href="https://zalo.me/0948919598" target="_blank" rel="noopener" data-track="zalo">Hỏi qua Zalo 0948 919 598</a>
-    </div>''' if op else '''<p class="jb-closed-note">Vị trí này đã tuyển đủ. Chị em xem các việc khác đang tuyển hoặc gửi hồ sơ để Elite Helpers giới thiệu gia đình phù hợp.</p>
-    <div class="mt-6 flex flex-wrap gap-3"><a class="btn btn-brass" href="/tuyen-dung">Xem việc đang tuyển</a><a class="btn btn-ghost-light" href="#ung-tuyen" data-open="ungvien">Gửi hồ sơ</a></div>''')
-    more = [o for o in others if o is not j and is_open(o)][:3]
-    more_html = ('<h2>Việc khác đang tuyển</h2><ul>' + ''.join(f'<li><a href="/{o["slug"]}">{E(o["title"])}</a> · {E(o["salary"])}</li>' for o in more) + '</ul>') if more else ''
+def detail_page(g):
+    """/viec-lam/?ma=…: khung trang, app.js dựng nội dung tin từ Apps Script (dự phòng: dữ liệu SEED)."""
+    path = '/viec-lam'
+    crumbs = [('Trang chủ', '/'), ('Tuyển dụng', '/tuyen-dung'), ('Chi tiết tin', None)]
+    seed = json.dumps(SEED, ensure_ascii=False).replace('</', '<\\/')
     main = f'''<section id="top" class="on-dark relative overflow-hidden bg-lacquer text-paper" aria-labelledby="pg-title">
-  <div class="shell relative pb-16 pt-32 lg:pb-20 lg:pt-40">
+  <div class="shell relative pb-14 pt-32 lg:pb-16 lg:pt-40" data-job-hero>
     {g['crumbs_html'](crumbs)}
-    <span class="eyebrow">{'Tuyển gấp · ' if op and j.get('urgent') else ('' if op else 'Đã tuyển · ')}Đăng ngày {j['date_vi']}</span>
-    <h1 id="pg-title" class="t-display mt-4" style="max-width:24ch;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem)">{E(j['title'])}</h1>
-    <ul class="jb-hero-facts" role="list">
-      <li><span>Thu nhập</span><b>{E(j['salary'])}</b><small>{E(j['salary_note'])}</small></li>
-      <li><span>Hình thức</span><b>{E(j['mode'])}</b></li>
-      <li><span>Nơi làm</span><b>{E(j['area'])}</b></li>
-    </ul>
-    {acts}
+    <span class="eyebrow" data-job-eyebrow>Tin tuyển dụng</span>
+    <h1 id="pg-title" class="t-display mt-4 jd-title" data-job-title>Đang tải tin tuyển dụng…</h1>
+    <div data-job-top></div>
   </div>
 </section>
-<article class="on-light bg-paper py-14 lg:py-20 jb-detail">
-  <div class="shell"><div class="prose">
-    <h2>Công việc</h2><ul>{li(j['duties'])}</ul>
-    {('<h2>Về gia đình</h2><p>' + E(j['family']) + '</p>') if j.get('family') else ''}
-    <h2>Yêu cầu</h2><ul>{li(j['reqs'])}</ul>
-    <h2>Ngày nghỉ</h2><p>{E(j['off'])}</p>
-    <div class="note"><strong>Ở Elite Helpers:</strong> không thu bất kỳ khoản phí nào của người lao động. Trao đổi kỹ qua Zalo, gặp gia đình trước khi nhận việc, hợp đồng bằng văn bản và luôn có người đồng hành.</div>
-    {('<p class="jb-apply-row">' + apply_btn(j) + '</p>') if op else ''}
-    <p class="jb-code-line">Mã tin: <b>{E(j['code'])}</b> · Đăng ngày {j['date_vi']}</p>
-    {more_html}
-    <p><a href="/tuyen-dung#viec-dang-tuyen">← Xem tất cả việc đang tuyển</a></p>
+<article class="on-light bg-paper py-12 lg:py-16 jb-detail">
+  <div class="shell"><div class="jd-wrap" data-job-body>
+    <noscript><p>Vui lòng bật JavaScript để xem tin, hoặc xem <a href="/tuyen-dung">danh sách việc đang tuyển</a>.</p></noscript>
   </div></div>
+  <script type="application/json" id="jobs-seed">{seed}</script>
 </article>'''
-    ld_graph = [{'@type': 'WebPage', '@id': SITE + path + '#webpage', 'url': SITE + path, 'name': j['title'], 'inLanguage': 'vi',
-                 'isPartOf': {'@id': SITE + '/#website'}}, g['crumbs_ld'](crumbs, path)]
-    if op:
-        desc = ('<p>' + E(j['summary']) + '</p><p><b>Công việc:</b></p><ul>' + li(j['duties']) + '</ul>' + (('<p><b>Gia đình:</b> ' + E(j['family']) + '</p>') if j.get('family') else '') +
-                '<p><b>Yêu cầu:</b></p><ul>' + li(j['reqs']) + '</ul><p><b>Ngày nghỉ:</b> ' + E(j['off']) + '</p><p>Elite Helpers không thu phí người lao động.</p>')
-        ld_graph.append({'@type': 'JobPosting', '@id': SITE + path + '#job', 'title': j['title'], 'description': desc,
-                         'identifier': {'@type': 'PropertyValue', 'name': 'Elite Helpers', 'value': j['code']},
-                         'datePosted': j['date'], 'validThrough': j['valid'] + 'T23:59:00+07:00', 'employmentType': 'FULL_TIME',
-                         'directApply': True, 'hiringOrganization': {'@id': SITE + '/#org'},
-                         'jobLocation': {'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressLocality': j['locality'], 'addressRegion': j['region'], 'addressCountry': 'VN'}},
-                         'baseSalary': {'@type': 'MonetaryAmount', 'currency': 'VND', 'value': {'@type': 'QuantitativeValue', 'minValue': j['sal_min'], 'maxValue': j['sal_max'], 'unitText': 'MONTH'}}})
-    ld = {'@context': 'https://schema.org', '@graph': ld_graph}
-    desc_meta = f"{j['title']}. Thu nhập {j['salary']}, {j['mode'].lower()}. {j['summary']} Ứng tuyển online 2 phút, không thu phí."
-    return j['slug'] + '.html', path, g['page'](j['title'] + ' | Tuyển dụng Elite Helpers', desc_meta[:300], path, main, ld)
+    ld = {'@context': 'https://schema.org', '@graph': [g['crumbs_ld'](crumbs, path)]}
+    return 'viec-lam.html', path, g['page']('Tin tuyển dụng | Elite Helpers', 'Chi tiết tin tuyển dụng giúp việc, bảo mẫu, chăm sóc người già tại Hà Nội. Ứng tuyển online 2 phút, không thu phí người lao động.', path, main, ld)
+
+
+def redirect_page(g, slug, ma):
+    to = f'/viec-lam/?ma={ma}'
+    html_ = f'''<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tin tuyển dụng {ma} | Elite Helpers</title>
+<link rel="canonical" href="{g['SITE']}{to}">
+<meta http-equiv="refresh" content="0; url={to}">
+<script>location.replace({json.dumps(to)}+location.hash)</script>
+</head><body><p>Tin đã chuyển sang <a href="{to}">trang mới</a>.</p></body></html>
+'''
+    return slug + '.html', '/' + slug, html_
 
 
 def all_jobs(g):
-    return [job_page(g, j, JOBS) for j in JOBS]
+    return [detail_page(g)] + [redirect_page(g, s, m) for s, m in OLD_SLUGS.items()]
+
+
+def seed_json():
+    return json.dumps(SEED, ensure_ascii=False)

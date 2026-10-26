@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261026g (mới nhất) | **bản 17** | Tin tuyển dụng ứng tuyển trực tiếp; trang Tin tức riêng |
+| 20261026h (mới nhất) | **bản 18** | Tin tuyển dụng sửa được trên /quan-tri; thẻ tin gọn, trang chi tiết /viec-lam (web vẫn chạy với bản 17, hiện tin in sẵn, chưa sửa được) |
+| 20261026g | **bản 17** | Tin tuyển dụng ứng tuyển trực tiếp; trang Tin tức riêng |
 | 20261026f | **bản 17** | Kho khách hàng; form ứng viên chuẩn hóa |
 | 20261026e | **bản 16** | Sửa ngày bắt đầu bị đảo ngày/tháng khi lưu |
 | 20261026e | **bản 15** | Nhận xét Elite Helpers trình bày theo mục, gạch đầu dòng |
@@ -31,6 +32,14 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261026h] – 26/10/2026 · Tin tuyển dụng sửa được, thẻ tin gọn (cần Apps Script bản 18)
+- /quan-tri thêm mục **Tin tuyển dụng**: đăng tin mới, sửa, nhân bản, Tạm ẩn / Đã tuyển / Mở lại, xóa (bản sao ở ThungRac 30 ngày), xem trước thẻ tin, sao chép link tin, sao chép bài đăng Facebook. Lần đầu bấm "Đưa 3 tin đang hiển thị lên hệ thống".
+- Trường của tin: Tên vị trí, Mức lương (từ – đến, ghi chú), Ngày nghỉ, Tháng lương 13, Địa điểm làm việc, Thời gian cần, Thời gian làm việc, Mô tả công việc, Yêu cầu công việc, Quyền lợi, Nhãn (Tuyển gấp / Hot / Mới), Hạn tin, Thứ tự, Ghi chú nội bộ (không hiện trên web).
+- /tuyen-dung: tin hiển thị dạng thẻ gọn (logo EH, tên vị trí, lương, địa điểm, nhãn, nút Ứng tuyển); bấm thẻ mở tab mới **/viec-lam/?ma=<Mã tin>**: ô dữ kiện (lương, ngày nghỉ, tháng 13, địa điểm, thời gian cần, thời gian làm việc), mô tả, yêu cầu, quyền lợi, tin khác đang tuyển, dữ liệu JobPosting.
+- Website đọc tin từ Apps Script (action=jobs, lưu đệm 5 phút); chưa có bản 18 hoặc tab còn trống thì hiện tin in sẵn trong `nguon-ma/v2/jobs.py` (SEED).
+- Thêm tin EH-GV-2610 (Giúp việc ở lại, Tây Hồ); cập nhật đầy đủ EH-BM-2610 (Gamuda). Link cũ của 2 tin bảo mẫu tự chuyển sang /viec-lam.
+- Apps Script bản 18: tab TinTuyenDung, action job_list / job_save / job_del (cần mã quản trị) và jobs (công khai, không có ghi chú nội bộ, bỏ tin Tạm ẩn).
 
 ## [20261026g] – 26/10/2026 · Tách Tuyển dụng và Tin tức (không cần đổi Apps Script, trang quản trị giữ nguyên)
 - **/tuyen-dung** chỉ còn tuyển dụng: mục **Việc đang tuyển** (mỗi tin có mã, thu nhập, hình thức, nơi làm, nút **Ứng tuyển ngay**), mục **Vị trí tuyển thường xuyên** (mỗi vị trí có nút ứng tuyển), Tìm việc an toàn, Quyền lợi, Quy trình, Hỏi đáp, ô dẫn sang Tin tức. Thanh chuyển **Việc đang tuyển / Tin tức**.

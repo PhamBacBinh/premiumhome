@@ -563,7 +563,9 @@ def guides_hub(g):
 
 def admin_page(g):
     here = os.path.dirname(os.path.abspath(__file__))
-    return 'quan-tri.html', '/quan-tri', open(os.path.join(here, 'admin_page.html'), encoding='utf-8').read()
+    a = open(os.path.join(here, 'admin_page.html'), encoding='utf-8').read()
+    seed = __import__('jobs').seed_json().replace('</', '<\\/')
+    return 'quan-tri.html', '/quan-tri', a.replace('<!--JOBS_SEED-->', '<script type="application/json" id="jobsSeed">' + seed + '</script>')
 
 def extra_pages(g):
     import articles as A
@@ -585,7 +587,7 @@ def write_meta_files(g, pages, home_faqs):
           f'- [Cẩm nang thuê người giúp việc]({SITE}/cam-nang)',
           *[f"- [{a['h1']}]({SITE}/{a['slug']}): {__import__('articles').plain(a['answer'])}" for a in __import__('articles').ARTICLES],
           f'- [Tuyển dụng người giúp việc, bảo mẫu, chăm sóc người già]({SITE}/tuyen-dung): tin tuyển dụng đang mở, ứng tuyển trực tiếp từng tin, không thu phí.',
-          *[f"- [{j['title']}]({SITE}/{j['slug']}): {j['salary']}, {j['mode'].lower()}, {j['area']}." for j in __import__('jobs').JOBS if __import__('jobs').is_open(j)],
+          *[f"- [{j['tenViTri']}]({SITE}/viec-lam/?ma={j['ma']}): {__import__('jobs').salary(j)}, {j['hinhThuc'].lower()}, {j['diaDiem']}." for j in __import__('jobs').SEED if __import__('jobs').is_open(j)],
           f'- [Tin tức cho người lao động]({SITE}/tin-tuc): bản tin hằng tuần về quy định, quyền lợi và kinh nghiệm tìm việc.',
           f'- [Cẩm nang thuê người giúp việc năm 2026]({SITE}/thue-giup-viec-2026): quy định mới theo Nghị định 283/2026/NĐ-CP, checklist, mẫu hợp đồng.',
           f'- [English: Housekeepers, nannies & elderly caregivers in Hanoi]({SITE}/en)', '',
@@ -596,7 +598,13 @@ def write_meta_files(g, pages, home_faqs):
     open(os.path.join(GEN, 'llms.txt'), 'w', encoding='utf-8').write('\n'.join(L))
     # ---- sitemap.xml ----
     urls = []
+    import jobs as J
+    skip = {'/' + s for s in J.OLD_SLUGS} | {'/viec-lam'}
+    for j in J.SEED:
+        if J.is_open(j):
+            urls.append(f'  <url>\n    <loc>{SITE}/viec-lam/?ma={j["ma"]}</loc>\n    <lastmod>{j["ngayDang"]}</lastmod>\n    <priority>0.7</priority>\n  </url>')
     for fn, path in pages.items():
+        if path in skip: continue
         loc = SITE + path if path != '/' else SITE + '/'
         extra = ''
         if path in ('/', '/en'):

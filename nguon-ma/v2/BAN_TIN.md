@@ -19,7 +19,6 @@ Mỗi bài có trang riêng `/<slug>`, mở tab mới. Dữ liệu nằm trong `
 Công cụ cần: Python 3 + beautifulsoup4 + pillow + playwright (Chromium), Node để chạy esbuild,
 font `@fontsource/be-vietnam-pro` trong `../../tools/node_modules` (đường dẫn tính từ thư mục v2).
 
-## Thêm / đóng tin tuyển dụng (mục /tuyen-dung)
-1. Thêm dict vào ĐẦU `JOBS` trong `jobs.py` (mẫu: tin EH-BM-2510). `position` và `mode` phải trùng đúng lựa chọn của form ứng viên để nút "Ứng tuyển ngay" chọn sẵn.
-2. Tuyển xong: đổi `status='closed'` (hoặc để quá ngày `valid`): trang tin còn nhưng ẩn nút ứng tuyển, Google không nhận là tin đang mở.
-3. Đổi `VER`, `python3 build.py`, chép `media/` từ site.zip cũ vào `dist/`, nén `dist/` thành `site.zip`, commit, push main.
+## Thêm / sửa / đóng tin tuyển dụng
+Sửa trực tiếp tại giupviecelite.vn/quan-tri → **Tin tuyển dụng** (Apps Script bản 18, tab TinTuyenDung). Không cần build lại web.
+`SEED` trong `jobs.py` chỉ là bản dự phòng in sẵn trong HTML; khi đổi nhiều tin, cập nhật SEED cho khớp rồi build để bản dự phòng không cũ.

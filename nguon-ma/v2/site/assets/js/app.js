@@ -658,6 +658,136 @@
     setTimeout(kick, 4000);
   }
 
+  /* ------------------------------------------------------------------
+   * Tin tuyển dụng (Apps Script bản 18, tab TinTuyenDung; sửa tại /quan-tri → Tin tuyển dụng)
+   * /tuyen-dung: thẻ tin gọn, bấm mở tab mới /viec-lam/?ma=…
+   * Dự phòng: dữ liệu in sẵn (#jobs-seed) khi chưa đọc được Apps Script hoặc tab còn trống.
+   * Hàm định dạng giữ khớp với jobs.py.
+   * ------------------------------------------------------------------ */
+  (() => {
+    const listEl = $('[data-jobs-list]');
+    const bodyEl = $('[data-job-body]');
+    if (!listEl && !bodyEl) return;
+    let seed = [];
+    try { seed = JSON.parse(($('#jobs-seed') || {}).textContent || '[]'); } catch (e) { seed = []; }
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const FORM_POS = ['Giúp việc gia đình', 'Bảo mẫu, chăm bé', 'Chăm sóc người già', 'Quản gia', 'Đầu bếp gia đình'];
+    const today = (() => { const d = new Date(Date.now() + 7 * 3600e3); return d.toISOString().slice(0, 10); })();
+    const num = (v) => { const f = parseFloat(String(v == null ? '' : v).replace(',', '.')); return isNaN(f) ? '' : String(+f.toFixed(2)).replace('.', ','); };
+    const salary = (j) => { const a = num(j.luongTu), b = num(j.luongDen); return a && b ? `${a}–${b} triệu/tháng` : a ? `Từ ${a} triệu/tháng` : b ? `Đến ${b} triệu/tháng` : 'Thỏa thuận'; };
+    const isOpen = (j) => j.trangThai === 'Đang tuyển' && (!j.hanTin || j.hanTin >= today);
+    const dateVi = (iso) => (iso && iso.length >= 10 ? `${iso.slice(8, 10)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}` : '');
+    const has13 = (j) => /^c[oó]/i.test(String(j.thang13 || '').trim());
+    const applyAttrs = (j) => ` data-open="ungvien" data-job-code="${esc(j.ma)}" data-job-title="${esc(j.tenViTri)}"${FORM_POS.includes(j.viTri) ? ` data-job-pos="${esc(j.viTri)}"` : ''}${j.hinhThuc ? ` data-job-mode="${esc(j.hinhThuc)}"` : ''} data-track="job_apply"`;
+    function ordered(items) {
+      const vis = items.filter((j) => j.ma && j.trangThai !== 'Tạm ẩn');
+      const pr = (j) => (num(j.thuTu) ? parseFloat(String(j.thuTu).replace(',', '.')) : 9e9);
+      const op = vis.filter(isOpen).sort((a, b) => pr(a) - pr(b) || String(b.ngayDang).localeCompare(String(a.ngayDang)));
+      const done = vis.filter((j) => !isOpen(j)).sort((a, b) => String(b.ngayDang).localeCompare(String(a.ngayDang))).slice(0, 4);
+      return [op, done];
+    }
+    function badge(j, op) {
+      if (!op) return '<b class="jl-b jl-done">Đã tuyển</b>';
+      const n = j.nhan || '';
+      return n ? `<b class="jl-b ${n === 'Tuyển gấp' || n === 'Hot' ? 'jl-hot' : 'jl-new'}">${esc(n)}</b>` : '';
+    }
+    function card(j) {
+      const op = isOpen(j);
+      const meta = [j.hinhThuc, has13(j) ? 'Có tháng lương 13' : ''].filter(Boolean).join(' · ');
+      return `<article class="jl-card${op ? '' : ' is-done'}" id="${esc(j.ma)}">
+  <span class="jl-logo" aria-hidden="true"><img src="/arch-mark.svg" alt="" width="34" height="40" loading="lazy"></span>
+  <div class="jl-body">
+    <h3><a class="jl-link" href="/viec-lam/?ma=${encodeURIComponent(j.ma)}" target="_blank" rel="noopener" data-track="job_open">${esc(j.tenViTri)}</a></h3>
+    <p class="jl-sal">${esc(salary(j))}</p>
+    <p class="jl-loc">${esc(j.diaDiem || '')}</p>
+    ${meta ? `<p class="jl-meta">${esc(meta)}</p>` : ''}
+  </div>
+  <div class="jl-side">${badge(j, op)}${op ? `<a class="jl-apply" href="#ung-tuyen"${applyAttrs(j)}>Ứng tuyển</a>` : ''}</div>
+</article>`;
+    }
+    // Văn bản nhiều dòng: dòng bắt đầu "-", "•", "+", "*" thành gạch đầu dòng, dòng khác thành đoạn văn
+    function rich(t) {
+      const out = []; let ul = [];
+      const flush = () => { if (ul.length) { out.push('<ul>' + ul.map((x) => `<li>${esc(x)}</li>`).join('') + '</ul>'); ul = []; } };
+      String(t || '').split(/\r?\n/).map((s) => s.trim()).filter(Boolean).forEach((s) => {
+        const m = s.match(/^[-•+*·◆]\s*(.+)$/);
+        if (m) ul.push(m[1]); else { flush(); out.push(`<p>${esc(s)}</p>`); }
+      });
+      flush();
+      return out.join('');
+    }
+    const ASK = 'Trao đổi khi phỏng vấn';
+
+    function renderList(items) {
+      const [op, done] = ordered(items);
+      listEl.innerHTML = op.concat(done).map(card).join('') ||
+        '<div class="jb-empty"><p><b>Elite Helpers đang cập nhật tin mới.</b> Chị em gửi hồ sơ trước, khi có gia đình phù hợp Elite Helpers gọi lại ngay.</p><a class="btn btn-green" href="#ung-tuyen" data-open="ungvien">Gửi hồ sơ ứng tuyển</a></div>';
+      const c = $('[data-jobs-count]'); if (c) c.textContent = op.length + ' việc đang tuyển';
+    }
+
+    function renderDetail(items, final) {
+      const ma = new URLSearchParams(location.search).get('ma') || '';
+      const j = items.find((x) => x.ma === ma && x.trangThai !== 'Tạm ẩn');
+      const top = $('[data-job-top]'), title = $('[data-job-title]'), eb = $('[data-job-eyebrow]');
+      const crumb = $('.crumbs [aria-current]');
+      if (!j && !final) return;                                    // chờ dữ liệu mới từ Apps Script
+      if (!j) {
+        title.textContent = 'Tin tuyển dụng không còn hiển thị';
+        eb.textContent = 'Tin tuyển dụng';
+        top.innerHTML = '<div class="mt-8 flex flex-wrap gap-3"><a class="btn btn-brass" href="/tuyen-dung#viec-dang-tuyen">Xem việc đang tuyển</a><a class="btn btn-ghost-light" href="#ung-tuyen" data-open="ungvien">Gửi hồ sơ (2 phút)</a></div>';
+        bodyEl.innerHTML = '<p>Tin này đã đóng hoặc đường dẫn chưa đúng. Chị em xem các việc khác đang tuyển, hoặc gửi hồ sơ để Elite Helpers giới thiệu gia đình phù hợp.</p>';
+        return;
+      }
+      const op = isOpen(j);
+      document.title = j.tenViTri + ' | Tuyển dụng Elite Helpers';
+      if (crumb) crumb.textContent = 'Mã tin ' + j.ma;
+      const can = $('link[rel="canonical"]'); if (can) can.href = location.origin + '/viec-lam/?ma=' + encodeURIComponent(j.ma);
+      eb.textContent = [op ? (j.nhan || 'Đang tuyển') : 'Đã tuyển', j.ngayDang ? 'Đăng ngày ' + dateVi(j.ngayDang) : ''].filter(Boolean).join(' · ');
+      title.textContent = j.tenViTri;
+      const fact = (k, v, sub, wide) => `<li${wide ? ' class="w"' : ''}><span>${k}</span><b>${esc(v || ASK)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</li>`;
+      top.innerHTML = `<ul class="jd-facts" role="list">
+        ${fact('Mức lương', salary(j), j.luongGhiChu)}
+        ${fact('Ngày nghỉ', j.ngayNghi)}
+        ${fact('Tháng lương 13', j.thang13)}
+        ${fact('Thời gian cần', j.thoiGianCan)}
+        ${fact('Địa điểm làm việc', j.diaDiem, '', true)}
+        ${fact('Thời gian làm việc', j.thoiGianLam || j.hinhThuc, '', true)}
+      </ul>` + (op ? `<div class="mt-8 flex flex-wrap gap-3"><a class="btn btn-brass" href="#ung-tuyen"${applyAttrs(j)}>Ứng tuyển ngay (2 phút)</a><a class="btn btn-ghost-light" href="https://zalo.me/0948919598" target="_blank" rel="noopener" data-track="zalo">Hỏi qua Zalo 0948 919 598</a></div>`
+        : '<p class="jb-closed-note">Vị trí này đã tuyển đủ. Chị em xem các việc khác đang tuyển hoặc gửi hồ sơ để Elite Helpers giới thiệu gia đình phù hợp.</p><div class="mt-6 flex flex-wrap gap-3"><a class="btn btn-brass" href="/tuyen-dung#viec-dang-tuyen">Xem việc đang tuyển</a></div>');
+      const sec = (h, t) => (t ? `<section class="jd-sec"><h2>${h}</h2>${rich(t)}</section>` : '');
+      const others = ordered(items)[0].filter((x) => x.ma !== j.ma).slice(0, 4);
+      bodyEl.innerHTML = `<div class="jd-main prose">
+        ${sec('Mô tả công việc', j.moTa)}${sec('Yêu cầu công việc', j.yeuCau)}${sec('Quyền lợi', j.quyenLoi)}
+        <div class="note"><strong>Ở Elite Helpers:</strong> không thu bất kỳ khoản phí nào của người lao động. Trao đổi kỹ qua Zalo, gặp gia đình trước khi nhận việc, hợp đồng bằng văn bản và luôn có người đồng hành.</div>
+        ${op ? `<p class="jb-apply-row"><a class="btn btn-green" href="#ung-tuyen"${applyAttrs(j)}>Ứng tuyển ngay</a></p>` : ''}
+        <p class="jb-code-line">Mã tin: <b>${esc(j.ma)}</b>${j.ngayDang ? ' · Đăng ngày ' + dateVi(j.ngayDang) : ''}${j.hanTin ? ' · Hạn nhận hồ sơ ' + dateVi(j.hanTin) : ''}</p>
+      </div>
+      ${others.length ? `<aside class="jd-side" aria-labelledby="jd-more"><h2 id="jd-more">Việc khác đang tuyển</h2><div class="jl-list one">${others.map(card).join('')}</div><p><a href="/tuyen-dung#viec-dang-tuyen">Xem tất cả →</a></p></aside>` : ''}`;
+      // Dữ liệu cho Google Việc làm
+      const old = $('#job-ld'); if (old) old.remove();
+      if (op) {
+        const ld = { '@context': 'https://schema.org', '@type': 'JobPosting', title: j.tenViTri,
+          description: [rich(j.moTa), j.yeuCau ? '<p><b>Yêu cầu:</b></p>' + rich(j.yeuCau) : '', j.quyenLoi ? '<p><b>Quyền lợi:</b></p>' + rich(j.quyenLoi) : '',
+            `<p>Mức lương: ${esc(salary(j))}${j.luongGhiChu ? ' (' + esc(j.luongGhiChu) + ')' : ''}. Elite Helpers không thu phí người lao động.</p>`].join(''),
+          identifier: { '@type': 'PropertyValue', name: 'Elite Helpers', value: j.ma }, datePosted: j.ngayDang || today,
+          employmentType: 'FULL_TIME', directApply: true, hiringOrganization: { '@type': 'Organization', name: 'Elite Helpers', sameAs: 'https://giupviecelite.vn', logo: 'https://giupviecelite.vn/logo-square-512.png' },
+          jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', addressLocality: j.diaDiem || j.tinh || 'Hà Nội', addressRegion: j.tinh || 'Hà Nội', addressCountry: 'VN' } } };
+        if (j.hanTin) ld.validThrough = j.hanTin + 'T23:59:00+07:00';
+        const a = parseFloat(String(j.luongTu).replace(',', '.')), b = parseFloat(String(j.luongDen).replace(',', '.'));
+        if (a || b) ld.baseSalary = { '@type': 'MonetaryAmount', currency: 'VND', value: { '@type': 'QuantitativeValue', minValue: (a || b) * 1e6, maxValue: (b || a) * 1e6, unitText: 'MONTH' } };
+        const s = document.createElement('script'); s.type = 'application/ld+json'; s.id = 'job-ld'; s.textContent = JSON.stringify(ld);
+        document.head.appendChild(s);
+      }
+    }
+    const render = (items, final) => { if (listEl) renderList(items); if (bodyEl) renderDetail(items, final); };
+    render(seed, !CONFIG.FORM_ENDPOINT);
+    if (!CONFIG.FORM_ENDPOINT) return;
+    viaJsonp({ action: 'jobs' }).then((j) => {
+      if (j && Array.isArray(j.items) && j.total > 0) render(j.items, true);   // tab TinTuyenDung có dữ liệu: dùng tin mới nhất
+      else render(seed, true);
+    }).catch(() => render(seed, true));                                  // chưa có Apps Script bản 18 hoặc mạng lỗi: giữ tin in sẵn
+  })();
+
   /* ==================================================================
    * PHÂN TÍCH HÀNH VI FIRST-PARTY (chỉ chạy khi khách bấm "Đồng ý")
    * Ghi: trang xem, nguồn, trang vào/thoát, mức cuộn, thời gian, nút bấm,

@@ -251,6 +251,16 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
  #cvPrint .cv-body{flex:1}
  #cvPrint .cv-tl>li{break-inside:avoid}
 }
+.t-fil{grid-template-columns:1fr}
+.tc .tsal{color:#7A602A;font-weight:700}
+.chip.pri{background:#f7e1d9;color:#9A3B27}
+.rt ul{margin:.2rem 0;padding-left:1.1rem}.rt p{margin:.2rem 0}
+.tcard{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.tlogo{display:grid;place-items:center;width:44px;height:44px;border-radius:10px;background:var(--g)}
+.tcard b{display:block;color:var(--g2);font-size:.95rem;line-height:1.3}
+.tcard .ts{display:block;color:#7A602A;font-weight:700;font-size:.9rem;margin-top:2px}
+.tcard .tl2{display:block;color:var(--soft);font-size:.82rem}
+.tcard i{font:700 11px system-ui;font-style:normal;padding:2px 7px;border-radius:6px;background:#f7e1d9;color:#9A3B27;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -278,6 +288,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
       <button type="button" data-v="hoso" aria-pressed="true">Hồ sơ</button>
       <button type="button" data-v="kho" aria-pressed="false">Kho ứng viên</button>
       <button type="button" data-v="khach" aria-pressed="false">Kho khách hàng</button>
+      <button type="button" data-v="tin" aria-pressed="false">Tin tuyển dụng</button>
       <button type="button" data-v="phantich" aria-pressed="false">Phân tích</button>
     </div>
     <div id="vHoso">
@@ -329,6 +340,21 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
       </div>
       <div class="k-list" id="hList"></div>
     </div>
+    <div id="vTin" hidden>
+      <div class="k-tabs" id="tTabs" role="group" aria-label="Trạng thái tin"></div>
+      <div class="k-fil t-fil">
+        <input class="q" id="tQ" type="search" placeholder="Tìm mã tin, tên vị trí, địa điểm…" aria-label="Tìm tin tuyển dụng">
+      </div>
+      <div class="k-bar">
+        <p class="meta" id="tMeta" style="margin:0">Đang tải tin tuyển dụng…</p>
+        <div class="row">
+          <a class="btn alt sm" href="/tuyen-dung" target="_blank" rel="noopener">Xem trang Tuyển dụng</a>
+          <a class="btn alt sm" id="tSheet" href="#" target="_blank" rel="noopener" hidden>Mở Google Sheet</a>
+          <button class="btn sm" type="button" id="tAdd">+ Đăng tin mới</button>
+        </div>
+      </div>
+      <div class="k-list" id="tList"></div>
+    </div>
     <div id="vStats" hidden>
       <div class="ranges" role="group" aria-label="Khoảng thời gian">
         <button class="tab" data-d="1" aria-pressed="false">Hôm nay</button>
@@ -347,6 +373,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 <div class="ov" id="kOv" hidden><div class="panel" id="kPanel" role="dialog" aria-modal="true" aria-label="Hồ sơ ứng viên"></div></div>
 <div id="cvPrint" aria-hidden="true"></div>
 <p class="toast" id="toast" role="status" hidden></p>
+<!--JOBS_SEED-->
 <script>
 (() => {
   'use strict';
@@ -569,11 +596,12 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   }));
   function setView(v) {
     document.querySelectorAll('.views button').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.v === v)));
-    $('#vHoso').hidden = v !== 'hoso'; $('#vStats').hidden = v !== 'phantich'; $('#vKho').hidden = v !== 'kho'; $('#vKhach').hidden = v !== 'khach';
+    $('#vHoso').hidden = v !== 'hoso'; $('#vStats').hidden = v !== 'phantich'; $('#vKho').hidden = v !== 'kho'; $('#vKhach').hidden = v !== 'khach'; $('#vTin').hidden = v !== 'tin';
     store.set('eh_admin_view', v);
     if (v === 'phantich' && Date.now() - sLoaded > 120000) loadStats(false);
     if (v === 'kho' && Date.now() - kLoaded > 60000) loadKho();
     if (v === 'khach') { if (Date.now() - hLoaded > 60000) loadKh(); if (!kLoaded) loadKho(); }
+    if (v === 'tin' && Date.now() - tLoaded > 60000) loadTin();
   }
   document.querySelectorAll('.ranges .tab').forEach((b) => b.addEventListener('click', () => {
     sDays = Number(b.dataset.d);
@@ -1263,10 +1291,169 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     if (!find()) { try { await post({ action: 'khach_import' }, 45000); await loadKh(); } catch (er) {} }
     const r = find(); if (r) openH(r.ma); else toast('Chưa tìm thấy khách này trong kho');
   });
+  // ---------------- Tin tuyển dụng (Apps Script bản 18, tab TinTuyenDung) ----------------
+  // Sửa ở đây là website /tuyen-dung và /viec-lam cập nhật theo (tối đa 5 phút do lưu đệm).
+  const T_STATUS = [['Đang tuyển', 's-ok'], ['Tạm ẩn', 's-idle'], ['Đã tuyển', 's-act']];
+  const T_POS = ['Giúp việc gia đình', 'Bảo mẫu, chăm bé', 'Chăm sóc người già', 'Quản gia', 'Đầu bếp gia đình', 'Hỗ trợ ngắn hạn'];
+  const T_MODE = ['Ở lại cùng gia đình', 'Theo giờ / theo ca', 'Cả hai'];
+  const T_TAG = ['', 'Tuyển gấp', 'Hot', 'Mới'];
+  const T_13 = ['Có', 'Không', 'Thỏa thuận'];
+  const T_NEED = ['Đi làm ngay', 'Trong tuần này', 'Trong tháng này', 'Thỏa thuận'];
+  const T_FIELDS = ['ma', 'trangThai', 'nhan', 'thuTu', 'tenViTri', 'viTri', 'hinhThuc', 'luongTu', 'luongDen', 'luongGhiChu', 'ngayNghi', 'thang13', 'diaDiem', 'tinh', 'thoiGianCan', 'thoiGianLam', 'moTa', 'yeuCau', 'quyenLoi', 'ngayDang', 'hanTin', 'ghiChu'];
+  const tCls = (s) => (T_STATUS.find((x) => x[0] === s) || [0, 's-idle'])[1];
+  const tToday = () => new Date(Date.now() + 7 * 3600e3).toISOString().slice(0, 10);
+  const tPlus = (days) => new Date(Date.now() + 7 * 3600e3 + days * 864e5).toISOString().slice(0, 10);
+  const tNum = (v) => { const f = parseFloat(String(v == null ? '' : v).replace(',', '.')); return isNaN(f) ? '' : String(+f.toFixed(2)).replace('.', ','); };
+  const tSal = (j) => { const a = tNum(j.luongTu), b = tNum(j.luongDen); return a && b ? a + '–' + b + ' triệu/tháng' : a ? 'Từ ' + a + ' triệu/tháng' : b ? 'Đến ' + b + ' triệu/tháng' : 'Thỏa thuận'; };
+  const tExpired = (j) => j.trangThai === 'Đang tuyển' && j.hanTin && j.hanTin < tToday();
+  const tUrl = (j) => location.origin + '/viec-lam/?ma=' + encodeURIComponent(j.ma);
+  let tins = [], tLoaded = 0, tTab = 'Đang tuyển', tSheetUrl = '';
+  let tSeed = []; try { tSeed = JSON.parse(($('#jobsSeed') || {}).textContent || '[]'); } catch (e) { tSeed = []; }
+  const tErr = (m) => (m === 'timeout' || m === 'needv12' || m === 'error' ? 'cần cập nhật Apps Script bản 18' : m === 'conflict' ? 'tin vừa được sửa ở nơi khác, đã tải lại bản mới' : m === 'missing' ? 'thiếu tên vị trí' : m === 'dup' ? 'mã tin đã có' : m === 'auth' ? 'mã quản trị không đúng' : m);
+  $('#tQ').addEventListener('input', renderTin);
+  async function loadTin() {
+    $('#tMeta').textContent = 'Đang tải tin tuyển dụng…';
+    try {
+      const j = await call({ action: 'job_list' }, 30000);
+      tins = j.items || []; tLoaded = Date.now(); tSheetUrl = j.sheetUrl || '';
+      $('#tSheet').hidden = !tSheetUrl; if (tSheetUrl) $('#tSheet').href = tSheetUrl;
+      renderTin(); return true;
+    } catch (e) { $('#tMeta').textContent = 'Chưa tải được tin tuyển dụng: ' + tErr(String(e.message)) + '.'; $('#tList').innerHTML = ''; return false; }
+  }
+  const upsertTin = (it) => { const i = tins.findIndex((x) => x.ma === it.ma); if (i >= 0) tins[i] = it; else tins.push(it); };
+  function renderTin() {
+    const defs = [['Đang tuyển', 'Đang tuyển'], ['Tạm ẩn', 'Tạm ẩn'], ['Đã tuyển', 'Đã tuyển'], ['all', 'Tất cả']];
+    const inTab = (r, t) => t === 'all' || r.trangThai === t;
+    $('#tTabs').innerHTML = defs.map(([k, l]) => '<button type="button" class="tab" data-k="' + k + '" aria-pressed="' + (tTab === k) + '">' + l + '<i>' + tins.filter((r) => inTab(r, k)).length + '</i></button>').join('');
+    const q = $('#tQ').value.trim().toLowerCase();
+    const list = tins.filter((r) => inTab(r, tTab) && (!q || [r.ma, r.tenViTri, r.diaDiem, r.viTri, r.moTa, r.ghiChu].join(' ').toLowerCase().includes(q)))
+      .sort((a, b) => (tNum(a.thuTu) ? parseFloat(a.thuTu) : 9e9) - (tNum(b.thuTu) ? parseFloat(b.thuTu) : 9e9) || String(b.ngayDang).localeCompare(String(a.ngayDang)));
+    $('#tMeta').textContent = list.length + ' / ' + tins.length + ' tin · cập nhật ' + new Date(tLoaded || Date.now()).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    if (!tins.length) {
+      $('#tList').innerHTML = '<div class="box"><p style="margin:0"><b>Chưa có tin nào trong hệ thống.</b> Website đang hiện ' + tSeed.length + ' tin in sẵn. Đưa các tin này lên để sửa được, hoặc bấm “+ Đăng tin mới”.</p>' +
+        (tSeed.length ? '<div class="row"><button class="btn sm" type="button" id="tSeedBtn">Đưa ' + tSeed.length + ' tin đang hiển thị lên hệ thống</button></div>' : '') + '</div>';
+      const sb = $('#tSeedBtn'); if (sb) sb.onclick = seedTin;
+      return;
+    }
+    if (!list.length) { $('#tList').innerHTML = '<p class="empty">Không có tin trong mục này.</p>'; return; }
+    $('#tList').innerHTML = list.map((r) => '<button type="button" class="kc tc" data-ma="' + esc(r.ma) + '"><div class="top"><div><h2>' + esc(r.tenViTri) + '</h2><div class="sub">' + esc(r.ma) + ' · đăng ' + esc(fdate(r.ngayDang)) + (r.hanTin ? ' · hạn ' + esc(fdate(r.hanTin)) : '') + '</div></div>' +
+      '<span class="pill ' + (tExpired(r) ? 's-none' : tCls(r.trangThai)) + '">' + (tExpired(r) ? 'Quá hạn' : esc(r.trangThai)) + '</span></div>' +
+      '<div class="chips">' + (r.nhan ? '<span class="chip pri">' + esc(r.nhan) + '</span>' : '') + (r.viTri ? '<span class="chip">' + esc(r.viTri) + '</span>' : '') + (r.hinhThuc ? '<span class="chip">' + esc(r.hinhThuc) + '</span>' : '') + '</div>' +
+      '<dl><dt>Mức lương</dt><dd class="tsal">' + esc(tSal(r)) + '</dd><dt>Địa điểm</dt><dd>' + esc(r.diaDiem || '—') + '</dd></dl></button>').join('');
+  }
+  $('#tTabs').addEventListener('click', (e) => { const b = e.target.closest('.tab'); if (!b) return; tTab = b.dataset.k; renderTin(); });
+  $('#tList').addEventListener('click', (e) => { const c = e.target.closest('.tc'); if (c) openT(c.dataset.ma); });
+  async function seedTin() {
+    const b = $('#tSeedBtn'); b.disabled = true;
+    let n = 0;
+    for (const s of tSeed) {
+      b.textContent = 'Đang đưa lên ' + (n + 1) + '/' + tSeed.length + '…';
+      const d = {}; T_FIELDS.forEach((k) => { d[k] = s[k] == null ? '' : String(s[k]); }); d.isNew = true;
+      try { const j = await post({ action: 'job_save', d: JSON.stringify(d) }); upsertTin(j.item); n++; }
+      catch (e) { const m = String(e.message); if (m !== 'dup') { toast('Chưa đưa lên được: ' + tErr(m)); break; } }
+    }
+    renderTin(); if (n) toast('Đã đưa ' + n + ' tin lên hệ thống');
+  }
+  const tRich = (t) => String(t || '').split(/\r?\n/).map((s) => s.trim()).filter(Boolean).map((s) => /^[-•+*·◆]\s*/.test(s) ? '<li>' + esc(s.replace(/^[-•+*·◆]\s*/, '')) + '</li>' : '<p>' + esc(s) + '</p>').join('').replace(/(<li>.*?<\/li>)+/g, (m) => '<ul>' + m + '</ul>');
+  function tPost(r) {
+    const L = [(r.nhan === 'Tuyển gấp' ? '🔥 TUYỂN GẤP: ' : '📢 ') + r.tenViTri.toUpperCase(), ''];
+    [['💰 Mức lương', tSal(r) + (r.luongGhiChu ? ' (' + r.luongGhiChu + ')' : '')], ['🎁 Tháng lương 13', r.thang13], ['🗓 Ngày nghỉ', r.ngayNghi], ['📍 Địa điểm', r.diaDiem], ['⏰ Thời gian cần', r.thoiGianCan], ['🏡 Thời gian làm việc', r.thoiGianLam || r.hinhThuc]]
+      .forEach(([k, v]) => { if (v) L.push(k + ': ' + v); });
+    const block = (h, t) => { if (!t) return; L.push('', h); String(t).split(/\r?\n/).map((s) => s.trim()).filter(Boolean).forEach((s) => L.push(/^[-•+*·◆]\s*/.test(s) ? '◆ ' + s.replace(/^[-•+*·◆]\s*/, '') : s)); };
+    block('Mô tả công việc:', r.moTa); block('Yêu cầu:', r.yeuCau); block('Quyền lợi:', r.quyenLoi);
+    L.push('', 'Elite Helpers không thu bất kỳ khoản phí nào của người lao động. Trao đổi kỹ qua Zalo, gặp gia đình trước khi nhận việc, hợp đồng rõ ràng.', '',
+      '📲 Ứng tuyển 2 phút: ' + tUrl(r), '💬 Zalo: 0948 919 598', '👥 Nhóm Zalo việc làm: https://zalo.me/g/rp4oixvilrwfy71i6yan', '', '#EliteHelpers #GiupViecElite #ViecLamHaNoi');
+    return L.join('\n');
+  }
+  function openT(ma) {
+    const r = tins.find((x) => x.ma === ma); if (!r) return;
+    const facts = [['Mức lương', tSal(r) + (r.luongGhiChu ? ' · ' + r.luongGhiChu : '')], ['Ngày nghỉ', r.ngayNghi], ['Tháng lương 13', r.thang13], ['Địa điểm', r.diaDiem], ['Thời gian cần', r.thoiGianCan], ['Thời gian làm việc', r.thoiGianLam], ['Vị trí (form)', r.viTri], ['Hình thức', r.hinhThuc], ['Nhãn', r.nhan], ['Thứ tự', r.thuTu]];
+    const qs = (st, l) => r.trangThai === st ? '' : '<button class="btn alt sm" type="button" data-st="' + st + '">' + l + '</button>';
+    showPanel('<div class="hd"><h2>' + esc(r.tenViTri) + '</h2><button class="btn alt sm" type="button" id="txClose">Đóng</button></div>' +
+      '<div class="row"><span class="pill ' + (tExpired(r) ? 's-none' : tCls(r.trangThai)) + '">' + (tExpired(r) ? 'Quá hạn (web hiện là đã tuyển)' : esc(r.trangThai)) + '</span><span class="hint">' + esc(r.ma) + ' · đăng ' + esc(fdate(r.ngayDang)) + (r.hanTin ? ' · hạn ' + esc(fdate(r.hanTin)) : '') + '</span></div>' +
+      '<div class="box"><h3>Thao tác nhanh</h3><div class="row"><button class="btn sm" type="button" id="txEdit">Sửa tin</button>' + qs('Đang tuyển', 'Mở lại tin') + qs('Tạm ẩn', 'Tạm ẩn') + qs('Đã tuyển', 'Đánh dấu đã tuyển') + '</div>' +
+      '<div class="row"><a class="btn alt sm" href="' + esc(tUrl(r)) + '" target="_blank" rel="noopener">Xem trên web</a><button class="btn alt sm" type="button" id="txLink">Sao chép link tin</button><button class="btn alt sm" type="button" id="txFb">Sao chép bài đăng Facebook</button><button class="btn alt sm" type="button" id="txDup">Nhân bản</button></div>' +
+      '<p class="hint" style="margin:0">Website cập nhật trong tối đa 5 phút sau khi lưu.</p></div>' +
+      '<div class="box"><h3>Thông tin</h3><dl>' + facts.filter((x) => x[1]).map((x) => '<dt>' + x[0] + '</dt><dd>' + esc(x[1]) + '</dd>').join('') + '</dl>' +
+      (r.moTa ? '<div><div class="hint">Mô tả công việc</div><div class="rt">' + tRich(r.moTa) + '</div></div>' : '') +
+      (r.yeuCau ? '<div><div class="hint">Yêu cầu công việc</div><div class="rt">' + tRich(r.yeuCau) + '</div></div>' : '') +
+      (r.quyenLoi ? '<div><div class="hint">Quyền lợi</div><div class="rt">' + tRich(r.quyenLoi) + '</div></div>' : '') +
+      (r.ghiChu ? '<div><div class="hint">Ghi chú nội bộ</div><div class="pre">' + esc(r.ghiChu) + '</div></div>' : '') + '</div>' +
+      '<div class="box"><div class="row" id="txDelRow"><button class="btn sm del" type="button" id="txDel" style="margin-left:0">Xóa tin</button><span class="hint">Muốn ngừng hiển thị, nên chọn “Tạm ẩn” hoặc “Đã tuyển” thay vì xóa.</span></div></div>');
+    $('#txClose').onclick = closeK;
+    $('#txEdit').onclick = () => formT(r);
+    $('#txLink').onclick = () => copyText(tUrl(r));
+    $('#txFb').onclick = () => copyText(tPost(r));
+    $('#txDup').onclick = () => { const c = Object.assign({}, r); delete c.ma; delete c.capNhat; c.ngayDang = tToday(); c.hanTin = tPlus(30); c.trangThai = 'Đang tuyển'; formT(null, c); };
+    $('#kPanel').querySelectorAll('[data-st]').forEach((b) => { b.onclick = async () => {
+      b.disabled = true;
+      const patch = { ma: r.ma, base: r.capNhat, trangThai: b.dataset.st };
+      if (b.dataset.st === 'Đang tuyển' && tExpired(r)) patch.hanTin = tPlus(30);
+      try { const j = await post({ action: 'job_save', d: JSON.stringify(patch) }); upsertTin(j.item); renderTin(); openT(r.ma); toast('Đã chuyển sang “' + b.dataset.st + '”'); }
+      catch (e) { const m = String(e.message); toast('Chưa lưu được: ' + tErr(m)); if (m === 'conflict') { await loadTin(); openT(r.ma); } else b.disabled = false; }
+    }; });
+    $('#txDel').onclick = () => {
+      $('#txDelRow').innerHTML = '<span class="hint">Xóa tin khỏi hệ thống? Bản sao giữ 30 ngày ở tab ThungRac.</span><button class="btn sm del" type="button" id="txDelOk" style="margin-left:0">Xóa</button><button class="btn alt sm" type="button" id="txDelNo">Giữ lại</button>';
+      $('#txDelNo').onclick = () => openT(r.ma);
+      $('#txDelOk').onclick = async () => { try { await post({ action: 'job_del', ma: r.ma }); tins = tins.filter((x) => x.ma !== r.ma); closeK(); renderTin(); toast('Đã xóa tin'); } catch (e) { toast('Chưa xóa được: ' + tErr(String(e.message))); } };
+    };
+  }
+  function formT(r, preset) {
+    const e = r || preset || { trangThai: 'Đang tuyển', viTri: 'Giúp việc gia đình', hinhThuc: 'Ở lại cùng gia đình', tinh: 'Hà Nội', ngayDang: tToday(), hanTin: tPlus(30) };
+    const o = (list, cur) => list.map((x) => '<option' + (x === cur ? ' selected' : '') + ' value="' + esc(x) + '">' + esc(x || '— Không —') + '</option>').join('') + (cur && !list.includes(cur) ? '<option selected>' + esc(cur) + '</option>' : '');
+    const inp = (id, label, val, attr, full) => '<label' + (full ? ' class="full"' : '') + '>' + label + '<input id="' + id + '" value="' + esc(val == null ? '' : val) + '" ' + (attr || '') + '></label>';
+    const sl = (id, label, list, cur, full) => '<label' + (full ? ' class="full"' : '') + '>' + label + '<select id="' + id + '">' + o(list, cur) + '</select></label>';
+    const ta = (id, label, val, ph, hint) => '<label class="full">' + label + '<textarea id="' + id + '" placeholder="' + esc(ph || '') + '" rows="5">' + esc(val || '') + '</textarea>' + (hint ? '<span class="hint">' + hint + '</span>' : '') + '</label>';
+    const grpH = (n, t) => '<h3 class="fh"><span>' + n + '</span>' + t + '</h3>';
+    const dl = (id, list) => '<datalist id="' + id + '">' + list.map((x) => '<option value="' + esc(x) + '">').join('') + '</datalist>';
+    showPanel('<div class="hd"><h2>' + (r ? 'Sửa tin ' + esc(r.ma) : 'Đăng tin mới') + '</h2><button class="btn alt sm" type="button" id="tfClose">Đóng</button></div>' +
+      '<form id="tf" class="box" novalidate>' +
+      grpH(1, 'Vị trí') + '<div class="g2">' + inp('tfTen', 'Tên vị trí * (tiêu đề tin)', e.tenViTri, 'required maxlength="160" placeholder="VD: Giúp việc gia đình làm ở lại tại Tây Hồ"', true) +
+      sl('tfPos', 'Vị trí (chọn sẵn trong form ứng tuyển)', T_POS, e.viTri) + sl('tfMode', 'Hình thức', T_MODE, e.hinhThuc) + '</div>' +
+      grpH(2, 'Lương & chế độ') + '<div class="g2">' +
+      inp('tfFrom', 'Lương từ (triệu/tháng)', e.luongTu, 'type="number" inputmode="decimal" min="0" step="0.5" placeholder="15"') + inp('tfTo', 'Lương đến (triệu/tháng)', e.luongDen, 'type="number" inputmode="decimal" min="0" step="0.5" placeholder="20"') +
+      inp('tfSalNote', 'Ghi chú lương', e.luongGhiChu, 'placeholder="VD: Theo kinh nghiệm" maxlength="120"', true) +
+      inp('tfOff', 'Ngày nghỉ', e.ngayNghi, 'placeholder="VD: 4 ngày/tháng, được gộp để về quê" maxlength="200"', true) +
+      sl('tf13', 'Tháng lương 13', [''].concat(T_13), e.thang13) + '<span></span>' +
+      '<p class="hint full" style="margin:0">Theo Nghị định 145/2020/NĐ-CP, người giúp việc gia đình nghỉ ít nhất 24 giờ liên tục mỗi tuần; nếu không bố trí được thì bình quân ít nhất 4 ngày/tháng.</p></div>' +
+      grpH(3, 'Địa điểm & thời gian') + '<div class="g2">' +
+      inp('tfAddr', 'Địa điểm làm việc', e.diaDiem, 'placeholder="VD: Tây Hồ, Hà Nội" maxlength="200"', true) +
+      '<label>Tỉnh/thành<select id="tfProv">' + Object.keys(REGIONS).map((k) => '<optgroup label="' + k + '">' + REGIONS[k].map((p) => '<option' + (p === (e.tinh || 'Hà Nội') ? ' selected' : '') + '>' + esc(p) + '</option>').join('') + '</optgroup>').join('') + '</select></label>' +
+      inp('tfNeed', 'Thời gian cần', e.thoiGianCan, 'list="tfNeedL" placeholder="VD: Đi làm ngay / từ 01/11/2026"') + dl('tfNeedL', T_NEED) +
+      inp('tfHours', 'Thời gian làm việc', e.thoiGianLam, 'placeholder="VD: Ở lại cùng gia đình, 6:00 – 21:00, nghỉ trưa 1 tiếng" maxlength="300"', true) + '</div>' +
+      grpH(4, 'Nội dung') + ta('tfDesc', 'Mô tả công việc', e.moTa, 'Gia đình 4 người lớn và 1 bé 2 tuổi, nhà 3 tầng có sân vườn\n- Dọn dẹp nhà cửa\n- Giặt giũ quần áo', 'Mỗi dòng 1 ý; dòng bắt đầu bằng “-” thành gạch đầu dòng.') +
+      ta('tfReq', 'Yêu cầu công việc', e.yeuCau, '- Có kinh nghiệm giúp việc bài bản\n- Sạch sẽ, gọn gàng, ngăn nắp', 'Không ghi yêu cầu về tuổi, giới tính (Bộ luật Lao động cấm phân biệt đối xử).') +
+      ta('tfBen', 'Quyền lợi khác (không bắt buộc)', e.quyenLoi, '- Bao ăn ở\n- Thưởng lễ, Tết') +
+      grpH(5, 'Hiển thị') + '<div class="g2">' + sl('tfSt', 'Trạng thái', T_STATUS.map((s) => s[0]), e.trangThai || 'Đang tuyển') + sl('tfTag', 'Nhãn trên thẻ tin', T_TAG, e.nhan || '') +
+      inp('tfDate', 'Ngày đăng', e.ngayDang || tToday(), 'type="date"') + inp('tfExp', 'Hạn tin (quá hạn tự hiện “Đã tuyển”)', e.hanTin, 'type="date"') +
+      inp('tfOrd', 'Thứ tự ưu tiên (1 = đầu danh sách, để trống = theo ngày đăng)', e.thuTu, 'type="number" inputmode="numeric" min="1" step="1"', true) +
+      ta('tfNote', 'Ghi chú nội bộ (không hiện trên web)', e.ghiChu, 'VD: Gia đình chị H., SĐT…, liên hệ qua anh T.') + '</div>' +
+      '<div class="box tpv"><div class="hint">Xem trước thẻ tin</div><div id="tfPrev"></div></div>' +
+      '<div class="row stick"><button class="btn" type="submit" id="tfBtn">' + (r ? 'Lưu thay đổi' : 'Đăng tin') + '</button><span class="err" id="tfErr" style="margin:0"></span></div></form>');
+    const read = () => ({ tenViTri: $('#tfTen').value.trim(), viTri: $('#tfPos').value, hinhThuc: $('#tfMode').value, luongTu: $('#tfFrom').value.trim(), luongDen: $('#tfTo').value.trim(),
+      luongGhiChu: $('#tfSalNote').value.trim(), ngayNghi: $('#tfOff').value.trim(), thang13: $('#tf13').value, diaDiem: $('#tfAddr').value.trim(), tinh: $('#tfProv').value,
+      thoiGianCan: $('#tfNeed').value.trim(), thoiGianLam: $('#tfHours').value.trim(), moTa: $('#tfDesc').value.trim(), yeuCau: $('#tfReq').value.trim(), quyenLoi: $('#tfBen').value.trim(),
+      trangThai: $('#tfSt').value, nhan: $('#tfTag').value, ngayDang: $('#tfDate').value, hanTin: $('#tfExp').value, thuTu: $('#tfOrd').value.trim(), ghiChu: $('#tfNote').value.trim() });
+    const prev = () => { const d = read(); $('#tfPrev').innerHTML = '<div class="tcard"><span class="tlogo" aria-hidden="true"><img src="/arch-mark.svg" alt="" width="22" height="26"></span><div><b>' + esc(d.tenViTri || 'Tên vị trí') + '</b><span class="ts">' + esc(tSal(d)) + '</span><span class="tl2">' + esc(d.diaDiem || 'Địa điểm làm việc') + '</span></div>' + (d.nhan ? '<i>' + esc(d.nhan) + '</i>' : '') + '</div>'; };
+    $('#tf').addEventListener('input', prev); prev();
+    $('#tfClose').onclick = () => (r ? openT(r.ma) : closeK());
+    $('#tf').addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const d = read(), err = (m, el) => { $('#tfErr').textContent = m; if (el) el.focus(); };
+      if (!d.tenViTri) return err('Nhập tên vị trí.', $('#tfTen'));
+      if (d.luongTu && d.luongDen && parseFloat(d.luongTu) > parseFloat(d.luongDen)) return err('Lương “từ” lớn hơn lương “đến”.', $('#tfFrom'));
+      if (d.hanTin && d.ngayDang && d.hanTin < d.ngayDang) return err('Hạn tin sớm hơn ngày đăng.', $('#tfExp'));
+      if (r) { d.ma = r.ma; d.base = r.capNhat; } else d.isNew = true;
+      $('#tfBtn').disabled = true; $('#tfErr').textContent = '';
+      try { const j = await post({ action: 'job_save', d: JSON.stringify(d) }); upsertTin(j.item); tTab = j.item.trangThai; renderTin(); openT(j.item.ma); toast(r ? 'Đã lưu, web cập nhật trong vài phút' : 'Đã đăng tin ' + j.item.ma); }
+      catch (e2) { const m = String(e2.message); $('#tfErr').textContent = 'Chưa lưu được: ' + tErr(m); $('#tfBtn').disabled = false; if (m === 'conflict') loadTin(); }
+    });
+  }
+  $('#tAdd').addEventListener('click', () => formT(null));
   $('#logout').addEventListener('click', (e) => { e.preventDefault(); store.del('eh_admin_key'); key = ''; stop(); show('login'); });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && key) poll(false); });
 
-  if (key) { show('app'); poll(true).then(() => { if (key) { start(); const v = store.get('eh_admin_view'); if (v === 'kho' || v === 'khach' || v === 'phantich') setView(v); } }); } else { show('login'); }
+  if (key) { show('app'); poll(true).then(() => { if (key) { start(); const v = store.get('eh_admin_view'); if (v === 'kho' || v === 'khach' || v === 'tin' || v === 'phantich') setView(v); } }); } else { show('login'); }
 })();
 </script>
 </body>
