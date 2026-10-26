@@ -823,7 +823,7 @@ function buildCvDoc_(r, hide) {
   const ft = noBorder(b.appendTable([M.facts.map(() => '')]));
   M.facts.forEach((f, i) => {
     const c = ft.getCell(0, i); c.setBackgroundColor(CV.CREAM); pad(c, 7, 8, 7, 10);
-    st(T(c.getChild(0).asParagraph(), f[0]), { f: CV.SERIF, s: 15, c: CV.G, b: true }); c.getChild(0).asParagraph().setSpacingAfter(0).setLineSpacing(1);
+    st(T(c.getChild(0).asParagraph(), f[0]), { f: CV.SANS, s: 12.5, c: CV.G, b: true }); c.getChild(0).asParagraph().setSpacingAfter(0).setLineSpacing(1);
     para(c, f[1], { s: 7.5, c: CV.SOFT }, [0, 0]);
   });
   para(b, '', { s: 4 }, [0, 0]);
