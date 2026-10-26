@@ -37,6 +37,8 @@ Apps Script mới luôn chạy được với web cũ (tương thích ngược).
 - Bấm **Ứng tuyển ngay**: form ứng viên mở với khung "Đang ứng tuyển" (tên tin, mã tin), tự chọn vị trí và hình thức. Mã + tên tin ghi vào đầu ô **Ghi chú** của hồ sơ (dạng `Ứng tuyển tin: EH-BM-2510 · …`), hiện trong trang quản trị như cũ; bản gửi Zalo dự phòng cũng có dòng này.
 - Mỗi tin có trang riêng (ví dụ `/tuyen-bao-mau-cham-be-so-sinh-ocean-park-2`) với dữ liệu JobPosting cho Google Việc làm; tin hết hạn hoặc đã tuyển tự ẩn nút ứng tuyển.
 - Trang mới **/tin-tuc** (Trang chủ / Tuyển dụng / Tin tức) chứa toàn bộ bản tin người lao động; trang từng bài có đường dẫn Trang chủ / Tuyển dụng / Tin tức. Link cũ `/tuyen-dung#ban-tin` tự chuyển sang /tin-tuc.
+- 2 tin đang mở: EH-BM-2610 (Bảo mẫu, KĐT Gamuda, Hoàng Mai) và EH-BM-2510 (Bảo mẫu sơ sinh, Vinhomes Ocean Park 2).
+- Khôi phục ảnh `media/2026-10-26/EliteHelpers_2610_Group_TuyenBaoMau_Gamuda.jpg` bị thiếu ở bản 20261026f.
 - Dữ liệu tin tuyển dụng: `nguon-ma/v2/jobs.py` (danh sách `JOBS`).
 
 ## [20261026f] – 26/10/2026 · Kho khách hàng, form ứng viên chuẩn hóa (cần Apps Script bản 17)

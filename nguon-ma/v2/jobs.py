@@ -14,6 +14,16 @@ from datetime import date
 E = html.escape
 
 JOBS = [
+dict(code='EH-BM-2610', slug='tuyen-bao-mau-cham-be-toan-thoi-gian-gamuda-hoang-mai', status='open', urgent=False,
+     date='2026-10-26', date_vi='26/10/2026', valid='2026-11-30',
+     title='Bảo mẫu chăm bé toàn thời gian, ở lại cùng gia đình tại KĐT Gamuda, Hoàng Mai',
+     position='Bảo mẫu, chăm bé', mode='Ở lại cùng gia đình',
+     area='KĐT Gamuda, Hoàng Mai, Hà Nội', locality='Hoàng Mai', region='Hà Nội',
+     salary='15–25 triệu đồng/tháng', sal_min=15000000, sal_max=25000000, salary_note='Có thưởng tháng lương 13',
+     summary='Chăm bé toàn thời gian: ăn, ngủ, tắm, vệ sinh, chơi cùng bé. Ưu tiên người gắn bó lâu dài.',
+     duties=['Chăm bé ăn, ngủ, tắm, vệ sinh', 'Chơi cùng bé, theo dõi nếp sinh hoạt hằng ngày'],
+     family='', reqs=['Đã có kinh nghiệm chăm trẻ toàn thời gian', 'Tận tâm, sạch sẽ, gắn bó lâu dài'],
+     off='Trao đổi cụ thể khi phỏng vấn.'),
 dict(code='EH-BM-2510', slug='tuyen-bao-mau-cham-be-so-sinh-ocean-park-2', status='open', urgent=True,
      date='2026-10-25', date_vi='25/10/2026', valid='2026-11-30',
      title='Bảo mẫu chăm bé sơ sinh, ở lại cùng gia đình tại Vinhomes Ocean Park 2',
@@ -145,7 +155,7 @@ def job_page(g, j, others):
 <article class="on-light bg-paper py-14 lg:py-20 jb-detail">
   <div class="shell"><div class="prose">
     <h2>Công việc</h2><ul>{li(j['duties'])}</ul>
-    <h2>Về gia đình</h2><p>{E(j['family'])}</p>
+    {('<h2>Về gia đình</h2><p>' + E(j['family']) + '</p>') if j.get('family') else ''}
     <h2>Yêu cầu</h2><ul>{li(j['reqs'])}</ul>
     <h2>Ngày nghỉ</h2><p>{E(j['off'])}</p>
     <div class="note"><strong>Ở Elite Helpers:</strong> không thu bất kỳ khoản phí nào của người lao động. Trao đổi kỹ qua Zalo, gặp gia đình trước khi nhận việc, hợp đồng bằng văn bản và luôn có người đồng hành.</div>
@@ -158,8 +168,8 @@ def job_page(g, j, others):
     ld_graph = [{'@type': 'WebPage', '@id': SITE + path + '#webpage', 'url': SITE + path, 'name': j['title'], 'inLanguage': 'vi',
                  'isPartOf': {'@id': SITE + '/#website'}}, g['crumbs_ld'](crumbs, path)]
     if op:
-        desc = ('<p>' + E(j['summary']) + '</p><p><b>Công việc:</b></p><ul>' + li(j['duties']) + '</ul><p><b>Gia đình:</b> ' + E(j['family']) +
-                '</p><p><b>Yêu cầu:</b></p><ul>' + li(j['reqs']) + '</ul><p><b>Ngày nghỉ:</b> ' + E(j['off']) + '</p><p>Elite Helpers không thu phí người lao động.</p>')
+        desc = ('<p>' + E(j['summary']) + '</p><p><b>Công việc:</b></p><ul>' + li(j['duties']) + '</ul>' + (('<p><b>Gia đình:</b> ' + E(j['family']) + '</p>') if j.get('family') else '') +
+                '<p><b>Yêu cầu:</b></p><ul>' + li(j['reqs']) + '</ul><p><b>Ngày nghỉ:</b> ' + E(j['off']) + '</p><p>Elite Helpers không thu phí người lao động.</p>')
         ld_graph.append({'@type': 'JobPosting', '@id': SITE + path + '#job', 'title': j['title'], 'description': desc,
                          'identifier': {'@type': 'PropertyValue', 'name': 'Elite Helpers', 'value': j['code']},
                          'datePosted': j['date'], 'validThrough': j['valid'] + 'T23:59:00+07:00', 'employmentType': 'FULL_TIME',
