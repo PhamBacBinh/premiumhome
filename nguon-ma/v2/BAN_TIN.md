@@ -1,6 +1,6 @@
 # Bản tin người lao động – quy trình thêm bài hằng tuần
 
-Bản tin hiển thị toàn bộ trong mục **/tuyen-dung** (khối `#ban-tin`, kiểu báo điện tử: tiêu đề, tóm tắt, ảnh lớn).
+Bản tin hiển thị toàn bộ ở trang **/tin-tuc** (Trang chủ / Tuyển dụng / Tin tức, kiểu báo điện tử: tiêu đề, tóm tắt, ảnh lớn); /tuyen-dung chỉ có ô dẫn 3 tiêu đề mới nhất.
 Mỗi bài có trang riêng `/<slug>`, mở tab mới. Dữ liệu nằm trong `news.py` (danh sách `POSTS`, bài mới nhất đứng đầu).
 
 ## Thêm 1 bài mới
@@ -13,8 +13,13 @@ Mỗi bài có trang riêng `/<slug>`, mở tab mới. Dữ liệu nằm trong `
    `body` (h2, p, ul/ol, table, `<div class="note">` có câu về Elite Helpers), `sources`, `cover` (big/label/note/tone: green|gold|warn),
    `prompt` (prompt Meta AI ảnh 16:9, người và bối cảnh mới, ghi "KÊNH: WEBSITE – BẢN TIN").
 4. `python3 gen_news_covers.py` (tạo `site/assets/img/ban-tin-<no>-640.webp`, `-1200.webp`), xem lại ảnh.
-5. Đổi `VER` trong build.py, `python3 build.py`, kiểm tra trang `/tuyen-dung` và trang bài trên khổ điện thoại 390px.
+5. Đổi `VER` trong build.py, `python3 build.py`, kiểm tra trang `/tin-tuc` và trang bài trên khổ điện thoại 390px.
 6. Nén `dist/` thành `site.zip` ở gốc repo, chép lại mã nguồn vào `nguon-ma/v2/`, commit, push nhánh main.
 
 Công cụ cần: Python 3 + beautifulsoup4 + pillow + playwright (Chromium), Node để chạy esbuild,
 font `@fontsource/be-vietnam-pro` trong `../../tools/node_modules` (đường dẫn tính từ thư mục v2).
+
+## Thêm / đóng tin tuyển dụng (mục /tuyen-dung)
+1. Thêm dict vào ĐẦU `JOBS` trong `jobs.py` (mẫu: tin EH-BM-2510). `position` và `mode` phải trùng đúng lựa chọn của form ứng viên để nút "Ứng tuyển ngay" chọn sẵn.
+2. Tuyển xong: đổi `status='closed'` (hoặc để quá ngày `valid`): trang tin còn nhưng ẩn nút ứng tuyển, Google không nhận là tin đang mở.
+3. Đổi `VER`, `python3 build.py`, chép `media/` từ site.zip cũ vào `dist/`, nén `dist/` thành `site.zip`, commit, push main.

@@ -208,6 +208,8 @@
    * ------------------------------------------------------------------ */
   const dialogs = Object.fromEntries(Object.entries({ khach: $('#dlg-khach'), ungvien: $('#dlg-ungvien'), policy: $('#dlg-policy') }).filter(([, d]) => d));
   const ROUTES = { 'tim-nguoi': 'khach', 'ung-tuyen': 'ungvien', 'chinh-sach-bao-mat': 'policy' };
+  // Link cũ /tuyen-dung#ban-tin: bản tin đã chuyển sang trang Tin tức
+  if (location.hash === '#ban-tin' && /^\/tuyen-dung\/?$/.test(location.pathname)) { location.replace('/tin-tuc/'); return; }
   const routeOf = (key) => dialogs[key].dataset.route;
   const keyOf = (dlg) => Object.keys(dialogs).find((k) => dialogs[k] === dlg);
   const returnFocus = {};
@@ -228,6 +230,7 @@
       if (wz) {
         wz.resetIfFinished();
         if (opts.service) wz.preselect(opts.service);
+        if (wz.setJob) wz.setJob(opts.job || null);
       }
     } else if (policyTarget && policyContent) {
       policyTarget.appendChild(policyContent);
@@ -270,7 +273,10 @@
     const t = e.target.closest('[data-open]');
     if (!t) return;
     e.preventDefault();
-    openDialog(t.dataset.open, { service: t.dataset.service, from: t });
+    const d = t.dataset;
+    const job = d.jobTitle || d.jobPos ? { code: d.jobCode || '', title: d.jobTitle || '', pos: d.jobPos || '', mode: d.jobMode || '' } : null;
+    openDialog(d.open, { service: d.service, job, from: t });
+    if (job) track('job_apply_open', { form: 'ungvien', job: job.code || job.title });
   });
 
   function syncFromHash() {
@@ -492,6 +498,8 @@
         data[k] = fd.getAll(k).map((v) => v.toString().trim()).filter(Boolean).join(', ');
       }
       if (TRANSFORM[key]) TRANSFORM[key](data);
+      // Ứng tuyển theo tin: ghi mã + tên tin vào Ghi chú (trang quản trị, Apps Script giữ nguyên)
+      if (form.dataset.jobRef) data.note = 'Ứng tuyển tin: ' + form.dataset.jobRef + (data.note ? ' | ' + data.note : '');
       data.consent = `Đồng ý xử lý dữ liệu cá nhân theo Chính sách ${CONFIG.CONSENT_VERSION}`;
       data.consentAt = new Date().toISOString();
       data.page = location.origin + location.pathname;
@@ -527,7 +535,38 @@
     });
 
     show(0);
+    // Khung "Đang ứng tuyển" khi mở form từ một tin tuyển dụng
+    let jobBox = null;
+    function setJob(job) {
+      if (key !== 'ungvien') return;
+      if (!jobBox) {
+        jobBox = document.createElement('p');
+        jobBox.className = 'job-pick';
+        jobBox.setAttribute('aria-live', 'polite');
+        const head = $('.sheet-head', form);
+        const bar = $('[data-bars]', form);
+        if (head && bar) head.insertBefore(jobBox, bar); else return;
+      }
+      if (!job) { delete form.dataset.jobRef; jobBox.hidden = true; return; }
+      const ref = [job.code, job.title].filter(Boolean).join(' · ');
+      form.dataset.jobRef = ref;
+      jobBox.innerHTML = '';
+      const s = document.createElement('span'); s.textContent = 'Đang ứng tuyển';
+      const b = document.createElement('b'); b.textContent = job.title || job.pos;
+      jobBox.append(s, b);
+      if (job.code) { const c = document.createElement('small'); c.textContent = 'Mã tin ' + job.code; jobBox.append(c); }
+      jobBox.hidden = false;
+      if (job.pos) {
+        const box = $$('input[name="position"]', form).find((i) => i.value === job.pos);
+        if (box) { box.checked = true; setErr(box.closest('fieldset'), ''); }
+      }
+      if (job.mode) {
+        const r = $$('input[name="mode"]', form).find((i) => i.value === job.mode);
+        if (r) r.checked = true;
+      }
+    }
     return {
+      setJob,
       resetIfFinished() { if (finished) reset(); },
       preselect(service) {
         const box = $$('input[name="service"]', form).find((i) => i.value === service);
@@ -791,7 +830,7 @@
       c = { k: 'quaylai', h: en ? 'Welcome back' : 'Chào mừng anh/chị quay lại',
         p: en ? 'We are working on your request. Need to add details or ask anything? Message us on Zalo.' : 'Elite Helpers đang xử lý yêu cầu của gia đình. Cần bổ sung thông tin hay hỏi thêm, anh/chị nhắn Zalo cho chúng tôi nhé.',
         b: `<a class="btn btn-green" href="${CONFIG.ZALO_URL}" target="_blank" rel="noopener" data-nudge-go>${en ? 'Message on Zalo' : 'Nhắn Zalo'}</a>`, at: 0.3, sec: 12 };
-    } else if (/^\/tuyen-dung/.test(path) || $('.nw-sapo')) {
+    } else if (/^\/(tuyen-dung|tin-tuc)/.test(path) || $('.nw-sapo') || $('.jb-detail')) {
       c = { k: 'ungvien', h: 'Đang tìm việc giúp việc, bảo mẫu?', p: 'Ứng tuyển trong 2 phút. Elite Helpers không thu phí người lao động.',
         b: '<a class="btn btn-green" href="#ung-tuyen" data-open="ungvien" data-nudge-go>Ứng tuyển ngay</a>', at: 0.45, sec: 35 };
     } else if (en) {

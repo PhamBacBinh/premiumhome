@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Bản tin người lao động (hiển thị toàn bộ trong mục /tuyen-dung, mỗi bài một trang riêng, mở tab mới).
+"""Bản tin người lao động (hiển thị toàn bộ ở trang /tin-tuc: Trang chủ / Tuyển dụng / Tin tức, mỗi bài một trang riêng, mở tab mới).
 Thêm bài mới: thêm dict vào đầu POSTS (no tăng dần, chỉ dùng cho tên ảnh; bài đầu danh sách tự gắn nhãn "Tin mới"), tạo ảnh bìa bằng gen_news_covers.py, chạy build.py."""
 import html
 E = html.escape
@@ -135,7 +135,7 @@ def cover_img(p, cls=''):
             f'sizes="(min-width:1024px) 720px, 92vw" width="640" height="360" alt="{E(p["cover"]["big"])}: {E(p["cover"]["label"])}" loading="lazy" decoding="async">')
 
 
-def list_section(g):
+def list_section(g, page=False):
     items = ''
     for i, p in enumerate(POSTS):
         items += f'''
@@ -148,12 +148,29 @@ def list_section(g):
         </a>
         <div class="nw-meta">{p['date_vi']} · Tổng hợp từ {E(p['src_short'])}</div>
       </article>'''
-    return f'''<section id="ban-tin" class="on-light bg-paper py-20 lg:py-24" aria-labelledby="bt-title">
-  <div class="shell">
+    head = '' if page else '''
     <span class="eyebrow">Bản tin người lao động · cập nhật hằng tuần</span>
     <h2 id="bt-title" class="t-h2 mt-3 text-shutter" style="max-width:26ch">Tin tức, quyền lợi và kinh nghiệm tìm việc</h2>
-    <p class="mt-4 max-w-[60ch] text-ink-soft">Elite Helpers tổng hợp quy định mới và tin tức về nghề giúp việc từ các báo chính thống. Bấm vào bài để đọc đầy đủ.</p>
+    <p class="mt-4 max-w-[60ch] text-ink-soft">Elite Helpers tổng hợp quy định mới và tin tức về nghề giúp việc từ các báo chính thống. Bấm vào bài để đọc đầy đủ.</p>'''
+    return f'''<section id="ban-tin" class="on-light bg-paper py-16 lg:py-20"{'' if page else ' aria-labelledby="bt-title"'} aria-label="Danh sách bài">
+  <div class="shell">{head}
     <div class="nw-list">{items}
+    </div>
+  </div>
+</section>'''
+
+
+def teaser_section(g):
+    """Ô dẫn sang trang Tin tức (đặt trong /tuyen-dung): 3 tiêu đề mới nhất."""
+    NEW = '<b class="nw-new">Tin mới</b>'
+    li = ''.join(f'<li><a href="/{p["slug"]}">{NEW if i == 0 else ""}{E(p["title"])}</a><small>{p["date_vi"]}</small></li>' for i, p in enumerate(POSTS[:3]))
+    return f'''<section id="tin-tuc" class="on-light bg-paper py-16 lg:py-20" aria-labelledby="tt-title">
+  <div class="shell">
+    <div class="td-teaser">
+      <div><span class="eyebrow">Tin tức</span><h2 id="tt-title" class="t-h2 mt-3 text-shutter">Tin tức cho người lao động</h2>
+        <p class="mt-3 text-ink-soft">Quy định mới, quyền lợi và kinh nghiệm tìm việc, cập nhật hằng tuần.</p>
+        <a class="btn btn-ghost-dark mt-6" href="/tin-tuc">Xem tất cả tin tức</a></div>
+      <ul class="td-teaser-list" role="list">{li}</ul>
     </div>
   </div>
 </section>'''
@@ -161,7 +178,7 @@ def list_section(g):
 
 def post_page(g, p, idx):
     SITE = g['SITE']; path = '/' + p['slug']
-    crumbs = [('Trang chủ', '/'), ('Tuyển dụng', '/tuyen-dung'), ('Bản tin', None)]
+    crumbs = [('Trang chủ', '/'), ('Tuyển dụng', '/tuyen-dung'), ('Tin tức', '/tin-tuc')]
     newer = POSTS[idx - 1] if idx > 0 else None
     older = POSTS[idx + 1] if idx + 1 < len(POSTS) else None
     nav = '<nav class="nw-nav" aria-label="Bài trong chuỗi">'
@@ -186,7 +203,7 @@ def post_page(g, p, idx):
     {p['body']}
     {srcs}
     {nav}
-    <h2>Các bài khác trong bản tin</h2><ul>{others}<li><a href="/tuyen-dung#ban-tin">Xem toàn bộ bản tin tại mục Tuyển dụng</a></li></ul>
+    <h2>Tin tức khác</h2><ul>{others}<li><a href="/tin-tuc">Xem tất cả tin tức</a></li></ul>
   </div></div>
 </article>
 <section class="on-dark bg-lacquer py-20 text-paper lg:py-24" aria-labelledby="cta-title">
@@ -194,7 +211,8 @@ def post_page(g, p, idx):
     <h2 id="cta-title" class="t-h2">Tìm việc giúp việc, bảo mẫu, chăm sóc người già tại Hà Nội?</h2>
     <p class="t-lead mt-4 max-w-[56ch] text-mist">Có hợp đồng, gặp gia đình trước khi nhận việc, không thu phí người lao động.</p>
     <div class="mt-8 flex flex-wrap gap-3">
-      <a class="btn btn-brass" href="/tuyen-dung#ung-tuyen" data-open="ungvien">Ứng tuyển online (2 phút)</a>
+      <a class="btn btn-brass" href="/tuyen-dung#viec-dang-tuyen">Xem việc đang tuyển</a>
+      <a class="btn btn-ghost-light" href="#ung-tuyen" data-open="ungvien">Gửi hồ sơ (2 phút)</a>
       <a class="btn btn-ghost-light" href="https://zalo.me/0948919598" target="_blank" rel="noopener" data-track="zalo">Hỏi qua Zalo 0948 919 598</a>
     </div>
   </div>

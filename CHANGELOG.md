@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261026f (mới nhất) | **bản 17** | Kho khách hàng; form ứng viên chuẩn hóa |
+| 20261026g (mới nhất) | **bản 17** | Tin tuyển dụng ứng tuyển trực tiếp; trang Tin tức riêng |
+| 20261026f | **bản 17** | Kho khách hàng; form ứng viên chuẩn hóa |
 | 20261026e | **bản 16** | Sửa ngày bắt đầu bị đảo ngày/tháng khi lưu |
 | 20261026e | **bản 15** | Nhận xét Elite Helpers trình bày theo mục, gạch đầu dòng |
 | 20261026d | **bản 14** | Sửa CV tràn chữ trên điện thoại, In / Lưu PDF đúng 1 trang |
@@ -30,6 +31,13 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261026g] – 26/10/2026 · Tách Tuyển dụng và Tin tức (không cần đổi Apps Script, trang quản trị giữ nguyên)
+- **/tuyen-dung** chỉ còn tuyển dụng: mục **Việc đang tuyển** (mỗi tin có mã, thu nhập, hình thức, nơi làm, nút **Ứng tuyển ngay**), mục **Vị trí tuyển thường xuyên** (mỗi vị trí có nút ứng tuyển), Tìm việc an toàn, Quyền lợi, Quy trình, Hỏi đáp, ô dẫn sang Tin tức. Thanh chuyển **Việc đang tuyển / Tin tức**.
+- Bấm **Ứng tuyển ngay**: form ứng viên mở với khung "Đang ứng tuyển" (tên tin, mã tin), tự chọn vị trí và hình thức. Mã + tên tin ghi vào đầu ô **Ghi chú** của hồ sơ (dạng `Ứng tuyển tin: EH-BM-2510 · …`), hiện trong trang quản trị như cũ; bản gửi Zalo dự phòng cũng có dòng này.
+- Mỗi tin có trang riêng (ví dụ `/tuyen-bao-mau-cham-be-so-sinh-ocean-park-2`) với dữ liệu JobPosting cho Google Việc làm; tin hết hạn hoặc đã tuyển tự ẩn nút ứng tuyển.
+- Trang mới **/tin-tuc** (Trang chủ / Tuyển dụng / Tin tức) chứa toàn bộ bản tin người lao động; trang từng bài có đường dẫn Trang chủ / Tuyển dụng / Tin tức. Link cũ `/tuyen-dung#ban-tin` tự chuyển sang /tin-tuc.
+- Dữ liệu tin tuyển dụng: `nguon-ma/v2/jobs.py` (danh sách `JOBS`).
 
 ## [20261026f] – 26/10/2026 · Kho khách hàng, form ứng viên chuẩn hóa (cần Apps Script bản 17)
 - Tab mới **Kho khách hàng** trên /quan-tri: yêu cầu từ form "Tìm người hỗ trợ" tự vào kho (tab KhoKhachHang), nút nhập lại yêu cầu cũ; lọc Đang xử lý / Ưu tiên cao / Đã xong, dịch vụ, loại khách, trạng thái; trạng thái + ưu tiên + lịch sử chăm sóc; gắn ứng viên đã giới thiệu; gợi ý ứng viên phù hợp (khu vực, vị trí, hình thức); In / Lưu PDF phiếu yêu cầu dịch vụ; sao chép tóm tắt. Thẻ khách ở tab Hồ sơ có nút "Mở trong kho khách".

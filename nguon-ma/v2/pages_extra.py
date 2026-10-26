@@ -17,13 +17,7 @@ def recruit_page(g):
     crumbs = [('Trang chủ', '/'), ('Tuyển dụng', None)]
     title = 'Tuyển giúp việc, bảo mẫu, chăm sóc người già tại Hà Nội'
     desc = 'Việc làm giúp việc, bảo mẫu, chăm sóc người già, quản gia, đầu bếp tại Hà Nội. Gia đình uy tín, có hợp đồng, không thu phí. Ứng tuyển online 2 phút.'
-    jobs = [('Giúp việc gia đình', 'Ở lại hoặc theo giờ: dọn dẹp, giặt là, đi chợ, nấu ăn. Lương 10–25 triệu đồng/tháng.'),
-            ('Bảo mẫu, chăm bé', 'Chăm trẻ sơ sinh, trẻ nhỏ; ưu tiên người đã có con, có kinh nghiệm. Lương 10–25 triệu đồng/tháng.'),
-            ('Chăm sóc người già', 'Hỗ trợ sinh hoạt, ăn uống, nhắc thuốc, đưa đi khám cho ông bà. Lương 10–25 triệu đồng/tháng.'),
-            ('Quản gia', 'Điều phối việc nhà ở biệt thự, dinh thự; ưu tiên biết tiếng Anh. Lương 18–40 triệu đồng/tháng.'),
-            ('Đầu bếp gia đình', 'Nấu món Việt, Á, Âu; lên thực đơn, nấu tiệc tại nhà. Lương 15–35 triệu đồng/tháng.'),
-            ('Hỗ trợ ngắn hạn, dịp Tết', 'Làm theo đợt từ vài ngày đến vài tuần, dịp Tết thu nhập cao.')]
-    cards = ''.join(f'<div class="card"><h3>{E(a)}</h3><p>{E(b)}</p></div>' for a, b in jobs)
+    import jobs as J
     main = f'''<section id="top" class="on-dark relative overflow-hidden bg-lacquer text-paper" aria-labelledby="pg-title">
   <div class="shell relative pb-20 pt-32 lg:pb-24 lg:pt-40">
     {g['crumbs_html'](crumbs)}
@@ -31,11 +25,13 @@ def recruit_page(g):
     <h1 id="pg-title" class="t-display mt-4" style="max-width:22ch">Tuyển giúp việc, bảo mẫu, chăm sóc người già tại Hà Nội</h1>
     <p class="t-lead mt-6 max-w-[56ch] text-mist">Làm việc cho gia đình Việt Nam, gia đình người nước ngoài và đại sứ quán tại Hà Nội. Có hợp đồng, công việc ổn định, không thu phí người lao động.</p>
     <div class="mt-9 flex flex-wrap gap-3">
-      <a class="btn btn-brass" href="#ung-tuyen" data-open="ungvien">Ứng tuyển online (2 phút)</a>
-      <a class="btn btn-ghost-light" href="https://zalo.me/0948919598" target="_blank" rel="noopener" data-track="zalo">Hỏi qua Zalo 0948 919 598</a>
+      <a class="btn btn-brass" href="#viec-dang-tuyen">Xem việc đang tuyển</a>
+      <a class="btn btn-ghost-light" href="#ung-tuyen" data-open="ungvien">Gửi hồ sơ (2 phút)</a>
     </div>
+    {J.tabs('jobs')}
   </div>
 </section>
+{J.jobs_section(g)}
 <section id="tim-viec-an-toan" class="on-light bg-linen py-20 lg:py-24" aria-labelledby="at-title">
   <div class="shell">
     <span class="eyebrow">Tìm việc an toàn</span>
@@ -78,13 +74,7 @@ def recruit_page(g):
     </div>
   </div>
 </section>
-<section class="on-light bg-paper py-20 lg:py-24" aria-labelledby="vt-title">
-  <div class="shell">
-    <h2 id="vt-title" class="t-h2 text-shutter">Vị trí đang tuyển</h2>
-    <div class="cards c3">{cards}</div>
-  </div>
-</section>
-{__import__('news').list_section(g)}
+{__import__('news').teaser_section(g)}
 <section class="on-light bg-linen py-20 lg:py-24" aria-labelledby="ql-title">
   <div class="shell grid gap-14 lg:grid-cols-12 lg:gap-12">
     <div class="lg:col-span-6">
@@ -142,6 +132,39 @@ def recruit_page(g):
          'isPartOf': {'@id': SITE + '/#website'}, 'about': {'@id': SITE + '/#org'}},
         g['crumbs_ld'](crumbs, path), g['faq_ld'](RECRUIT_FAQ, path)]}
     return 'tuyen-dung.html', path, g['page'](title, desc, path, main, ld)
+
+def news_page(g):
+    import jobs as J, news as N
+    path = '/tin-tuc'
+    crumbs = [('Trang chủ', '/'), ('Tuyển dụng', '/tuyen-dung'), ('Tin tức', None)]
+    title = 'Tin tức cho người lao động giúp việc, bảo mẫu, chăm sóc người già'
+    desc = 'Bản tin hằng tuần của Elite Helpers: quy định mới, quyền lợi, mức lương và kinh nghiệm tìm việc giúp việc gia đình, bảo mẫu, chăm sóc người già tại Hà Nội.'
+    main = f'''<section id="top" class="on-dark relative overflow-hidden bg-lacquer text-paper" aria-labelledby="pg-title">
+  <div class="shell relative pb-16 pt-32 lg:pb-20 lg:pt-40">
+    {g['crumbs_html'](crumbs)}
+    <span class="eyebrow">Bản tin người lao động · cập nhật hằng tuần</span>
+    <h1 id="pg-title" class="t-display mt-4" style="max-width:22ch">Tin tức, quyền lợi và kinh nghiệm tìm việc</h1>
+    <p class="t-lead mt-6 max-w-[56ch] text-mist">Elite Helpers tổng hợp quy định mới và tin tức về nghề giúp việc từ các báo chính thống. Bấm vào bài để đọc đầy đủ.</p>
+    {J.tabs('news')}
+  </div>
+</section>
+{N.list_section(g, page=True)}
+<section class="on-dark bg-lacquer py-20 text-paper lg:py-24" aria-labelledby="cta-title">
+  <div class="shell">
+    <h2 id="cta-title" class="t-h2">Đang tìm việc giúp việc, bảo mẫu, chăm sóc người già?</h2>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a class="btn btn-brass" href="/tuyen-dung#viec-dang-tuyen">Xem việc đang tuyển</a>
+      <a class="btn btn-ghost-light" href="#ung-tuyen" data-open="ungvien">Gửi hồ sơ (2 phút)</a>
+    </div>
+  </div>
+</section>'''
+    SITE = g['SITE']
+    items = [{'@type': 'ListItem', 'position': i + 1, 'url': SITE + '/' + p['slug'], 'name': p['title']} for i, p in enumerate(N.POSTS)]
+    ld = {'@context': 'https://schema.org', '@graph': [
+        {'@type': 'CollectionPage', '@id': SITE + path + '#webpage', 'url': SITE + path, 'name': title, 'description': desc, 'inLanguage': 'vi',
+         'isPartOf': {'@id': SITE + '/#website'}, 'mainEntity': {'@type': 'ItemList', 'itemListElement': items}},
+        g['crumbs_ld'](crumbs, path)]}
+    return 'tin-tuc.html', path, g['page'](title, desc, path, main, ld)
 
 # ======================= CẨM NANG 2026 =======================
 GUIDE_FAQ = [
@@ -544,7 +567,7 @@ def admin_page(g):
 
 def extra_pages(g):
     import articles as A
-    return [services_hub(g), guides_hub(g), recruit_page(g), guide_page(g), en_page(g), notfound_page(g), admin_page(g)] + A.all_articles(g) + __import__('news').all_posts(g)
+    return [services_hub(g), guides_hub(g), recruit_page(g), news_page(g), guide_page(g), en_page(g), notfound_page(g), admin_page(g)] + A.all_articles(g) + __import__('news').all_posts(g) + __import__('jobs').all_jobs(g)
 
 # ======================= META FILES + FLATTEN =======================
 def write_meta_files(g, pages, home_faqs):
@@ -561,7 +584,9 @@ def write_meta_files(g, pages, home_faqs):
           f'- [Tất cả dịch vụ và mức lương tham khảo]({SITE}/dich-vu)',
           f'- [Cẩm nang thuê người giúp việc]({SITE}/cam-nang)',
           *[f"- [{a['h1']}]({SITE}/{a['slug']}): {__import__('articles').plain(a['answer'])}" for a in __import__('articles').ARTICLES],
-          f'- [Tuyển dụng người giúp việc, bảo mẫu, chăm sóc người già]({SITE}/tuyen-dung): việc làm cho người lao động, không thu phí.',
+          f'- [Tuyển dụng người giúp việc, bảo mẫu, chăm sóc người già]({SITE}/tuyen-dung): tin tuyển dụng đang mở, ứng tuyển trực tiếp từng tin, không thu phí.',
+          *[f"- [{j['title']}]({SITE}/{j['slug']}): {j['salary']}, {j['mode'].lower()}, {j['area']}." for j in __import__('jobs').JOBS if __import__('jobs').is_open(j)],
+          f'- [Tin tức cho người lao động]({SITE}/tin-tuc): bản tin hằng tuần về quy định, quyền lợi và kinh nghiệm tìm việc.',
           f'- [Cẩm nang thuê người giúp việc năm 2026]({SITE}/thue-giup-viec-2026): quy định mới theo Nghị định 283/2026/NĐ-CP, checklist, mẫu hợp đồng.',
           f'- [English: Housekeepers, nannies & elderly caregivers in Hanoi]({SITE}/en)', '',
           '## Câu hỏi thường gặp', '']
