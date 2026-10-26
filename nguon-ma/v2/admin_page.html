@@ -84,6 +84,58 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 .sess .path{margin:.3rem 0 0;color:var(--ink);word-break:break-word}
 .sess .acts2{margin:.25rem 0 0;color:#8a4b12}
 .ranges{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+/* ---- Kho ứng viên ---- */
+.k-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.k-tabs .tab{flex:none}
+.k-tabs .tab i{font-style:normal;opacity:.7;margin-left:4px;font-variant-numeric:tabular-nums}
+.k-tabs .tab.warn{border-color:var(--b)}
+.k-fil{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:8px;margin:4px 0 8px}
+@media(max-width:760px){.k-fil{grid-template-columns:1fr 1fr}.k-fil .q{grid-column:1/-1}}
+.k-fil input,.k-fil select,.ov input,.ov select,.ov textarea{width:100%;min-width:0;font:inherit;font-size:15px;padding:.55rem .7rem;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.k-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:4px 0}
+.k-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+@media(max-width:420px){.k-list{grid-template-columns:1fr}}
+.kc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left;font:inherit;color:inherit;cursor:pointer;display:grid;gap:6px}
+.kc:hover{border-color:var(--b)}
+.kc .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.kc h2{font-size:1.02rem;margin:0}
+.kc .sub{font-size:.8rem;color:var(--soft)}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:.75rem;padding:2px 8px;border-radius:999px;background:#efe7d6;color:#5d4a20;white-space:nowrap}
+.kc dl,.ov dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:.88rem}
+.kc dt,.ov dt{color:var(--soft)} .kc dd,.ov dd{margin:0;word-break:break-word}
+.pill{font:700 11px/1.4 system-ui;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.s-new{background:#e2ecf5;color:#2f5f86}.s-act{background:#f6ead0;color:#8a5d0c}.s-ok{background:#e1f0e6;color:#2f7a4f}.s-idle{background:#ecebe7;color:#6b706d}.s-none{background:#fbe9d0;color:#8a4b12}
+.ov{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.42);display:flex;justify-content:flex-end}
+.ov[hidden]{display:none}
+.panel{background:var(--bg);width:min(580px,100%);height:100%;overflow-y:auto;padding:calc(env(safe-area-inset-top) + 12px) max(16px,env(safe-area-inset-right)) calc(env(safe-area-inset-bottom) + 28px) max(16px,env(safe-area-inset-left));display:grid;align-content:start;gap:12px}
+.panel .hd{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.panel .hd h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.6rem;margin:0;color:var(--g);line-height:1.15}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;gap:10px}
+.box h3{margin:0;font:700 11px system-ui;letter-spacing:.1em;text-transform:uppercase;color:#8a6d2f}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
+@media(max-width:420px){.g2{grid-template-columns:1fr}}
+.g2 .full{grid-column:1/-1}
+.ov label{margin:0;display:grid;gap:3px;font-size:.82rem}
+.tgs{display:flex;flex-wrap:wrap;gap:6px}
+.tg{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.32rem .7rem;font:500 13px system-ui;color:var(--ink);cursor:pointer}
+.tg[aria-pressed=true]{background:var(--g2);color:#F4EEE3;border-color:var(--g2)}
+.pg{font:700 11px system-ui;color:var(--soft);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.phone{font-weight:700;font-size:1.1rem;font-variant-numeric:tabular-nums;user-select:all}
+.tl{display:grid;gap:6px;font-size:.88rem}
+.tl div{border-left:2px solid #e8dcc0;padding-left:10px}
+.tl small{color:var(--soft)}
+.ov textarea{min-height:74px;resize:vertical}
+.btn:focus-visible,.tab:focus-visible,.tg:focus-visible,.kc:focus-visible{outline:2px solid var(--b);outline-offset:2px}
+#cvPrint{display:none}
+@media print{body>*:not(#cvPrint){display:none!important}#cvPrint{display:block;font:14px/1.55 Arial,Helvetica,sans-serif;color:#1f2b26}
+ #cvPrint .hd{background:#21352d;color:#f3ead6;padding:16px 20px;border-radius:8px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ #cvPrint .hd b{font-family:Georgia,serif;letter-spacing:4px;font-size:20px}#cvPrint .hd div{font-size:11px;color:#d9c48f}
+ #cvPrint h1{font-family:Georgia,serif;font-size:26px;margin:20px 0 2px}#cvPrint .code{color:#a8843f;font-size:12px}
+ #cvPrint table{width:100%;border-collapse:collapse;margin-top:12px}#cvPrint td{padding:6px 8px;border-bottom:1px solid #e2dccf;vertical-align:top}
+ #cvPrint td:first-child{color:#66716b;width:36%}#cvPrint h2{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#a8843f;margin:18px 0 4px}
+ #cvPrint .ft{margin-top:24px;font-size:11px;color:#66716b;border-top:1px solid #e2dccf;padding-top:8px}}
 </style>
 </head>
 <body>
@@ -109,6 +161,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   <section id="app" hidden>
     <div class="views" role="group" aria-label="Chế độ xem">
       <button type="button" data-v="hoso" aria-pressed="true">Hồ sơ</button>
+      <button type="button" data-v="kho" aria-pressed="false">Kho ứng viên</button>
       <button type="button" data-v="phantich" aria-pressed="false">Phân tích</button>
     </div>
     <div id="vHoso">
@@ -122,6 +175,25 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     </div>
     <p class="meta" id="meta">Đang tải…</p>
     <div id="list"></div>
+    </div>
+    <div id="vKho" hidden>
+      <div class="k-tabs" id="kTabs" role="group" aria-label="Khu vực nhận việc"></div>
+      <div class="k-fil">
+        <input class="q" id="kQ" type="search" placeholder="Tìm tên, SĐT, mã, quê, ghi chú…" aria-label="Tìm trong kho">
+        <select id="kPos" aria-label="Vị trí"></select>
+        <select id="kExp" aria-label="Kinh nghiệm"></select>
+        <select id="kType" aria-label="Hình thức"></select>
+        <select id="kSt" aria-label="Trạng thái"></select>
+      </div>
+      <div class="k-bar">
+        <p class="meta" id="kMeta" style="margin:0">Đang tải kho…</p>
+        <div class="row">
+          <button class="btn alt sm" type="button" id="kImport">Nhập hồ sơ từ website</button>
+          <a class="btn alt sm" id="kSheet" href="#" target="_blank" rel="noopener" hidden>Mở Google Sheet</a>
+          <button class="btn sm" type="button" id="kAdd">+ Thêm ứng viên</button>
+        </div>
+      </div>
+      <div class="k-list" id="kList"></div>
     </div>
     <div id="vStats" hidden>
       <div class="ranges" role="group" aria-label="Khoảng thời gian">
@@ -138,6 +210,8 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
       · <a href="/">Về trang web</a> · <a href="#" id="logout">Đăng xuất thiết bị này</a></p>
   </section>
 </main>
+<div class="ov" id="kOv" hidden><div class="panel" id="kPanel" role="dialog" aria-modal="true" aria-label="Hồ sơ ứng viên"></div></div>
+<div id="cvPrint" aria-hidden="true"></div>
 <p class="toast" id="toast" role="status" hidden></p>
 <script>
 (() => {
@@ -216,6 +290,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
         '<span class="time">' + esc(fmt(x.time)) + (isNew ? ' · <b>MỚI</b>' : '') + '</span></div>' +
         '<h2>' + esc(x.name || '(không tên)') + '</h2><dl>' + dl + '</dl>' +
         '<div class="acts">' + (ph ? '<a class="btn sm" href="tel:' + esc(ph) + '">Gọi ' + esc(x.phone) + '</a><a class="btn alt sm" href="https://zalo.me/' + esc(ph.replace(/^\+84/, '0')) + '" target="_blank" rel="noopener">Zalo</a>' : '') +
+        (k ? '' : '<button class="btn alt sm" type="button" data-kho="' + items.indexOf(x) + '">Phân luồng</button>') +
         '<button class="btn sm del" type="button" data-del="' + items.indexOf(x) + '">Xóa</button></div>' +
         '</article>';
     }).join('');
@@ -356,10 +431,15 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   }
   document.querySelectorAll('.views button').forEach((b) => b.addEventListener('click', () => {
     document.querySelectorAll('.views button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-    const st = b.dataset.v === 'phantich';
-    $('#vHoso').hidden = st; $('#vStats').hidden = !st;
-    if (st && Date.now() - sLoaded > 120000) loadStats(false);
+    setView(b.dataset.v);
   }));
+  function setView(v) {
+    document.querySelectorAll('.views button').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.v === v)));
+    $('#vHoso').hidden = v !== 'hoso'; $('#vStats').hidden = v !== 'phantich'; $('#vKho').hidden = v !== 'kho';
+    store.set('eh_admin_view', v);
+    if (v === 'phantich' && Date.now() - sLoaded > 120000) loadStats(false);
+    if (v === 'kho' && Date.now() - kLoaded > 60000) loadKho();
+  }
   document.querySelectorAll('.ranges .tab').forEach((b) => b.addEventListener('click', () => {
     sDays = Number(b.dataset.d);
     document.querySelectorAll('.ranges .tab').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
@@ -387,10 +467,240 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
       if (m === 'notfound') poll(false);
     }
   });
+
+  // ---------------- Kho ứng viên (Apps Script bản 12, tab KhoUngVien) ----------------
+  const REGIONS = {
+    'Miền Bắc': ['Hà Nội', 'Hải Phòng', 'Quảng Ninh', 'Bắc Ninh', 'Hưng Yên', 'Ninh Bình', 'Phú Thọ', 'Thái Nguyên', 'Tuyên Quang', 'Lào Cai', 'Lạng Sơn', 'Cao Bằng', 'Điện Biên', 'Lai Châu', 'Sơn La'],
+    'Miền Trung': ['Thanh Hóa', 'Nghệ An', 'Hà Tĩnh', 'Quảng Trị', 'Huế', 'Đà Nẵng', 'Quảng Ngãi', 'Gia Lai', 'Khánh Hòa', 'Đắk Lắk', 'Lâm Đồng'],
+    'Miền Nam': ['TP. Hồ Chí Minh', 'Đồng Nai', 'Tây Ninh', 'Cần Thơ', 'Vĩnh Long', 'Đồng Tháp', 'Cà Mau', 'An Giang'] };
+  const ALL_PROV = [].concat(REGIONS['Miền Bắc'], REGIONS['Miền Trung'], REGIONS['Miền Nam']);
+  const regionOf = (p) => Object.keys(REGIONS).find((r) => REGIONS[r].includes(p)) || '';
+  const POS = ['Giúp việc gia đình', 'Bảo mẫu / chăm bé', 'Chăm sóc người già', 'Quản gia', 'Đầu bếp gia đình', 'Khác'];
+  const TYPES = ['Ở lại', 'Theo giờ / đi về', 'Cả hai'];
+  const EXP = [['0-1', 'Dưới 1 năm', 0, 1], ['1-3', '1–3 năm', 1, 3], ['3-5', '3–5 năm', 3, 5], ['5-10', '5–10 năm', 5, 10], ['10+', 'Trên 10 năm', 10, 99]];
+  const STATUS = [['Mới nhận', 's-new'], ['Đã liên hệ', 's-act'], ['Sẵn sàng giới thiệu', 's-ok'], ['Đã gửi CV cho khách', 's-act'], ['Đang làm thử', 's-act'], ['Đã nhận việc', 's-ok'], ['Lưu kho – chờ job phù hợp', 's-idle'], ['Tạm dừng', 's-idle']];
+  const SOURCES = ['Website', 'Facebook Page', 'Facebook Group', 'Zalo', 'TikTok', 'Giới thiệu', 'Nhập tay', 'Khác'];
+  const stCls = (s) => (STATUS.find((x) => x[0] === s) || [0, 's-idle'])[1];
+  const expBand = (n) => { if (n === null || n === '' || n === undefined || isNaN(Number(n))) return null; n = Number(n); return EXP.find((e) => n >= e[2] && n < e[3]) || EXP[4]; };
+  const ageOf = (y) => (y && !isNaN(Number(y)) ? new Date().getFullYear() - Number(y) : '');
+  const fdate = (iso) => { const d = new Date(iso); return iso && !isNaN(d) ? d.toLocaleDateString('vi-VN') : String(iso || ''); };
+  const areas = (r) => (Array.isArray(r.khuVuc) ? r.khuVuc : []);
+  let kho = [], kLoaded = 0, kTab = 'all', kSheetUrl = '', kOpen = '';
+  const opts = (sel, first, list) => { sel.innerHTML = '<option value="">' + first + '</option>' + list.map((i) => Array.isArray(i) ? '<option value="' + esc(i[0]) + '">' + esc(i[1]) + '</option>' : '<option>' + esc(i) + '</option>').join(''); };
+  opts($('#kPos'), 'Mọi vị trí', POS); opts($('#kExp'), 'Mọi kinh nghiệm', EXP.map((e) => [e[0], e[1]]));
+  opts($('#kType'), 'Mọi hình thức', TYPES); opts($('#kSt'), 'Mọi trạng thái', STATUS.map((s) => s[0]));
+  ['#kQ', '#kPos', '#kExp', '#kType', '#kSt'].forEach((id) => $(id).addEventListener('input', renderKho));
+
+  // Ghi dữ liệu: POST (dữ liệu dài), đọc phản hồi JSON
+  async function post(params, wait) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), wait || 30000);
+    try {
+      const res = await fetch(ENDPOINT, { method: 'POST', body: new URLSearchParams({ ...params, key }), redirect: 'follow', signal: ctrl.signal });
+      const j = await res.json().catch(() => null);
+      if (!j) throw new Error('needv12');
+      if (!j.ok) throw new Error(j.error || 'error');
+      return j;
+    } catch (e) { throw new Error(e.name === 'AbortError' ? 'timeout' : e.message); } finally { clearTimeout(t); }
+  }
+  const kErr = (m) => (m === 'timeout' || m === 'needv12' ? 'cần cập nhật Apps Script bản 12' : m === 'conflict' ? 'hồ sơ vừa được sửa ở nơi khác, đã tải lại bản mới' : m === 'missing' ? 'thiếu họ tên hoặc SĐT' : m === 'auth' ? 'mã quản trị không đúng' : m);
+
+  async function loadKho() {
+    $('#kMeta').textContent = 'Đang tải kho…';
+    try {
+      const j = await call({ action: 'kho_list' }, 30000);
+      kho = j.items || []; kLoaded = Date.now(); kSheetUrl = j.sheetUrl || '';
+      $('#kSheet').hidden = !kSheetUrl; if (kSheetUrl) $('#kSheet').href = kSheetUrl;
+      renderKho();
+      return true;
+    } catch (e) {
+      $('#kMeta').textContent = 'Chưa tải được kho: ' + kErr(String(e.message)) + '.';
+      return false;
+    }
+  }
+  function upsertLocal(it) { const i = kho.findIndex((x) => x.ma === it.ma); if (i >= 0) kho[i] = it; else kho.push(it); }
+  function matchTab(r, t) { const a = areas(r); if (t === 'all') return true; if (t === 'chua') return !a.length; if (t === 'Hà Nội') return a.includes('Hà Nội'); return a.some((p) => regionOf(p) === t); }
+  function kFiltered() {
+    const q = $('#kQ').value.trim().toLowerCase(), p = $('#kPos').value, x = $('#kExp').value, t = $('#kType').value, s = $('#kSt').value;
+    return kho.filter((r) => matchTab(r, kTab) && (!p || (r.viTri || []).includes(p)) && (!x || (expBand(r.kinhNghiemNam) || [])[0] === x)
+      && (!t || r.hinhThuc === t || (t !== 'Cả hai' && r.hinhThuc === 'Cả hai')) && (!s || r.trangThai === s)
+      && (!q || [r.ma, r.hoTen, r.sdt, r.que, r.noiO, r.noiOChiTiet, r.ghiChu, r.kinhNghiemMoTa].join(' ').toLowerCase().includes(q)))
+      .sort((a, b) => String(b.ngayNhan).localeCompare(String(a.ngayNhan)));
+  }
+  function renderKho() {
+    const defs = [['all', 'Tất cả'], ['chua', 'Chưa phân luồng'], ['Hà Nội', 'Hà Nội'], ['Miền Bắc', 'Miền Bắc'], ['Miền Trung', 'Miền Trung'], ['Miền Nam', 'Miền Nam']];
+    $('#kTabs').innerHTML = defs.map(([k, l]) => { const n = kho.filter((r) => matchTab(r, k)).length; return '<button type="button" class="tab' + (k === 'chua' && n ? ' warn' : '') + '" data-k="' + esc(k) + '" aria-pressed="' + (kTab === k) + '">' + l + '<i>' + n + '</i></button>'; }).join('');
+    const list = kFiltered();
+    $('#kMeta').textContent = list.length + ' / ' + kho.length + ' ứng viên · cập nhật ' + new Date(kLoaded || Date.now()).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    if (!kho.length) { $('#kList').innerHTML = '<p class="empty">Kho chưa có ứng viên. Bấm “Nhập hồ sơ từ website” để đưa hồ sơ ứng tuyển cũ vào, hoặc “+ Thêm ứng viên”.</p>'; return; }
+    if (!list.length) { $('#kList').innerHTML = '<p class="empty">Không có ứng viên khớp bộ lọc.</p>'; return; }
+    $('#kList').innerHTML = list.map((r) => {
+      const b = expBand(r.kinhNghiemNam), a = areas(r);
+      return '<button type="button" class="kc" data-ma="' + esc(r.ma) + '"><div class="top"><div><h2>' + esc(r.hoTen) + '</h2><div class="sub">' + esc(r.ma) +
+        (r.namSinh ? ' · ' + esc(r.namSinh) + ' (' + ageOf(r.namSinh) + ' tuổi)' : '') + (r.que ? ' · Quê ' + esc(r.que) : '') + '</div></div>' +
+        '<span class="pill ' + stCls(r.trangThai) + '">' + esc(r.trangThai) + '</span></div>' +
+        '<div class="chips">' + (r.viTri || []).map((v) => '<span class="chip">' + esc(v) + '</span>').join('') + '</div>' +
+        '<dl><dt>Nhận việc tại</dt><dd>' + (a.length ? esc(a.join(', ')) : '<span class="pill s-none">Chưa phân luồng</span>') + '</dd><dt>Nơi ở</dt><dd>' + esc(r.noiO || r.noiOChiTiet || '—') + '</dd>' +
+        '<dt>Kinh nghiệm</dt><dd>' + (b ? esc(b[1]) : '—') + (r.hinhThuc ? ' · ' + esc(r.hinhThuc) : '') + '</dd><dt>Lương</dt><dd>' + esc(r.luong || '—') + '</dd></dl></button>';
+    }).join('');
+  }
+  $('#kTabs').addEventListener('click', (e) => { const b = e.target.closest('.tab'); if (!b) return; kTab = b.dataset.k; renderKho(); });
+  $('#kList').addEventListener('click', (e) => { const c = e.target.closest('.kc'); if (c) openK(c.dataset.ma); });
+  function closeK() { $('#kOv').hidden = true; kOpen = ''; document.body.style.overflow = ''; }
+  function showPanel(html) { $('#kPanel').innerHTML = html; $('#kOv').hidden = false; $('#kPanel').scrollTop = 0; document.body.style.overflow = 'hidden'; }
+  $('#kOv').addEventListener('click', (e) => { if (e.target.id === 'kOv') closeK(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('#kOv').hidden) closeK(); });
+
+  function shortName(n) { const p = String(n || '').trim().split(/\s+/); return p.length > 1 ? p.slice(0, -1).map((w) => w.charAt(0) + '.').join(' ') + ' ' + p[p.length - 1] : String(n || ''); }
+  function cvRows(r, hide) {
+    const b = expBand(r.kinhNghiemNam);
+    return [['Năm sinh', r.namSinh ? r.namSinh + ' (' + ageOf(r.namSinh) + ' tuổi)' : ''], ['Quê quán', r.que], ['Nơi ở hiện tại', r.noiO], ['Khu vực nhận việc', areas(r).join(', ')],
+      ['Vị trí phù hợp', (r.viTri || []).join(', ')], ['Hình thức', r.hinhThuc], ['Kinh nghiệm', r.kinhNghiemNam !== null && r.kinhNghiemNam !== '' && r.kinhNghiemNam !== undefined ? r.kinhNghiemNam + ' năm' + (b ? ' (' + b[1] + ')' : '') : ''],
+      ['Chứng chỉ / đào tạo', r.chungChi || 'Chưa có chứng chỉ'], ['Ngoại ngữ', r.ngoaiNgu], ['Mức lương mong muốn', r.luong], ['Có thể bắt đầu', r.ngayBatDau]]
+      .concat(hide ? [] : [['Số điện thoại', r.sdt]]).filter((x) => x[1]);
+  }
+  function cvText(r, hide) {
+    return 'HỒ SƠ ỨNG VIÊN – ELITE HELPERS\nMã hồ sơ: ' + r.ma + '\nỨng viên: ' + (hide ? shortName(r.hoTen) : r.hoTen) + '\n' + cvRows(r, hide).map(([k, v]) => '• ' + k + ': ' + v).join('\n') +
+      (r.kinhNghiemMoTa ? '\n\nQuá trình làm việc:\n' + r.kinhNghiemMoTa : '') + (r.kyNang ? '\n\nKỹ năng nổi bật: ' + r.kyNang : '') +
+      '\n\nElite Helpers – Người hỗ trợ gia đình cao cấp tại Hà Nội\ngiupviecelite.vn · Zalo 0948 919 598';
+  }
+  function printCV(r, hide) {
+    $('#cvPrint').innerHTML = '<div class="hd"><b>ELITE HELPERS</b><div>Trao trọn niềm tin · Nâng tầm tổ ấm</div></div><h1>' + esc(hide ? shortName(r.hoTen) : r.hoTen) + '</h1>' +
+      '<div class="code">Mã hồ sơ ' + esc(r.ma) + ' · Đã được Elite Helpers phỏng vấn sơ bộ</div><table>' + cvRows(r, hide).map(([k, v]) => '<tr><td>' + esc(k) + '</td><td>' + esc(v) + '</td></tr>').join('') + '</table>' +
+      (r.kinhNghiemMoTa ? '<h2>Quá trình làm việc</h2><p>' + esc(r.kinhNghiemMoTa).replace(/\n/g, '<br>') + '</p>' : '') + (r.kyNang ? '<h2>Kỹ năng nổi bật</h2><p>' + esc(r.kyNang) + '</p>' : '') +
+      '<div class="ft">Elite Helpers – Người hỗ trợ gia đình cao cấp tại Hà Nội · giupviecelite.vn · lienhe@giupviecelite.vn · Zalo 0948 919 598<br>Ứng viên được xác minh lý lịch, phỏng vấn trực tiếp và làm thử trước khi gia đình quyết định.</div>';
+    const old = document.title; document.title = 'CV ' + r.ma + ' – Elite Helpers'; window.print(); document.title = old;
+  }
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); toast('Đã sao chép'); }
+    catch (e) { const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); toast('Đã sao chép'); } catch (_) { toast('Hãy giữ để sao chép thủ công'); } ta.remove(); }
+  }
+
+  function openK(ma) {
+    const r = kho.find((x) => x.ma === ma); if (!r) return; kOpen = ma;
+    const b = expBand(r.kinhNghiemNam), ph = digits(r.sdt);
+    const d = [['Năm sinh', r.namSinh ? r.namSinh + ' (' + ageOf(r.namSinh) + ' tuổi)' + (r.gioiTinh ? ' · ' + r.gioiTinh : '') : ''], ['Quê', r.que], ['Nơi ở', [r.noiO, r.noiOChiTiet].filter(Boolean).join(' · ')],
+      ['Nhận việc tại', areas(r).join(', ') || 'Chưa phân luồng'], ['Vị trí', (r.viTri || []).join(', ')], ['Hình thức', r.hinhThuc],
+      ['Kinh nghiệm', r.kinhNghiemNam !== null && r.kinhNghiemNam !== '' ? r.kinhNghiemNam + ' năm' + (b ? ' (' + b[1] + ')' : '') : ''], ['Chứng chỉ', r.chungChi || 'Chưa có'],
+      ['Ngoại ngữ', r.ngoaiNgu], ['Nấu ăn', r.nauAn], ['Lương mong muốn', r.luong], ['Có thể bắt đầu', r.ngayBatDau]].filter((x) => x[1]);
+    showPanel('<div class="hd"><h2>' + esc(r.hoTen) + '</h2><button class="btn alt sm" type="button" id="kxClose">Đóng</button></div>' +
+      '<div class="row"><span class="pill ' + stCls(r.trangThai) + '">' + esc(r.trangThai) + '</span><span class="hint">' + esc(r.ma) + ' · nhận ' + esc(fdate(r.ngayNhan)) + ' · ' + esc(r.nguon || '') + '</span></div>' +
+      '<div class="box"><h3>Liên hệ</h3><div class="row"><span class="phone">' + esc(r.sdt || '—') + '</span>' +
+      (ph ? '<a class="btn sm" href="tel:' + esc(ph) + '">Gọi</a><a class="btn alt sm" href="https://zalo.me/' + esc(ph.replace(/^\+84/, '0')) + '" target="_blank" rel="noopener">Zalo</a>' : '') + '</div></div>' +
+      '<div class="box"><h3>Phân luồng</h3><label for="kxSt">Trạng thái</label><select id="kxSt">' + STATUS.map((s) => '<option' + (s[0] === r.trangThai ? ' selected' : '') + '>' + s[0] + '</option>').join('') + '</select>' +
+      '<label for="kxLog">Ghi chú trao đổi mới</label><textarea id="kxLog" placeholder="VD: 26/10 gọi, chị chỉ làm khu vực HCM, hẹn báo khi có job"></textarea>' +
+      '<div class="row"><button class="btn sm" type="button" id="kxSave">Lưu trạng thái & ghi chú</button></div>' +
+      ((r.lichSu || []).length ? '<div class="tl">' + r.lichSu.slice().reverse().map((h) => '<div><small>' + esc(fdate(h.t)) + (h.st ? ' · ' + esc(h.st) : '') + '</small><br>' + esc(h.n) + '</div>').join('') + '</div>' : '') + '</div>' +
+      '<div class="box"><h3>Hồ sơ</h3><dl>' + d.map((x) => '<dt>' + x[0] + '</dt><dd>' + esc(x[1]) + '</dd>').join('') + '</dl>' +
+      (r.kinhNghiemMoTa ? '<div><div class="hint">Quá trình làm việc</div>' + esc(r.kinhNghiemMoTa).replace(/\n/g, '<br>') + '</div>' : '') +
+      (r.kyNang ? '<div><div class="hint">Kỹ năng nổi bật</div>' + esc(r.kyNang) + '</div>' : '') +
+      (r.ghiChu ? '<div><div class="hint">Ghi chú nội bộ (không in vào CV)</div>' + esc(r.ghiChu) + '</div>' : '') +
+      '<div class="row"><button class="btn alt sm" type="button" id="kxEdit">Sửa hồ sơ & phân luồng</button></div></div>' +
+      '<div class="box"><h3>Xuất CV gửi khách</h3><label style="display:flex;gap:8px;align-items:center;color:var(--ink)"><input type="checkbox" id="kxHide" checked style="width:auto"> Ẩn SĐT, rút gọn họ tên (khuyên dùng khi gửi khách)</label>' +
+      '<div class="row"><button class="btn sm" type="button" id="kxDoc">Tạo CV Google Docs</button><button class="btn alt sm" type="button" id="kxPrint">In / Lưu PDF</button><button class="btn alt sm" type="button" id="kxCopy">Sao chép gửi Zalo</button></div>' +
+      '<p class="hint" id="kxDocOut" style="margin:0">CV Google Docs lưu trong thư mục Drive “Elite Helpers – CV ứng viên”, mở được trên app Drive để chia sẻ hoặc tải PDF.</p></div>' +
+      '<div class="box"><div class="row" id="kxDelRow"><button class="btn sm del" type="button" id="kxDel" style="margin-left:0">Xóa khỏi kho</button></div></div>');
+    $('#kxClose').onclick = closeK;
+    $('#kxEdit').onclick = () => formK(r);
+    $('#kxCopy').onclick = () => copyText(cvText(r, $('#kxHide').checked));
+    $('#kxPrint').onclick = () => printCV(r, $('#kxHide').checked);
+    $('#kxSave').onclick = async (ev) => {
+      const st = $('#kxSt').value, n = $('#kxLog').value.trim();
+      if (!n && st === r.trangThai) { toast('Chưa có thay đổi'); return; }
+      const lich = (r.lichSu || []).concat([{ t: new Date().toISOString(), st, n: n || 'Cập nhật trạng thái' }]);
+      ev.target.disabled = true; ev.target.textContent = 'Đang lưu…';
+      try { const j = await post({ action: 'kho_save', d: JSON.stringify({ ma: r.ma, base: r.capNhat, trangThai: st, lichSu: lich }) }); upsertLocal(j.item); renderKho(); openK(r.ma); toast('Đã lưu'); }
+      catch (e) { const m = String(e.message); toast('Chưa lưu được: ' + kErr(m)); if (m === 'conflict') { await loadKho(); openK(r.ma); } else { ev.target.disabled = false; ev.target.textContent = 'Lưu trạng thái & ghi chú'; } }
+    };
+    $('#kxDoc').onclick = async (ev) => {
+      ev.target.disabled = true; ev.target.textContent = 'Đang tạo CV…';
+      try {
+        const j = await post({ action: 'kho_cv', ma: r.ma, hide: $('#kxHide').checked ? '1' : '0' }, 45000);
+        $('#kxDocOut').innerHTML = 'Đã tạo CV. <a href="' + esc(j.url) + '" target="_blank" rel="noopener">Mở Google Docs</a> · <a href="' + esc(j.pdf) + '" target="_blank" rel="noopener">Tải PDF</a> · <a href="' + esc(j.folder) + '" target="_blank" rel="noopener">Thư mục CV</a>';
+        toast('Đã tạo CV trên Drive');
+      } catch (e) { toast('Chưa tạo được CV: ' + kErr(String(e.message))); }
+      ev.target.disabled = false; ev.target.textContent = 'Tạo CV Google Docs';
+    };
+    $('#kxDel').onclick = () => {
+      $('#kxDelRow').innerHTML = '<span class="hint">Xóa hồ sơ khỏi kho? Bản sao giữ 30 ngày ở tab ThungRac.</span><button class="btn sm del" type="button" id="kxDelOk" style="margin-left:0">Xóa</button><button class="btn alt sm" type="button" id="kxDelNo">Giữ lại</button>';
+      $('#kxDelNo').onclick = () => openK(r.ma);
+      $('#kxDelOk').onclick = async () => {
+        try { await post({ action: 'kho_del', ma: r.ma }); kho = kho.filter((x) => x.ma !== r.ma); closeK(); renderKho(); toast('Đã xóa khỏi kho'); }
+        catch (e) { toast('Chưa xóa được: ' + kErr(String(e.message))); }
+      };
+    };
+  }
+
+  function formK(r) {
+    const e = r || { viTri: [], khuVuc: [], trangThai: 'Mới nhận', nguon: 'Nhập tay' };
+    const sel = { viTri: new Set(e.viTri || []), khuVuc: new Set(e.khuVuc || []) };
+    const tgs = (k, list) => '<div class="tgs" data-k="' + k + '">' + list.map((i) => '<button type="button" class="tg" data-v="' + esc(i) + '" aria-pressed="' + sel[k].has(i) + '">' + esc(i) + '</button>').join('') + '</div>';
+    const o = (list, cur) => list.map((x) => '<option' + (x === cur ? ' selected' : '') + '>' + esc(x) + '</option>').join('');
+    const inp = (id, label, val, extra) => '<label' + (extra && extra.full ? ' class="full"' : '') + '>' + label + '<input id="' + id + '" value="' + esc(val == null ? '' : val) + '"' + (extra && extra.attr ? ' ' + extra.attr : '') + '></label>';
+    showPanel('<div class="hd"><h2>' + (r ? 'Sửa hồ sơ' : 'Thêm ứng viên') + '</h2><button class="btn alt sm" type="button" id="kfClose">Đóng</button></div>' +
+      '<form id="kf" class="box" novalidate><h3>Thông tin cá nhân</h3><div class="g2">' +
+      inp('kfTen', 'Họ và tên *', e.hoTen, { full: 1, attr: 'required' }) + inp('kfSdt', 'SĐT / Zalo *', e.sdt, { attr: 'inputmode="tel" required' }) +
+      inp('kfNs', 'Năm sinh', e.namSinh, { attr: 'inputmode="numeric"' }) +
+      '<label>Giới tính<select id="kfGt"><option value=""></option>' + o(['Nữ', 'Nam'], e.gioiTinh) + '</select></label>' + inp('kfQue', 'Quê quán', e.que) +
+      '<label>Tỉnh/thành đang ở<select id="kfNoi"><option value="">Chọn</option>' + Object.keys(REGIONS).map((k) => '<optgroup label="' + k + '">' + o(REGIONS[k], e.noiO) + '</optgroup>').join('') + '</select></label>' +
+      inp('kfNoiCt', 'Địa chỉ chi tiết', e.noiOChiTiet, { attr: 'placeholder="Quận/phường"' }) + '</div>' +
+      '<h3>Khu vực nhận việc *</h3><p class="hint" style="margin:0">Các tỉnh/thành ứng viên đi làm được. Đây là tiêu chí phân luồng chính.</p>' +
+      Object.keys(REGIONS).map((k) => '<div class="pg">' + k + '</div>' + tgs('khuVuc', REGIONS[k])).join('') +
+      '<h3>Công việc</h3>' + tgs('viTri', POS) + '<div class="g2">' +
+      '<label>Hình thức<select id="kfHt"><option value=""></option>' + o(TYPES, e.hinhThuc) + '</select></label>' +
+      inp('kfKn', 'Số năm kinh nghiệm', e.kinhNghiemNam, { attr: 'type="number" min="0" max="60" step="0.5"' }) +
+      inp('kfLuong', 'Lương mong muốn', e.luong, { attr: 'placeholder="VD: 20 triệu"' }) + inp('kfBd', 'Có thể bắt đầu', e.ngayBatDau, { attr: 'placeholder="VD: Ngay / 01/11/2026"' }) +
+      inp('kfCc', 'Chứng chỉ / đào tạo', e.chungChi, { full: 1, attr: 'placeholder="VD: EASY, sơ cứu, nấu ăn…"' }) + inp('kfNn', 'Ngoại ngữ', e.ngoaiNgu) + inp('kfKy', 'Kỹ năng nổi bật (in vào CV)', e.kyNang) +
+      '<label class="full">Quá trình làm việc (in vào CV)<textarea id="kfMota">' + esc(e.kinhNghiemMoTa || '') + '</textarea></label></div>' +
+      '<h3>Nội bộ</h3><div class="g2"><label>Trạng thái<select id="kfSt">' + o(STATUS.map((s) => s[0]), e.trangThai) + '</select></label>' +
+      '<label>Nguồn<select id="kfNg">' + o(SOURCES, e.nguon) + '</select></label>' +
+      '<label class="full">Ghi chú nội bộ (không in vào CV)<textarea id="kfGc">' + esc(e.ghiChu || '') + '</textarea></label></div>' +
+      '<div class="row"><button class="btn" type="submit" id="kfBtn">' + (r ? 'Lưu thay đổi' : 'Lưu vào kho') + '</button><span class="err" id="kfErr" style="margin:0"></span></div></form>');
+    $('#kfClose').onclick = () => (r ? openK(r.ma) : closeK());
+    $('#kPanel').querySelectorAll('.tgs').forEach((g) => g.addEventListener('click', (ev) => { const b = ev.target.closest('.tg'); if (!b) return; const s = sel[g.dataset.k], v = b.dataset.v; s.has(v) ? s.delete(v) : s.add(v); b.setAttribute('aria-pressed', String(s.has(v))); }));
+    let dupOk = false;
+    $('#kf').addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const v = (id) => $(id).value.trim();
+      if (!v('#kfTen') || !v('#kfSdt')) { $('#kfErr').textContent = 'Nhập họ tên và SĐT.'; return; }
+      if (!sel.khuVuc.size) { $('#kfErr').textContent = 'Chọn ít nhất một khu vực nhận việc.'; return; }
+      const dup = kho.find((x) => x.ma !== (r && r.ma) && digits(x.sdt) && digits(x.sdt) === digits(v('#kfSdt')));
+      if (dup && !dupOk) { $('#kfErr').textContent = 'SĐT này đã có trong kho (' + dup.hoTen + ', ' + dup.ma + '). Bấm lưu lần nữa nếu vẫn muốn tạo.'; dupOk = true; return; }
+      const kn = v('#kfKn');
+      const d = { hoTen: v('#kfTen'), sdt: v('#kfSdt'), namSinh: v('#kfNs'), gioiTinh: $('#kfGt').value, que: v('#kfQue'), noiO: $('#kfNoi').value, noiOChiTiet: v('#kfNoiCt'),
+        khuVuc: ALL_PROV.filter((p) => sel.khuVuc.has(p)), viTri: POS.filter((p) => sel.viTri.has(p)), hinhThuc: $('#kfHt').value, kinhNghiemNam: kn === '' ? '' : Number(kn),
+        luong: v('#kfLuong'), ngayBatDau: v('#kfBd'), chungChi: v('#kfCc'), ngoaiNgu: v('#kfNn'), kyNang: v('#kfKy'), kinhNghiemMoTa: v('#kfMota'),
+        trangThai: $('#kfSt').value, nguon: $('#kfNg').value, ghiChu: v('#kfGc') };
+      if (r) { d.ma = r.ma; d.base = r.capNhat; if (d.trangThai !== r.trangThai || !areas(r).length) d.lichSu = (r.lichSu || []).concat([{ t: new Date().toISOString(), st: d.trangThai, n: !areas(r).length ? 'Phân luồng: ' + d.khuVuc.join(', ') : 'Cập nhật hồ sơ' }]); }
+      else d.lichSu = [{ t: new Date().toISOString(), st: d.trangThai, n: 'Nhập hồ sơ vào kho' }];
+      $('#kfBtn').disabled = true; $('#kfErr').textContent = '';
+      try { const j = await post({ action: 'kho_save', d: JSON.stringify(d) }); upsertLocal(j.item); renderKho(); openK(j.item.ma); toast(r ? 'Đã lưu thay đổi' : 'Đã lưu vào kho'); }
+      catch (e2) { const m = String(e2.message); $('#kfErr').textContent = 'Chưa lưu được: ' + kErr(m); $('#kfBtn').disabled = false; if (m === 'conflict') loadKho(); }
+    });
+  }
+  $('#kAdd').addEventListener('click', () => formK(null));
+  async function importWeb(silent) {
+    const b = $('#kImport'); b.disabled = true; b.textContent = 'Đang nhập…';
+    try { const j = await post({ action: 'kho_import' }, 45000); await loadKho(); if (!silent || j.added) toast(j.added ? 'Đã nhập ' + j.added + ' hồ sơ mới vào kho' : 'Không có hồ sơ mới cần nhập'); }
+    catch (e) { toast('Chưa nhập được: ' + kErr(String(e.message))); }
+    b.disabled = false; b.textContent = 'Nhập hồ sơ từ website';
+  }
+  $('#kImport').addEventListener('click', () => importWeb(false));
+  // Từ tab Hồ sơ: mở ứng viên trong kho để phân luồng
+  $('#list').addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-kho]'); if (!b) return;
+    const x = items[Number(b.dataset.kho)]; if (!x) return;
+    setView('kho');
+    const find = () => kho.find((r) => String(r.webTs).slice(0, 19) === String(x.time).slice(0, 19)) || kho.find((r) => digits(r.sdt) && digits(r.sdt) === digits(x.phone));
+    if (!kLoaded || !find()) { if (!(await loadKho())) return; }
+    if (!find()) await importWeb(true);
+    const r = find();
+    if (r) { if (!areas(r).length) formK(r); else openK(r.ma); } else toast('Chưa tìm thấy hồ sơ này trong kho');
+  });
   $('#logout').addEventListener('click', (e) => { e.preventDefault(); store.del('eh_admin_key'); key = ''; stop(); show('login'); });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && key) poll(false); });
 
-  if (key) { show('app'); poll(true).then(() => { if (key) start(); }); } else { show('login'); }
+  if (key) { show('app'); poll(true).then(() => { if (key) { start(); const v = store.get('eh_admin_view'); if (v === 'kho' || v === 'phantich') setView(v); } }); } else { show('login'); }
 })();
 </script>
 </body>

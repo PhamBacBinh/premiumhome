@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261021a (mới nhất) | **bản 11** | Bảng lương mới 10–25 / 15–35 / 18–40 |
+| 20261026a (mới nhất) | **bản 12** | Kho ứng viên trên /quan-tri (web vẫn chạy với bản 11, chỉ thiếu Kho) |
+| 20261021a | **bản 11** | Bảng lương mới 10–25 / 15–35 / 18–40 |
 | 20261020d | **bản 11** | Thanh chuyển Trang chủ / Tuyển dụng |
 | 20261020c | **bản 11** | Mục Tuyển dụng trên trang chủ |
 | 20261020b | **bản 11** | Giữ đăng nhập quản trị khi hệ thống tạm khóa |
@@ -23,6 +24,14 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261026a] – 26/10/2026 · Kho ứng viên trên trang quản trị (cần Apps Script bản 12)
+- /quan-tri thêm tab **Kho ứng viên**: lọc theo khu vực nhận việc (Hà Nội, Miền Bắc/Trung/Nam, 34 tỉnh/thành mới), vị trí, kinh nghiệm, hình thức, trạng thái; nhóm "Chưa phân luồng" cho hồ sơ mới.
+- Mỗi ứng viên: trạng thái + lịch sử trao đổi, sửa hồ sơ, xóa (bản sao ở ThungRac 30 ngày), cảnh báo trùng SĐT.
+- Xuất CV gửi khách: tạo Google Docs trong thư mục Drive "Elite Helpers – CV ứng viên" (kèm link PDF), In / Lưu PDF, sao chép gửi Zalo; mặc định ẩn SĐT và rút gọn họ tên.
+- Dữ liệu lưu ở tab `KhoUngVien` của Google Sheet. Hồ sơ ứng tuyển mới từ website tự vào kho; nút "Nhập hồ sơ từ website" đưa hồ sơ cũ (tab UngVien) vào kho.
+- Tab Hồ sơ: thẻ ứng viên có nút "Phân luồng" mở thẳng hồ sơ trong kho.
+- CSP trang quản trị cho phép gửi dữ liệu (POST) tới Apps Script.
 
 ## [20261021a] – 21/10/2026 · Cập nhật bảng lương tham khảo
 - Lương mới (triệu đồng/tháng): giúp việc, bảo mẫu, chăm sóc người già 10–25; đầu bếp 15–35; quản gia 18–40. Thay trên trang chủ (Hỏi đáp), /tuyen-dung, 5 trang dịch vụ (kèm dữ liệu cấu trúc lương), các bài cẩm nang, bản tiếng Anh.
