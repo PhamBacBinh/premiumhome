@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261026e (mới nhất) | **bản 15** | Nhận xét Elite Helpers trình bày theo mục, gạch đầu dòng |
+| 20261026e (mới nhất) | **bản 16** | Sửa ngày bắt đầu bị đảo ngày/tháng khi lưu |
+| 20261026e | **bản 15** | Nhận xét Elite Helpers trình bày theo mục, gạch đầu dòng |
 | 20261026d | **bản 14** | Sửa CV tràn chữ trên điện thoại, In / Lưu PDF đúng 1 trang |
 | 20261026c | **bản 14** | Tách kinh nghiệm từ form website thành dòng thời gian + Kinh nghiệm thực tế |
 | 20261026b | **bản 13** | CV chuyên nghiệp: quá trình làm việc theo giai đoạn, CV Docs 2 cột |
@@ -28,6 +29,9 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [Apps Script bản 16] – 26/10/2026 · Sửa ngày bị đảo ngày/tháng
+- Lỗi: ô "Có thể bắt đầu" nhập 01/11/2026 bị Google Sheets tự hiểu theo kiểu Mỹ (tháng/ngày) thành 11/01/2026. Nay mọi ô chữ (Kho ứng viên và form website) ghi dạng văn bản; ô cũ đã bị đổi thành ngày được đọc lại đúng thứ tự đã nhập. Không cần đổi web.
 
 ## [20261026e] – 26/10/2026 · Nhận xét Elite Helpers trình bày theo mục (cần Apps Script bản 15)
 - Ô Nhận xét tự nhập: dòng "1. …", "2. …" thành tiêu đề in đậm (số màu vàng đồng); dòng bắt đầu "-" thành gạch đầu dòng; "Nhãn: nội dung" in đậm nhãn. Viết liền một đoạn vẫn tự tách trước "1." "2." và trước " - ". Áp dụng xem trước, In / PDF, Google Docs, bản Zalo.
