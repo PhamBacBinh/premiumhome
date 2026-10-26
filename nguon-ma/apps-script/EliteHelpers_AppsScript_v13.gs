@@ -790,7 +790,10 @@ function buildCvDoc_(r, hide) {
   const doc = DocumentApp.create('CV ' + r.ma + ' – ' + M.name + ' – Elite Helpers');
   const b = doc.getBody();
   b.setPageWidth(595.3).setPageHeight(841.9).setMarginTop(28).setMarginBottom(28).setMarginLeft(34).setMarginRight(34);
-  const st = (el, o) => { const t = el.editAsText ? el.editAsText() : el; if (o.f) t.setFontFamily(o.f); if (o.s) t.setFontSize(o.s); if (o.c) t.setForegroundColor(o.c); t.setBold(!!o.b); t.setItalic(!!o.i); return el; };
+  const T = (p, text) => { p.setText(String(text)); return p; }; // setText của Docs không trả về đoạn văn
+  const st = (el, o) => {
+    if (!String(el.getText ? el.getText() : 'x')) { try { const at = {}; if (o.s) at[DocumentApp.Attribute.FONT_SIZE] = o.s; el.setAttributes(at); } catch (e) {} return el; } // đoạn trống: Docs không cho định dạng chữ rỗng
+    const t = el.editAsText ? el.editAsText() : el; if (o.f) t.setFontFamily(o.f); if (o.s) t.setFontSize(o.s); if (o.c) t.setForegroundColor(o.c); t.setBold(!!o.b); t.setItalic(!!o.i); return el; };
   const para = (host, text, o, sp) => { const p = host.appendParagraph(String(text)); st(p, Object.assign({ f: CV.SANS, s: 9.5, c: CV.INK }, o)); p.setSpacingBefore(sp ? sp[0] : 0).setSpacingAfter(sp ? sp[1] : 2).setLineSpacing(1.15); return p; };
   const bullet = (host, text, o) => { const li = host.appendListItem(String(text)); li.setGlyphType(DocumentApp.GlyphType.BULLET); st(li, Object.assign({ f: CV.SANS, s: 9.5, c: CV.INK }, o)); li.setSpacingBefore(0).setSpacingAfter(1.5).setLineSpacing(1.15).setIndentStart(14).setIndentFirstLine(4); return li; };
   const heading = (host, text, first) => { const p = para(host, text.toUpperCase(), { s: 8.5, c: CV.GOLD, b: true }, [first ? 2 : 12, 4]); p.editAsText().setFontFamily(CV.SANS); return p; };
@@ -799,18 +802,18 @@ function buildCvDoc_(r, hide) {
   const clearFirst = (cell) => { const p = cell.getChild(0); if (p && p.getType() === DocumentApp.ElementType.PARAGRAPH && cell.getNumChildren() > 1) p.removeFromParent(); };
 
   // 1. Dải đầu trang: logo · thương hiệu · tiêu đề hồ sơ
-  b.getParagraphs()[0].setText('').setSpacingAfter(0);
+  b.getParagraphs()[0].setSpacingAfter(0);
   const hd = noBorder(b.insertTable(0, [['', '', '']]));
   hd.setColumnWidth(0, 50).setColumnWidth(1, 300);
   const c0 = hd.getCell(0, 0), c1 = hd.getCell(0, 1), c2 = hd.getCell(0, 2);
   [c0, c1, c2].forEach(c => { c.setBackgroundColor(CV.G); c.setVerticalAlignment(DocumentApp.VerticalAlignment.CENTER); });
   pad(c0, 10, 4, 10, 14); pad(c1, 12, 6, 12, 6); pad(c2, 12, 16, 12, 6);
   try { const img = c0.getChild(0).asParagraph().appendInlineImage(UrlFetchApp.fetch(CV.LOGO).getBlob()); const w = 34; img.setHeight(Math.round(w * 260 / 220)).setWidth(w); }
-  catch (e) { st(c0.getChild(0).asParagraph().setText('EH'), { f: CV.SERIF, s: 18, c: CV.GOLDL, b: true }); }
-  st(c1.getChild(0).asParagraph().setText('ELITE HELPERS'), { f: CV.SERIF, s: 17, c: CV.CREAM, b: true });
+  catch (e) { st(T(c0.getChild(0).asParagraph(), 'EH'), { f: CV.SERIF, s: 18, c: CV.GOLDL, b: true }); }
+  st(T(c1.getChild(0).asParagraph(), 'ELITE HELPERS'), { f: CV.SERIF, s: 17, c: CV.CREAM, b: true });
   c1.getChild(0).asParagraph().setSpacingAfter(1);
   para(c1, 'Người hỗ trợ gia đình cao cấp tại Hà Nội', { s: 8, c: CV.GOLDL }, [0, 0]);
-  const t2 = c2.getChild(0).asParagraph().setText('HỒ SƠ ỨNG VIÊN').setAlignment(DocumentApp.HorizontalAlignment.RIGHT);
+  const t2 = T(c2.getChild(0).asParagraph(), 'HỒ SƠ ỨNG VIÊN').setAlignment(DocumentApp.HorizontalAlignment.RIGHT);
   st(t2, { f: CV.SANS, s: 9, c: CV.CREAM, b: true }); t2.setSpacingAfter(1);
   para(c2, 'Mã ' + M.ma + ' · ' + M.date, { s: 8, c: CV.GOLDL }, [0, 0]).setAlignment(DocumentApp.HorizontalAlignment.RIGHT);
 
@@ -820,7 +823,7 @@ function buildCvDoc_(r, hide) {
   const ft = noBorder(b.appendTable([M.facts.map(() => '')]));
   M.facts.forEach((f, i) => {
     const c = ft.getCell(0, i); c.setBackgroundColor(CV.CREAM); pad(c, 7, 8, 7, 10);
-    st(c.getChild(0).asParagraph().setText(f[0]), { f: CV.SERIF, s: 15, c: CV.G, b: true }); c.getChild(0).asParagraph().setSpacingAfter(0).setLineSpacing(1);
+    st(T(c.getChild(0).asParagraph(), f[0]), { f: CV.SERIF, s: 15, c: CV.G, b: true }); c.getChild(0).asParagraph().setSpacingAfter(0).setLineSpacing(1);
     para(c, f[1], { s: 7.5, c: CV.SOFT }, [0, 0]);
   });
   para(b, '', { s: 4 }, [0, 0]);
@@ -847,7 +850,7 @@ function buildCvDoc_(r, hide) {
     heading(R, 'Nhận xét của Elite Helpers', rf); rf = false;
     const nt = noBorder(R.appendTable([['']])); const nc = nt.getCell(0, 0);
     nc.setBackgroundColor(CV.CREAM); pad(nc, 8, 10, 8, 12);
-    st(nc.getChild(0).asParagraph().setText(M.note), { f: CV.SANS, s: 9.5, c: CV.INK, i: true }); nc.getChild(0).asParagraph().setLineSpacing(1.2);
+    st(T(nc.getChild(0).asParagraph(), M.note), { f: CV.SANS, s: 9.5, c: CV.INK, i: true }); nc.getChild(0).asParagraph().setLineSpacing(1.2);
   }
   heading(R, 'Quá trình làm việc', rf);
   if (!M.qt.length) para(R, 'Đang cập nhật.', { c: CV.SOFT, i: true });
@@ -865,7 +868,7 @@ function buildCvDoc_(r, hide) {
   para(b, '', { s: 4 }, [4, 0]);
   const fo = noBorder(b.appendTable([['']])); const fc = fo.getCell(0, 0);
   fc.setBackgroundColor(CV.G); pad(fc, 8, 14, 8, 14);
-  st(fc.getChild(0).asParagraph().setText('Xác minh lý lịch  ·  Phỏng vấn trực tiếp  ·  Làm thử trước khi gia đình quyết định'), { f: CV.SANS, s: 8.5, c: CV.GOLDL, b: true });
+  st(T(fc.getChild(0).asParagraph(), 'Xác minh lý lịch  ·  Phỏng vấn trực tiếp  ·  Làm thử trước khi gia đình quyết định'), { f: CV.SANS, s: 8.5, c: CV.GOLDL, b: true });
   fc.getChild(0).asParagraph().setAlignment(DocumentApp.HorizontalAlignment.CENTER).setSpacingAfter(1);
   para(fc, 'giupviecelite.vn  ·  lienhe@giupviecelite.vn  ·  Zalo 0948 919 598', { s: 8, c: CV.CREAM }, [0, 0]).setAlignment(DocumentApp.HorizontalAlignment.CENTER);
   // Bỏ đoạn trống thừa cuối tài liệu (Docs bắt buộc giữ 1 đoạn cuối: thu nhỏ)
