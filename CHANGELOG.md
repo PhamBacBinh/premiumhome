@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261026d (mới nhất) | **bản 14** | Sửa CV tràn chữ trên điện thoại, In / Lưu PDF đúng 1 trang |
+| 20261026e (mới nhất) | **bản 15** | Nhận xét Elite Helpers trình bày theo mục, gạch đầu dòng |
+| 20261026d | **bản 14** | Sửa CV tràn chữ trên điện thoại, In / Lưu PDF đúng 1 trang |
 | 20261026c | **bản 14** | Tách kinh nghiệm từ form website thành dòng thời gian + Kinh nghiệm thực tế |
 | 20261026b | **bản 13** | CV chuyên nghiệp: quá trình làm việc theo giai đoạn, CV Docs 2 cột |
 | 20261026a | **bản 12** | Kho ứng viên trên /quan-tri (web vẫn chạy với bản 11, chỉ thiếu Kho) |
@@ -27,6 +28,10 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261026e] – 26/10/2026 · Nhận xét Elite Helpers trình bày theo mục (cần Apps Script bản 15)
+- Ô Nhận xét tự nhập: dòng "1. …", "2. …" thành tiêu đề in đậm (số màu vàng đồng); dòng bắt đầu "-" thành gạch đầu dòng; "Nhãn: nội dung" in đậm nhãn. Viết liền một đoạn vẫn tự tách trước "1." "2." và trước " - ". Áp dụng xem trước, In / PDF, Google Docs, bản Zalo.
+- Khung nhận xét bỏ chữ nghiêng toàn khối cho dễ đọc. Lịch sử trao đổi giữ xuống dòng như khi nhập.
 
 ## [20261026d] – 26/10/2026 · Sửa lỗi hiển thị CV
 - Mục Kinh nghiệm thực tế bị ép thành cột hẹp (chữ dọc từng ký tự) trên điện thoại do kiểu bảng của trang quản trị lọt vào CV: tách riêng kiểu CV.

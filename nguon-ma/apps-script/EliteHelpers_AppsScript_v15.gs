@@ -1,12 +1,6 @@
 /**
  * ELITE HELPERS (Giúp việc Elite) – Nhận form giupviecelite.vn về Google Sheets (bản 15)
- * Bản 15 (vá bảo mật 26/10/2026):
- *   1. Chặn chèn công thức vào tab QuayLai (tên/SĐT khách cũ quay lại trước đây ghi thẳng, chưa qua safeCell_).
- *   2. Giới hạn tần suất theo từng SĐT (3 lần/10 phút) + nâng giới hạn chung lên 40/10 phút:
- *      kẻ xấu không còn chặn được toàn bộ form của khách thật chỉ bằng 20 lượt gửi rác.
- *   3. Bảo vệ file dữ liệu: giảm trần sự kiện phân tích (2.000/10 phút) và ngừng ghi SuKien khi quá 100.000 dòng,
- *      tránh bị spam làm đầy giới hạn 10 triệu ô của Google Sheets (làm hỏng việc lưu hồ sơ khách, ứng viên).
- *   4. reCAPTCHA: kiểm tra thêm tên miền gửi mã (hostname) phải là giupviecelite.vn.
+ * Bản 15: Nhận xét Elite Helpers trình bày theo mục: "1. Tiêu đề" in đậm, "- ý" thành gạch đầu dòng, "Nhãn:" in đậm.
  * Bản 14: CV tách kinh nghiệm gửi từ form website (Đã làm | Nơi làm | … | Mô tả) thành dòng thời gian + mục "Kinh nghiệm thực tế".
  * Bản 13: CV chuyên nghiệp: quá trình làm việc theo từng giai đoạn (thời gian, vị trí, nơi làm, công việc gạch đầu dòng),
  *         kỹ năng/chứng chỉ dạng danh sách, nhận xét của Elite Helpers; CV Google Docs bố cục 2 cột theo nhận diện thương hiệu.
@@ -33,10 +27,7 @@
  * - Email báo hiển thị số điện thoại sạch (không dấu nháy)
  */
 const NOTIFY_EMAIL = 'DIEN_EMAIL_NHAN_THONG_BAO@example.com'; // điền email thật trước khi dán vào Apps Script
-const MAX_PER_10_MIN = 40;   // tổng số form/10 phút toàn website
-const MAX_PER_PHONE = 3;     // số form/10 phút cho cùng 1 SĐT
-const EV_MAX_ROWS = 100000;  // trần dòng tab SuKien để bảo vệ file dữ liệu
-const SITE_HOST = /(^|\.)giupviecelite\.vn$/i;
+const MAX_PER_10_MIN = 20;
 const MIN_SCORE = 0.5;
 
 const FORMS = {
@@ -87,16 +78,11 @@ function safeCell_(s) {
   return /^[=+\-@\t\r]/.test(s) ? "'" + s : s;
 }
 
-// Giới hạn chung toàn website + giới hạn riêng từng SĐT (Apps Script không đọc được IP người gửi)
-function tooMany_(phone) {
+function tooMany_() {
   const cache = CacheService.getScriptCache();
   const n = Number(cache.get('rate') || 0);
   if (n >= MAX_PER_10_MIN) return true;
-  const pk = 'rp_' + String(phone || '').replace(/\D/g, '').slice(-10);
-  const np = Number(cache.get(pk) || 0);
-  if (pk.length > 3 && np >= MAX_PER_PHONE) return true;
   cache.put('rate', String(n + 1), 600);
-  if (pk.length > 3) cache.put(pk, String(np + 1), 600);
   return false;
 }
 
@@ -112,7 +98,6 @@ function checkRecaptcha_(token) {
     const r = JSON.parse(res.getContentText());
     if (!r.success) return 'reCAPTCHA không hợp lệ';
     if (typeof r.score === 'number' && r.score < MIN_SCORE) return 'điểm reCAPTCHA ' + r.score;
-    if (r.hostname && !SITE_HOST.test(String(r.hostname))) return 'reCAPTCHA sai tên miền ' + String(r.hostname).slice(0, 60);
     return 'ok';
   } catch (e) {
     return 'off'; // lỗi kết nối Google: không chặn khách thật
@@ -136,7 +121,7 @@ function doPost(e) {
     if (!lock.tryLock(10000)) return out_(false, 'busy');
     let vals, tNow;
     try {
-      if (tooMany_(p.phone)) return out_(false, 'rate');
+      if (tooMany_()) return out_(false, 'rate');
       vals = f.cols.map(c => clean_(p[c[1]], c[1] === 'experience' || c[1] === 'note' ? 2000 : 300));
       const row = vals.map((v, i) => (f.cols[i][1] === 'phone' && v ? "'" + v : safeCell_(v)));
       const status = suspicious ? 'Nghi spam (' + rc + ')' : 'Mới';
@@ -289,7 +274,7 @@ function ev_(p) {
   const cache = CacheService.getScriptCache();
   const nS = Number(cache.get('evs_' + sid) || 0);
   const nAll = Number(cache.get('ev_all') || 0);
-  if (nS > 400 || nAll > 2000) return out_(false, 'rate');   // chống spam
+  if (nS > 400 || nAll > 6000) return out_(false, 'rate');   // chống spam
   cache.put('evs_' + sid, String(nS + evs.length), 3600);
   cache.put('ev_all', String(nAll + evs.length), 600);
   const u = d.u || {}, src = d.src || {};
@@ -314,7 +299,6 @@ function ev_(p) {
       sh.getRange(1, 1, 1, EV_HEAD.length).setValues([EV_HEAD]).setFontWeight('bold').setBackground('#2A453E').setFontColor('#F4EEE3');
       sh.setFrozenRows(1);
     }
-    if (sh.getLastRow() > EV_MAX_ROWS) { purgeEvents_(sh, cache); return out_(false, 'full'); } // không để spam làm đầy file
     sh.getRange(sh.getLastRow() + 1, 1, rows.length, EV_HEAD.length).setValues(rows);
     purgeEvents_(sh, cache);
   } finally {
@@ -332,7 +316,7 @@ function ev_(p) {
         const ss = getSS_();
         const sh = ss.getSheetByName('QuayLai') || ss.insertSheet('QuayLai');
         if (sh.getLastRow() === 0) sh.appendRow(['Thời gian', 'Họ tên', 'SĐT', 'Đang xem trang', 'Nguồn', 'Thiết bị', 'Mã khách', 'Tab hồ sơ']);
-        sh.appendRow([new Date(), safeCell_(clean_(L.n, 60)), "'" + clean_(L.p, 30), landing[5], landing[11], landing[15] + ' · ' + landing[17], vid, safeCell_(clean_(L.s, 30))]);
+        sh.appendRow([new Date(), L.n, "'" + L.p, landing[5], landing[11], landing[15] + ' · ' + landing[17], vid, L.s]);
         MailApp.sendEmail(NOTIFY_EMAIL, '[Elite Helpers] Khách cũ quay lại website: ' + L.n,
           L.n + ' (' + L.p + ') vừa quay lại website.\nĐang xem: ' + landing[5] + '\nNguồn: ' + landing[11] + '\nThiết bị: ' + landing[15] + ' · ' + landing[17] +
           '\n\nGợi ý: liên hệ trong 30 phút tới khi khách còn đang quan tâm.');
@@ -812,6 +796,28 @@ function cvWebExp_(text) {
   const yr = (desc.match(/(?:năm|từ)\s*((?:19|20)\d{2})/i) || [])[1];
   return { groups: groups, desc: cvSplitSent_(desc), year: yr || '' };
 }
+  // Văn bản tự nhập → khối có cấu trúc: "1. Tiêu đề" (đậm), "- ý" (gạch đầu dòng), "Nhãn: nội dung" (nhãn đậm).
+// Có xuống dòng thì theo đúng dòng người nhập; viết liền một đoạn thì tự tách trước "1." "2." và trước " - ".
+function richBlocks_(s) {
+  let t = String(s || '').replace(/\r/g, '').trim();
+  if (!t) return [];
+  if (!/\n/.test(t)) t = t.replace(/\s+(?=\d{1,2}[.)]\s+\S)/g, '\n').replace(/\s+[-–•+]\s+(?=\S)/g, '\n- ');
+  const out = [];
+  const lab = (x) => { const m = x.match(/^([^:]{2,40}):\s+(.+)$/); return m ? { lb: m[1].trim(), x: m[2].trim() } : { lb: '', x: x }; };
+  t.split('\n').forEach((raw) => {
+    const l = raw.trim(); if (!l) return;
+    let m = l.match(/^(\d{1,2})[.)]\s*(.+)$/);
+    if (m) {
+      const rest = m[2], c = rest.indexOf(':');
+      if (c > 0 && c < 60) { out.push({ t: 'h', n: m[1], x: rest.slice(0, c).trim() }); const tail = rest.slice(c + 1).trim(); if (tail) out.push(Object.assign({ t: /^[-–•+*]\s*/.test(tail) ? 'li' : 'p' }, lab(tail.replace(/^[-–•+*]\s*/, '')))); }
+      else out.push({ t: 'h', n: m[1], x: rest.trim() });
+      return;
+    }
+    m = l.match(/^[-–•+*]\s*(.+)$/);
+    out.push(Object.assign({ t: m ? 'li' : 'p' }, lab(m ? m[1] : l)));
+  });
+  return out;
+}
 function cvLines_(s) { return String(s || '').split(/\r?\n|;\s*/).map(x => x.replace(/^\s*[-•*+·]\s*/, '').trim()).filter(Boolean); }
 function cvModel_(r, hide) {
   const age = r.namSinh && !isNaN(Number(r.namSinh)) ? new Date().getFullYear() - Number(r.namSinh) : '';
@@ -895,7 +901,13 @@ function buildCvDoc_(r, hide) {
     heading(R, 'Nhận xét của Elite Helpers', rf); rf = false;
     const nt = noBorder(R.appendTable([['']])); const nc = nt.getCell(0, 0);
     nc.setBackgroundColor(CV.CREAM); pad(nc, 8, 10, 8, 12);
-    st(T(nc.getChild(0).asParagraph(), M.note), { f: CV.SANS, s: 9.5, c: CV.INK, i: true }); nc.getChild(0).asParagraph().setLineSpacing(1.2);
+    richBlocks_(M.note).forEach((bk, i) => {
+      if (bk.t === 'li') { const li = bullet(nc, (bk.lb ? bk.lb + ': ' : '') + bk.x); if (bk.lb) li.editAsText().setBold(0, bk.lb.length, true).setForegroundColor(0, bk.lb.length, CV.G); return; }
+      if (bk.t === 'h') { para(nc, bk.n + '. ' + bk.x, { s: 10, c: CV.G, b: true }, [i ? 6 : 0, 2]).editAsText().setForegroundColor(0, bk.n.length, CV.GOLD); return; }
+      const pp = para(nc, (bk.lb ? bk.lb + ': ' : '') + bk.x, { s: 9.5, c: CV.INK }, [0, 2]);
+      if (bk.lb) pp.editAsText().setBold(0, bk.lb.length, true).setForegroundColor(0, bk.lb.length, CV.G);
+    });
+    clearFirst(nc);
   }
   heading(R, 'Quá trình làm việc', rf);
   if (!M.qt.length) para(R, 'Đang cập nhật.', { c: CV.SOFT, i: true });

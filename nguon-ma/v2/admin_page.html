@@ -126,6 +126,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 .tl{display:grid;gap:6px;font-size:.88rem}
 .tl div{border-left:2px solid #e8dcc0;padding-left:10px}
 .tl small{color:var(--soft)}
+.tl div,.ov .pre{white-space:pre-line}
 .ov textarea{min-height:74px;resize:vertical}
 .btn:focus-visible,.tab:focus-visible,.tg:focus-visible,.kc:focus-visible{outline:2px solid var(--b);outline-offset:2px}
 @font-face{font-family:Cormorant Garamond;font-style:normal;font-weight:500;font-display:swap;src:url(/cormorant-garamond-vietnamese-500-normal.woff2)format("woff2");unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB}
@@ -182,7 +183,12 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 .cv-ul li{position:relative;padding-left:14px}
 .cv-ul li::before{content:"";position:absolute;left:1px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--cgl)}
 .cv p{margin:0}
-.cv blockquote{margin:0;background:var(--ccr);border-left:3px solid var(--cgl);border-radius:0 8px 8px 0;padding:9px 12px;font-style:italic}
+.cv-note{background:var(--ccr);border-left:3px solid var(--cgl);border-radius:0 8px 8px 0;padding:10px 14px;display:grid;gap:5px}
+.cv-note .rt-h{font-weight:600;color:var(--cg);font-size:12.5px;margin-top:4px}
+.cv-note .rt-h:first-child{margin-top:0}
+.cv-note .rt-h span{color:var(--cgold)}
+.cv-note b{font-weight:600;color:var(--cg)}
+.cv-note .cv-ul{gap:3px}
 .cv-tl{list-style:none;margin:0;padding:0 0 0 16px;border-left:2px solid var(--cline);display:grid;gap:13px}
 .cv-tl>li{position:relative}
 .cv-tl>li::before{content:"";position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--cgl)}
@@ -663,6 +669,38 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
       wish: [['Vị trí', (r.viTri || []).join(', ')], ['Hình thức', r.hinhThuc], ['Khu vực', areas(r).join(', ')], ['Mức lương', r.luong], ['Bắt đầu', r.ngayBatDau]].filter((x) => x[1]),
       certs: lines(r.chungChi), langs: lines(r.ngoaiNgu), skills: lines(r.kyNang), cook: r.nauAn, note: r.nhanXet, qt, groups };
   }
+  // Văn bản tự nhập → khối có cấu trúc: "1. Tiêu đề" (đậm), "- ý" (gạch đầu dòng), "Nhãn: nội dung" (nhãn đậm).
+  // Có xuống dòng thì theo đúng dòng người nhập; viết liền một đoạn thì tự tách trước "1." "2." và trước " - ".
+  function richBlocks(s) {
+    let t = String(s || '').replace(/\r/g, '').trim();
+    if (!t) return [];
+    if (!/\n/.test(t)) t = t.replace(/\s+(?=\d{1,2}[.)]\s+\S)/g, '\n').replace(/\s+[-–•+]\s+(?=\S)/g, '\n- ');
+    const out = [];
+    const lab = (x) => { const m = x.match(/^([^:]{2,40}):\s+(.+)$/); return m ? { lb: m[1].trim(), x: m[2].trim() } : { lb: '', x: x }; };
+    t.split('\n').forEach((raw) => {
+      const l = raw.trim(); if (!l) return;
+      let m = l.match(/^(\d{1,2})[.)]\s*(.+)$/);
+      if (m) {
+        const rest = m[2], c = rest.indexOf(':');
+        if (c > 0 && c < 60) { out.push({ t: 'h', n: m[1], x: rest.slice(0, c).trim() }); const tail = rest.slice(c + 1).trim(); if (tail) out.push(Object.assign({ t: /^[-–•+*]\s*/.test(tail) ? 'li' : 'p' }, lab(tail.replace(/^[-–•+*]\s*/, '')))); }
+        else out.push({ t: 'h', n: m[1], x: rest.trim() });
+        return;
+      }
+      m = l.match(/^[-–•+*]\s*(.+)$/);
+      out.push(Object.assign({ t: m ? 'li' : 'p' }, lab(m ? m[1] : l)));
+    });
+    return out;
+  }
+  function richHtml(s) {
+    const B = richBlocks(s); let h = '', inUl = false;
+    const body = (b) => (b.lb ? '<b>' + esc(b.lb) + ':</b> ' : '') + esc(b.x);
+    B.forEach((b) => {
+      if (b.t === 'li') { if (!inUl) { h += '<ul class="cv-ul">'; inUl = true; } h += '<li>' + body(b) + '</li>'; return; }
+      if (inUl) { h += '</ul>'; inUl = false; }
+      h += b.t === 'h' ? '<p class="rt-h"><span>' + esc(b.n) + '.</span> ' + esc(b.x) + '</p>' : '<p>' + body(b) + '</p>';
+    });
+    return h + (inUl ? '</ul>' : '');
+  }
   function cvHtml(r, hide) {
     const M = cvModel(r, hide);
     const kv = (rows) => '<dl class="cv-kv">' + rows.map((x) => '<dt>' + esc(x[0]) + '</dt><dd>' + esc(x[1]) + '</dd>').join('') + '</dl>';
@@ -675,7 +713,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
       '<div class="cv-body"><aside class="cv-side">' + sec('Thông tin cá nhân', kv(M.info)) + (M.wish.length ? sec('Nguyện vọng công việc', kv(M.wish)) : '') +
       (M.skills.length ? sec('Kỹ năng nổi bật', ul(M.skills)) : '') + sec('Chứng chỉ & đào tạo', ul(M.certs.length ? M.certs : ['Chưa có chứng chỉ, sẵn sàng tham gia đào tạo'])) +
       (M.langs.length ? sec('Ngoại ngữ', ul(M.langs)) : '') + (M.cook ? sec('Nấu ăn', '<p>' + esc(M.cook) + '</p>') : '') + '</aside>' +
-      '<div class="cv-main">' + (M.note ? sec('Nhận xét của Elite Helpers', '<blockquote>' + esc(M.note) + '</blockquote>') : '') +
+      '<div class="cv-main">' + (M.note ? sec('Nhận xét của Elite Helpers', '<div class="cv-note">' + richHtml(M.note) + '</div>') : '') +
       sec('Quá trình làm việc', M.qt.length ? '<ol class="cv-tl">' + M.qt.map((q) => { const sub = [q.noiLam, q.hinhThuc].filter(Boolean).join(' · ');
         return '<li>' + (period(q) ? '<p class="cv-per">' + esc(period(q)) + '</p>' : '') + '<p class="cv-job">' + esc(q.viTri || 'Người hỗ trợ gia đình') + '</p>' + (sub ? '<p class="cv-place">' + esc(sub) + '</p>' : '') +
           ((q.congViec || []).length ? ul(q.congViec) : '') + '</li>'; }).join('') + '</ol>' : '<p class="cv-place">Đang cập nhật.</p>') +
@@ -687,7 +725,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     L.push('HỒ SƠ ỨNG VIÊN – ELITE HELPERS', 'Mã hồ sơ: ' + M.ma, '', '👤 ' + M.name.toUpperCase(), M.role, '');
     L.push('▸ THÔNG TIN', ...M.info.map(([k, v]) => '• ' + k + ': ' + v), '');
     if (M.wish.length) L.push('▸ NGUYỆN VỌNG', ...M.wish.map(([k, v]) => '• ' + k + ': ' + v), '');
-    if (M.note) L.push('▸ NHẬN XÉT CỦA ELITE HELPERS', M.note, '');
+    if (M.note) L.push('▸ NHẬN XÉT CỦA ELITE HELPERS', ...richBlocks(M.note).map((b) => b.t === 'h' ? b.n + '. ' + b.x.toUpperCase() : (b.t === 'li' ? '  • ' : '') + (b.lb ? b.lb + ': ' : '') + b.x), '');
     L.push('▸ QUÁ TRÌNH LÀM VIỆC');
     M.qt.forEach((q) => { L.push((period(q) ? period(q) + ' | ' : '') + (q.viTri || 'Người hỗ trợ gia đình') + ([q.noiLam, q.hinhThuc].filter(Boolean).length ? ' – ' + [q.noiLam, q.hinhThuc].filter(Boolean).join(', ') : '')); (q.congViec || []).forEach((x) => L.push('  – ' + x)); });
     L.push('');
