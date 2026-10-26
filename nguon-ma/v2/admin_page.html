@@ -144,6 +144,38 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 @font-face{font-family:Cormorant Garamond;font-style:normal;font-weight:700;font-display:swap;src:url(/cormorant-garamond-latin-700-normal.woff2)format("woff2")}
 
 .qt{display:grid;gap:10px}
+.h-fil{grid-template-columns:2fr repeat(3,1fr)}
+@media(max-width:760px){.h-fil{grid-template-columns:1fr 1fr}}
+.ov h3.fh{display:flex;align-items:center;gap:8px;margin:10px 0 0;font:700 12px system-ui;letter-spacing:.08em;text-transform:uppercase;color:var(--g)}
+.ov h3.fh:first-child{margin-top:0}
+.ov h3.fh span{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--g2);color:#F4EEE3;font-size:11px;letter-spacing:0}
+.ov .lb{display:block;font-size:.82rem;color:var(--soft);margin-bottom:3px}
+.ov .rds{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:6px}
+.ov label.rd{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-size:.9rem;cursor:pointer}
+.ov label.rd input{width:auto;margin:0}
+.ov .wd{display:grid;gap:6px}
+.ov .money .row{flex-wrap:nowrap}
+.ov .money input[type=number]{max-width:110px}
+.ov .my{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ov .my select{width:auto;min-width:84px}
+.ov select:disabled{opacity:.5}
+.ov .stick{position:sticky;bottom:-12px;background:var(--card);margin:0 -14px -12px;padding:10px 14px 12px;border-top:1px solid var(--line);z-index:2}
+.ov .hint{font-size:.78rem}
+.uvl{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.uvl li{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.lnk{border:0;background:none;padding:0;font:600 14px system-ui;color:var(--g);text-decoration:underline;cursor:pointer}
+.uvl .x{margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:999px;font:12px system-ui;padding:2px 10px;cursor:pointer;color:var(--soft)}
+.chip.pri{background:#fbe9d0;color:#8a4b12;font-weight:600}
+.pre{white-space:pre-line}
+.rt{display:grid;gap:4px}
+.rt p{margin:0}
+.rt .rt-h{font-weight:600;color:var(--g);margin-top:4px}
+.rt .rt-h span{color:#8a6d2f}
+.cv-ver{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:10px;font-size:11px}
+.cv-ver b{font-weight:600;letter-spacing:.12em;color:var(--cgold);font-size:10px}
+.cv-ver span{display:inline-flex;align-items:center;gap:5px;color:var(--cg);font-weight:600}
+.cv-ver span::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--cg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6.2l2 2 4-4.4' fill='none' stroke='%23F4EEE3' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+.cv .cv-kv dd,.cv p,.cv li{white-space:pre-line}
 .qt-it{border:1px solid var(--line);border-radius:12px;padding:8px 12px 12px;margin:0;display:grid;gap:8px;background:#fff}
 .qt-it legend{font:700 12px system-ui;color:#8a6d2f;padding:0 4px}
 .ov details summary{cursor:pointer}
@@ -164,11 +196,11 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 .cv-doc{text-align:right}
 .cv-doc b{font-size:11px;letter-spacing:.14em;font-weight:600}
 .cv-id{padding:18px 22px 4px}
-.cv-id h1{font:700 30px/1.1 "Cormorant Garamond",Georgia,serif;color:var(--cg);margin:0;letter-spacing:.01em;font-feature-settings:"lnum" 1}
+.cv-id h1{font:600 30px/1.1 "Cormorant Garamond",Georgia,serif;color:var(--cg);margin:0;letter-spacing:.01em;font-feature-settings:"lnum" 1}
 .cv-role{margin:4px 0 12px;font-weight:600;color:var(--cgold);font-size:13px}
 .cv-facts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .cv-facts li{background:var(--ccr);border-radius:8px;padding:8px 10px;min-width:0}
-.cv-facts b{display:block;font:700 18px/1.15 "Cormorant Garamond",Georgia,serif;color:var(--cg);overflow-wrap:anywhere;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+.cv-facts b{display:block;font:600 18px/1.15 "Cormorant Garamond",Georgia,serif;color:var(--cg);overflow-wrap:anywhere;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
 .cv-facts span{font-size:10.5px;color:var(--csoft)}
 .cv-body{display:grid;grid-template-columns:34% 1fr;gap:0;margin-top:14px}
 .cv-side{background:var(--cpa);padding:14px 16px 18px 22px;border-right:1px solid var(--cline)}
@@ -245,6 +277,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     <div class="views" role="group" aria-label="Chế độ xem">
       <button type="button" data-v="hoso" aria-pressed="true">Hồ sơ</button>
       <button type="button" data-v="kho" aria-pressed="false">Kho ứng viên</button>
+      <button type="button" data-v="khach" aria-pressed="false">Kho khách hàng</button>
       <button type="button" data-v="phantich" aria-pressed="false">Phân tích</button>
     </div>
     <div id="vHoso">
@@ -277,6 +310,24 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
         </div>
       </div>
       <div class="k-list" id="kList"></div>
+    </div>
+    <div id="vKhach" hidden>
+      <div class="k-tabs" id="hTabs" role="group" aria-label="Nhóm khách"></div>
+      <div class="k-fil h-fil">
+        <input class="q" id="hQ" type="search" placeholder="Tìm tên, SĐT, email, mã, khu vực, yêu cầu…" aria-label="Tìm trong kho khách">
+        <select id="hSvc" aria-label="Dịch vụ"></select>
+        <select id="hType" aria-label="Loại khách"></select>
+        <select id="hSt" aria-label="Trạng thái"></select>
+      </div>
+      <div class="k-bar">
+        <p class="meta" id="hMeta" style="margin:0">Đang tải kho khách…</p>
+        <div class="row">
+          <button class="btn alt sm" type="button" id="hImport">Nhập yêu cầu từ website</button>
+          <a class="btn alt sm" id="hSheet" href="#" target="_blank" rel="noopener" hidden>Mở Google Sheet</a>
+          <button class="btn sm" type="button" id="hAdd">+ Thêm khách hàng</button>
+        </div>
+      </div>
+      <div class="k-list" id="hList"></div>
     </div>
     <div id="vStats" hidden>
       <div class="ranges" role="group" aria-label="Khoảng thời gian">
@@ -373,7 +424,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
         '<span class="time">' + esc(fmt(x.time)) + (isNew ? ' · <b>MỚI</b>' : '') + '</span></div>' +
         '<h2>' + esc(x.name || '(không tên)') + '</h2><dl>' + dl + '</dl>' +
         '<div class="acts">' + (ph ? '<a class="btn sm" href="tel:' + esc(ph) + '">Gọi ' + esc(x.phone) + '</a><a class="btn alt sm" href="https://zalo.me/' + esc(ph.replace(/^\+84/, '0')) + '" target="_blank" rel="noopener">Zalo</a>' : '') +
-        (k ? '' : '<button class="btn alt sm" type="button" data-kho="' + items.indexOf(x) + '">Phân luồng</button>') +
+        (k ? '<button class="btn alt sm" type="button" data-kh="' + items.indexOf(x) + '">Mở trong kho khách</button>' : '<button class="btn alt sm" type="button" data-kho="' + items.indexOf(x) + '">Phân luồng</button>') +
         '<button class="btn sm del" type="button" data-del="' + items.indexOf(x) + '">Xóa</button></div>' +
         '</article>';
     }).join('');
@@ -518,10 +569,11 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   }));
   function setView(v) {
     document.querySelectorAll('.views button').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.v === v)));
-    $('#vHoso').hidden = v !== 'hoso'; $('#vStats').hidden = v !== 'phantich'; $('#vKho').hidden = v !== 'kho';
+    $('#vHoso').hidden = v !== 'hoso'; $('#vStats').hidden = v !== 'phantich'; $('#vKho').hidden = v !== 'kho'; $('#vKhach').hidden = v !== 'khach';
     store.set('eh_admin_view', v);
     if (v === 'phantich' && Date.now() - sLoaded > 120000) loadStats(false);
     if (v === 'kho' && Date.now() - kLoaded > 60000) loadKho();
+    if (v === 'khach') { if (Date.now() - hLoaded > 60000) loadKh(); if (!kLoaded) loadKho(); }
   }
   document.querySelectorAll('.ranges .tab').forEach((b) => b.addEventListener('click', () => {
     sDays = Number(b.dataset.d);
@@ -586,13 +638,14 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
       return j;
     } catch (e) { throw new Error(e.name === 'AbortError' ? 'timeout' : e.message); } finally { clearTimeout(t); }
   }
-  const kErr = (m) => (m === 'timeout' || m === 'needv12' ? 'cần cập nhật Apps Script bản 12' : m === 'conflict' ? 'hồ sơ vừa được sửa ở nơi khác, đã tải lại bản mới' : m === 'missing' ? 'thiếu họ tên hoặc SĐT' : m === 'auth' ? 'mã quản trị không đúng' : m);
+  const kErr = (m) => (m === 'timeout' || m === 'needv12' ? 'cần cập nhật Apps Script bản 17' : m === 'conflict' ? 'hồ sơ vừa được sửa ở nơi khác, đã tải lại bản mới' : m === 'missing' ? 'thiếu họ tên hoặc SĐT' : m === 'auth' ? 'mã quản trị không đúng' : m);
 
   async function loadKho() {
     $('#kMeta').textContent = 'Đang tải kho…';
     try {
       const j = await call({ action: 'kho_list' }, 30000);
       kho = j.items || []; kLoaded = Date.now(); kSheetUrl = j.sheetUrl || '';
+      if (hOpenMa && !$('#kOv').hidden && $('#hxClose')) openH(hOpenMa);
       $('#kSheet').hidden = !kSheetUrl; if (kSheetUrl) $('#kSheet').href = kSheetUrl;
       renderKho();
       return true;
@@ -629,7 +682,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   }
   $('#kTabs').addEventListener('click', (e) => { const b = e.target.closest('.tab'); if (!b) return; kTab = b.dataset.k; renderKho(); });
   $('#kList').addEventListener('click', (e) => { const c = e.target.closest('.kc'); if (c) openK(c.dataset.ma); });
-  function closeK() { $('#kOv').hidden = true; kOpen = ''; document.body.style.overflow = ''; }
+  function closeK() { $('#kOv').hidden = true; kOpen = ''; hOpenMa = ''; document.body.style.overflow = ''; }
   function showPanel(html) { $('#kPanel').innerHTML = html; $('#kOv').hidden = false; $('#kPanel').scrollTop = 0; document.body.style.overflow = 'hidden'; }
   $('#kOv').addEventListener('click', (e) => { if (e.target.id === 'kOv') closeK(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('#kOv').hidden) closeK(); });
@@ -665,9 +718,9 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     else if (!qt.length && !w && r.kinhNghiemMoTa) qt = [{ viTri: 'Kinh nghiệm làm việc', congViec: sentences(r.kinhNghiemMoTa) }];
     return { name: hide ? shortName(r.hoTen) : r.hoTen, ma: r.ma, date: new Date().toLocaleDateString('vi-VN'), role: (r.viTri || []).join(' · ') || 'Người hỗ trợ gia đình',
       facts: [[age ? String(age) : '—', 'tuổi'], [kn === null ? '—' : kn >= 10 ? '10+' : String(kn), 'năm kinh nghiệm'], [r.hinhThuc || '—', 'hình thức'], [r.que || '—', 'quê quán']],
-      info: [['Năm sinh', r.namSinh], ['Giới tính', r.gioiTinh], ['Quê quán', r.que], ['Nơi ở hiện tại', r.noiO]].concat(hide ? [] : [['Điện thoại', r.sdt]]).filter((x) => x[1]),
-      wish: [['Vị trí', (r.viTri || []).join(', ')], ['Hình thức', r.hinhThuc], ['Khu vực', areas(r).join(', ')], ['Mức lương', r.luong], ['Bắt đầu', r.ngayBatDau]].filter((x) => x[1]),
-      certs: lines(r.chungChi), langs: lines(r.ngoaiNgu), skills: lines(r.kyNang), cook: r.nauAn, note: r.nhanXet, qt, groups };
+      info: [['Năm sinh', r.namSinh], ['Giới tính', r.gioiTinh], ['Quê quán', r.que], ['Nơi ở hiện tại', r.noiO], ['Tình trạng gia đình', r.honNhan], ['Sức khỏe', r.sucKhoe], ['Đi xe máy', r.xeMay]].concat(hide ? [] : [['Điện thoại', r.sdt]]).filter((x) => x[1]),
+      wish: [['Vị trí', (r.viTri || []).join(', ')], ['Hình thức', r.hinhThuc], ['Khu vực', areas(r).join(', ')], ['Mức lương', r.luong], ['Bắt đầu', r.ngayBatDau], ['Ngày nghỉ', r.ngayNghi]].filter((x) => x[1]), verified: r.xacMinh || [],
+      certs: lines(r.chungChi), langs: lines(r.ngoaiNgu), skills: lines(r.kyNang), cook: optSplit(String(r.nauAn || '').replace(/\n+/g, ', ')), note: r.nhanXet, qt, groups };
   }
   // Văn bản tự nhập → khối có cấu trúc: "1. Tiêu đề" (đậm), "- ý" (gạch đầu dòng), "Nhãn: nội dung" (nhãn đậm).
   // Có xuống dòng thì theo đúng dòng người nhập; viết liền một đoạn thì tự tách trước "1." "2." và trước " - ".
@@ -709,10 +762,11 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     return '<article class="cv">' +
       '<header class="cv-hd"><img class="cv-logo" src="/arch-mark.svg" alt="Elite Helpers"><div class="cv-brand"><b>ELITE HELPERS</b><span>Người hỗ trợ gia đình cao cấp tại Hà Nội</span></div>' +
       '<div class="cv-doc"><b>HỒ SƠ ỨNG VIÊN</b><span>Mã ' + esc(M.ma) + ' · ' + esc(M.date) + '</span></div></header>' +
-      '<section class="cv-id"><h1>' + esc(M.name) + '</h1><p class="cv-role">' + esc(M.role) + '</p><ul class="cv-facts">' + M.facts.map((f) => '<li><b>' + esc(f[0]) + '</b><span>' + esc(f[1]) + '</span></li>').join('') + '</ul></section>' +
+      '<section class="cv-id"><h1>' + esc(M.name) + '</h1><p class="cv-role">' + esc(M.role) + '</p><ul class="cv-facts">' + M.facts.map((f) => '<li><b>' + esc(f[0]) + '</b><span>' + esc(f[1]) + '</span></li>').join('') + '</ul>' +
+      (M.verified.length ? '<div class="cv-ver"><b>ĐÃ XÁC MINH</b>' + M.verified.map((x) => '<span>' + esc(x) + '</span>').join('') + '</div>' : '') + '</section>' +
       '<div class="cv-body"><aside class="cv-side">' + sec('Thông tin cá nhân', kv(M.info)) + (M.wish.length ? sec('Nguyện vọng công việc', kv(M.wish)) : '') +
       (M.skills.length ? sec('Kỹ năng nổi bật', ul(M.skills)) : '') + sec('Chứng chỉ & đào tạo', ul(M.certs.length ? M.certs : ['Chưa có chứng chỉ, sẵn sàng tham gia đào tạo'])) +
-      (M.langs.length ? sec('Ngoại ngữ', ul(M.langs)) : '') + (M.cook ? sec('Nấu ăn', '<p>' + esc(M.cook) + '</p>') : '') + '</aside>' +
+      (M.langs.length ? sec('Ngoại ngữ', ul(M.langs)) : '') + (M.cook.length ? sec('Nấu ăn', ul(M.cook)) : '') + '</aside>' +
       '<div class="cv-main">' + (M.note ? sec('Nhận xét của Elite Helpers', '<div class="cv-note">' + richHtml(M.note) + '</div>') : '') +
       sec('Quá trình làm việc', M.qt.length ? '<ol class="cv-tl">' + M.qt.map((q) => { const sub = [q.noiLam, q.hinhThuc].filter(Boolean).join(' · ');
         return '<li>' + (period(q) ? '<p class="cv-per">' + esc(period(q)) + '</p>' : '') + '<p class="cv-job">' + esc(q.viTri || 'Người hỗ trợ gia đình') + '</p>' + (sub ? '<p class="cv-place">' + esc(sub) + '</p>' : '') +
@@ -723,6 +777,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   function cvText(r, hide) {
     const M = cvModel(r, hide), L = [];
     L.push('HỒ SƠ ỨNG VIÊN – ELITE HELPERS', 'Mã hồ sơ: ' + M.ma, '', '👤 ' + M.name.toUpperCase(), M.role, '');
+    if (M.verified.length) L.push('✓ Đã xác minh: ' + M.verified.join(', '), '');
     L.push('▸ THÔNG TIN', ...M.info.map(([k, v]) => '• ' + k + ': ' + v), '');
     if (M.wish.length) L.push('▸ NGUYỆN VỌNG', ...M.wish.map(([k, v]) => '• ' + k + ': ' + v), '');
     if (M.note) L.push('▸ NHẬN XÉT CỦA ELITE HELPERS', ...richBlocks(M.note).map((b) => b.t === 'h' ? b.n + '. ' + b.x.toUpperCase() : (b.t === 'li' ? '  • ' : '') + (b.lb ? b.lb + ': ' : '') + b.x), '');
@@ -813,43 +868,134 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     return out;
   }
 
+  // ---------- Ô nhập chuẩn: ngày dd/mm/yyyy, tháng/năm, mức lương ----------
+  const pad2 = (n) => String(n).padStart(2, '0');
+  const MONTHS = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  const YEAR_NOW = new Date().getFullYear();
+  const yearsDesc = (from) => { const a = []; for (let y = YEAR_NOW + 1; y >= from; y--) a.push(String(y)); return a; };
+  // "01/11/2026", "1/11/26", "2026-11-01" → {d,m,y}
+  function parseDMY(s) {
+    s = String(s || '').trim(); let m;
+    if ((m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/))) return { y: m[1], m: pad2(m[2]), d: pad2(m[3]) };
+    if ((m = s.match(/(\d{1,2})[/.\-](\d{1,2})[/.\-](\d{2,4})/))) return { d: pad2(m[1]), m: pad2(m[2]), y: m[3].length === 2 ? '20' + m[3] : m[3] };
+    return null;
+  }
+  // Thời gian bắt đầu: Đi làm ngay / Từ ngày (lịch, lưu dd/mm/yyyy) / Thỏa thuận / Ghi khác
+  function startWidget(id, val) {
+    const v = String(val || '').trim(), d = parseDMY(v);
+    const mode = !v ? '' : /^(ngay|đi làm ngay|có thể đi làm ngay)/i.test(v) ? 'ngay' : d ? 'date' : /thỏa thuận|thoả thuận/i.test(v) ? 'tt' : 'khac';
+    const r = (k, l) => '<label class="rd"><input type="radio" name="' + id + 'M" value="' + k + '"' + (mode === k ? ' checked' : '') + '> ' + l + '</label>';
+    return '<div class="wd" id="' + id + '"><div class="rds">' + r('ngay', 'Đi làm ngay') + r('date', 'Từ ngày') + r('tt', 'Thỏa thuận') + r('khac', 'Ghi khác') + '</div>' +
+      '<input type="date" data-w="date" value="' + (d ? d.y + '-' + d.m + '-' + d.d : '') + '"' + (mode === 'date' ? '' : ' hidden') + '>' +
+      '<input data-w="text" value="' + esc(mode === 'khac' ? v : '') + '" placeholder="VD: sau Tết, đầu tháng 12"' + (mode === 'khac' ? '' : ' hidden') + '></div>';
+  }
+  function bindStart(id) {
+    const w = $('#' + id); if (!w) return;
+    w.addEventListener('change', (e) => { if (e.target.type !== 'radio') return; w.querySelector('[data-w=date]').hidden = e.target.value !== 'date'; w.querySelector('[data-w=text]').hidden = e.target.value !== 'khac'; });
+  }
+  function readStart(id) {
+    const w = $('#' + id), m = (w.querySelector('input[type=radio]:checked') || {}).value;
+    if (m === 'ngay') return 'Đi làm ngay';
+    if (m === 'tt') return 'Thỏa thuận';
+    if (m === 'khac') return w.querySelector('[data-w=text]').value.trim();
+    if (m === 'date') { const d = parseDMY(w.querySelector('[data-w=date]').value); return d ? d.d + '/' + d.m + '/' + d.y : ''; }
+    return '';
+  }
+  // Mức lương (triệu đồng/tháng): từ – đến, hoặc thỏa thuận
+  function parseMoney(s) {
+    s = String(s || '').replace(/,/g, '.'); const m = s.match(/(\d+(?:\.\d+)?)\s*(?:-|–|—|đến|tới)\s*(\d+(?:\.\d+)?)/i);
+    if (m) return { a: m[1], b: m[2] };
+    const one = s.match(/(\d+(?:\.\d+)?)/); return one ? { a: one[1], b: '' } : null;
+  }
+  function moneyWidget(id, val, label) {
+    const v = String(val || ''), m = parseMoney(v), tt = /thỏa thuận|thoả thuận/i.test(v) && !m;
+    return '<div class="wd money" id="' + id + '"><div class="row"><input type="number" min="0" max="500" step="0.5" data-w="a" value="' + (m ? m.a : '') + '" placeholder="Từ" aria-label="' + label + ' từ">' +
+      '<span>–</span><input type="number" min="0" max="500" step="0.5" data-w="b" value="' + (m ? m.b : '') + '" placeholder="Đến" aria-label="' + label + ' đến"><span class="hint">triệu/tháng</span></div>' +
+      '<label class="rd"><input type="checkbox" data-w="tt"' + (tt ? ' checked' : '') + '> Thỏa thuận</label>' +
+      (v && !m && !tt ? '<p class="hint" style="margin:0">Đang lưu: “' + esc(v) + '”. Nhập số để chuẩn hóa.</p>' : '') + '<input type="hidden" data-w="raw" value="' + esc(v) + '"></div>';
+  }
+  function readMoney(id) {
+    const w = $('#' + id), a = w.querySelector('[data-w=a]').value.trim(), b = w.querySelector('[data-w=b]').value.trim(), tt = w.querySelector('[data-w=tt]').checked;
+    const f = (x) => String(Number(x)).replace('.', ',');
+    if (a && b) return f(a) + ' – ' + f(b) + ' triệu/tháng' + (tt ? ' (có thể thỏa thuận)' : '');
+    if (a || b) return 'Từ ' + f(a || b) + ' triệu/tháng' + (tt ? ' (có thể thỏa thuận)' : '');
+    if (tt) return 'Thỏa thuận';
+    return w.querySelector('[data-w=raw]').value.trim();
+  }
+  // Tháng/năm của giai đoạn làm việc: "04/2016", "2016", "nay"
+  function parseMY(s) { s = String(s || '').trim(); let m; if (/^(nay|hiện tại|hiện nay)$/i.test(s)) return { now: true }; if ((m = s.match(/^(\d{1,2})[/.\-](\d{4})$/))) return { m: pad2(m[1]), y: m[2] }; if ((m = s.match(/(\d{4})/))) return { m: '', y: m[1] }; return { m: '', y: '' }; }
+  function myPicker(f, val, allowNow) {
+    const p = parseMY(val);
+    return '<span class="my" data-my="' + f + '"><select data-p="m" aria-label="Tháng"><option value="">Tháng</option>' + MONTHS.map((x) => '<option' + (x === p.m ? ' selected' : '') + '>' + x + '</option>').join('') + '</select>' +
+      '<select data-p="y" aria-label="Năm"><option value="">Năm</option>' + yearsDesc(1980).map((x) => '<option' + (x === p.y ? ' selected' : '') + '>' + x + '</option>').join('') + '</select>' +
+      (allowNow ? '<label class="rd"><input type="checkbox" data-p="now"' + (p.now ? ' checked' : '') + '> Hiện tại</label>' : '') + '</span>';
+  }
+  function readMY(el) {
+    if (!el) return ''; const now = el.querySelector('[data-p=now]');
+    if (now && now.checked) return 'nay';
+    const m = el.querySelector('[data-p=m]').value, y = el.querySelector('[data-p=y]').value;
+    return y ? (m ? m + '/' + y : y) : '';
+  }
+  // Nhóm lựa chọn có ô "khác": lưu "A, B, C"
+  function pickWidget(id, list, val) {
+    const cur = optSplit(String(val || '').replace(/\n+/g, ', ').replace(/;\s*/g, ', '));
+    const known = cur.filter((x) => list.includes(x)), other = cur.filter((x) => !list.includes(x) && !/^không$/i.test(x));
+    return '<div class="wd" id="' + id + '"><div class="tgs">' + list.map((i) => '<button type="button" class="tg" data-v="' + esc(i) + '" aria-pressed="' + known.includes(i) + '">' + esc(i) + '</button>').join('') + '</div>' +
+      '<input data-w="other" value="' + esc(other.join(', ')) + '" placeholder="Khác (cách nhau bằng dấu phẩy)"></div>';
+  }
+  function bindPick(id) { const w = $('#' + id); if (w) w.querySelector('.tgs').addEventListener('click', (e) => { const b = e.target.closest('.tg'); if (b) b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true')); }); }
+  function readPick(id) { const w = $('#' + id); return [...w.querySelectorAll('.tg[aria-pressed=true]')].map((b) => b.dataset.v).concat(optSplit(w.querySelector('[data-w=other]').value)).join(', '); }
+  const COOK = ['Món Bắc truyền thống', 'Món Nam', 'Món Trung', 'Món Á (Hàn, Nhật, Hoa)', 'Món Âu', 'Làm bánh', 'Ăn chay / ăn kiêng', 'Đồ ăn trẻ nhỏ'];
+  const LANGS = ['Tiếng Anh cơ bản', 'Tiếng Anh giao tiếp tốt', 'Tiếng Trung', 'Tiếng Hàn', 'Tiếng Nhật', 'Tiếng Pháp'];
+  const VERIFY = ['CCCD', 'VNeID mức 2', 'Lý lịch tư pháp', 'Giấy khám sức khỏe', 'Xác nhận nơi làm cũ'];
+  const BIKE = ['Có, có xe riêng', 'Có, chưa có xe', 'Không'];
+  const DAYOFF = ['2 ngày/tháng', '4 ngày/tháng', '1 ngày/tuần', 'Theo lịch gia đình', 'Thỏa thuận'];
   function formK(r) {
-    const e = r || { viTri: [], khuVuc: [], trangThai: 'Mới nhận', nguon: 'Nhập tay' };
-    const sel = { viTri: new Set(e.viTri || []), khuVuc: new Set(e.khuVuc || []) };
+    const e = r || { viTri: [], khuVuc: [], xacMinh: [], trangThai: 'Mới nhận', nguon: 'Nhập tay' };
+    const sel = { viTri: new Set(e.viTri || []), khuVuc: new Set(e.khuVuc || []), xacMinh: new Set(e.xacMinh || []) };
     let qt = JSON.parse(JSON.stringify(qtList(e))).map((q) => ({ tu: q.tu || '', den: q.den || '', viTri: q.viTri || '', noiLam: q.noiLam || '', hinhThuc: q.hinhThuc || '', congViec: q.congViec || [] }));
     const tgs = (k, list) => '<div class="tgs" data-k="' + k + '">' + list.map((i) => '<button type="button" class="tg" data-v="' + esc(i) + '" aria-pressed="' + sel[k].has(i) + '">' + esc(i) + '</button>').join('') + '</div>';
     const o = (list, cur) => list.map((x) => '<option' + (x === cur ? ' selected' : '') + '>' + esc(x) + '</option>').join('');
     const inp = (id, label, val, extra) => '<label' + (extra && extra.full ? ' class="full"' : '') + '>' + label + '<input id="' + id + '" value="' + esc(val == null ? '' : val) + '"' + (extra && extra.attr ? ' ' + extra.attr : '') + '></label>';
-    const ta = (id, label, val, ph) => '<label class="full">' + label + '<textarea id="' + id + '" placeholder="' + esc(ph || '') + '">' + esc(val || '') + '</textarea></label>';
+    const ta = (id, label, val, ph, hint) => '<label class="full">' + label + '<textarea id="' + id + '" placeholder="' + esc(ph || '') + '">' + esc(val || '') + '</textarea>' + (hint ? '<span class="hint">' + hint + '</span>' : '') + '</label>';
+    const grpH = (n, t) => '<h3 class="fh"><span>' + n + '</span>' + t + '</h3>';
     showPanel('<div class="hd"><h2>' + (r ? 'Sửa hồ sơ' : 'Thêm ứng viên') + '</h2><button class="btn alt sm" type="button" id="kfClose">Đóng</button></div>' +
-      '<form id="kf" class="box" novalidate><h3>Thông tin cá nhân</h3><div class="g2">' +
-      inp('kfTen', 'Họ và tên *', e.hoTen, { full: 1, attr: 'required' }) + inp('kfSdt', 'SĐT / Zalo *', e.sdt, { attr: 'inputmode="tel" required' }) +
-      inp('kfNs', 'Năm sinh', e.namSinh, { attr: 'inputmode="numeric"' }) +
-      '<label>Giới tính<select id="kfGt"><option value=""></option>' + o(['Nữ', 'Nam'], e.gioiTinh) + '</select></label>' + inp('kfQue', 'Quê quán', e.que) +
+      '<form id="kf" class="box" novalidate>' +
+      grpH(1, 'Thông tin cá nhân') + '<div class="g2">' +
+      inp('kfTen', 'Họ và tên *', e.hoTen, { full: 1, attr: 'required autocomplete="off"' }) + inp('kfSdt', 'SĐT / Zalo *', e.sdt, { attr: 'inputmode="tel" required' }) +
+      inp('kfNs', 'Năm sinh', e.namSinh, { attr: 'type="number" min="1950" max="' + (YEAR_NOW - 16) + '" placeholder="VD: 1988"' }) +
+      '<label>Giới tính<select id="kfGt"><option value=""></option>' + o(['Nữ', 'Nam'], e.gioiTinh) + '</select></label>' + inp('kfQue', 'Quê quán', e.que, { attr: 'placeholder="VD: Thanh Hóa"' }) +
       '<label>Tỉnh/thành đang ở<select id="kfNoi"><option value="">Chọn</option>' + Object.keys(REGIONS).map((k) => '<optgroup label="' + k + '">' + o(REGIONS[k], e.noiO) + '</optgroup>').join('') + '</select></label>' +
-      inp('kfNoiCt', 'Địa chỉ chi tiết', e.noiOChiTiet, { attr: 'placeholder="Quận/phường"' }) + '</div>' +
-      '<h3>Khu vực nhận việc *</h3><p class="hint" style="margin:0">Các tỉnh/thành ứng viên đi làm được. Đây là tiêu chí phân luồng chính.</p>' +
+      inp('kfNoiCt', 'Địa chỉ chi tiết', e.noiOChiTiet, { attr: 'placeholder="Phường/xã, quận/huyện"' }) +
+      inp('kfHn', 'Tình trạng gia đình', e.honNhan, { attr: 'placeholder="VD: Đã có gia đình, con đã lớn"' }) + inp('kfSk', 'Sức khỏe', e.sucKhoe, { attr: 'placeholder="VD: Tốt, không bệnh mãn tính"' }) +
+      '<label>Đi xe máy<select id="kfXm"><option value=""></option>' + o(BIKE, e.xeMay) + '</select></label></div>' +
+      grpH(2, 'Giấy tờ đã xác minh') + tgs('xacMinh', VERIFY) +
+      grpH(3, 'Khu vực nhận việc *') + '<p class="hint" style="margin:0">Các tỉnh/thành ứng viên đi làm được. Đây là tiêu chí phân luồng chính.</p>' +
       Object.keys(REGIONS).map((k) => '<div class="pg">' + k + '</div>' + tgs('khuVuc', REGIONS[k])).join('') +
-      '<h3>Nguyện vọng công việc</h3>' + tgs('viTri', POS) + '<div class="g2">' +
+      grpH(4, 'Nguyện vọng công việc') + tgs('viTri', POS) + '<div class="g2">' +
       '<label>Hình thức<select id="kfHt"><option value=""></option>' + o(TYPES, e.hinhThuc) + '</select></label>' +
       inp('kfKn', 'Tổng số năm kinh nghiệm', e.kinhNghiemNam, { attr: 'type="number" min="0" max="60" step="0.5"' }) +
-      inp('kfLuong', 'Lương mong muốn', e.luong, { attr: 'placeholder="VD: 20 triệu"' }) + inp('kfBd', 'Có thể bắt đầu', e.ngayBatDau, { attr: 'placeholder="VD: Ngay / 01/11/2026"' }) + '</div>' +
-      '<h3>Quá trình làm việc (in vào CV)</h3><p class="hint" style="margin:0">Mỗi giai đoạn: thời gian, vị trí, nơi làm và các việc chính (mỗi dòng 1 ý, CV tự thành gạch đầu dòng).</p>' +
+      '<div class="full"><span class="lb">Mức lương mong muốn</span>' + moneyWidget('kfLuong', e.luong, 'Lương') + '</div>' +
+      '<div class="full"><span class="lb">Có thể bắt đầu</span>' + startWidget('kfBd', e.ngayBatDau) + '</div>' +
+      '<label class="full">Ngày nghỉ mong muốn<input id="kfNg2" list="kfDayOff" value="' + esc(e.ngayNghi || '') + '" placeholder="VD: 2 ngày/tháng"><datalist id="kfDayOff">' + DAYOFF.map((x) => '<option value="' + esc(x) + '">').join('') + '</datalist></label></div>' +
+      grpH(5, 'Quá trình làm việc') + '<p class="hint" style="margin:0">Mỗi giai đoạn: thời gian, vị trí, nơi làm và các việc chính (mỗi dòng 1 ý, CV tự thành gạch đầu dòng).</p>' +
       '<div id="kfQt" class="qt"></div><div class="row"><button class="btn alt sm" type="button" id="kfQtAdd">+ Thêm giai đoạn</button>' +
       (e.kinhNghiemMoTa ? '<button class="btn alt sm" type="button" id="kfQtSplit">Tách từ mô tả đã có</button>' : '') + '</div>' +
       (e.kinhNghiemMoTa ? '<details class="hint"><summary>Mô tả gốc ứng viên gửi</summary><p style="white-space:pre-wrap;margin:.4rem 0 0">' + esc(e.kinhNghiemMoTa) + '</p></details>' : '') +
-      '<h3>Kỹ năng & chứng chỉ (in vào CV)</h3><div class="g2">' +
-      ta('kfKy', 'Kỹ năng nổi bật (mỗi dòng 1 ý)', e.kyNang, 'VD:\nChăm trẻ sơ sinh, tắm bé, massage\nNấu ăn dặm theo tháng tuổi') +
-      ta('kfCc', 'Chứng chỉ / đào tạo (mỗi dòng 1 ý)', e.chungChi, 'VD:\nChứng chỉ sơ cứu cơ bản – 2023') +
-      inp('kfNn', 'Ngoại ngữ', e.ngoaiNgu, { full: 1 }) +
-      ta('kfNx', 'Nhận xét của Elite Helpers (in vào CV)', e.nhanXet, 'VD: Chị nhẹ nhàng, sạch sẽ, có kinh nghiệm chăm bé sơ sinh lâu năm, giao tiếp lễ phép.') + '</div>' +
-      '<h3>Nội bộ</h3><div class="g2"><label>Trạng thái<select id="kfSt">' + o(STATUS.map((s) => s[0]), e.trangThai) + '</select></label>' +
+      grpH(6, 'Kỹ năng & năng lực') + '<div class="g2">' +
+      ta('kfKy', 'Kỹ năng nổi bật', e.kyNang, 'Chăm trẻ sơ sinh, tắm bé, massage\nNấu ăn dặm theo tháng tuổi', 'Mỗi dòng 1 ý.') +
+      ta('kfCc', 'Chứng chỉ / đào tạo', e.chungChi, 'Chứng chỉ sơ cứu cơ bản – 2023', 'Mỗi dòng 1 ý. Để trống nếu chưa có.') +
+      '<div class="full"><span class="lb">Nấu ăn</span>' + pickWidget('kfNa', COOK, e.nauAn) + '</div>' +
+      '<div class="full"><span class="lb">Ngoại ngữ</span>' + pickWidget('kfNn', LANGS, e.ngoaiNgu) + '</div></div>' +
+      grpH(7, 'Nhận xét của Elite Helpers (in vào CV)') +
+      ta('kfNx', 'Nhận xét', e.nhanXet, '1. Đánh giá chung\n- Nhẹ nhàng, thân thiện\n- Phát âm: rõ ràng\n2. Hoàn cảnh gia đình\n- Có đủ giấy tờ tùy thân', 'Dòng “1. …” thành tiêu đề in đậm; dòng “- …” thành gạch đầu dòng; “Nhãn: nội dung” in đậm nhãn.') +
+      grpH(8, 'Nội bộ') + '<div class="g2"><label>Trạng thái<select id="kfSt">' + o(STATUS.map((s) => s[0]), e.trangThai) + '</select></label>' +
       '<label>Nguồn<select id="kfNg">' + o(SOURCES, e.nguon) + '</select></label>' +
       ta('kfGc', 'Ghi chú nội bộ (không in vào CV)', e.ghiChu) + '</div>' +
-      '<div class="row"><button class="btn" type="submit" id="kfBtn">' + (r ? 'Lưu thay đổi' : 'Lưu vào kho') + '</button><span class="err" id="kfErr" style="margin:0"></span></div></form>');
+      '<div class="row stick"><button class="btn" type="submit" id="kfBtn">' + (r ? 'Lưu thay đổi' : 'Lưu vào kho') + '</button><span class="err" id="kfErr" style="margin:0"></span></div></form>');
     const renderQt = () => {
       $('#kfQt').innerHTML = qt.length ? qt.map((q, i) => '<fieldset class="qt-it" data-i="' + i + '"><legend>Giai đoạn ' + (i + 1) + '</legend><div class="g2">' +
-        '<label>Từ (tháng/năm)<input data-f="tu" value="' + esc(q.tu) + '" placeholder="04/2016"></label><label>Đến<input data-f="den" value="' + esc(q.den) + '" placeholder="05/2024 hoặc nay"></label>' +
+        '<div><span class="lb">Từ</span>' + myPicker('tu', q.tu, false) + '</div><div><span class="lb">Đến</span>' + myPicker('den', q.den, true) + '</div>' +
         '<label>Vị trí<input data-f="viTri" value="' + esc(q.viTri) + '" placeholder="Bảo mẫu chăm bé sơ sinh"></label>' +
         '<label>Hình thức<select data-f="hinhThuc"><option value=""></option>' + o(['Ở lại', 'Theo giờ / đi về', 'Ở lại & đi về'], q.hinhThuc) + '</select></label>' +
         '<label class="full">Nơi làm / gia đình<input data-f="noiLam" value="' + esc(q.noiLam) + '" placeholder="Gia đình 4 người tại The Estella, TP. Hồ Chí Minh"></label>' +
@@ -857,28 +1003,37 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
         '<div class="row"><button class="btn alt sm" type="button" data-mv="-1"' + (i ? '' : ' disabled') + '>Lên</button><button class="btn alt sm" type="button" data-mv="1"' + (i < qt.length - 1 ? '' : ' disabled') + '>Xuống</button><button class="btn sm del" type="button" data-rm="1">Bỏ giai đoạn</button></div></fieldset>').join('')
         : '<p class="hint" style="margin:0">Chưa có giai đoạn nào.</p>';
     };
-    renderQt();
-    $('#kfQt').addEventListener('input', (ev) => { const f = ev.target.dataset.f; if (!f) return; const i = Number(ev.target.closest('.qt-it').dataset.i); qt[i][f] = f === 'congViec' ? ev.target.value.split(/\r?\n/).map((x) => x.replace(/^\s*[-•*+·]\s*/, '').trim()).filter(Boolean) : ev.target.value.trim(); });
-    $('#kfQt').addEventListener('click', (ev) => { const b = ev.target.closest('button'); if (!b) return; const i = Number(b.closest('.qt-it').dataset.i);
+    const syncQt = () => $('#kfQt').querySelectorAll('.qt-it').forEach((fs) => { const q = qt[Number(fs.dataset.i)]; if (!q) return;
+      q.tu = readMY(fs.querySelector('[data-my=tu]')); q.den = readMY(fs.querySelector('[data-my=den]'));
+      fs.querySelectorAll('[data-f]').forEach((el) => { q[el.dataset.f] = el.dataset.f === 'congViec' ? el.value.split(/\r?\n/).map((x) => x.replace(/^\s*[-•*+·]\s*/, '').trim()).filter(Boolean) : el.value.trim(); }); });
+    renderQt(); bindStart('kfBd'); bindPick('kfNa'); bindPick('kfNn');
+    $('#kfQt').addEventListener('change', (ev) => { if (ev.target.dataset.p === 'now') { const sp = ev.target.closest('.my'); sp.querySelectorAll('select').forEach((s) => { s.disabled = ev.target.checked; }); } });
+    $('#kfQt').querySelectorAll('[data-p=now]:checked').forEach((c) => c.closest('.my').querySelectorAll('select').forEach((s) => { s.disabled = true; }));
+    $('#kfQt').addEventListener('click', (ev) => { const b = ev.target.closest('button'); if (!b) return; syncQt(); const i = Number(b.closest('.qt-it').dataset.i);
       if (b.dataset.rm) qt.splice(i, 1); else if (b.dataset.mv) { const j = i + Number(b.dataset.mv); [qt[i], qt[j]] = [qt[j], qt[i]]; } renderQt(); });
-    $('#kfQtAdd').onclick = () => { qt.push({ tu: '', den: '', viTri: '', noiLam: '', hinhThuc: '', congViec: [] }); renderQt(); const f = $('#kfQt').querySelectorAll('.qt-it'); f[f.length - 1].querySelector('input').focus(); };
-    if ($('#kfQtSplit')) $('#kfQtSplit').onclick = () => { const s = splitQt(e.kinhNghiemMoTa); if (!s.length) { toast('Không tách được, hãy thêm giai đoạn thủ công'); return; } qt = qt.concat(s); renderQt();
+    $('#kfQtAdd').onclick = () => { syncQt(); qt.push({ tu: '', den: '', viTri: '', noiLam: '', hinhThuc: '', congViec: [] }); renderQt(); const f = $('#kfQt').querySelectorAll('.qt-it'); f[f.length - 1].querySelector('select').focus(); };
+    if ($('#kfQtSplit')) $('#kfQtSplit').onclick = () => { syncQt(); const s = splitQt(e.kinhNghiemMoTa); if (!s.length) { toast('Không tách được, hãy thêm giai đoạn thủ công'); return; } qt = qt.concat(s); renderQt();
       const w = webExp(e.kinhNghiemMoTa); if (w && !$('#kfKy').value.trim()) { const k = [].concat(grp(w, 'Chăm sóc'), grp(w, 'Giặt là'), grp(w, 'Nhà cửa')); if (k.length) $('#kfKy').value = k.join('\n'); }
       toast('Đã tách ' + s.length + ' giai đoạn, kiểm tra lại thời gian, vị trí và nơi làm'); };
     $('#kfClose').onclick = () => (r ? openK(r.ma) : closeK());
-    $('#kPanel').querySelectorAll('.tgs').forEach((g) => g.addEventListener('click', (ev) => { const b = ev.target.closest('.tg'); if (!b) return; const s = sel[g.dataset.k], v = b.dataset.v; s.has(v) ? s.delete(v) : s.add(v); b.setAttribute('aria-pressed', String(s.has(v))); }));
+    $('#kPanel').querySelectorAll('.tgs[data-k]').forEach((g) => g.addEventListener('click', (ev) => { const b = ev.target.closest('.tg'); if (!b) return; const s = sel[g.dataset.k], v = b.dataset.v; s.has(v) ? s.delete(v) : s.add(v); b.setAttribute('aria-pressed', String(s.has(v))); }));
     let dupOk = false;
     $('#kf').addEventListener('submit', async (ev) => {
-      ev.preventDefault();
-      const v = (id) => $(id).value.trim();
-      if (!v('#kfTen') || !v('#kfSdt')) { $('#kfErr').textContent = 'Nhập họ tên và SĐT.'; return; }
-      if (!sel.khuVuc.size) { $('#kfErr').textContent = 'Chọn ít nhất một khu vực nhận việc.'; return; }
+      ev.preventDefault(); syncQt();
+      const v = (id) => $(id).value.trim(), err = (m, el) => { $('#kfErr').textContent = m; if (el) el.focus(); };
+      if (!v('#kfTen')) return err('Nhập họ và tên.', $('#kfTen'));
+      if (digits(v('#kfSdt')).replace(/^\+?84/, '0').length < 9) return err('Số điện thoại chưa đúng.', $('#kfSdt'));
+      const ns = v('#kfNs'); if (ns && (Number(ns) < 1950 || Number(ns) > YEAR_NOW - 16)) return err('Năm sinh chưa hợp lệ (1950–' + (YEAR_NOW - 16) + ').', $('#kfNs'));
+      if (!sel.khuVuc.size) return err('Chọn ít nhất một khu vực nhận việc.');
+      const bad = qt.find((q) => { const a = parseMY(q.tu), b = parseMY(q.den); return a.y && b.y && !b.now && (Number(b.y) * 12 + Number(b.m || 12)) < (Number(a.y) * 12 + Number(a.m || 1)); });
+      if (bad) return err('Giai đoạn “' + (bad.viTri || 'chưa đặt tên') + '”: thời gian Đến sớm hơn Từ.');
       const dup = kho.find((x) => x.ma !== (r && r.ma) && digits(x.sdt) && digits(x.sdt) === digits(v('#kfSdt')));
-      if (dup && !dupOk) { $('#kfErr').textContent = 'SĐT này đã có trong kho (' + dup.hoTen + ', ' + dup.ma + '). Bấm lưu lần nữa nếu vẫn muốn tạo.'; dupOk = true; return; }
+      if (dup && !dupOk) { dupOk = true; return err('SĐT này đã có trong kho (' + dup.hoTen + ', ' + dup.ma + '). Bấm lưu lần nữa nếu vẫn muốn tạo.'); }
       const kn = v('#kfKn');
-      const d = { hoTen: v('#kfTen'), sdt: v('#kfSdt'), namSinh: v('#kfNs'), gioiTinh: $('#kfGt').value, que: v('#kfQue'), noiO: $('#kfNoi').value, noiOChiTiet: v('#kfNoiCt'),
+      const d = { hoTen: v('#kfTen'), sdt: v('#kfSdt'), namSinh: ns, gioiTinh: $('#kfGt').value, que: v('#kfQue'), noiO: $('#kfNoi').value, noiOChiTiet: v('#kfNoiCt'),
+        honNhan: v('#kfHn'), sucKhoe: v('#kfSk'), xeMay: $('#kfXm').value, xacMinh: VERIFY.filter((p) => sel.xacMinh.has(p)),
         khuVuc: ALL_PROV.filter((p) => sel.khuVuc.has(p)), viTri: POS.filter((p) => sel.viTri.has(p)), hinhThuc: $('#kfHt').value, kinhNghiemNam: kn === '' ? '' : Number(kn),
-        luong: v('#kfLuong'), ngayBatDau: v('#kfBd'), chungChi: v('#kfCc'), ngoaiNgu: v('#kfNn'), kyNang: v('#kfKy'), nhanXet: v('#kfNx'),
+        luong: readMoney('kfLuong'), ngayBatDau: readStart('kfBd'), ngayNghi: v('#kfNg2'), chungChi: v('#kfCc'), ngoaiNgu: readPick('kfNn'), nauAn: readPick('kfNa'), kyNang: v('#kfKy'), nhanXet: v('#kfNx'),
         quaTrinh: qt.filter((q) => q.tu || q.viTri || q.noiLam || q.congViec.length), trangThai: $('#kfSt').value, nguon: $('#kfNg').value, ghiChu: v('#kfGc') };
       if (r) { d.ma = r.ma; d.base = r.capNhat; if (d.trangThai !== r.trangThai || !areas(r).length) d.lichSu = (r.lichSu || []).concat([{ t: new Date().toISOString(), st: d.trangThai, n: !areas(r).length ? 'Phân luồng: ' + d.khuVuc.join(', ') : 'Cập nhật hồ sơ' }]); }
       else d.lichSu = [{ t: new Date().toISOString(), st: d.trangThai, n: 'Nhập hồ sơ vào kho' }];
@@ -906,10 +1061,212 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     const r = find();
     if (r) { if (!areas(r).length) formK(r); else openK(r.ma); } else toast('Chưa tìm thấy hồ sơ này trong kho');
   });
+  // ---------------- Kho khách hàng (Apps Script bản 17, tab KhoKhachHang) ----------------
+  const KH_STATUS = [['Mới nhận', 's-new'], ['Đã tư vấn', 's-act'], ['Đang tìm người', 's-act'], ['Đã gửi hồ sơ ứng viên', 's-act'], ['Phỏng vấn / làm thử', 's-act'], ['Đã ký hợp đồng', 's-ok'], ['Chăm sóc sau giới thiệu', 's-ok'], ['Tạm dừng', 's-idle']];
+  const KH_OPEN = ['Mới nhận', 'Đã tư vấn', 'Đang tìm người', 'Đã gửi hồ sơ ứng viên', 'Phỏng vấn / làm thử'];
+  const KH_TYPES = ['Gia đình Việt Nam', 'Gia đình nước ngoài', 'Tổ chức quốc tế / VPĐD', 'Đại sứ quán / Cơ quan ngoại giao', 'Doanh nghiệp', 'Khác'];
+  const KH_SVC = ['Giúp việc gia đình', 'Bảo mẫu, chăm bé', 'Chăm sóc người già', 'Quản gia', 'Đầu bếp gia đình', 'Hỗ trợ ngắn hạn'];
+  const KH_MODE = ['Ở lại cùng gia đình', 'Theo giờ / theo ca', 'Cả hai', 'Cần tư vấn thêm'];
+  const KH_HOUSE = ['Căn hộ', 'Nhà phố', 'Biệt thự', 'Dinh thự / Nhà công vụ'];
+  const KH_LANG = ['Tiếng Việt', 'Tiếng Anh cơ bản', 'Tiếng Anh giao tiếp tốt', 'Khác'];
+  const KH_TIME = ['Bất kỳ lúc nào', 'Buổi sáng', 'Buổi chiều', 'Buổi tối'];
+  const KH_PRI = ['Cao', 'Thường', 'Thấp'];
+  const SVC2POS = { 'Giúp việc gia đình': 'Giúp việc gia đình', 'Bảo mẫu, chăm bé': 'Bảo mẫu / chăm bé', 'Chăm sóc người già': 'Chăm sóc người già', 'Quản gia': 'Quản gia', 'Đầu bếp gia đình': 'Đầu bếp gia đình' };
+  const khCls = (s) => (KH_STATUS.find((x) => x[0] === s) || [0, 's-idle'])[1];
+  let khach = [], hLoaded = 0, hTab = 'open', hSheetUrl = '', hOpenMa = '';
+  opts($('#hSvc'), 'Mọi dịch vụ', KH_SVC); opts($('#hType'), 'Mọi loại khách', KH_TYPES); opts($('#hSt'), 'Mọi trạng thái', KH_STATUS.map((s) => s[0]));
+  ['#hQ', '#hSvc', '#hType', '#hSt'].forEach((id) => $(id).addEventListener('input', renderKh));
+  async function loadKh() {
+    $('#hMeta').textContent = 'Đang tải kho khách…';
+    try {
+      const j = await call({ action: 'khach_list' }, 30000);
+      khach = j.items || []; hLoaded = Date.now(); hSheetUrl = j.sheetUrl || '';
+      $('#hSheet').hidden = !hSheetUrl; if (hSheetUrl) $('#hSheet').href = hSheetUrl;
+      renderKh(); return true;
+    } catch (e) { $('#hMeta').textContent = 'Chưa tải được kho khách: ' + kErr(String(e.message)).replace('bản 12', 'bản 17') + '.'; return false; }
+  }
+  const upsertKh = (it) => { const i = khach.findIndex((x) => x.ma === it.ma); if (i >= 0) khach[i] = it; else khach.push(it); };
+  function hMatch(r, t) { return t === 'all' ? true : t === 'open' ? KH_OPEN.includes(r.trangThai) : t === 'cao' ? r.uuTien === 'Cao' && KH_OPEN.includes(r.trangThai) : t === 'done' ? !KH_OPEN.includes(r.trangThai) : true; }
+  function hFiltered() {
+    const q = $('#hQ').value.trim().toLowerCase(), s1 = $('#hSvc').value, t1 = $('#hType').value, st = $('#hSt').value;
+    const pri = { Cao: 0, Thường: 1, Thấp: 2 };
+    return khach.filter((r) => hMatch(r, hTab) && (!s1 || (r.dichVu || []).includes(s1)) && (!t1 || r.loaiKhach === t1) && (!st || r.trangThai === st)
+      && (!q || [r.ma, r.hoTen, r.sdt, r.email, r.diaChi, r.yeuCau, r.ghiChu].join(' ').toLowerCase().includes(q)))
+      .sort((a, b) => (pri[a.uuTien] ?? 1) - (pri[b.uuTien] ?? 1) || String(b.ngayNhan).localeCompare(String(a.ngayNhan)));
+  }
+  function renderKh() {
+    const defs = [['open', 'Đang xử lý'], ['cao', 'Ưu tiên cao'], ['done', 'Đã xong / tạm dừng'], ['all', 'Tất cả']];
+    $('#hTabs').innerHTML = defs.map(([k, l]) => '<button type="button" class="tab" data-k="' + k + '" aria-pressed="' + (hTab === k) + '">' + l + '<i>' + khach.filter((r) => hMatch(r, k)).length + '</i></button>').join('');
+    const list = hFiltered();
+    $('#hMeta').textContent = list.length + ' / ' + khach.length + ' khách · cập nhật ' + new Date(hLoaded || Date.now()).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    if (!khach.length) { $('#hList').innerHTML = '<p class="empty">Kho khách chưa có ai. Bấm “Nhập yêu cầu từ website” để đưa yêu cầu cũ vào, hoặc “+ Thêm khách hàng”.</p>'; return; }
+    if (!list.length) { $('#hList').innerHTML = '<p class="empty">Không có khách khớp bộ lọc.</p>'; return; }
+    $('#hList').innerHTML = list.map((r) => '<button type="button" class="kc" data-ma="' + esc(r.ma) + '"><div class="top"><div><h2>' + esc(r.hoTen) + '</h2><div class="sub">' + esc(r.ma) + ' · nhận ' + esc(fdate(r.ngayNhan)) + (r.loaiKhach ? ' · ' + esc(r.loaiKhach) : '') + '</div></div>' +
+      '<span class="pill ' + khCls(r.trangThai) + '">' + esc(r.trangThai) + '</span></div>' +
+      '<div class="chips">' + (r.uuTien === 'Cao' ? '<span class="chip pri">Ưu tiên cao</span>' : '') + (r.dichVu || []).map((v) => '<span class="chip">' + esc(v) + '</span>').join('') + '</div>' +
+      '<dl><dt>Khu vực</dt><dd>' + esc([r.diaChi, r.tinh].filter(Boolean).join(', ') || '—') + '</dd><dt>Hình thức</dt><dd>' + esc(r.hinhThuc || '—') + '</dd>' +
+      '<dt>Bắt đầu</dt><dd>' + esc(r.ngayBatDau || '—') + '</dd><dt>Ứng viên</dt><dd>' + ((r.ungVien || []).length ? r.ungVien.length + ' hồ sơ đã giới thiệu' : 'Chưa giới thiệu') + '</dd></dl></button>').join('');
+  }
+  $('#hTabs').addEventListener('click', (e) => { const b = e.target.closest('.tab'); if (!b) return; hTab = b.dataset.k; renderKh(); });
+  $('#hList').addEventListener('click', (e) => { const c = e.target.closest('.kc'); if (c) openH(c.dataset.ma); });
+  // Gợi ý ứng viên: cùng khu vực, đúng vị trí, hình thức phù hợp, đang sẵn sàng
+  function suggestFor(r) {
+    const want = (r.dichVu || []).map((s) => SVC2POS[s]).filter(Boolean), prov = r.tinh || 'Hà Nội';
+    const busy = ['Đã nhận việc', 'Tạm dừng'];
+    return kho.filter((u) => !(r.ungVien || []).includes(u.ma) && !busy.includes(u.trangThai)).map((u) => {
+      let s = 0; const why = [];
+      if (areas(u).includes(prov)) { s += 3; why.push('nhận việc tại ' + prov); }
+      const hit = want.filter((p) => (u.viTri || []).includes(p)); if (hit.length) { s += 2 + hit.length; why.push(hit.join(', ')); }
+      if (r.hinhThuc && u.hinhThuc && (u.hinhThuc === 'Cả hai' || (/Ở lại/.test(r.hinhThuc) && u.hinhThuc === 'Ở lại') || (/giờ/.test(r.hinhThuc) && /giờ/.test(u.hinhThuc)))) { s += 1; why.push(u.hinhThuc); }
+      if (u.trangThai === 'Sẵn sàng giới thiệu') s += 1;
+      return { u, s, why };
+    }).filter((x) => x.s >= 3).sort((a, b) => b.s - a.s).slice(0, 8);
+  }
+  function khRich(s) { return s ? '<div class="rt">' + richHtml(s) + '</div>' : ''; }
+  function openH(ma) {
+    const r = khach.find((x) => x.ma === ma); if (!r) return; hOpenMa = ma;
+    const ph = digits(r.sdt);
+    const info = [['Loại khách', r.loaiKhach], ['Dịch vụ', (r.dichVu || []).join(', ')], ['Hình thức', r.hinhThuc], ['Khu vực', [r.diaChi, r.tinh].filter(Boolean).join(', ')], ['Loại nhà', r.loaiNha],
+      ['Thời gian bắt đầu', r.ngayBatDau], ['Mức lương đề xuất', r.nganSach], ['Ngôn ngữ', r.ngonNgu], ['Giờ liên hệ', r.gioLienHe], ['Nhận tin chăm sóc', r.nhanTin]].filter((x) => x[1]);
+    const intro = (r.ungVien || []).map((m) => { const u = kho.find((x) => x.ma === m); return '<li><button type="button" class="lnk" data-uv="' + esc(m) + '">' + esc(u ? u.hoTen : m) + '</button> <span class="hint">' + esc(m) + (u ? ' · ' + esc(u.trangThai) : '') + '</span> <button type="button" class="x" data-unuv="' + esc(m) + '" aria-label="Bỏ ' + esc(m) + '">Bỏ</button></li>'; }).join('');
+    const sug = kho.length ? suggestFor(r) : [];
+    showPanel('<div class="hd"><h2>' + esc(r.hoTen) + '</h2><button class="btn alt sm" type="button" id="hxClose">Đóng</button></div>' +
+      '<div class="row"><span class="pill ' + khCls(r.trangThai) + '">' + esc(r.trangThai) + '</span>' + (r.uuTien === 'Cao' ? '<span class="pill s-none">Ưu tiên cao</span>' : '') + '<span class="hint">' + esc(r.ma) + ' · nhận ' + esc(fdate(r.ngayNhan)) + ' · ' + esc(r.nguon || '') + '</span></div>' +
+      '<div class="box"><h3>Liên hệ</h3><div class="row"><span class="phone">' + esc(r.sdt || '—') + '</span>' + (ph ? '<a class="btn sm" href="tel:' + esc(ph) + '">Gọi</a><a class="btn alt sm" href="https://zalo.me/' + esc(ph.replace(/^\+84/, '0')) + '" target="_blank" rel="noopener">Zalo</a>' : '') + '</div>' +
+      (r.email ? '<div class="row"><span>' + esc(r.email) + '</span><a class="btn alt sm" href="mailto:' + esc(r.email) + '">Gửi email</a></div>' : '') + '</div>' +
+      '<div class="box"><h3>Chăm sóc khách</h3><div class="g2"><label>Trạng thái<select id="hxSt">' + KH_STATUS.map((s) => '<option' + (s[0] === r.trangThai ? ' selected' : '') + '>' + s[0] + '</option>').join('') + '</select></label>' +
+      '<label>Ưu tiên<select id="hxPri">' + KH_PRI.map((s) => '<option' + (s === (r.uuTien || 'Thường') ? ' selected' : '') + '>' + s + '</option>').join('') + '</select></label></div>' +
+      '<label for="hxLog">Ghi chú trao đổi mới</label><textarea id="hxLog" placeholder="VD: 26/10 gọi tư vấn, gia đình cần bảo mẫu ở lại từ 01/11, ngân sách 18 – 20 triệu"></textarea>' +
+      '<div class="row"><button class="btn sm" type="button" id="hxSave">Lưu trạng thái & ghi chú</button></div>' +
+      ((r.lichSu || []).length ? '<div class="tl">' + r.lichSu.slice().reverse().map((h) => '<div><small>' + esc(fdate(h.t)) + (h.st ? ' · ' + esc(h.st) : '') + '</small><br>' + esc(h.n) + '</div>').join('') + '</div>' : '') + '</div>' +
+      '<div class="box"><h3>Yêu cầu của khách</h3><dl>' + info.map((x) => '<dt>' + x[0] + '</dt><dd>' + esc(x[1]) + '</dd>').join('') + '</dl>' +
+      (r.thanhVien ? '<div><div class="hint">Thành viên gia đình</div><div class="pre">' + esc(r.thanhVien) + '</div></div>' : '') +
+      (r.yeuCau ? '<div><div class="hint">Yêu cầu công việc</div>' + khRich(r.yeuCau) + '</div>' : '') +
+      (r.ghiChu ? '<div><div class="hint">Ghi chú nội bộ</div><div class="pre">' + esc(r.ghiChu) + '</div></div>' : '') +
+      '<div class="row"><button class="btn alt sm" type="button" id="hxEdit">Sửa thông tin</button><button class="btn alt sm" type="button" id="hxPrint">In / Lưu PDF phiếu yêu cầu</button><button class="btn alt sm" type="button" id="hxCopy">Sao chép tóm tắt</button></div></div>' +
+      '<div class="box"><h3>Ứng viên đã giới thiệu</h3>' + (intro ? '<ul class="uvl">' + intro + '</ul>' : '<p class="hint" style="margin:0">Chưa giới thiệu ứng viên nào.</p>') +
+      '<h3 style="margin-top:6px">Gợi ý từ kho ứng viên</h3>' + (!kho.length ? '<p class="hint" style="margin:0">Đang tải kho ứng viên…</p>' : sug.length ? '<ul class="uvl">' + sug.map((x) => '<li><button type="button" class="lnk" data-uv="' + esc(x.u.ma) + '">' + esc(x.u.hoTen) + '</button> <span class="hint">' + esc(x.u.ma) + ' · ' + esc(x.why.join(' · ')) + '</span> <button type="button" class="btn alt sm" data-adduv="' + esc(x.u.ma) + '">Giới thiệu</button></li>').join('') + '</ul>' : '<p class="hint" style="margin:0">Chưa có ứng viên khớp khu vực và vị trí. Cập nhật “Khu vực nhận việc” trong Kho ứng viên để gợi ý chính xác hơn.</p>') + '</div>' +
+      '<div class="box"><div class="row" id="hxDelRow"><button class="btn sm del" type="button" id="hxDel" style="margin-left:0">Xóa khỏi kho khách</button></div></div>');
+    $('#hxClose').onclick = closeK;
+    $('#hxEdit').onclick = () => formH(r);
+    $('#hxPrint').onclick = () => { $('#cvPrint').innerHTML = khDoc(r); const old = document.title; document.title = 'Phiếu yêu cầu ' + r.ma + ' – Elite Helpers'; (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(() => { window.print(); document.title = old; }, 150)); };
+    $('#hxCopy').onclick = () => copyText(khText(r));
+    const saveKh = async (patch, btn, msg) => {
+      if (btn) btn.disabled = true;
+      try { const j = await post({ action: 'khach_save', d: JSON.stringify(Object.assign({ ma: r.ma, base: r.capNhat }, patch)) }); upsertKh(j.item); renderKh(); openH(r.ma); toast(msg || 'Đã lưu'); }
+      catch (e) { const m = String(e.message); toast('Chưa lưu được: ' + kErr(m)); if (m === 'conflict') { await loadKh(); openH(r.ma); } else if (btn) btn.disabled = false; }
+    };
+    $('#hxSave').onclick = (ev) => {
+      const st = $('#hxSt').value, pri = $('#hxPri').value, n = $('#hxLog').value.trim();
+      if (!n && st === r.trangThai && pri === (r.uuTien || 'Thường')) { toast('Chưa có thay đổi'); return; }
+      saveKh({ trangThai: st, uuTien: pri, lichSu: (r.lichSu || []).concat([{ t: new Date().toISOString(), st, n: n || 'Cập nhật trạng thái' }]) }, ev.target);
+    };
+    $('#kPanel').querySelectorAll('[data-uv]').forEach((b) => { b.onclick = () => openK(b.dataset.uv); });
+    $('#kPanel').querySelectorAll('[data-adduv]').forEach((b) => { b.onclick = () => { const u = kho.find((x) => x.ma === b.dataset.adduv);
+      saveKh({ ungVien: (r.ungVien || []).concat([b.dataset.adduv]), lichSu: (r.lichSu || []).concat([{ t: new Date().toISOString(), st: r.trangThai, n: 'Giới thiệu ứng viên ' + (u ? u.hoTen + ' (' + u.ma + ')' : b.dataset.adduv) }]) }, b, 'Đã thêm ứng viên giới thiệu'); }; });
+    $('#kPanel').querySelectorAll('[data-unuv]').forEach((b) => { b.onclick = () => saveKh({ ungVien: (r.ungVien || []).filter((m) => m !== b.dataset.unuv) }, b, 'Đã bỏ ứng viên'); });
+    $('#hxDel').onclick = () => {
+      $('#hxDelRow').innerHTML = '<span class="hint">Xóa khách khỏi kho? Bản sao giữ 30 ngày ở tab ThungRac.</span><button class="btn sm del" type="button" id="hxDelOk" style="margin-left:0">Xóa</button><button class="btn alt sm" type="button" id="hxDelNo">Giữ lại</button>';
+      $('#hxDelNo').onclick = () => openH(r.ma);
+      $('#hxDelOk').onclick = async () => { try { await post({ action: 'khach_del', ma: r.ma }); khach = khach.filter((x) => x.ma !== r.ma); closeK(); renderKh(); toast('Đã xóa khỏi kho khách'); } catch (e) { toast('Chưa xóa được: ' + kErr(String(e.message))); } };
+    };
+  }
+  function khText(r) {
+    const L = ['PHIẾU YÊU CẦU – ELITE HELPERS', 'Mã: ' + r.ma + ' · Ngày nhận: ' + fdate(r.ngayNhan), '', 'Khách hàng: ' + r.hoTen + (r.loaiKhach ? ' (' + r.loaiKhach + ')' : ''), 'SĐT/Zalo: ' + (r.sdt || '') + (r.email ? ' · ' + r.email : '')];
+    [['Dịch vụ', (r.dichVu || []).join(', ')], ['Hình thức', r.hinhThuc], ['Khu vực', [r.diaChi, r.tinh].filter(Boolean).join(', ')], ['Loại nhà', r.loaiNha], ['Bắt đầu', r.ngayBatDau], ['Mức lương đề xuất', r.nganSach], ['Ngôn ngữ', r.ngonNgu]]
+      .forEach(([k, v]) => { if (v) L.push('• ' + k + ': ' + v); });
+    if (r.thanhVien) L.push('', '▸ THÀNH VIÊN GIA ĐÌNH', r.thanhVien);
+    if (r.yeuCau) L.push('', '▸ YÊU CẦU CÔNG VIỆC', ...richBlocks(r.yeuCau).map((b) => b.t === 'h' ? b.n + '. ' + b.x.toUpperCase() : (b.t === 'li' ? '  • ' : '') + (b.lb ? b.lb + ': ' : '') + b.x));
+    L.push('', 'Trạng thái: ' + r.trangThai);
+    return L.join('\n');
+  }
+  function khDoc(r) {
+    const kv = (rows) => '<dl class="cv-kv">' + rows.filter((x) => x[1]).map((x) => '<dt>' + esc(x[0]) + '</dt><dd>' + esc(x[1]) + '</dd>').join('') + '</dl>';
+    const sec = (t, body) => '<section><h3>' + t + '</h3>' + body + '</section>';
+    const intro = (r.ungVien || []).map((m) => { const u = kho.find((x) => x.ma === m); return '<li>' + esc(u ? u.hoTen + ' · ' + m + ((u.viTri || []).length ? ' · ' + u.viTri.join(', ') : '') : m) + '</li>'; });
+    return '<article class="cv">' +
+      '<header class="cv-hd"><img class="cv-logo" src="/arch-mark.svg" alt="Elite Helpers"><div class="cv-brand"><b>ELITE HELPERS</b><span>Người hỗ trợ gia đình cao cấp tại Hà Nội</span></div>' +
+      '<div class="cv-doc"><b>PHIẾU YÊU CẦU DỊCH VỤ</b><span>Mã ' + esc(r.ma) + ' · ' + esc(new Date().toLocaleDateString('vi-VN')) + '</span></div></header>' +
+      '<section class="cv-id"><h1>' + esc(r.hoTen) + '</h1><p class="cv-role">' + esc((r.dichVu || []).join(' · ') || 'Yêu cầu người hỗ trợ gia đình') + '</p><ul class="cv-facts">' +
+      [[r.loaiKhach || '—', 'loại khách'], [r.hinhThuc || '—', 'hình thức'], [r.diaChi || r.tinh || '—', 'khu vực'], [r.ngayBatDau || '—', 'bắt đầu']].map((f) => '<li><b>' + esc(f[0]) + '</b><span>' + esc(f[1]) + '</span></li>').join('') + '</ul></section>' +
+      '<div class="cv-body"><aside class="cv-side">' + sec('Thông tin khách hàng', kv([['Họ tên / đơn vị', r.hoTen], ['SĐT / Zalo', r.sdt], ['Email', r.email], ['Giờ liên hệ', r.gioLienHe], ['Ngôn ngữ', r.ngonNgu]])) +
+      sec('Thông tin nhà ở', kv([['Khu vực', [r.diaChi, r.tinh].filter(Boolean).join(', ')], ['Loại nhà', r.loaiNha]])) +
+      sec('Điều kiện', kv([['Mức lương đề xuất', r.nganSach], ['Thời gian bắt đầu', r.ngayBatDau], ['Trạng thái', r.trangThai]])) + '</aside>' +
+      '<div class="cv-main">' + (r.thanhVien ? sec('Thành viên gia đình', '<div class="rt">' + richHtml(r.thanhVien) + '</div>') : '') +
+      sec('Yêu cầu công việc', r.yeuCau ? '<div class="cv-note">' + richHtml(r.yeuCau) + '</div>' : '<p class="cv-place">Đang cập nhật.</p>') +
+      (intro.length ? sec('Ứng viên đã giới thiệu', '<ul class="cv-ul">' + intro.join('') + '</ul>') : '') + '</div></div>' +
+      '<footer class="cv-ft"><b>Xác minh lý lịch · Phỏng vấn trực tiếp · Làm thử trước khi gia đình quyết định</b><span>giupviecelite.vn · lienhe@giupviecelite.vn · Zalo 0948 919 598</span></footer></article>';
+  }
+  function formH(r) {
+    const e = r || { dichVu: [], trangThai: 'Mới nhận', uuTien: 'Thường', nguon: 'Nhập tay', tinh: 'Hà Nội' };
+    const sv = new Set(e.dichVu || []);
+    const o = (list, cur) => list.map((x) => '<option' + (x === cur ? ' selected' : '') + '>' + esc(x) + '</option>').join('');
+    const inp = (id, label, val, attr, full) => '<label' + (full ? ' class="full"' : '') + '>' + label + '<input id="' + id + '" value="' + esc(val == null ? '' : val) + '" ' + (attr || '') + '></label>';
+    const sl = (id, label, list, cur, full) => '<label' + (full ? ' class="full"' : '') + '>' + label + '<select id="' + id + '"><option value=""></option>' + o(list, cur) + (cur && !list.includes(cur) ? '<option selected>' + esc(cur) + '</option>' : '') + '</select></label>';
+    const ta = (id, label, val, ph, hint) => '<label class="full">' + label + '<textarea id="' + id + '" placeholder="' + esc(ph || '') + '">' + esc(val || '') + '</textarea>' + (hint ? '<span class="hint">' + hint + '</span>' : '') + '</label>';
+    const grpH = (n, t) => '<h3 class="fh"><span>' + n + '</span>' + t + '</h3>';
+    showPanel('<div class="hd"><h2>' + (r ? 'Sửa thông tin khách' : 'Thêm khách hàng') + '</h2><button class="btn alt sm" type="button" id="hfClose">Đóng</button></div>' +
+      '<form id="hf" class="box" novalidate>' + grpH(1, 'Khách hàng') + '<div class="g2">' +
+      inp('hfTen', 'Họ tên / đơn vị *', e.hoTen, 'required', true) + inp('hfSdt', 'SĐT / Zalo *', e.sdt, 'inputmode="tel" required') + inp('hfMail', 'Email', e.email, 'type="email" inputmode="email"') +
+      sl('hfType', 'Loại khách', KH_TYPES, e.loaiKhach) + sl('hfTime', 'Giờ liên hệ', KH_TIME, e.gioLienHe) + sl('hfLang', 'Ngôn ngữ giao tiếp', KH_LANG, e.ngonNgu) +
+      sl('hfOpt', 'Nhận tin chăm sóc', ['Có', 'Không'], e.nhanTin) + '</div>' +
+      grpH(2, 'Dịch vụ cần') + '<div class="tgs" id="hfSvc">' + KH_SVC.map((i) => '<button type="button" class="tg" data-v="' + esc(i) + '" aria-pressed="' + sv.has(i) + '">' + esc(i) + '</button>').join('') + '</div>' +
+      '<div class="g2">' + sl('hfMode', 'Hình thức', KH_MODE, e.hinhThuc) +
+      '<div class="full"><span class="lb">Thời gian bắt đầu</span>' + startWidget('hfBd', e.ngayBatDau) + '</div>' +
+      '<div class="full"><span class="lb">Mức lương đề xuất cho người hỗ trợ</span>' + moneyWidget('hfMoney', e.nganSach, 'Mức lương') + '</div></div>' +
+      grpH(3, 'Nhà ở & gia đình') + '<div class="g2">' +
+      '<label>Tỉnh/thành<select id="hfProv">' + Object.keys(REGIONS).map((k) => '<optgroup label="' + k + '">' + o(REGIONS[k], e.tinh || 'Hà Nội') + '</optgroup>').join('') + '</select></label>' +
+      inp('hfAddr', 'Khu vực / địa chỉ', e.diaChi, 'placeholder="VD: Tây Hồ, Ciputra"') + sl('hfHouse', 'Loại nhà', KH_HOUSE, e.loaiNha) +
+      ta('hfMem', 'Thành viên gia đình', e.thanhVien, '2 vợ chồng làm việc tại nhà\n1 bé 1 tháng tuổi\n2 bạn mèo', 'Mỗi dòng 1 ý.') + '</div>' +
+      grpH(4, 'Yêu cầu công việc') + ta('hfReq', 'Mô tả công việc & yêu cầu với người hỗ trợ', e.yeuCau, '1. Công việc chính\n- Chăm bé sơ sinh theo phương pháp EASY\n- Nấu ăn 2 bữa trưa, tối\n2. Yêu cầu\n- Ở lại cùng gia đình\n- Nghỉ 2 ngày/tháng', 'Dòng “1. …” thành tiêu đề; “- …” thành gạch đầu dòng.') +
+      grpH(5, 'Nội bộ') + '<div class="g2"><label>Trạng thái<select id="hfSt">' + o(KH_STATUS.map((s) => s[0]), e.trangThai) + '</select></label>' +
+      '<label>Ưu tiên<select id="hfPri">' + o(KH_PRI, e.uuTien || 'Thường') + '</select></label><label>Nguồn<select id="hfSrc">' + o(SOURCES, e.nguon) + '</select></label>' +
+      ta('hfNote', 'Ghi chú nội bộ (không in ra phiếu)', e.ghiChu) + '</div>' +
+      '<div class="row stick"><button class="btn" type="submit" id="hfBtn">' + (r ? 'Lưu thay đổi' : 'Lưu vào kho khách') + '</button><span class="err" id="hfErr" style="margin:0"></span></div></form>');
+    bindStart('hfBd');
+    $('#hfSvc').addEventListener('click', (ev) => { const b = ev.target.closest('.tg'); if (!b) return; const v = b.dataset.v; sv.has(v) ? sv.delete(v) : sv.add(v); b.setAttribute('aria-pressed', String(sv.has(v))); });
+    $('#hfClose').onclick = () => (r ? openH(r.ma) : closeK());
+    let dupOk = false;
+    $('#hf').addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const v = (id) => $(id).value.trim(), err = (m, el) => { $('#hfErr').textContent = m; if (el) el.focus(); };
+      if (!v('#hfTen')) return err('Nhập họ tên hoặc tên đơn vị.', $('#hfTen'));
+      if (digits(v('#hfSdt')).length < 9) return err('Số điện thoại chưa đúng.', $('#hfSdt'));
+      if (v('#hfMail') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('#hfMail'))) return err('Email chưa đúng định dạng.', $('#hfMail'));
+      const dup = khach.find((x) => x.ma !== (r && r.ma) && digits(x.sdt) && digits(x.sdt) === digits(v('#hfSdt')));
+      if (dup && !dupOk) { dupOk = true; return err('SĐT này đã có trong kho khách (' + dup.hoTen + ', ' + dup.ma + '). Bấm lưu lần nữa nếu vẫn muốn tạo.'); }
+      const d = { hoTen: v('#hfTen'), sdt: v('#hfSdt'), email: v('#hfMail'), loaiKhach: $('#hfType').value, gioLienHe: $('#hfTime').value, ngonNgu: $('#hfLang').value, nhanTin: $('#hfOpt').value,
+        dichVu: KH_SVC.filter((s) => sv.has(s)), hinhThuc: $('#hfMode').value, ngayBatDau: readStart('hfBd'), nganSach: readMoney('hfMoney'),
+        tinh: $('#hfProv').value, diaChi: v('#hfAddr'), loaiNha: $('#hfHouse').value, thanhVien: v('#hfMem'), yeuCau: v('#hfReq'),
+        trangThai: $('#hfSt').value, uuTien: $('#hfPri').value, nguon: $('#hfSrc').value, ghiChu: v('#hfNote') };
+      if (r) { d.ma = r.ma; d.base = r.capNhat; if (d.trangThai !== r.trangThai) d.lichSu = (r.lichSu || []).concat([{ t: new Date().toISOString(), st: d.trangThai, n: 'Cập nhật thông tin khách' }]); }
+      else d.lichSu = [{ t: new Date().toISOString(), st: d.trangThai, n: 'Nhập khách vào kho' }];
+      $('#hfBtn').disabled = true; $('#hfErr').textContent = '';
+      try { const j = await post({ action: 'khach_save', d: JSON.stringify(d) }); upsertKh(j.item); renderKh(); openH(j.item.ma); toast(r ? 'Đã lưu thay đổi' : 'Đã lưu vào kho khách'); }
+      catch (e2) { const m = String(e2.message); $('#hfErr').textContent = 'Chưa lưu được: ' + kErr(m).replace('bản 12', 'bản 17'); $('#hfBtn').disabled = false; if (m === 'conflict') loadKh(); }
+    });
+  }
+  $('#hAdd').addEventListener('click', () => formH(null));
+  $('#hImport').addEventListener('click', async () => {
+    const b = $('#hImport'); b.disabled = true; b.textContent = 'Đang nhập…';
+    try { const j = await post({ action: 'khach_import' }, 45000); await loadKh(); toast(j.added ? 'Đã nhập ' + j.added + ' yêu cầu vào kho khách' : 'Không có yêu cầu mới cần nhập'); }
+    catch (e) { toast('Chưa nhập được: ' + kErr(String(e.message)).replace('bản 12', 'bản 17')); }
+    b.disabled = false; b.textContent = 'Nhập yêu cầu từ website';
+  });
+  // Từ tab Hồ sơ: mở khách trong kho khách
+  $('#list').addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-kh]'); if (!b) return;
+    const x = items[Number(b.dataset.kh)]; if (!x) return;
+    setView('khach');
+    const find = () => khach.find((r) => String(r.webTs).slice(0, 19) === String(x.time).slice(0, 19)) || khach.find((r) => digits(r.sdt) && digits(r.sdt) === digits(x.phone));
+    if (!hLoaded || !find()) { if (!(await loadKh())) return; }
+    if (!find()) { try { await post({ action: 'khach_import' }, 45000); await loadKh(); } catch (er) {} }
+    const r = find(); if (r) openH(r.ma); else toast('Chưa tìm thấy khách này trong kho');
+  });
   $('#logout').addEventListener('click', (e) => { e.preventDefault(); store.del('eh_admin_key'); key = ''; stop(); show('login'); });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && key) poll(false); });
 
-  if (key) { show('app'); poll(true).then(() => { if (key) { start(); const v = store.get('eh_admin_view'); if (v === 'kho' || v === 'phantich') setView(v); } }); } else { show('login'); }
+  if (key) { show('app'); poll(true).then(() => { if (key) { start(); const v = store.get('eh_admin_view'); if (v === 'kho' || v === 'khach' || v === 'phantich') setView(v); } }); } else { show('login'); }
 })();
 </script>
 </body>

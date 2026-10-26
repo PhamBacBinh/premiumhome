@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261026e (mới nhất) | **bản 16** | Sửa ngày bắt đầu bị đảo ngày/tháng khi lưu |
+| 20261026f (mới nhất) | **bản 17** | Kho khách hàng; form ứng viên chuẩn hóa |
+| 20261026e | **bản 16** | Sửa ngày bắt đầu bị đảo ngày/tháng khi lưu |
 | 20261026e | **bản 15** | Nhận xét Elite Helpers trình bày theo mục, gạch đầu dòng |
 | 20261026d | **bản 14** | Sửa CV tràn chữ trên điện thoại, In / Lưu PDF đúng 1 trang |
 | 20261026c | **bản 14** | Tách kinh nghiệm từ form website thành dòng thời gian + Kinh nghiệm thực tế |
@@ -29,6 +30,11 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261026f] – 26/10/2026 · Kho khách hàng, form ứng viên chuẩn hóa (cần Apps Script bản 17)
+- Tab mới **Kho khách hàng** trên /quan-tri: yêu cầu từ form "Tìm người hỗ trợ" tự vào kho (tab KhoKhachHang), nút nhập lại yêu cầu cũ; lọc Đang xử lý / Ưu tiên cao / Đã xong, dịch vụ, loại khách, trạng thái; trạng thái + ưu tiên + lịch sử chăm sóc; gắn ứng viên đã giới thiệu; gợi ý ứng viên phù hợp (khu vực, vị trí, hình thức); In / Lưu PDF phiếu yêu cầu dịch vụ; sao chép tóm tắt. Thẻ khách ở tab Hồ sơ có nút "Mở trong kho khách".
+- Form sửa ứng viên làm lại theo 8 nhóm: ngày bắt đầu chọn trên lịch (lưu dd/mm/yyyy) hoặc Đi làm ngay / Thỏa thuận; mức lương từ – đến (triệu/tháng); thời gian từng giai đoạn chọn Tháng/Năm, ô Hiện tại, kiểm tra Đến không sớm hơn Từ; giấy tờ đã xác minh; xe máy; ngày nghỉ; tình trạng gia đình; sức khỏe; nấu ăn và ngoại ngữ chọn sẵn + ô khác; kiểm tra SĐT, năm sinh; nút Lưu luôn hiện ở cuối khung.
+- CV: dòng "Đã xác minh" dưới 4 ô dữ kiện; thêm các thông tin mới; Nấu ăn thành danh sách; giữ xuống dòng như khi nhập; sửa họ tên tiếng Việt hiển thị lẫn font.
 
 ## [Apps Script bản 16] – 26/10/2026 · Sửa ngày bị đảo ngày/tháng
 - Lỗi: ô "Có thể bắt đầu" nhập 01/11/2026 bị Google Sheets tự hiểu theo kiểu Mỹ (tháng/ngày) thành 11/01/2026. Nay mọi ô chữ (Kho ứng viên và form website) ghi dạng văn bản; ô cũ đã bị đổi thành ngày được đọc lại đúng thứ tự đã nhập. Không cần đổi web.
