@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261026c (mới nhất) | **bản 14** | Tách kinh nghiệm từ form website thành dòng thời gian + Kinh nghiệm thực tế |
+| 20261026d (mới nhất) | **bản 14** | Sửa CV tràn chữ trên điện thoại, In / Lưu PDF đúng 1 trang |
+| 20261026c | **bản 14** | Tách kinh nghiệm từ form website thành dòng thời gian + Kinh nghiệm thực tế |
 | 20261026b | **bản 13** | CV chuyên nghiệp: quá trình làm việc theo giai đoạn, CV Docs 2 cột |
 | 20261026a | **bản 12** | Kho ứng viên trên /quan-tri (web vẫn chạy với bản 11, chỉ thiếu Kho) |
 | 20261021a | **bản 11** | Bảng lương mới 10–25 / 15–35 / 18–40 |
@@ -26,6 +27,10 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261026d] – 26/10/2026 · Sửa lỗi hiển thị CV
+- Mục Kinh nghiệm thực tế bị ép thành cột hẹp (chữ dọc từng ký tự) trên điện thoại do kiểu bảng của trang quản trị lọt vào CV: tách riêng kiểu CV.
+- In / Lưu PDF trên iPhone: dải đầu trang không còn đè lên họ tên, CV nằm gọn 1 trang A4 (lề 8 mm).
 
 ## [20261026c] – 26/10/2026 · Tách kinh nghiệm gửi từ form website (cần Apps Script bản 14)
 - Hồ sơ từ website (dạng "Đã làm: … | Nơi làm: … | Giặt là: … | Chăm sóc: … | Nhà cửa: … | Mô tả: …") giờ hiển thị trên CV thành: dòng thời gian (năm, việc đã làm, nơi làm, phần Mô tả tách từng câu thành gạch đầu dòng) và mục **Kinh nghiệm thực tế** (từng nhóm kèm các lựa chọn dạng thẻ). Áp dụng cho xem trước, In / Lưu PDF, Google Docs và bản Zalo.

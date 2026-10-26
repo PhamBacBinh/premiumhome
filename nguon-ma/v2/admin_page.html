@@ -151,6 +151,10 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 .cv{--cg:#1F342E;--cg2:#2A453E;--cgold:#A9792A;--cgl:#CBAB6D;--ccr:#F4EEE3;--cpa:#FBF8F2;--cink:#1C2925;--csoft:#5A6A64;--cline:#E4DCCB;
   background:#fff;color:var(--cink);font:400 13px/1.55 "Be Vietnam Pro",-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-variant-numeric:lining-nums}
 .cv *{box-sizing:border-box}
+/* Chặn kiểu chung của trang quản trị (header dính, dl 2 cột, ngắt chữ) lọt vào CV */
+.cv header.cv-hd{position:static;top:auto;z-index:auto}
+.cv dl.cv-kv,.cv dl.cv-grp{grid-template-columns:minmax(0,1fr);font-size:inherit}
+.cv dt,.cv dd{word-break:normal;overflow-wrap:break-word}
 .cv-hd{display:flex;align-items:center;gap:12px;background:var(--cg);color:var(--ccr);padding:14px 22px;border-bottom:3px solid var(--cgl)}
 .cv-logo{width:30px;height:auto;flex:none}
 .cv-brand{flex:1;min-width:0}
@@ -187,20 +191,25 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 .cv-place{font-size:11.5px;color:var(--csoft);margin-bottom:4px!important}
 .cv-tl .cv-ul{margin-top:4px}
 .cv-grp{margin:0;display:grid;gap:8px}
-.cv-grp>div{display:grid;grid-template-columns:86px 1fr;gap:8px;align-items:start}
+.cv-grp>div{display:grid;grid-template-columns:86px minmax(0,1fr);gap:8px;align-items:start;min-width:0}
 .cv-grp dt{font-size:11px;font-weight:600;color:var(--cg);padding-top:3px}
 .cv-grp dd{margin:0;display:flex;flex-wrap:wrap;gap:5px}
-.cv-grp dd span{background:var(--ccr);border-radius:999px;padding:2px 9px;font-size:11.5px;line-height:1.5}
+.cv-grp dd span{background:var(--ccr);border-radius:999px;padding:2px 9px;font-size:11.5px;line-height:1.5;max-width:100%}
 .cv-ft{background:var(--cg);color:var(--ccr);text-align:center;padding:10px 22px;display:grid;gap:2px;font-size:10.5px}
 .cv-ft b{color:var(--cgl);font-weight:600;letter-spacing:.02em}
+.cv-main,.cv-side{min-width:0}
+@container (max-width:380px){.cv-grp>div{grid-template-columns:minmax(0,1fr);gap:4px}}
 @container (max-width:540px){.cv-body{grid-template-columns:1fr}.cv-side{border-right:0;border-bottom:1px solid var(--cline)}.cv-facts{grid-template-columns:1fr 1fr}.cv-doc{display:none}.cv-id h1{font-size:26px}}
 #cvPrint{display:none}
-@page{size:A4;margin:0}
+@page{size:A4;margin:8mm}
 @media print{
  body>*:not(#cvPrint){display:none!important}
  body{background:#fff!important}
  #cvPrint{display:block}
- #cvPrint .cv{width:210mm;min-height:297mm;display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:12.5px}
+ #cvPrint .cv{width:100%;min-height:276mm;display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:12.5px}
+ #cvPrint .cv-body{grid-template-columns:34% 1fr}
+ #cvPrint .cv-facts{grid-template-columns:repeat(4,1fr)}
+ #cvPrint .cv-doc{display:block}
  #cvPrint .cv-body{flex:1}
  #cvPrint .cv-tl>li{break-inside:avoid}
 }
