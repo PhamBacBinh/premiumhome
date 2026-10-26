@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261026b (mới nhất) | **bản 13** | CV chuyên nghiệp: quá trình làm việc theo giai đoạn, CV Docs 2 cột |
+| 20261026c (mới nhất) | **bản 14** | Tách kinh nghiệm từ form website thành dòng thời gian + Kinh nghiệm thực tế |
+| 20261026b | **bản 13** | CV chuyên nghiệp: quá trình làm việc theo giai đoạn, CV Docs 2 cột |
 | 20261026a | **bản 12** | Kho ứng viên trên /quan-tri (web vẫn chạy với bản 11, chỉ thiếu Kho) |
 | 20261021a | **bản 11** | Bảng lương mới 10–25 / 15–35 / 18–40 |
 | 20261020d | **bản 11** | Thanh chuyển Trang chủ / Tuyển dụng |
@@ -25,6 +26,10 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261026c] – 26/10/2026 · Tách kinh nghiệm gửi từ form website (cần Apps Script bản 14)
+- Hồ sơ từ website (dạng "Đã làm: … | Nơi làm: … | Giặt là: … | Chăm sóc: … | Nhà cửa: … | Mô tả: …") giờ hiển thị trên CV thành: dòng thời gian (năm, việc đã làm, nơi làm, phần Mô tả tách từng câu thành gạch đầu dòng) và mục **Kinh nghiệm thực tế** (từng nhóm kèm các lựa chọn dạng thẻ). Áp dụng cho xem trước, In / Lưu PDF, Google Docs và bản Zalo.
+- Nút "Tách từ mô tả đã có" điền sẵn năm, vị trí, nơi làm, công việc; Kỹ năng nổi bật tự lấy từ Chăm sóc / Giặt là / Nhà cửa nếu đang trống.
 
 ## [20261026b] – 26/10/2026 · CV chuyên nghiệp theo nhận diện thương hiệu (cần Apps Script bản 13)
 - Quá trình làm việc nhập theo từng giai đoạn: thời gian, vị trí, nơi làm/gia đình, hình thức, công việc chính (mỗi dòng 1 gạch đầu dòng); nút "Tách từ mô tả đã có" chia mô tả cũ thành giai đoạn.

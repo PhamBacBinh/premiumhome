@@ -186,6 +186,11 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 .cv-job{font-weight:600;font-size:14px;color:var(--cg)}
 .cv-place{font-size:11.5px;color:var(--csoft);margin-bottom:4px!important}
 .cv-tl .cv-ul{margin-top:4px}
+.cv-grp{margin:0;display:grid;gap:8px}
+.cv-grp>div{display:grid;grid-template-columns:86px 1fr;gap:8px;align-items:start}
+.cv-grp dt{font-size:11px;font-weight:600;color:var(--cg);padding-top:3px}
+.cv-grp dd{margin:0;display:flex;flex-wrap:wrap;gap:5px}
+.cv-grp dd span{background:var(--ccr);border-radius:999px;padding:2px 9px;font-size:11.5px;line-height:1.5}
 .cv-ft{background:var(--cg);color:var(--ccr);text-align:center;padding:10px 22px;display:grid;gap:2px;font-size:10.5px}
 .cv-ft b{color:var(--cgl);font-weight:600;letter-spacing:.02em}
 @container (max-width:540px){.cv-body{grid-template-columns:1fr}.cv-side{border-right:0;border-bottom:1px solid var(--cline)}.cv-facts{grid-template-columns:1fr 1fr}.cv-doc{display:none}.cv-id h1{font-size:26px}}
@@ -617,17 +622,37 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   function shortName(n) { const p = String(n || '').trim().split(/\s+/); return p.length > 1 ? p.slice(0, -1).map((w) => w.charAt(0) + '.').join(' ') + ' ' + p[p.length - 1] : String(n || ''); }
   const lines = (s) => String(s || '').split(/\r?\n|;\s*/).map((x) => x.replace(/^\s*[-•*+·]\s*/, '').trim()).filter(Boolean);
   const qtList = (r) => (Array.isArray(r.quaTrinh) ? r.quaTrinh : []).filter((q) => q && (q.tu || q.viTri || q.noiLam || (q.congViec || []).length));
-  const period = (q) => [q.tu, q.den || (q.tu ? 'nay' : '')].filter(Boolean).join(' – ');
+  const period = (q) => q.per || [q.tu, q.den || (q.tu ? 'nay' : '')].filter(Boolean).join(' – ');
+  // Kinh nghiệm gửi từ form website: "Đã làm: … | Nơi làm: … | Giặt là: … | Chăm sóc: … | Nhà cửa: … | Mô tả: …"
+  const optSplit = (v) => String(v || '').split(/\s*,\s*/).reduce((a, x) => { if (!x) return a; if (a.length && x[0] !== x[0].toUpperCase()) a[a.length - 1] += ', ' + x; else a.push(x); return a; }, []);
+  const sentences = (t) => String(t || '').split(/(?<=[.!?…])\s+|\n+/).map((x) => x.replace(/^\s*[-•*+·]\s*/, '').replace(/[.]+$/, '').trim()).filter(Boolean);
+  function webExp(text) {
+    const t = String(text || '');
+    if (!/\|/.test(t) && !/^(Đã làm|Nơi làm|Giặt là|Chăm sóc|Nhà cửa|Mô tả)\s*:/m.test(t)) return null;
+    const groups = []; let desc = '';
+    t.split(/\s*\|\s*/).forEach((seg) => {
+      const m = seg.match(/^\s*([^:]{2,24}):\s*([\s\S]*)$/);
+      if (!m) { if (seg.trim()) desc += (desc ? ' ' : '') + seg.trim(); return; }
+      const label = m[1].trim(), val = m[2].trim();
+      if (/^mô tả/i.test(label)) desc += (desc ? ' ' : '') + val; else if (val) groups.push({ label, items: optSplit(val) });
+    });
+    const yr = (desc.match(/(?:năm|từ)\s*((?:19|20)\d{2})/i) || [])[1];
+    return { groups, desc: sentences(desc), year: yr || '' };
+  }
+  const grp = (w, label) => ((w && w.groups.find((g) => g.label === label)) || { items: [] }).items;
   // Dữ liệu CV dùng chung cho xem trước, in PDF, bản Zalo (Google Docs dựng cùng cấu trúc ở Apps Script)
   function cvModel(r, hide) {
     const age = ageOf(r.namSinh), kn = r.kinhNghiemNam !== null && r.kinhNghiemNam !== '' && r.kinhNghiemNam !== undefined && !isNaN(Number(r.kinhNghiemNam)) ? Number(r.kinhNghiemNam) : null;
-    let qt = qtList(r);
-    if (!qt.length && r.kinhNghiemMoTa) qt = [{ viTri: 'Kinh nghiệm làm việc', congViec: lines(r.kinhNghiemMoTa) }];
+    let qt = qtList(r), groups = [];
+    const w = webExp(r.kinhNghiemMoTa);
+    if (w) groups = w.groups;
+    if (!qt.length && w && w.desc.length) qt = [{ per: w.year ? 'Từ năm ' + w.year : '', viTri: grp(w, 'Đã làm').length ? grp(w, 'Đã làm').join(' · ') : 'Kinh nghiệm nổi bật', noiLam: grp(w, 'Nơi làm').join(', '), congViec: w.desc }];
+    else if (!qt.length && !w && r.kinhNghiemMoTa) qt = [{ viTri: 'Kinh nghiệm làm việc', congViec: sentences(r.kinhNghiemMoTa) }];
     return { name: hide ? shortName(r.hoTen) : r.hoTen, ma: r.ma, date: new Date().toLocaleDateString('vi-VN'), role: (r.viTri || []).join(' · ') || 'Người hỗ trợ gia đình',
       facts: [[age ? String(age) : '—', 'tuổi'], [kn === null ? '—' : kn >= 10 ? '10+' : String(kn), 'năm kinh nghiệm'], [r.hinhThuc || '—', 'hình thức'], [r.que || '—', 'quê quán']],
       info: [['Năm sinh', r.namSinh], ['Giới tính', r.gioiTinh], ['Quê quán', r.que], ['Nơi ở hiện tại', r.noiO]].concat(hide ? [] : [['Điện thoại', r.sdt]]).filter((x) => x[1]),
       wish: [['Vị trí', (r.viTri || []).join(', ')], ['Hình thức', r.hinhThuc], ['Khu vực', areas(r).join(', ')], ['Mức lương', r.luong], ['Bắt đầu', r.ngayBatDau]].filter((x) => x[1]),
-      certs: lines(r.chungChi), langs: lines(r.ngoaiNgu), skills: lines(r.kyNang), cook: r.nauAn, note: r.nhanXet, qt };
+      certs: lines(r.chungChi), langs: lines(r.ngoaiNgu), skills: lines(r.kyNang), cook: r.nauAn, note: r.nhanXet, qt, groups };
   }
   function cvHtml(r, hide) {
     const M = cvModel(r, hide);
@@ -644,7 +669,8 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
       '<div class="cv-main">' + (M.note ? sec('Nhận xét của Elite Helpers', '<blockquote>' + esc(M.note) + '</blockquote>') : '') +
       sec('Quá trình làm việc', M.qt.length ? '<ol class="cv-tl">' + M.qt.map((q) => { const sub = [q.noiLam, q.hinhThuc].filter(Boolean).join(' · ');
         return '<li>' + (period(q) ? '<p class="cv-per">' + esc(period(q)) + '</p>' : '') + '<p class="cv-job">' + esc(q.viTri || 'Người hỗ trợ gia đình') + '</p>' + (sub ? '<p class="cv-place">' + esc(sub) + '</p>' : '') +
-          ((q.congViec || []).length ? ul(q.congViec) : '') + '</li>'; }).join('') + '</ol>' : '<p class="cv-place">Đang cập nhật.</p>') + '</div></div>' +
+          ((q.congViec || []).length ? ul(q.congViec) : '') + '</li>'; }).join('') + '</ol>' : '<p class="cv-place">Đang cập nhật.</p>') +
+      (M.groups.length ? sec('Kinh nghiệm thực tế', '<dl class="cv-grp">' + M.groups.map((g) => '<div><dt>' + esc(g.label) + '</dt><dd>' + g.items.map((x) => '<span>' + esc(x) + '</span>').join('') + '</dd></div>').join('') + '</dl>') : '') + '</div></div>' +
       '<footer class="cv-ft"><b>Xác minh lý lịch · Phỏng vấn trực tiếp · Làm thử trước khi gia đình quyết định</b><span>giupviecelite.vn · lienhe@giupviecelite.vn · Zalo 0948 919 598</span></footer></article>';
   }
   function cvText(r, hide) {
@@ -656,6 +682,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     L.push('▸ QUÁ TRÌNH LÀM VIỆC');
     M.qt.forEach((q) => { L.push((period(q) ? period(q) + ' | ' : '') + (q.viTri || 'Người hỗ trợ gia đình') + ([q.noiLam, q.hinhThuc].filter(Boolean).length ? ' – ' + [q.noiLam, q.hinhThuc].filter(Boolean).join(', ') : '')); (q.congViec || []).forEach((x) => L.push('  – ' + x)); });
     L.push('');
+    if (M.groups.length) L.push('▸ KINH NGHIỆM THỰC TẾ', ...M.groups.map((g) => '• ' + g.label + ': ' + g.items.join(', ')), '');
     if (M.skills.length) L.push('▸ KỸ NĂNG NỔI BẬT', ...M.skills.map((x) => '• ' + x), '');
     L.push('▸ CHỨNG CHỈ & ĐÀO TẠO', ...(M.certs.length ? M.certs : ['Chưa có chứng chỉ']).map((x) => '• ' + x), '');
     if (M.langs.length) L.push('▸ NGOẠI NGỮ', ...M.langs.map((x) => '• ' + x), '');
@@ -726,6 +753,8 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
 
   // Tách mô tả tự do thành các giai đoạn: dòng bắt đầu bằng mốc thời gian (04/2016 – 2024: …) mở giai đoạn mới
   function splitQt(text) {
+    const w = webExp(text);
+    if (w) return w.desc.length || grp(w, 'Đã làm').length ? [{ tu: w.year, den: '', viTri: grp(w, 'Đã làm').join(', '), noiLam: grp(w, 'Nơi làm').join(', '), hinhThuc: '', congViec: w.desc }] : [];
     const out = []; let cur = null;
     const re = /^\s*[-•*]?\s*((?:\d{1,2}\/)?\d{4})(?:\s*(?:-|–|—|đến)\s*((?:\d{1,2}\/)?\d{4}|nay|hiện tại|hiện nay))?\s*[:.,)\-–]?\s*(.*)$/i;
     String(text || '').split(/\r?\n/).forEach((ln) => {
@@ -786,7 +815,9 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     $('#kfQt').addEventListener('click', (ev) => { const b = ev.target.closest('button'); if (!b) return; const i = Number(b.closest('.qt-it').dataset.i);
       if (b.dataset.rm) qt.splice(i, 1); else if (b.dataset.mv) { const j = i + Number(b.dataset.mv); [qt[i], qt[j]] = [qt[j], qt[i]]; } renderQt(); });
     $('#kfQtAdd').onclick = () => { qt.push({ tu: '', den: '', viTri: '', noiLam: '', hinhThuc: '', congViec: [] }); renderQt(); const f = $('#kfQt').querySelectorAll('.qt-it'); f[f.length - 1].querySelector('input').focus(); };
-    if ($('#kfQtSplit')) $('#kfQtSplit').onclick = () => { const s = splitQt(e.kinhNghiemMoTa); if (!s.length) { toast('Không tách được, hãy thêm giai đoạn thủ công'); return; } qt = qt.concat(s); renderQt(); toast('Đã tách ' + s.length + ' giai đoạn, kiểm tra lại vị trí và nơi làm'); };
+    if ($('#kfQtSplit')) $('#kfQtSplit').onclick = () => { const s = splitQt(e.kinhNghiemMoTa); if (!s.length) { toast('Không tách được, hãy thêm giai đoạn thủ công'); return; } qt = qt.concat(s); renderQt();
+      const w = webExp(e.kinhNghiemMoTa); if (w && !$('#kfKy').value.trim()) { const k = [].concat(grp(w, 'Chăm sóc'), grp(w, 'Giặt là'), grp(w, 'Nhà cửa')); if (k.length) $('#kfKy').value = k.join('\n'); }
+      toast('Đã tách ' + s.length + ' giai đoạn, kiểm tra lại thời gian, vị trí và nơi làm'); };
     $('#kfClose').onclick = () => (r ? openK(r.ma) : closeK());
     $('#kPanel').querySelectorAll('.tgs').forEach((g) => g.addEventListener('click', (ev) => { const b = ev.target.closest('.tg'); if (!b) return; const s = sel[g.dataset.k], v = b.dataset.v; s.has(v) ? s.delete(v) : s.add(v); b.setAttribute('aria-pressed', String(s.has(v))); }));
     let dupOk = false;
