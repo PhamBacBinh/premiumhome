@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261026a (mới nhất) | **bản 12** | Kho ứng viên trên /quan-tri (web vẫn chạy với bản 11, chỉ thiếu Kho) |
+| 20261026b (mới nhất) | **bản 13** | CV chuyên nghiệp: quá trình làm việc theo giai đoạn, CV Docs 2 cột |
+| 20261026a | **bản 12** | Kho ứng viên trên /quan-tri (web vẫn chạy với bản 11, chỉ thiếu Kho) |
 | 20261021a | **bản 11** | Bảng lương mới 10–25 / 15–35 / 18–40 |
 | 20261020d | **bản 11** | Thanh chuyển Trang chủ / Tuyển dụng |
 | 20261020c | **bản 11** | Mục Tuyển dụng trên trang chủ |
@@ -24,6 +25,14 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261026b] – 26/10/2026 · CV chuyên nghiệp theo nhận diện thương hiệu (cần Apps Script bản 13)
+- Quá trình làm việc nhập theo từng giai đoạn: thời gian, vị trí, nơi làm/gia đình, hình thức, công việc chính (mỗi dòng 1 gạch đầu dòng); nút "Tách từ mô tả đã có" chia mô tả cũ thành giai đoạn.
+- Kỹ năng nổi bật, chứng chỉ dạng danh sách; thêm "Nhận xét của Elite Helpers" in vào CV.
+- CV mới (xem trước trong hồ sơ, In / Lưu PDF A4, Google Docs): dải đầu xanh rêu có logo EH, họ tên Cormorant Garamond, 4 ô dữ kiện nhanh, cột trái thông tin – nguyện vọng – kỹ năng – chứng chỉ, cột phải nhận xét + dòng thời gian kinh nghiệm, chân trang cam kết và liên hệ. Font Be Vietnam Pro / Cormorant Garamond tự host.
+- Bản Zalo trình bày theo mục.
+- Apps Script bản 13 sửa lỗi bản 12 không tạo được tab KhoUngVien (trang tính mới chỉ có 26 cột); thêm cột "Quá trình làm việc (chi tiết)", "Nhận xét Elite Helpers".
+- Thêm `cv-logo.png` (logo EH nền trong) cho CV Google Docs.
 
 ## [20261026a] – 26/10/2026 · Kho ứng viên trên trang quản trị (cần Apps Script bản 12)
 - /quan-tri thêm tab **Kho ứng viên**: lọc theo khu vực nhận việc (Hà Nội, Miền Bắc/Trung/Nam, 34 tỉnh/thành mới), vị trí, kinh nghiệm, hình thức, trạng thái; nhóm "Chưa phân luồng" cho hồ sơ mới.

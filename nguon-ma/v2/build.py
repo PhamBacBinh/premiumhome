@@ -333,7 +333,7 @@ def add_admin_csp():
     for m in re.finditer(r'<script>(.*?)</script>', t, flags=re.S):
         hashes.append("'sha256-" + base64.b64encode(hashlib.sha256(m.group(1).encode('utf-8')).digest()).decode() + "'")
     csp = ("default-src 'none'; script-src " + ' '.join(hashes) + " https://script.google.com https://script.googleusercontent.com; "
-           "style-src 'unsafe-inline'; img-src 'self' data:; manifest-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'")
+           "style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; manifest-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'")
     t = t.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="' + csp + '">', 1)
     open(f, 'w', encoding='utf-8').write(t)
 
