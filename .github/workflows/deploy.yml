@@ -27,6 +27,8 @@ jobs:
           mkdir _site
           unzip -q site.zip -d _site
           touch _site/.nojekyll
+          # Trang đăng bài + ảnh/video các đợt mới (giữ ngoài site.zip để zip không vượt giới hạn 100MB của GitHub)
+          if [ -d site-media ]; then mkdir -p _site/media && cp -r site-media/. _site/media/; fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
