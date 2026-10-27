@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261026h (mới nhất) | **bản 18** | Tin tuyển dụng sửa được trên /quan-tri; thẻ tin gọn, trang chi tiết /viec-lam (web vẫn chạy với bản 17, hiện tin in sẵn, chưa sửa được) |
+| 20261027a (mới nhất) | **bản 19** | Form ứng viên khai đủ các mục như hồ sơ trong Kho; CV ghi đủ nơi ở (web vẫn chạy với bản 18, nhưng các mục mới chưa vào Kho) |
+| 20261026h | **bản 18** | Tin tuyển dụng sửa được trên /quan-tri; thẻ tin gọn, trang chi tiết /viec-lam (web vẫn chạy với bản 17, hiện tin in sẵn, chưa sửa được) |
 | 20261026g | **bản 17** | Tin tuyển dụng ứng tuyển trực tiếp; trang Tin tức riêng |
 | 20261026f | **bản 17** | Kho khách hàng; form ứng viên chuẩn hóa |
 | 20261026e | **bản 16** | Sửa ngày bắt đầu bị đảo ngày/tháng khi lưu |
@@ -32,6 +33,20 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261027a] – 27/10/2026 · Form ứng viên đầy đủ như hồ sơ Kho (cần Apps Script bản 19)
+- Form "Hồ sơ ứng tuyển" (#ung-tuyen) làm lại theo đúng các mục của "Sửa hồ sơ" trên /quan-tri, 4 bước:
+  1. Thông tin cá nhân: họ tên, SĐT, năm sinh, giới tính, quê quán, tỉnh/thành đang ở, địa chỉ chi tiết, tình trạng gia đình, sức khỏe, đi xe máy.
+  2. Khu vực nhận việc (chọn tỉnh/thành theo miền, bắt buộc) + nguyện vọng: vị trí, hình thức, lương từ – đến / thỏa thuận, có thể bắt đầu (Đi làm ngay / Từ ngày / Thỏa thuận / Ghi khác), ngày nghỉ mong muốn.
+  3. Tổng số năm kinh nghiệm + quá trình làm việc theo giai đoạn (từ – đến tháng/năm hoặc hiện tại, vị trí, hình thức, nơi làm, công việc chính), tối đa 6 giai đoạn.
+  4. Kỹ năng nổi bật, chứng chỉ / đào tạo, nấu ăn, ngoại ngữ (+ ô khác), giấy tờ có thể cung cấp, ghi chú.
+- Website gửi thêm trường `profile` (JSON cùng tên trường với KhoUngVien). Apps Script bản 19 ghi thẳng vào Kho: đã phân luồng khu vực, quá trình làm việc chia giai đoạn, CV in đủ mục ngay không cần sửa tay. Giấy tờ ứng viên khai ghi vào Ghi chú nội bộ (mục "Đã xác minh" vẫn do quản trị tick sau khi kiểm tra).
+- CV (xem trước, In / PDF, bản Zalo, Google Docs): "Nơi ở hiện tại" = địa chỉ chi tiết + tỉnh/thành (trước đây chỉ hiện tỉnh/thành nên hồ sơ chỉ nhập địa chỉ chi tiết bị thiếu dòng này).
+- Sửa lỗi mở link có #ung-tuyen / #tim-nguoi trực tiếp (form không mở do script gọi trước khi khởi tạo xong).
+- Bản gửi Zalo dự phòng có đủ các mục mới.
+
+## [Apps Script bản 19] – 27/10/2026
+- Tab UngVien thêm cột "Hồ sơ chi tiết (JSON)"; hàm `khoProfile_` chuyển hồ sơ chi tiết vào KhoUngVien (cả khi bấm "Nhập hồ sơ từ website"). Email báo không kèm JSON.
 
 ## [20261026h] – 26/10/2026 · Tin tuyển dụng sửa được, thẻ tin gọn (cần Apps Script bản 18)
 - /quan-tri thêm mục **Tin tuyển dụng**: đăng tin mới, sửa, nhân bản, Tạm ẩn / Đã tuyển / Mở lại, xóa (bản sao ở ThungRac 30 ngày), xem trước thẻ tin, sao chép link tin, sao chép bài đăng Facebook. Lần đầu bấm "Đưa 3 tin đang hiển thị lên hệ thống".

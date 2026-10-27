@@ -287,7 +287,8 @@
     if (key && !dialogs[key].open) openDialog(key, { push: false });
   }
   addEventListener('popstate', syncFromHash);
-  if (ROUTES[location.hash.slice(1)]) syncFromHash();
+  // Mở form theo link (#ung-tuyen…) sau khi toàn bộ script đã khởi tạo (tránh lỗi gọi trước khi khai báo)
+  if (ROUTES[location.hash.slice(1)]) queueMicrotask(syncFromHash);
 
   /* ---------------- Form nhiều bước ---------------- */
   const CHECK = {
@@ -347,17 +348,109 @@
     khach: (d) => ['Chào Elite Helpers, tôi cần tư vấn:', line('Khách hàng', d.client), line('Dịch vụ', d.service), line('Hình thức', d.mode),
       line('Họ tên', d.name), line('SĐT/Zalo', d.phone), line('Email', d.email), line('Khu vực', d.area), line('Bắt đầu', d.start),
       line('Ngôn ngữ', d.lang), line('Loại nhà', d.house), line('Mô tả', d.note)].filter(Boolean).join('\n'),
-    ungvien: (d) => ['Chào Elite Helpers, tôi muốn ứng tuyển:', line('Họ tên', d.name), line('Năm sinh', d.birthYear), line('SĐT/Zalo', d.phone),
-      line('Quê quán', d.hometown), line('Nơi ở', d.currentAddress), line('Vị trí', d.position), line('Hình thức', d.mode),
-      line('Kinh nghiệm', d.expYears), line('Ngoại ngữ', d.language), line('Nấu ăn', d.cooking), line('Chi tiết', d.experience),
-      line('Lương mong muốn', d.salary), line('Bắt đầu', d.start), line('Ghi chú', d.note)].filter(Boolean).join('\n'),
-  };
-  const TRANSFORM = {
     ungvien: (d) => {
-      const parts = [['Đã làm', d.pastRoles], ['Nơi làm', d.workplaces], ['Giặt là', d.laundry], ['Chăm sóc', d.care], ['Nhà cửa', d.home], ['Mô tả', d.expNote]]
-        .filter((x) => x[1]).map((x) => `${x[0]}: ${x[1]}`);
-      d.experience = parts.join(' | ');
-      ['pastRoles', 'workplaces', 'laundry', 'care', 'home', 'expNote'].forEach((k) => delete d[k]);
+      let p = {};
+      try { p = JSON.parse(d.profile || '{}'); } catch (e) { p = {}; }
+      return ['Chào Elite Helpers, tôi muốn ứng tuyển:', line('Họ tên', d.name), line('Năm sinh', d.birthYear), line('Giới tính', p.gioiTinh), line('SĐT/Zalo', d.phone),
+        line('Quê quán', d.hometown), line('Nơi ở', d.currentAddress), line('Tình trạng gia đình', p.honNhan), line('Sức khỏe', p.sucKhoe), line('Đi xe máy', p.xeMay),
+        line('Khu vực nhận việc', (p.khuVuc || []).join(', ')), line('Vị trí', d.position), line('Hình thức', d.mode), line('Số năm kinh nghiệm', d.expYears),
+        line('Lương mong muốn', d.salary), line('Bắt đầu', d.start), line('Ngày nghỉ mong muốn', p.ngayNghi),
+        line('Quá trình làm việc', d.experience ? '\n' + d.experience : ''), line('Kỹ năng', String(p.kyNang || '').replace(/\n/g, '; ')),
+        line('Chứng chỉ', String(p.chungChi || '').replace(/\n/g, '; ')), line('Nấu ăn', d.cooking), line('Ngoại ngữ', d.language),
+        line('Giấy tờ có thể cung cấp', (p.giayTo || []).join(', ')), line('Ghi chú', d.note)].filter(Boolean).join('\n');
+    },
+  };
+  /* ---------------- Form ứng viên: các mục trùng với hồ sơ trong Kho ứng viên (/quan-tri) ---------------- */
+  const UV_YEAR = new Date().getFullYear();
+  const UV_MONTHS = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));
+  function uvMy(f, now) {
+    let h = `<span class="uv-my" data-my="${f}"><select class="inp" data-p="m" aria-label="Tháng"><option value="">Tháng</option>${UV_MONTHS.map((m) => `<option>${m}</option>`).join('')}</select><select class="inp" data-p="y" aria-label="Năm"><option value="">Năm</option>`;
+    for (let y = UV_YEAR; y >= 1980; y--) h += `<option>${y}</option>`;
+    return h + '</select>' + (now ? '<label class="uv-ck"><input type="checkbox" data-p="now"> Hiện tại</label>' : '') + '</span>';
+  }
+  const uvStageHtml = (n) => `<fieldset class="uv-stage" data-stage><legend>Giai đoạn <b data-n>${n}</b></legend>
+    <div class="grid-2"><div class="fld"><span class="lbl">Từ</span>${uvMy('tu')}</div><div class="fld"><span class="lbl">Đến</span>${uvMy('den', true)}</div></div>
+    <div class="grid-2"><div class="fld"><span class="lbl">Vị trí</span><input class="inp" data-f="viTri" placeholder="Ví dụ: Bảo mẫu chăm bé sơ sinh"></div>
+    <div class="fld"><span class="lbl">Hình thức</span><select class="inp" data-f="hinhThuc"><option value="">Chọn</option><option>Ở lại</option><option>Theo giờ / đi về</option><option>Ở lại & đi về</option></select></div></div>
+    <div class="fld"><span class="lbl">Nơi làm / gia đình</span><input class="inp" data-f="noiLam" placeholder="Ví dụ: Gia đình 4 người tại Ciputra, Tây Hồ"></div>
+    <div class="fld"><span class="lbl">Công việc chính <span class="opt">(mỗi dòng 1 ý)</span></span><textarea class="inp" data-f="congViec" placeholder="Chăm bé từ 3 tháng tuổi&#10;Nấu ăn dặm, theo dõi giấc ngủ"></textarea></div>
+    <button type="button" class="uv-rm" data-stage-rm>Bỏ giai đoạn này</button></fieldset>`;
+  function uvSetup(form) {
+    const box = $('[data-stages]', form), add = $('[data-stage-add]', form), st = $('[data-uv-start]', form);
+    if (!box || !add || !st) return null;
+    const renum = () => { const all = $$('[data-stage]', box); all.forEach((x, i) => { $('[data-n]', x).textContent = i + 1; }); add.hidden = all.length >= 6; };
+    const addStage = () => { box.insertAdjacentHTML('beforeend', uvStageHtml(box.children.length + 1)); renum(); };
+    add.addEventListener('click', () => { addStage(); box.lastElementChild.scrollIntoView({ behavior: smooth, block: 'start' }); });
+    box.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-stage-rm]');
+      if (!b) return;
+      b.closest('[data-stage]').remove();
+      if (!box.children.length) addStage();
+      renum();
+    });
+    box.addEventListener('change', (e) => {
+      if (e.target.dataset.p === 'now') e.target.closest('.uv-my').querySelectorAll('select').forEach((x) => { x.disabled = e.target.checked; });
+    });
+    const syncStart = () => {
+      const m = (st.querySelector('input[name="startMode"]:checked') || {}).value;
+      st.querySelector('[name="startDate"]').hidden = m !== 'date';
+      st.querySelector('[name="startOther"]').hidden = m !== 'khac';
+    };
+    st.addEventListener('change', syncStart);
+    const reset = () => { box.innerHTML = ''; addStage(); syncStart(); };
+    reset();
+    return { reset };
+  }
+  function uvStages(form) {
+    const my = (el) => {
+      if (!el) return '';
+      const n = el.querySelector('[data-p="now"]');
+      if (n && n.checked) return 'nay';
+      const m = el.querySelector('[data-p="m"]').value, y = el.querySelector('[data-p="y"]').value;
+      return y ? (m ? m + '/' + y : y) : '';
+    };
+    return $$('[data-stage]', form).map((x) => {
+      const q = { tu: my(x.querySelector('[data-my="tu"]')), den: my(x.querySelector('[data-my="den"]')) };
+      $$('[data-f]', x).forEach((el) => {
+        q[el.dataset.f] = el.dataset.f === 'congViec' ? el.value.split(/\r?\n/).map((t) => t.replace(/^\s*[-•*+·]\s*/, '').trim()).filter(Boolean) : el.value.trim();
+      });
+      return q;
+    }).filter((q) => q.tu || q.viTri || q.noiLam || q.congViec.length);
+  }
+  const TRANSFORM = {
+    // Gửi kèm "profile" (JSON) đúng các trường của Kho ứng viên; các trường cũ vẫn giữ cho tab UngVien, email và bản Zalo dự phòng
+    ungvien: (d, form) => {
+      const fd = new FormData(form);
+      const all = (k) => fd.getAll(k).map((v) => v.toString().trim()).filter(Boolean);
+      const one = (k) => all(k)[0] || '';
+      const csv = (t) => String(t || '').split(/\s*,\s*/).filter(Boolean);
+      const num = (x) => String(Number(x)).replace('.', ',');
+      const a = one('salaryFrom'), b = one('salaryTo'), tt = !!one('salaryNego');
+      const plus = tt ? ' (có thể thỏa thuận)' : '';
+      const luong = a && b ? `${num(a)} – ${num(b)} triệu/tháng${plus}` : a || b ? `Từ ${num(a || b)} triệu/tháng${plus}` : tt ? 'Thỏa thuận' : '';
+      const sm = one('startMode'), sd = one('startDate').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      const batDau = sm === 'ngay' ? 'Đi làm ngay' : sm === 'tt' ? 'Thỏa thuận' : sm === 'khac' ? one('startOther') : sm === 'date' && sd ? `${sd[3]}/${sd[2]}/${sd[1]}` : '';
+      const kn = one('expYearsNum');
+      const qt = uvStages(form);
+      const MODE = { 'Ở lại cùng gia đình': 'Ở lại', 'Theo giờ / theo ca': 'Theo giờ / đi về', 'Cả hai': 'Cả hai' };
+      const kyNang = all('skills').concat(one('skillsMore').split(/\r?\n/).map((t) => t.replace(/^\s*[-•*+·]\s*/, '').trim()).filter(Boolean));
+      const nauAn = all('cooking').concat(csv(one('cookingOther'))).join(', ');
+      const ngoaiNgu = all('language').concat(csv(one('languageOther'))).join(', ');
+      const p = {
+        gioiTinh: one('gender'), noiO: one('province'), noiOChiTiet: one('addressDetail'), honNhan: one('family'), sucKhoe: one('health'), xeMay: one('bike'),
+        khuVuc: all('areas'), viTri: all('position').map((x) => (x === 'Bảo mẫu, chăm bé' ? 'Bảo mẫu / chăm bé' : x)), hinhThuc: MODE[one('mode')] || '',
+        kinhNghiemNam: kn === '' ? '' : Number(kn), luong, ngayBatDau: batDau, ngayNghi: one('dayOff'), quaTrinh: qt,
+        kyNang: kyNang.join('\n'), chungChi: one('certs'), nauAn, ngoaiNgu, giayTo: all('docs'),
+      };
+      const out = {
+        formType: d.formType, name: d.name, phone: d.phone, birthYear: d.birthYear, hometown: d.hometown,
+        currentAddress: [p.noiOChiTiet, p.noiO].filter(Boolean).join(', '), position: all('position').join(', '), mode: one('mode'),
+        cooking: nauAn, expYears: kn === '' ? '' : num(kn) + ' năm', language: ngoaiNgu || 'Không',
+        experience: qt.map((q) => [[q.tu, q.den].filter(Boolean).join(' – '), q.viTri, q.noiLam].filter(Boolean).join(' · ') + (q.congViec.length ? ': ' + q.congViec.join('; ') : '')).join('\n'),
+        salary: luong, start: batDau, note: d.note || '', profile: JSON.stringify(p),
+      };
+      Object.keys(d).forEach((k) => { delete d[k]; });
+      Object.assign(d, out);
     },
   };
 
@@ -418,6 +511,7 @@
     const submit = $('[data-submit]', form);
     const body = $('[data-body]', form);
     const foot = $('[data-foot]', form);
+    const uv = key === 'ungvien' ? uvSetup(form) : null;
     const note = $('[data-note]', form);
     const done = $('[data-done]', form);
     const fallback = $('[data-fallback]', form);
@@ -454,6 +548,7 @@
       foot.hidden = false;
       note.hidden = false;
       finished = false;
+      if (uv) uv.reset();
       show(0);
     }
 
@@ -497,7 +592,7 @@
         if (k === 'website' || k in data) continue;
         data[k] = fd.getAll(k).map((v) => v.toString().trim()).filter(Boolean).join(', ');
       }
-      if (TRANSFORM[key]) TRANSFORM[key](data);
+      if (TRANSFORM[key]) TRANSFORM[key](data, form);
       // Ứng tuyển theo tin: ghi mã + tên tin vào Ghi chú (trang quản trị, Apps Script giữ nguyên)
       if (form.dataset.jobRef) data.note = 'Ứng tuyển tin: ' + form.dataset.jobRef + (data.note ? ' | ' + data.note : '');
       data.consent = `Đồng ý xử lý dữ liệu cá nhân theo Chính sách ${CONFIG.CONSENT_VERSION}`;

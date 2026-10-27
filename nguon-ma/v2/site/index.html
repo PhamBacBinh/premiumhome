@@ -725,136 +725,101 @@
       <input type="hidden" name="formType" value="ungvien">
 
       <section class="step" data-step data-title="Thông tin cá nhân">
+        <p class="uv-grp"><span>1</span>Thông tin cá nhân</p>
         <div class="grid-2">
           <div class="fld"><label for="cName" class="lbl">Họ tên <span class="req" aria-hidden="true">*</span></label><input type="text" id="cName" class="inp" name="name" autocomplete="name" placeholder="Nguyễn Thị B" aria-required="true" aria-describedby="cName-err" data-req="Vui lòng nhập họ tên."><p class="err" id="cName-err"></p></div>
           <div class="fld"><label for="cPhone" class="lbl">Số điện thoại / Zalo <span class="req" aria-hidden="true">*</span></label><input id="cPhone" class="inp" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" aria-required="true" aria-describedby="cPhone-err" data-req="Vui lòng nhập số điện thoại." data-check="phone"><p class="err" id="cPhone-err"></p></div>
         </div>
         <div class="grid-2">
           <div class="fld"><label for="cYear" class="lbl">Năm sinh <span class="req" aria-hidden="true">*</span></label><input type="text" id="cYear" class="inp" name="birthYear" inputmode="numeric" maxlength="4" placeholder="1985" aria-required="true" aria-describedby="cYear-err" data-req="Vui lòng nhập năm sinh." data-check="year"><p class="err" id="cYear-err"></p></div>
-          <div class="fld"><label for="cHome" class="lbl">Quê quán</label><input type="text" id="cHome" class="inp" name="hometown" placeholder="Ví dụ: Nam Định"></div>
+          <div class="fld"><label for="cGender" class="lbl">Giới tính</label><select id="cGender" class="inp" name="gender"><option value="">Chọn</option><option>Nữ</option><option>Nam</option></select></div>
         </div>
-        <div class="fld"><label for="cLive" class="lbl">Nơi ở hiện tại</label><input type="text" id="cLive" class="inp" name="currentAddress" placeholder="Khu vực / phường, tỉnh/thành"></div>
+        <div class="grid-2">
+          <div class="fld"><label for="cHome" class="lbl">Quê quán</label><input type="text" id="cHome" class="inp" name="hometown" placeholder="Ví dụ: Thanh Hóa"></div>
+          <div class="fld"><label for="cProv" class="lbl">Tỉnh/thành đang ở</label><select id="cProv" class="inp" name="province"><option value="">Chọn tỉnh/thành</option><optgroup label="Miền Bắc"><option>Hà Nội</option><option>Hải Phòng</option><option>Quảng Ninh</option><option>Bắc Ninh</option><option>Hưng Yên</option><option>Ninh Bình</option><option>Phú Thọ</option><option>Thái Nguyên</option><option>Tuyên Quang</option><option>Lào Cai</option><option>Lạng Sơn</option><option>Cao Bằng</option><option>Điện Biên</option><option>Lai Châu</option><option>Sơn La</option></optgroup><optgroup label="Miền Trung"><option>Thanh Hóa</option><option>Nghệ An</option><option>Hà Tĩnh</option><option>Quảng Trị</option><option>Huế</option><option>Đà Nẵng</option><option>Quảng Ngãi</option><option>Gia Lai</option><option>Khánh Hòa</option><option>Đắk Lắk</option><option>Lâm Đồng</option></optgroup><optgroup label="Miền Nam"><option>TP. Hồ Chí Minh</option><option>Đồng Nai</option><option>Tây Ninh</option><option>Cần Thơ</option><option>Vĩnh Long</option><option>Đồng Tháp</option><option>Cà Mau</option><option>An Giang</option></optgroup></select></div>
+        </div>
+        <div class="fld"><label for="cLive" class="lbl">Địa chỉ chi tiết</label><input type="text" id="cLive" class="inp" name="addressDetail" placeholder="Phường/xã, quận/huyện. Ví dụ: Ngọc Thụy, Long Biên"></div>
+        <div class="grid-2">
+          <div class="fld"><label for="cFam" class="lbl">Tình trạng gia đình</label><input type="text" id="cFam" class="inp" name="family" placeholder="Ví dụ: Đã có gia đình, con đã lớn"></div>
+          <div class="fld"><label for="cHealth" class="lbl">Sức khỏe</label><input type="text" id="cHealth" class="inp" name="health" placeholder="Ví dụ: Tốt, không bệnh mãn tính"></div>
+        </div>
+        <div class="fld"><label for="cBike" class="lbl">Đi xe máy</label><select id="cBike" class="inp" name="bike"><option value="">Chọn</option><option>Có, có xe riêng</option><option>Có, chưa có xe</option><option>Không</option></select></div>
       </section>
 
-      <section class="step" data-step data-title="Công việc mong muốn" hidden>
+      <section class="step" data-step data-title="Khu vực và nguyện vọng" hidden>
+        <p class="uv-grp"><span>2</span>Khu vực nhận việc</p>
+        <fieldset class="fs" data-req="Vui lòng chọn ít nhất một tỉnh/thành Anh/Chị đi làm được." aria-describedby="u-area-err">
+          <legend>Tỉnh/thành đi làm được <span class="req" aria-hidden="true">*</span> <span class="opt">(chọn một hoặc nhiều)</span></legend>
+          <p class="uv-rg">Miền Bắc</p><div class="chips"><label class="chip"><input type="checkbox" name="areas" value="Hà Nội"><span>Hà Nội</span></label><label class="chip"><input type="checkbox" name="areas" value="Hải Phòng"><span>Hải Phòng</span></label><label class="chip"><input type="checkbox" name="areas" value="Quảng Ninh"><span>Quảng Ninh</span></label><label class="chip"><input type="checkbox" name="areas" value="Bắc Ninh"><span>Bắc Ninh</span></label><label class="chip"><input type="checkbox" name="areas" value="Hưng Yên"><span>Hưng Yên</span></label><label class="chip"><input type="checkbox" name="areas" value="Ninh Bình"><span>Ninh Bình</span></label><label class="chip"><input type="checkbox" name="areas" value="Phú Thọ"><span>Phú Thọ</span></label><label class="chip"><input type="checkbox" name="areas" value="Thái Nguyên"><span>Thái Nguyên</span></label><label class="chip"><input type="checkbox" name="areas" value="Tuyên Quang"><span>Tuyên Quang</span></label><label class="chip"><input type="checkbox" name="areas" value="Lào Cai"><span>Lào Cai</span></label><label class="chip"><input type="checkbox" name="areas" value="Lạng Sơn"><span>Lạng Sơn</span></label><label class="chip"><input type="checkbox" name="areas" value="Cao Bằng"><span>Cao Bằng</span></label><label class="chip"><input type="checkbox" name="areas" value="Điện Biên"><span>Điện Biên</span></label><label class="chip"><input type="checkbox" name="areas" value="Lai Châu"><span>Lai Châu</span></label><label class="chip"><input type="checkbox" name="areas" value="Sơn La"><span>Sơn La</span></label></div><p class="uv-rg">Miền Trung</p><div class="chips"><label class="chip"><input type="checkbox" name="areas" value="Thanh Hóa"><span>Thanh Hóa</span></label><label class="chip"><input type="checkbox" name="areas" value="Nghệ An"><span>Nghệ An</span></label><label class="chip"><input type="checkbox" name="areas" value="Hà Tĩnh"><span>Hà Tĩnh</span></label><label class="chip"><input type="checkbox" name="areas" value="Quảng Trị"><span>Quảng Trị</span></label><label class="chip"><input type="checkbox" name="areas" value="Huế"><span>Huế</span></label><label class="chip"><input type="checkbox" name="areas" value="Đà Nẵng"><span>Đà Nẵng</span></label><label class="chip"><input type="checkbox" name="areas" value="Quảng Ngãi"><span>Quảng Ngãi</span></label><label class="chip"><input type="checkbox" name="areas" value="Gia Lai"><span>Gia Lai</span></label><label class="chip"><input type="checkbox" name="areas" value="Khánh Hòa"><span>Khánh Hòa</span></label><label class="chip"><input type="checkbox" name="areas" value="Đắk Lắk"><span>Đắk Lắk</span></label><label class="chip"><input type="checkbox" name="areas" value="Lâm Đồng"><span>Lâm Đồng</span></label></div><p class="uv-rg">Miền Nam</p><div class="chips"><label class="chip"><input type="checkbox" name="areas" value="TP. Hồ Chí Minh"><span>TP. Hồ Chí Minh</span></label><label class="chip"><input type="checkbox" name="areas" value="Đồng Nai"><span>Đồng Nai</span></label><label class="chip"><input type="checkbox" name="areas" value="Tây Ninh"><span>Tây Ninh</span></label><label class="chip"><input type="checkbox" name="areas" value="Cần Thơ"><span>Cần Thơ</span></label><label class="chip"><input type="checkbox" name="areas" value="Vĩnh Long"><span>Vĩnh Long</span></label><label class="chip"><input type="checkbox" name="areas" value="Đồng Tháp"><span>Đồng Tháp</span></label><label class="chip"><input type="checkbox" name="areas" value="Cà Mau"><span>Cà Mau</span></label><label class="chip"><input type="checkbox" name="areas" value="An Giang"><span>An Giang</span></label></div>
+          <p class="err" id="u-area-err"></p>
+        </fieldset>
+        <p class="uv-grp"><span>3</span>Nguyện vọng công việc</p>
         <fieldset class="fs" data-req="Vui lòng chọn ít nhất một vị trí ứng tuyển." aria-describedby="u-pos-err">
           <legend>Vị trí ứng tuyển <span class="req" aria-hidden="true">*</span> <span class="opt">(chọn một hoặc nhiều)</span></legend>
-          <div class="chips">
-            <label class="chip"><input type="checkbox" name="position" value="Giúp việc gia đình"><span>Giúp việc gia đình</span></label>
-            <label class="chip"><input type="checkbox" name="position" value="Bảo mẫu, chăm bé"><span>Bảo mẫu, chăm bé</span></label>
-            <label class="chip"><input type="checkbox" name="position" value="Chăm sóc người già"><span>Chăm sóc người già</span></label>
-            <label class="chip"><input type="checkbox" name="position" value="Quản gia"><span>Quản gia</span></label>
-            <label class="chip"><input type="checkbox" name="position" value="Đầu bếp gia đình"><span>Đầu bếp gia đình</span></label>
-          </div>
+          <div class="chips"><label class="chip"><input type="checkbox" name="position" value="Giúp việc gia đình"><span>Giúp việc gia đình</span></label><label class="chip"><input type="checkbox" name="position" value="Bảo mẫu, chăm bé"><span>Bảo mẫu, chăm bé</span></label><label class="chip"><input type="checkbox" name="position" value="Chăm sóc người già"><span>Chăm sóc người già</span></label><label class="chip"><input type="checkbox" name="position" value="Quản gia"><span>Quản gia</span></label><label class="chip"><input type="checkbox" name="position" value="Đầu bếp gia đình"><span>Đầu bếp gia đình</span></label></div>
           <p class="err" id="u-pos-err"></p>
         </fieldset>
         <fieldset class="fs">
           <legend>Hình thức làm việc</legend>
           <div class="chips">
             <label class="chip"><input type="radio" name="mode" value="Ở lại cùng gia đình" checked><span>Ở lại cùng gia đình</span></label>
-            <label class="chip"><input type="radio" name="mode" value="Theo giờ / theo ca"><span>Theo giờ / theo ca</span></label>
+            <label class="chip"><input type="radio" name="mode" value="Theo giờ / theo ca"><span>Theo giờ / đi về</span></label>
             <label class="chip"><input type="radio" name="mode" value="Cả hai"><span>Cả hai</span></label>
           </div>
         </fieldset>
-        <div class="grid-2">
-          <div class="fld"><label for="cSalary" class="lbl">Mức lương mong muốn</label><input type="text" id="cSalary" class="inp" name="salary" placeholder="Ví dụ: 18-20 triệu/tháng"></div>
-          <div class="fld"><label for="cStart" class="lbl">Có thể bắt đầu từ</label><input type="text" id="cStart" class="inp" name="start" placeholder="Ví dụ: ngay, 1/11"></div>
+        <div class="fld"><span class="lbl">Mức lương mong muốn</span>
+          <div class="uv-money"><input type="number" class="inp" name="salaryFrom" min="0" max="200" step="0.5" inputmode="decimal" placeholder="Từ" aria-label="Lương từ (triệu)"><span>–</span><input type="number" class="inp" name="salaryTo" min="0" max="200" step="0.5" inputmode="decimal" placeholder="Đến" aria-label="Lương đến (triệu)"><span class="uv-unit">triệu/tháng</span></div>
+          <label class="uv-ck"><input type="checkbox" name="salaryNego" value="1"> Thỏa thuận</label>
         </div>
+        <fieldset class="fs" data-uv-start>
+          <legend>Có thể bắt đầu</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="startMode" value="ngay"><span>Đi làm ngay</span></label>
+            <label class="chip"><input type="radio" name="startMode" value="date"><span>Từ ngày</span></label>
+            <label class="chip"><input type="radio" name="startMode" value="tt"><span>Thỏa thuận</span></label>
+            <label class="chip"><input type="radio" name="startMode" value="khac"><span>Ghi khác</span></label>
+          </div>
+          <input type="date" class="inp" name="startDate" aria-label="Ngày bắt đầu" hidden>
+          <input type="text" class="inp" name="startOther" placeholder="Ví dụ: sau Tết, đầu tháng 12" aria-label="Thời gian bắt đầu" hidden>
+        </fieldset>
+        <div class="fld"><label for="cOff" class="lbl">Ngày nghỉ mong muốn</label><input id="cOff" class="inp" name="dayOff" list="cOffList" placeholder="Ví dụ: 2 ngày/tháng"><datalist id="cOffList"><option value="2 ngày/tháng"><option value="4 ngày/tháng"><option value="1 ngày/tuần"><option value="Theo lịch gia đình"><option value="Thỏa thuận"></datalist></div>
       </section>
 
-      <section class="step" data-step data-title="Kinh nghiệm" hidden>
-        <fieldset class="fs" data-req="Vui lòng chọn số năm kinh nghiệm." aria-describedby="u-exp-err">
-          <legend>Số năm kinh nghiệm <span class="req" aria-hidden="true">*</span></legend>
-          <div class="chips">
-            <label class="chip"><input type="radio" name="expYears" value="Chưa có"><span>Chưa có</span></label>
-            <label class="chip"><input type="radio" name="expYears" value="Dưới 1 năm"><span>Dưới 1 năm</span></label>
-            <label class="chip"><input type="radio" name="expYears" value="1-3 năm"><span>1-3 năm</span></label>
-            <label class="chip"><input type="radio" name="expYears" value="3-5 năm"><span>3-5 năm</span></label>
-            <label class="chip"><input type="radio" name="expYears" value="5-10 năm"><span>5-10 năm</span></label>
-            <label class="chip"><input type="radio" name="expYears" value="Trên 10 năm"><span>Trên 10 năm</span></label>
-          </div>
-          <p class="err" id="u-exp-err"></p>
-        </fieldset>
-        <fieldset class="fs">
-          <legend>Đã từng làm <span class="opt">(chọn một hoặc nhiều)</span></legend>
-          <div class="chips">
-            <label class="chip"><input type="checkbox" name="pastRoles" value="Giúp việc"><span>Giúp việc</span></label>
-            <label class="chip"><input type="checkbox" name="pastRoles" value="Quản gia"><span>Quản gia</span></label>
-            <label class="chip"><input type="checkbox" name="pastRoles" value="Bảo mẫu"><span>Bảo mẫu</span></label>
-            <label class="chip"><input type="checkbox" name="pastRoles" value="Chăm sóc người già"><span>Chăm sóc người già</span></label>
-            <label class="chip"><input type="checkbox" name="pastRoles" value="Đầu bếp"><span>Đầu bếp</span></label>
-            <label class="chip"><input type="checkbox" name="pastRoles" value="Buồng phòng / Tạp vụ"><span>Buồng phòng, tạp vụ</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fs">
-          <legend>Đã làm việc tại <span class="opt">(chọn một hoặc nhiều)</span></legend>
-          <div class="chips">
-            <label class="chip"><input type="checkbox" name="workplaces" value="Gia đình Việt Nam"><span>Gia đình Việt Nam</span></label>
-            <label class="chip"><input type="checkbox" name="workplaces" value="Gia đình nước ngoài"><span>Gia đình nước ngoài</span></label>
-            <label class="chip"><input type="checkbox" name="workplaces" value="Đại sứ quán / Dinh thự"><span>Đại sứ quán, dinh thự</span></label>
-            <label class="chip"><input type="checkbox" name="workplaces" value="Khách sạn / Resort"><span>Khách sạn, resort</span></label>
-            <label class="chip"><input type="checkbox" name="workplaces" value="Nhà hàng"><span>Nhà hàng</span></label>
-            <label class="chip"><input type="checkbox" name="workplaces" value="Bệnh viện / Viện dưỡng lão"><span>Bệnh viện, viện dưỡng lão</span></label>
-          </div>
-        </fieldset>
-        <div class="fld"><label for="cExp" class="lbl">Mô tả ngắn kinh nghiệm</label><textarea id="cExp" class="inp" name="expNote" placeholder="Ví dụ: 3 năm làm cho gia đình người Hàn ở Tây Hồ, nấu ăn và chăm 2 bé..."></textarea></div>
+      <section class="step" data-step data-title="Quá trình làm việc" hidden>
+        <p class="uv-grp"><span>4</span>Kinh nghiệm</p>
+        <div class="fld"><label for="cExpN" class="lbl">Tổng số năm kinh nghiệm <span class="req" aria-hidden="true">*</span></label><input id="cExpN" class="inp uv-num" name="expYearsNum" type="number" min="0" max="60" step="0.5" inputmode="decimal" placeholder="Ví dụ: 5" aria-required="true" aria-describedby="cExpN-err" data-req="Vui lòng nhập số năm kinh nghiệm (chưa có thì nhập 0)."><p class="err" id="cExpN-err"></p></div>
+        <p class="uv-grp"><span>5</span>Quá trình làm việc</p>
+        <p class="uv-hint">Mỗi giai đoạn: thời gian, vị trí, nơi làm và các việc chính (mỗi dòng 1 ý). Hồ sơ càng rõ, gia đình càng dễ chọn.</p>
+        <div data-stages></div>
+        <button type="button" class="btn btn-ghost-dark uv-add" data-stage-add>+ Thêm giai đoạn</button>
       </section>
 
-      <section class="step" data-step data-title="Kỹ năng" hidden>
+      <section class="step" data-step data-title="Kỹ năng và năng lực" hidden>
+        <p class="uv-grp"><span>6</span>Kỹ năng và năng lực</p>
+        <fieldset class="fs">
+          <legend>Kỹ năng nổi bật <span class="opt">(chọn một hoặc nhiều)</span></legend>
+          <div class="chips"><label class="chip"><input type="checkbox" name="skills" value="Trông trẻ sơ sinh"><span>Trông trẻ sơ sinh</span></label><label class="chip"><input type="checkbox" name="skills" value="Trông trẻ nhỏ"><span>Trông trẻ nhỏ</span></label><label class="chip"><input type="checkbox" name="skills" value="Đưa đón, kèm trẻ học"><span>Đưa đón, kèm trẻ học</span></label><label class="chip"><input type="checkbox" name="skills" value="Chăm sóc người già"><span>Chăm sóc người già</span></label><label class="chip"><input type="checkbox" name="skills" value="Chăm người bệnh, nằm lâu"><span>Chăm người bệnh, nằm lâu</span></label><label class="chip"><input type="checkbox" name="skills" value="Chăm thú cưng"><span>Chăm thú cưng</span></label><label class="chip"><input type="checkbox" name="skills" value="Dọn dẹp biệt thự, nhà lớn"><span>Dọn dẹp biệt thự, nhà lớn</span></label><label class="chip"><input type="checkbox" name="skills" value="Giặt là đồ hiệu, đồ cao cấp"><span>Giặt là đồ hiệu, đồ cao cấp</span></label><label class="chip"><input type="checkbox" name="skills" value="Là ủi vest, sơ mi"><span>Là ủi vest, sơ mi</span></label><label class="chip"><input type="checkbox" name="skills" value="Giặt đồ lụa, len, cashmere"><span>Giặt đồ lụa, len, cashmere</span></label><label class="chip"><input type="checkbox" name="skills" value="Chăm sóc cây, vườn"><span>Chăm sóc cây, vườn</span></label><label class="chip"><input type="checkbox" name="skills" value="Đi chợ, quản lý chi tiêu"><span>Đi chợ, quản lý chi tiêu</span></label><label class="chip"><input type="checkbox" name="skills" value="Phục vụ tiệc, tiếp khách"><span>Phục vụ tiệc, tiếp khách</span></label><label class="chip"><input type="checkbox" name="skills" value="Dùng máy móc gia đình hiện đại"><span>Dùng máy móc gia đình hiện đại</span></label></div>
+        </fieldset>
+        <div class="fld"><label for="cSkill" class="lbl">Kỹ năng khác</label><textarea id="cSkill" class="inp" name="skillsMore" placeholder="Mỗi dòng 1 ý. Ví dụ:&#10;Tắm bé, massage cho bé&#10;Nấu ăn dặm theo tháng tuổi"></textarea></div>
+        <div class="fld"><label for="cCert" class="lbl">Chứng chỉ / đào tạo</label><textarea id="cCert" class="inp" name="certs" placeholder="Mỗi dòng 1 ý. Ví dụ: Chứng chỉ sơ cứu cơ bản – 2023. Để trống nếu chưa có."></textarea></div>
         <fieldset class="fs">
           <legend>Nấu ăn</legend>
-          <div class="chips">
-            <label class="chip"><input type="checkbox" name="cooking" value="Món Bắc truyền thống"><span>Món Bắc</span></label>
-            <label class="chip"><input type="checkbox" name="cooking" value="Món Trung"><span>Món Trung</span></label>
-            <label class="chip"><input type="checkbox" name="cooking" value="Món Nam"><span>Món Nam</span></label>
-            <label class="chip"><input type="checkbox" name="cooking" value="Món Á (Hàn, Nhật, Hoa)"><span>Món Á</span></label>
-            <label class="chip"><input type="checkbox" name="cooking" value="Món Âu"><span>Món Âu</span></label>
-            <label class="chip"><input type="checkbox" name="cooking" value="Làm bánh"><span>Làm bánh</span></label>
-            <label class="chip"><input type="checkbox" name="cooking" value="Đồ ăn trẻ nhỏ"><span>Đồ ăn trẻ nhỏ</span></label>
-            <label class="chip"><input type="checkbox" name="cooking" value="Ăn chay / ăn kiêng"><span>Ăn chay, ăn kiêng</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fs">
-          <legend>Giặt là</legend>
-          <div class="chips">
-            <label class="chip"><input type="checkbox" name="laundry" value="Giặt là đồ hiệu, đồ cao cấp"><span>Giặt đồ hiệu, cao cấp</span></label>
-            <label class="chip"><input type="checkbox" name="laundry" value="Là ủi vest, sơ mi"><span>Là ủi vest, sơ mi</span></label>
-            <label class="chip"><input type="checkbox" name="laundry" value="Giặt đồ lụa, len, cashmere"><span>Đồ lụa, len, cashmere</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fs">
-          <legend>Chăm sóc</legend>
-          <div class="chips">
-            <label class="chip"><input type="checkbox" name="care" value="Trông trẻ sơ sinh"><span>Trẻ sơ sinh</span></label>
-            <label class="chip"><input type="checkbox" name="care" value="Trông trẻ nhỏ"><span>Trẻ nhỏ</span></label>
-            <label class="chip"><input type="checkbox" name="care" value="Đưa đón, kèm trẻ học"><span>Đưa đón, kèm học</span></label>
-            <label class="chip"><input type="checkbox" name="care" value="Chăm sóc người già"><span>Người già</span></label>
-            <label class="chip"><input type="checkbox" name="care" value="Chăm người bệnh, nằm lâu"><span>Người bệnh, nằm lâu</span></label>
-            <label class="chip"><input type="checkbox" name="care" value="Chăm thú cưng"><span>Thú cưng</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fs">
-          <legend>Nhà cửa</legend>
-          <div class="chips">
-            <label class="chip"><input type="checkbox" name="home" value="Dọn dẹp biệt thự, nhà lớn"><span>Dọn biệt thự, nhà lớn</span></label>
-            <label class="chip"><input type="checkbox" name="home" value="Chăm sóc cây, vườn"><span>Cây, vườn</span></label>
-            <label class="chip"><input type="checkbox" name="home" value="Đi chợ, quản lý chi tiêu"><span>Đi chợ, chi tiêu</span></label>
-            <label class="chip"><input type="checkbox" name="home" value="Phục vụ tiệc, tiếp khách"><span>Phục vụ tiệc, tiếp khách</span></label>
-          </div>
+          <div class="chips"><label class="chip"><input type="checkbox" name="cooking" value="Món Bắc truyền thống"><span>Món Bắc truyền thống</span></label><label class="chip"><input type="checkbox" name="cooking" value="Món Nam"><span>Món Nam</span></label><label class="chip"><input type="checkbox" name="cooking" value="Món Trung"><span>Món Trung</span></label><label class="chip"><input type="checkbox" name="cooking" value="Món Á (Hàn, Nhật, Hoa)"><span>Món Á (Hàn, Nhật, Hoa)</span></label><label class="chip"><input type="checkbox" name="cooking" value="Món Âu"><span>Món Âu</span></label><label class="chip"><input type="checkbox" name="cooking" value="Làm bánh"><span>Làm bánh</span></label><label class="chip"><input type="checkbox" name="cooking" value="Ăn chay / ăn kiêng"><span>Ăn chay / ăn kiêng</span></label><label class="chip"><input type="checkbox" name="cooking" value="Đồ ăn trẻ nhỏ"><span>Đồ ăn trẻ nhỏ</span></label></div>
+          <input type="text" class="inp" name="cookingOther" placeholder="Món khác (cách nhau bằng dấu phẩy)" aria-label="Món nấu khác">
         </fieldset>
         <fieldset class="fs">
           <legend>Ngoại ngữ</legend>
-          <div class="chips">
-            <label class="chip"><input type="radio" name="language" value="Không" checked><span>Không</span></label>
-            <label class="chip"><input type="radio" name="language" value="Tiếng Anh cơ bản"><span>Tiếng Anh cơ bản</span></label>
-            <label class="chip"><input type="radio" name="language" value="Tiếng Anh giao tiếp tốt"><span>Tiếng Anh tốt</span></label>
-            <label class="chip"><input type="radio" name="language" value="Ngoại ngữ khác"><span>Ngoại ngữ khác</span></label>
-          </div>
+          <div class="chips"><label class="chip"><input type="checkbox" name="language" value="Tiếng Anh cơ bản"><span>Tiếng Anh cơ bản</span></label><label class="chip"><input type="checkbox" name="language" value="Tiếng Anh giao tiếp tốt"><span>Tiếng Anh giao tiếp tốt</span></label><label class="chip"><input type="checkbox" name="language" value="Tiếng Trung"><span>Tiếng Trung</span></label><label class="chip"><input type="checkbox" name="language" value="Tiếng Hàn"><span>Tiếng Hàn</span></label><label class="chip"><input type="checkbox" name="language" value="Tiếng Nhật"><span>Tiếng Nhật</span></label><label class="chip"><input type="checkbox" name="language" value="Tiếng Pháp"><span>Tiếng Pháp</span></label></div>
+          <input type="text" class="inp" name="languageOther" placeholder="Ngoại ngữ khác (cách nhau bằng dấu phẩy)" aria-label="Ngoại ngữ khác">
+        </fieldset>
+        <fieldset class="fs">
+          <legend>Giấy tờ có thể cung cấp <span class="opt">(Elite Helpers kiểm tra bản gốc khi phỏng vấn)</span></legend>
+          <div class="chips"><label class="chip"><input type="checkbox" name="docs" value="CCCD"><span>CCCD</span></label><label class="chip"><input type="checkbox" name="docs" value="VNeID mức 2"><span>VNeID mức 2</span></label><label class="chip"><input type="checkbox" name="docs" value="Lý lịch tư pháp"><span>Lý lịch tư pháp</span></label><label class="chip"><input type="checkbox" name="docs" value="Giấy khám sức khỏe"><span>Giấy khám sức khỏe</span></label><label class="chip"><input type="checkbox" name="docs" value="Xác nhận nơi làm cũ"><span>Xác nhận nơi làm cũ</span></label></div>
         </fieldset>
         <div class="fld"><label for="cNote" class="lbl">Ghi chú thêm</label><textarea id="cNote" class="inp" name="note" placeholder="Điều Anh/Chị muốn Elite Helpers biết thêm..."></textarea></div>
         <div class="consent" data-consent>
           <label class="ck"><input type="checkbox" id="consent2" name="consent" value="Đồng ý" aria-describedby="consent2-err" data-req="Vui lòng tick đồng ý xử lý dữ liệu cá nhân để gửi thông tin.">
-            <span>Tôi đồng ý để Elite Helpers thu thập và xử lý dữ liệu cá nhân tôi cung cấp (họ tên, số điện thoại, năm sinh, quê quán, nơi ở, kinh nghiệm và kỹ năng) nhằm mục đích tuyển chọn, liên hệ phỏng vấn và giới thiệu hồ sơ của tôi tới gia đình, cơ quan có nhu cầu, theo <a href="#chinh-sach-bao-mat" data-open="policy" class="font-medium text-shutter underline underline-offset-2">Chính sách bảo vệ dữ liệu cá nhân</a>. <span class="req" aria-hidden="true">*</span></span>
+            <span>Tôi đồng ý để Elite Helpers thu thập và xử lý dữ liệu cá nhân tôi cung cấp (họ tên, số điện thoại, năm sinh, giới tính, quê quán, nơi ở, tình trạng gia đình, sức khỏe, quá trình làm việc, kỹ năng, giấy tờ có thể cung cấp) nhằm mục đích tuyển chọn, liên hệ phỏng vấn và giới thiệu hồ sơ của tôi tới gia đình, cơ quan có nhu cầu, theo <a href="#chinh-sach-bao-mat" data-open="policy" class="font-medium text-shutter underline underline-offset-2">Chính sách bảo vệ dữ liệu cá nhân</a>. <span class="req" aria-hidden="true">*</span></span>
           </label>
           <p class="ml-8 text-[.82rem] text-ink-soft">Tôi có thể yêu cầu xem, sửa, xóa dữ liệu hoặc rút lại sự đồng ý bất cứ lúc nào qua Zalo 0948 919 598.</p>
           <p class="err ml-8" id="consent2-err"></p>

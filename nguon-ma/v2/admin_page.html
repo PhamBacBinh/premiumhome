@@ -737,6 +737,8 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
   }
   const grp = (w, label) => ((w && w.groups.find((g) => g.label === label)) || { items: [] }).items;
   // Dữ liệu CV dùng chung cho xem trước, in PDF, bản Zalo (Google Docs dựng cùng cấu trúc ở Apps Script)
+  // Nơi ở trên CV: địa chỉ chi tiết + tỉnh/thành (không lặp tên tỉnh)
+  const liveAt = (r) => { const d = String(r.noiOChiTiet || '').trim(), p = String(r.noiO || '').trim(); return d && p && d.toLowerCase().indexOf(p.toLowerCase()) < 0 ? d + ', ' + p : d || p; };
   function cvModel(r, hide) {
     const age = ageOf(r.namSinh), kn = r.kinhNghiemNam !== null && r.kinhNghiemNam !== '' && r.kinhNghiemNam !== undefined && !isNaN(Number(r.kinhNghiemNam)) ? Number(r.kinhNghiemNam) : null;
     let qt = qtList(r), groups = [];
@@ -746,7 +748,7 @@ input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:1px sol
     else if (!qt.length && !w && r.kinhNghiemMoTa) qt = [{ viTri: 'Kinh nghiệm làm việc', congViec: sentences(r.kinhNghiemMoTa) }];
     return { name: hide ? shortName(r.hoTen) : r.hoTen, ma: r.ma, date: new Date().toLocaleDateString('vi-VN'), role: (r.viTri || []).join(' · ') || 'Người hỗ trợ gia đình',
       facts: [[age ? String(age) : '—', 'tuổi'], [kn === null ? '—' : kn >= 10 ? '10+' : String(kn), 'năm kinh nghiệm'], [r.hinhThuc || '—', 'hình thức'], [r.que || '—', 'quê quán']],
-      info: [['Năm sinh', r.namSinh], ['Giới tính', r.gioiTinh], ['Quê quán', r.que], ['Nơi ở hiện tại', r.noiO], ['Tình trạng gia đình', r.honNhan], ['Sức khỏe', r.sucKhoe], ['Đi xe máy', r.xeMay]].concat(hide ? [] : [['Điện thoại', r.sdt]]).filter((x) => x[1]),
+      info: [['Năm sinh', r.namSinh], ['Giới tính', r.gioiTinh], ['Quê quán', r.que], ['Nơi ở hiện tại', liveAt(r)], ['Tình trạng gia đình', r.honNhan], ['Sức khỏe', r.sucKhoe], ['Đi xe máy', r.xeMay]].concat(hide ? [] : [['Điện thoại', r.sdt]]).filter((x) => x[1]),
       wish: [['Vị trí', (r.viTri || []).join(', ')], ['Hình thức', r.hinhThuc], ['Khu vực', areas(r).join(', ')], ['Mức lương', r.luong], ['Bắt đầu', r.ngayBatDau], ['Ngày nghỉ', r.ngayNghi]].filter((x) => x[1]), verified: r.xacMinh || [],
       certs: lines(r.chungChi), langs: lines(r.ngoaiNgu), skills: lines(r.kyNang), cook: optSplit(String(r.nauAn || '').replace(/\n+/g, ', ')), note: r.nhanXet, qt, groups };
   }

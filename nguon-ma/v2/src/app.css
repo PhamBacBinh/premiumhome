@@ -485,3 +485,23 @@ a[href="#top"]>svg,.wordmark~svg,span>svg.h-10{height:2.9rem;width:2.45rem}
 .jd-side p{margin-top:1rem;font-weight:600}
 .jd-side p a{color:var(--color-shutter)}
 @media(max-width:599px){.jl-card{grid-template-columns:48px minmax(0,1fr);gap:.75rem;padding:.85rem .9rem}.jl-logo{width:48px;height:48px;border-radius:10px}.jl-logo img{width:22px}.jl-side{grid-column:2;flex-direction:row;align-items:center;justify-content:space-between;align-self:auto;margin-top:-.15rem}.jl-apply{margin-top:0;margin-left:auto}}
+
+/* Form ứng viên theo mục hồ sơ (20261027a) */
+.uv-grp{display:flex;align-items:center;gap:.6rem;margin:.4rem 0 .2rem;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-shutter)}
+.uv-grp span{display:inline-grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:999px;background:var(--color-shutter);color:var(--color-paper);font-size:.75rem;letter-spacing:0}
+.uv-rg{margin:.35rem 0 -.2rem;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--color-ink-soft)}
+.uv-hint{margin:-.2rem 0 .2rem;font-size:.84rem;line-height:1.5;color:var(--color-ink-soft)}
+.uv-money{display:flex;align-items:center;gap:.5rem}
+.uv-money .inp{width:6.5rem;flex:0 1 6.5rem}
+.uv-unit{font-size:.88rem;color:var(--color-ink-soft)}
+.uv-ck{display:inline-flex;align-items:center;gap:.45rem;margin-top:.5rem;font-size:.92rem;color:var(--color-ink);cursor:pointer}
+.uv-ck input{width:1.05rem;height:1.05rem;accent-color:var(--color-shutter)}
+.uv-num{max-width:10rem}
+.uv-my{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+.uv-my select{flex:1 1 5.5rem;min-width:5.5rem}
+.uv-my .uv-ck{margin-top:0}
+.uv-stage{display:grid;gap:.9rem;margin:0 0 1rem;padding:1rem 1rem 1.1rem;border:1px solid #E4DCCB;border-radius:14px;background:#fff;min-width:0}
+.uv-stage legend{padding:0 .4rem;font-size:.85rem;font-weight:600;color:var(--color-shutter)}
+.uv-rm{justify-self:start;padding:.35rem 0;font-size:.85rem;color:var(--color-rust);text-decoration:underline;text-underline-offset:3px;background:none;border:0;cursor:pointer}
+.uv-add{justify-self:start}
+[data-uv-start] input[type=date],[data-uv-start] input[type=text]{max-width:20rem}

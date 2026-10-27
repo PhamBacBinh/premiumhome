@@ -9,8 +9,8 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, 'site')
 GEN = os.path.join(ROOT, 'gen')          # generated pages (structured paths)
 DIST = os.path.join(ROOT, 'dist')        # flat output for GitHub upload
-TODAY = '2026-10-26'
-VER = '20261026h'
+TODAY = '2026-10-27'
+VER = '20261027a'
 E = html.escape
 
 home = open(os.path.join(SRC, 'index.html'), encoding='utf-8').read()
