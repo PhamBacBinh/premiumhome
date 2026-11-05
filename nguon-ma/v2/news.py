@@ -5,6 +5,52 @@ import html
 E = html.escape
 
 POSTS = [
+dict(no=4, slug='luong-toi-thieu-vung-2027-nguoi-giup-viec', date='2026-11-05', date_vi='05/11/2026',
+     tag='Tiền lương',
+     title='Từ 1/1/2027, lương tối thiểu vùng tăng: người giúp việc gia đình cần biết gì?',
+     sapo='Nghị định 399/2026/NĐ-CP nâng lương tối thiểu vùng thêm 310.000–390.000 đồng/tháng từ 1/1/2027. Quy định áp dụng cả với hộ gia đình, cá nhân thuê người lao động, nên chị em giúp việc cũng nằm trong diện được bảo vệ.',
+     src_short='VnExpress, Thanh Niên, Tuổi Trẻ',
+     body='''
+<h2>Mức lương tối thiểu mới là bao nhiêu?</h2>
+<p>Ngày 3/11/2026, các báo đồng loạt đưa tin Chính phủ ban hành Nghị định 399/2026/NĐ-CP, có hiệu lực từ ngày 1/1/2027, thay thế Nghị định 293/2025/NĐ-CP. Mức tăng bình quân khoảng 7,8% so với hiện hành:</p>
+<table>
+<tr><th>Vùng</th><th>Lương tháng từ 1/1/2027</th><th>Lương giờ</th></tr>
+<tr><td>I</td><td><strong>5.700.000đ</strong><br>(hiện 5.310.000đ, +390.000đ)</td><td>27.400đ</td></tr>
+<tr><td>II</td><td><strong>5.080.000đ</strong><br>(hiện 4.730.000đ, +350.000đ)</td><td>24.400đ</td></tr>
+<tr><td>III</td><td><strong>4.450.000đ</strong><br>(hiện 4.140.000đ, +310.000đ)</td><td>21.400đ</td></tr>
+<tr><td>IV</td><td><strong>4.040.000đ</strong><br>(hiện 3.700.000đ, +340.000đ)</td><td>19.400đ</td></tr>
+</table>
+
+<h2>Người giúp việc gia đình có được áp dụng không?</h2>
+<p>Có. Theo Thanh Niên và Tuổi Trẻ, nghị định áp dụng với người lao động làm việc theo hợp đồng lao động theo Bộ luật Lao động, và người sử dụng lao động bao gồm cả <strong>hộ gia đình, cá nhân có thuê mướn lao động</strong>. Nghĩa là gia đình thuê chị em giúp việc theo hợp đồng cũng phải tuân theo mức sàn này.</p>
+<ul>
+<li><strong>Lương tháng:</strong> là mức thấp nhất để thỏa thuận và trả cho người làm đủ thời giờ bình thường trong tháng.</li>
+<li><strong>Lương giờ:</strong> người làm theo giờ được trả ít nhất bằng mức lương tối thiểu giờ của vùng.</li>
+<li><strong>Lương theo ngày, tuần, khoán:</strong> khi quy đổi ra tháng hoặc giờ cũng không được thấp hơn mức của vùng.</li>
+<li>Mức áp dụng tính theo <strong>vùng nơi gia đình thuê sinh sống</strong>.</li>
+<li>Gia đình không được cắt giảm các chế độ có lợi đã thỏa thuận, như tiền làm thêm giờ, làm ban đêm.</li>
+</ul>
+
+<h2>Ý nghĩa thực tế với chị em</h2>
+<p>Lương tối thiểu là mức sàn để bảo vệ người lao động. Trên thực tế, thu nhập nghề giúp việc thường cao hơn nhiều: theo VnExpress (27/8/2026), giúp việc theo giờ qua ứng dụng nhận 60.000–100.000 đồng/giờ, gấp hơn hai lần mức sàn 27.400 đồng/giờ của vùng I. Điều quan trọng là mức lương được ghi rõ trong hợp đồng để chị em yên tâm.</p>
+
+<h2>4 việc nên làm trước năm 2027</h2>
+<ol>
+<li><strong>Xem lại hợp đồng:</strong> mức lương, giờ làm, ngày nghỉ, tiền làm thêm giờ có được ghi bằng văn bản chưa.</li>
+<li><strong>Hỏi rõ vùng áp dụng:</strong> gia đình ở xã, phường nào để biết mức sàn tương ứng.</li>
+<li><strong>Kiểm tra cách trả lương:</strong> nếu nhận theo ngày hoặc theo giờ, quy đổi xem có thấp hơn mức của vùng không.</li>
+<li><strong>Giữ lại chứng từ:</strong> tin nhắn, biên nhận, sao kê chuyển khoản lương mỗi tháng.</li>
+</ol>
+
+<div class="note"><strong>Ở Elite Helpers:</strong> lương 10–25 triệu đồng/tháng tùy vị trí, ghi rõ trong hợp đồng bằng văn bản; chị em được gặp gia đình trước khi nhận việc và không phải trả bất kỳ khoản phí nào. Xem thêm phần <a href="/tuyen-dung#tim-viec-an-toan">Tìm việc an toàn</a>.</div>
+''',
+     sources=[('Lương tối thiểu vùng tăng 310.000-390.000 đồng từ năm 2027 – VnExpress, 3/11/2026', 'https://vnexpress.net/luong-toi-thieu-vung-tang-310-000-390-000-dong-tu-nam-2027-5140183.html'),
+              ('Lương tối thiểu vùng chính thức tăng từ 1.1.2027 – Thanh Niên, 3/11/2026', 'https://thanhnien.vn/luong-toi-thieu-vung-chinh-thuc-tang-tu-112027-185261103135733018.htm'),
+              ('Tăng lương tối thiểu vùng từ 1-1-2027, cao nhất tăng tới 390.000 đồng – Tuổi Trẻ, 3/11/2026', 'https://tuoitre.vn/tang-luong-toi-thieu-vung-tu-1-1-2027-cao-nhat-tang-toi-390000-dong-100261103131209338.htm'),
+              ('Giúp việc theo giờ hút lao động – VnExpress, 27/8/2026', 'https://vnexpress.net/giup-viec-theo-gio-hut-lao-dong-5113556.html')],
+     cover=dict(big='5,7 triệu đồng', label='lương tối thiểu tháng vùng I từ 1/1/2027, áp dụng cả với hộ gia đình thuê lao động', note='Nghị định 399/2026/NĐ-CP · từ 1/1/2027', tone='green'),
+     prompt='KÊNH: WEBSITE – BẢN TIN. Photorealistic 16:9 photo: a Vietnamese woman in her mid-40s with shoulder-length wavy hair, wearing a soft maroon knit sweater, standing at a tidy kitchen counter in a Hanoi family home in early winter, writing in a small notebook beside a cup of hot tea, a vase with a budding peach-blossom branch in the background, warm late-afternoon light, hopeful confident expression, cream, deep green and soft gold tones, no readable text, no logo.'),
+
 dict(no=3, slug='quang-cao-tuyen-dung-gian-doi-phat-75-trieu', date='2026-10-23', date_vi='23/10/2026',
      tag='Cảnh giác khi tìm việc',
      title='Quảng cáo tuyển dụng gian dối có thể bị phạt tới 75 triệu đồng: người tìm việc cần biết gì?',
