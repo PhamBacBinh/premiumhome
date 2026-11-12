@@ -5,6 +5,58 @@ import html
 E = html.escape
 
 POSTS = [
+dict(no=5, slug='bhxh-tu-nguyen-2027-nguoi-giup-viec', date='2026-11-12', date_vi='12/11/2026',
+     tag='Bảo hiểm',
+     title='BHXH tự nguyện từ 1/1/2027: mức đóng thấp nhất 484.000 đồng, chị em giúp việc nên biết gì?',
+     sapo='Từ 1/1/2027, chuẩn nghèo mới được áp dụng nên mức đóng bảo hiểm xã hội tự nguyện thấp nhất tăng từ 330.000 lên 484.000 đồng/tháng, kèm phần hỗ trợ của Nhà nước. Đây là cách để chị em làm theo giờ, làm tự do vẫn có lương hưu và trợ cấp thai sản.',
+     src_short='Dân trí, Chinhphu.vn, Thanh Niên',
+     body='''
+<h2>Mức đóng mới từ 1/1/2027</h2>
+<p>Theo Dân trí (9/11/2026), mức đóng BHXH tự nguyện hằng tháng bằng <strong>22% mức thu nhập</strong> do người tham gia tự chọn. Thu nhập chọn thấp nhất bằng chuẩn hộ nghèo khu vực nông thôn, cao nhất bằng 20 lần mức tham chiếu. Nghị định 351/2025/NĐ-CP nâng chuẩn nghèo nông thôn giai đoạn 2027–2030 lên 2.200.000 đồng/người/tháng, nên mức sàn thay đổi như sau:</p>
+<table>
+<tr><th>Nội dung</th><th>Hiện nay</th><th>Từ 1/1/2027</th></tr>
+<tr><td>Thu nhập chọn thấp nhất</td><td>1.500.000đ</td><td><strong>2.200.000đ</strong></td></tr>
+<tr><td>Mức đóng thấp nhất/tháng (22%)</td><td>330.000đ</td><td><strong>484.000đ</strong></td></tr>
+</table>
+<p>Chị em có thể chọn mức thu nhập cao hơn để sau này nhận lương hưu cao hơn, miễn là trong khả năng đóng đều đặn.</p>
+
+<h2>Nhà nước hỗ trợ bao nhiêu?</h2>
+<p>Theo Điều 5 Nghị định 159/2025/NĐ-CP, ngân sách hỗ trợ một phần tiền đóng, tính trên mức đóng theo chuẩn hộ nghèo nông thôn. Với chuẩn mới từ 2027, Elite Helpers quy đổi ra số tiền như sau:</p>
+<table>
+<tr><th>Đối tượng</th><th>Tỷ lệ hỗ trợ</th><th>Quy đổi từ 2027</th></tr>
+<tr><td>Hộ nghèo; người sống ở xã đảo, đặc khu</td><td>50%</td><td>242.000đ/tháng</td></tr>
+<tr><td>Hộ cận nghèo</td><td>40%</td><td>193.600đ/tháng</td></tr>
+<tr><td>Người dân tộc thiểu số</td><td>30%</td><td>145.200đ/tháng</td></tr>
+<tr><td>Người tham gia khác</td><td>20%</td><td>96.800đ/tháng</td></tr>
+</table>
+<p>Theo Chinhphu.vn, thời gian được hỗ trợ tính theo số tháng tham gia thực tế, nhưng không quá 10 năm (120 tháng).</p>
+
+<h2>Ai tham gia được và được hưởng gì?</h2>
+<ul>
+<li><strong>Đối tượng:</strong> công dân Việt Nam từ đủ 15 tuổi, không thuộc diện BHXH bắt buộc và chưa hưởng lương hưu, trợ cấp BHXH hằng tháng. Phù hợp với chị em làm giúp việc theo giờ, làm tự do.</li>
+<li><strong>Lương hưu:</strong> từ 1/7/2025, chỉ cần đủ <strong>15 năm đóng</strong> và đủ tuổi nghỉ hưu là được nhận lương hưu hằng tháng, có thẻ BHYT.</li>
+<li><strong>Trợ cấp thai sản:</strong> 2 triệu đồng cho mỗi con khi đã đóng từ đủ 6 tháng trong 12 tháng trước khi sinh (Điều 95 Luật BHXH 2024).</li>
+<li><strong>Tử tuất:</strong> gia đình được trợ cấp mai táng khi người tham gia đã đóng từ đủ 60 tháng.</li>
+</ul>
+
+<h2>Đóng linh hoạt theo thu nhập</h2>
+<p>Chị em được chọn đóng hằng tháng, 3 tháng, 6 tháng, 12 tháng một lần, hoặc nhiều năm một lần (tối đa 5 năm). Người sắp đến tuổi nghỉ hưu còn thiếu không quá 5 năm có thể đóng một lần cho phần còn thiếu để đủ điều kiện lương hưu.</p>
+
+<h2>3 bước để bắt đầu</h2>
+<ol>
+<li><strong>Chọn mức thu nhập</strong> phù hợp: từ 2.200.000 đồng/tháng trở lên (đóng từ 484.000 đồng/tháng, trước khi trừ phần hỗ trợ).</li>
+<li><strong>Đăng ký</strong> tại cơ quan BHXH nơi cư trú, đại lý thu BHXH ở xã, phường, hoặc trên ứng dụng VssID.</li>
+<li><strong>Chọn phương thức đóng</strong> hợp với dòng tiền: nhận lương tháng thì đóng tháng, có khoản thưởng cuối năm thì đóng 6 hoặc 12 tháng.</li>
+</ol>
+
+<div class="note"><strong>Ở Elite Helpers:</strong> chị em được ký hợp đồng bằng văn bản ghi rõ lương, giờ làm, ngày nghỉ; được gặp gia đình trước khi nhận việc và không phải trả bất kỳ khoản phí nào. Thu nhập ổn định 10–25 triệu đồng/tháng giúp chị em chủ động kế hoạch bảo hiểm, lương hưu lâu dài. Xem thêm phần <a href="/tuyen-dung#tim-viec-an-toan">Tìm việc an toàn</a>.</div>
+''',
+     sources=[('Điều chỉnh mức đóng, hỗ trợ đóng bảo hiểm xã hội tự nguyện từ ngày 1/1/2027 – Dân trí, 9/11/2026', 'https://dantri.com.vn/noi-vu/dieu-chinh-muc-dong-ho-tro-dong-bao-hiem-xa-hoi-tu-nguyen-tu-ngay-112027-20261108205230384.htm'),
+              ('Những điều cần biết về chính sách bảo hiểm xã hội tự nguyện – Chinhphu.vn, 18/9/2025', 'https://xaydungchinhsach.chinhphu.vn/nhung-dieu-can-biet-ve-chinh-sach-bao-hiem-xa-hoi-tu-nguyen-119250913101137277.htm'),
+              ('Tham gia BHXH tự nguyện, cần thủ tục gì để hưởng trợ cấp thai sản? – Thanh Niên, 21/12/2025', 'https://thanhnien.vn/tham-gia-bhxh-tu-nguyen-can-thu-tuc-gi-de-huong-tro-cap-thai-san-185251220094400973.htm')],
+     cover=dict(big='484.000 đồng', label='mức đóng BHXH tự nguyện thấp nhất mỗi tháng từ 1/1/2027, Nhà nước hỗ trợ thêm', note='Nghị định 351/2025/NĐ-CP · từ 1/1/2027', tone='gold'),
+     prompt='KÊNH: WEBSITE – BẢN TIN. Photorealistic 16:9 photo: a Vietnamese woman in her late 30s with a neat low ponytail, wearing a dusty-rose long-sleeve blouse, sitting at the counter of a bright local social-insurance service office in Hanoi, smiling as a friendly female staff member in a light-blue uniform shirt (no logo) explains a form; a smartphone and a small cloth wallet on the counter, a potted green plant nearby, soft morning light through large windows, reassuring hopeful mood, cream, deep green and soft gold tones, no readable text, no logo.'),
+
 dict(no=4, slug='luong-toi-thieu-vung-2027-nguoi-giup-viec', date='2026-11-05', date_vi='05/11/2026',
      tag='Tiền lương',
      title='Từ 1/1/2027, lương tối thiểu vùng tăng: người giúp việc gia đình cần biết gì?',
