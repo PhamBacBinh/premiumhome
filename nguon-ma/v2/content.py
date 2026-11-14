@@ -112,9 +112,10 @@ PRICE_BLOCK = '''<section id="bang-gia" class="price-sec on-light" aria-labelled
     <div class="price-card">
       <div class="price-main">
         <p class="price-eyebrow">Bảng giá dịch vụ</p>
-        <h2 id="bg-title" class="price-h">Phí dịch vụ <span>01 tháng lương</span></h2>
-        <p class="price-sub">của người lao động, tính một lần khi gia đình nhận người.</p>
-        <p class="price-deal"><span class="price-tag">-15% khách mới</span> Khách hàng mới chỉ thanh toán <b>85% phí</b>.</p>
+        <h2 id="bg-title" class="price-h">Phí dịch vụ <span>trả 01 lần duy nhất</span></h2>
+        <p class="price-sub">Mức phí bằng <b>01 tháng lương</b> đã thoả thuận của người lao động. Đây là phí tuyển chọn trả cho Elite Helpers, không phải phí hằng tháng.</p>
+        <p class="price-ex">Ví dụ: lương thoả thuận 25 triệu/tháng → phí dịch vụ 25 triệu, trả một lần.</p>
+        <p class="price-deal"><span class="price-tag">-15% khách mới</span> Khách hàng mới chỉ thanh toán <b>85% phí</b> (ví dụ trên: 21,25 triệu).</p>
         <a class="btn btn-brass price-cta" href="#tim-nguoi" data-open="khach" data-track="price_cta">Đăng ký tư vấn</a>
       </div>
       <ul class="price-terms" role="list">
@@ -126,4 +127,4 @@ PRICE_BLOCK = '''<section id="bang-gia" class="price-sec on-light" aria-labelled
   </div>
 </section>'''
 
-PRICE_TEASER = '<a class="price-teaser" href="#bang-gia"><span class="price-tag">-15% khách mới</span><span>Phí dịch vụ 01 tháng lương · Bảo hành thay người</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>'
+PRICE_TEASER = '<a class="price-teaser" href="#bang-gia"><span class="price-tag">-15% khách mới</span><span>Phí dịch vụ trả 1 lần · Bảo hành thay người</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>'
