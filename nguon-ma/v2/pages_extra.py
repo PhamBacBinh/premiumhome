@@ -539,7 +539,7 @@ def services_hub(g):
 def guides_hub(g):
     SITE = g['SITE']; path = '/cam-nang'
     import articles as A
-    art_cards = ''.join(f'''<a class="card" href="/{a['slug']}"{' lang="en" hreflang="en"' if a['lang']=='en' else ''}><h2>{E(a['h1'])}</h2><p>{E(a['card'] or a['desc'])}</p><p><b>{'Cập nhật ' + A.DATE_VI if a['lang']=='vi' else 'English · Updated Oct 2026'}</b></p><span class="more">{'Đọc bài →' if a['lang']=='vi' else 'Read →'}</span></a>''' for a in A.ARTICLES)
+    art_cards = ''.join(f'''<a class="card" href="/{a['slug']}"{' lang="en" hreflang="en"' if a['lang']=='en' else ''}><h2>{E(a['h1'])}</h2><p>{E(a['card'] or a['desc'])}</p><p><b>{'Cập nhật ' + '/'.join(reversed(a.get('date', A.DATE).split('-'))) if a['lang']=='vi' else 'English · Updated Oct 2026'}</b></p><span class="more">{'Đọc bài →' if a['lang']=='vi' else 'Read →'}</span></a>''' for a in A.ARTICLES)
     crumbs = [('Trang chủ', '/'), ('Cẩm nang', None)]
     title = 'Cẩm nang thuê người giúp việc, bảo mẫu tại Hà Nội | Elite Helpers'
     desc = 'Cẩm nang thuê người giúp việc, bảo mẫu, chăm sóc người già tại Hà Nội: bảng lương 2026, kinh nghiệm chọn người, quy định pháp luật mới, mẫu hợp đồng.'

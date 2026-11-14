@@ -35,6 +35,11 @@ Apps Script mới luôn chạy được với web cũ (tương thích ngược).
 
 ---
 
+## [20261114b] – 14/11/2026 · Cẩm nang: 2 bài mới
+- /phi-dich-vu-giup-viec-bao-mau (gia đình): phí 01 lần = 01 tháng lương, -15% khách mới, 2 đợt, bảo hành.
+- /di-lam-giup-viec-dau-hieu-can-than-trong (người lao động): 6 dấu hiệu cần cẩn trọng (Điều 17, 162 BLLĐ 2019), cam kết không thu phí; khối kêu gọi riêng dẫn tới Tuyển dụng.
+- articles.py: mỗi bài có thể có `date` riêng (ngày hiển thị + datePublished), `worker=True` dùng khối kêu gọi cho người lao động.
+
 ## [20261114a] – 14/11/2026 · Bảng giá dịch vụ, lương bảo mẫu theo giờ (không cần đổi Apps Script)
 - Khối **Bảng giá dịch vụ** (#bang-gia): trang chủ ngay dưới banner, /dich-vu ở đầu trang. Phí 01 tháng lương NLĐ; khách mới -15% (thanh toán 85%); thanh toán 50% ngày làm việc đầu tiên, 50% khi hết thử việc (tối đa 06 ngày làm việc, khoản 4 Điều 25 BLLĐ 2019); bảo hành thay 01 NLĐ trong thử việc/tháng đầu. Nút "Đăng ký tư vấn" mở form #tim-nguoi. Banner trang chủ có thẻ nhắc "-15% khách mới" dẫn xuống bảng giá.
 - 14/11 chiều: làm rõ "Phí dịch vụ trả 01 lần duy nhất, bằng 01 tháng lương NLĐ, không phải phí hằng tháng" + ví dụ 25 triệu → 21,25 triệu cho khách mới.

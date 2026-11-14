@@ -5,9 +5,102 @@ E = html.escape
 DATE = '2026-10-19'
 DATE_VI = '19/10/2026'
 
+WORKER_CTA = '''<section class="on-dark bg-lacquer py-20 text-paper lg:py-24" aria-labelledby="cta-title">
+  <div class="shell">
+    <h2 id="cta-title" class="t-h2" style="max-width:22ch">Tìm việc giúp việc, bảo mẫu tại Hà Nội</h2>
+    <p class="mt-4 max-w-[52ch] text-mist">Elite Helpers không thu bất kỳ khoản phí nào của người lao động. Gửi hồ sơ trong 2 phút.</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a class="btn btn-brass" href="/tuyen-dung#viec-dang-tuyen">Xem việc đang tuyển</a>
+      <a class="btn btn-ghost-light" href="#ung-tuyen" data-open="ungvien">Gửi hồ sơ (2 phút)</a>
+    </div>
+  </div>
+</section>'''
+
 LEGAL = '<a href="/thue-giup-viec-2026">quy định mới khi thuê người giúp việc (Nghị định 283/2026/NĐ-CP)</a>'
 
 ARTICLES = [
+# ---------------------------------------------------------------- 14/11/2026 · PHÍ DỊCH VỤ
+dict(slug='phi-dich-vu-giup-viec-bao-mau', lang='vi', service='Bảo mẫu chăm bé', date='2026-11-14',
+ title='Phí dịch vụ giúp việc, bảo mẫu tại Elite Helpers tính thế nào?',
+ desc='Gia đình trả phí dịch vụ 01 lần, bằng 01 tháng lương người lao động; khách mới giảm 15%; thanh toán 2 đợt; bảo hành thay người. Không thu phí người lao động.',
+ h1='Phí dịch vụ giúp việc, bảo mẫu tại Elite Helpers tính thế nào?',
+ card='Gia đình trả phí 01 lần bằng 01 tháng lương, khách mới giảm 15%, thanh toán 2 đợt, bảo hành thay người. Kèm ví dụ tính phí.',
+ answer='<p>Gia đình (khách hàng) thanh toán phí dịch vụ <strong>01 lần duy nhất</strong>, bằng <strong>01 tháng lương</strong> đã thoả thuận với người lao động. Khách hàng mới được <strong>giảm 15%</strong>. Phí chia <strong>2 đợt</strong> và có <strong>bảo hành thay người</strong>. Elite Helpers không thu bất kỳ khoản phí nào của người lao động.</p>',
+ body='''
+<h2 id="ai-tra">1. Ai trả phí, trả bao nhiêu?</h2>
+<ul>
+<li>Gia đình (khách hàng) là bên trả phí dịch vụ.</li>
+<li>Mức phí bằng 01 tháng lương đã thoả thuận với người lao động.</li>
+<li>Phí trả một lần khi nhận người, không phải phí hằng tháng. Lương hằng tháng của người lao động là khoản riêng, theo hợp đồng giữa gia đình và người lao động.</li>
+</ul>
+
+<h2 id="vi-du">2. Ví dụ tính phí</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Nội dung</th><th>Số tiền</th></tr></thead>
+<tbody>
+<tr><td>Lương thoả thuận</td><td>25 triệu/tháng</td></tr>
+<tr><td>Phí dịch vụ (gia đình trả 1 lần)</td><td>25 triệu</td></tr>
+<tr><td>Khách hàng mới (-15%)</td><td><strong>21,25 triệu</strong></td></tr>
+</tbody></table></div>
+
+<h2 id="thanh-toan">3. Thanh toán 2 đợt</h2>
+<ul>
+<li><strong>Đợt 1:</strong> 50% vào ngày làm việc đầu tiên.</li>
+<li><strong>Đợt 2:</strong> 50% còn lại khi kết thúc thử việc. Thời gian thử việc tối đa 06 ngày làm việc (khoản 4 Điều 25 Bộ luật Lao động 2019).</li>
+</ul>
+<p>Gia đình có đủ thời gian quan sát người lao động làm việc thực tế rồi mới thanh toán đợt 2.</p>
+
+<h2 id="bao-hanh">4. Bảo hành thay người</h2>
+<p>Trong thời gian thử việc hoặc tháng làm việc đầu tiên, nếu người lao động nghỉ việc vì bất kỳ lý do gì, Elite Helpers tuyển thay thế <strong>miễn phí 01 người phù hợp</strong>.</p>
+
+<h2 id="bao-gom">5. Phí dịch vụ bao gồm những gì?</h2>
+<ul>
+<li>Tiếp nhận yêu cầu và tư vấn vị trí phù hợp với nếp nhà.</li>
+<li>Tuyển chọn, xác minh lý lịch, phỏng vấn trực tiếp ứng viên.</li>
+<li>Sắp xếp gặp mặt và làm thử tại nhà.</li>
+<li>Theo dõi trong thời gian đầu và bảo hành thay người.</li>
+</ul>
+<p>Xem thêm: <a href="/#bang-gia">Bảng giá dịch vụ</a> · <a href="/bao-mau-cham-be">Dịch vụ bảo mẫu chăm bé</a>.</p>
+''',
+ faq=[('Phí dịch vụ có phải trả hằng tháng không?', 'Không. Gia đình chỉ trả một lần, chia 2 đợt: 50% vào ngày làm việc đầu tiên và 50% khi kết thúc thử việc.'),
+      ('Người lao động có phải trả phí cho Elite Helpers không?', 'Không. Elite Helpers không thu bất kỳ khoản phí nào của người lao động.'),
+      ('Khách hàng mới được ưu đãi thế nào?', 'Gia đình sử dụng dịch vụ lần đầu được giảm 15%, chỉ thanh toán 85% phí dịch vụ.'),
+      ('Lương bảo mẫu hiện nay bao nhiêu?', 'Tham khảo 75.000–90.000đ/giờ, ca 12 giờ/ngày, tùy thoả thuận với gia đình.')]),
+# ---------------------------------------------------------------- 14/11/2026 · NGƯỜI LAO ĐỘNG
+dict(slug='di-lam-giup-viec-dau-hieu-can-than-trong', lang='vi', service='Giúp việc gia đình', date='2026-11-14', worker=True,
+ title='Đi làm giúp việc, bảo mẫu: 6 dấu hiệu cần cẩn trọng khi nhận việc',
+ desc='6 dấu hiệu chị em cần cẩn trọng khi nhận việc giúp việc, bảo mẫu: thu tiền trước, đặt cọc, giữ giấy tờ gốc, không có hợp đồng. Elite Helpers không thu phí người lao động.',
+ h1='Đi làm giúp việc, bảo mẫu: 6 dấu hiệu cần cẩn trọng khi nhận việc',
+ card='Thu tiền trước, đặt cọc, giữ giấy tờ gốc, không có hợp đồng: những điều chị em cần kiểm tra trước khi nhận việc.',
+ answer='<p>Trước khi nhận việc, chị em hãy kiểm tra kỹ các khoản thu, giấy tờ và hợp đồng. Tại Elite Helpers, người lao động <strong>không phải nộp bất kỳ khoản phí nào</strong>: không phí hồ sơ, không phí giới thiệu, không tiền đặt cọc.</p>',
+ body='''
+<h2 id="dau-hieu">6 dấu hiệu cần cẩn trọng</h2>
+<ol>
+<li><strong>Yêu cầu nộp tiền trước khi có việc:</strong> phí hồ sơ, phí giữ chỗ, phí "chắc chắn có việc".</li>
+<li><strong>Yêu cầu đặt cọc để được đi làm.</strong> Bộ luật Lao động 2019 (khoản 2 Điều 17) cấm người sử dụng lao động yêu cầu người lao động thực hiện biện pháp bảo đảm bằng tiền hoặc tài sản khác cho việc thực hiện hợp đồng lao động.</li>
+<li><strong>Giữ giấy tờ gốc</strong> như căn cước, bằng cấp. Khoản 1 Điều 17 cấm giữ bản chính giấy tờ tùy thân, văn bằng, chứng chỉ của người lao động.</li>
+<li><strong>Không có hợp đồng bằng văn bản.</strong> Với lao động giúp việc gia đình, hợp đồng phải giao kết bằng văn bản (Điều 162 Bộ luật Lao động 2019).</li>
+<li><strong>Thông tin công việc mập mờ:</strong> không rõ mức lương, giờ làm, ngày nghỉ, địa chỉ gia đình.</li>
+<li><strong>Hứa hẹn lương cao bất thường</strong> nhưng không có tin tuyển dụng hay địa chỉ rõ ràng.</li>
+</ol>
+
+<h2 id="cam-ket">Cam kết của Elite Helpers với người lao động</h2>
+<ul>
+<li><strong>Không thu bất kỳ khoản phí nào.</strong></li>
+<li>Tin tuyển dụng công khai mức lương, ngày nghỉ, địa điểm, thời gian làm việc.</li>
+<li>Có hợp đồng lao động bằng văn bản với gia đình.</li>
+<li>Không giữ giấy tờ gốc của người lao động.</li>
+</ul>
+
+<h2 id="ung-tuyen">Cách ứng tuyển</h2>
+<ul>
+<li>Xem việc đang tuyển tại <a href="/tuyen-dung">giupviecelite.vn/tuyen-dung</a>.</li>
+<li>Bấm "Ứng tuyển" ở tin phù hợp hoặc gửi hồ sơ trong 2 phút.</li>
+<li>Hoặc nhắn Zalo <a href="https://zalo.me/0948919598" target="_blank" rel="noopener">0948 919 598</a>.</li>
+</ul>
+''',
+ faq=[('Ứng tuyển ở Elite Helpers có mất phí không?', 'Không. Phí dịch vụ do gia đình trả, người lao động không trả bất kỳ khoản nào.'),
+      ('Tôi có phải để lại căn cước gốc không?', 'Không. Elite Helpers chỉ xem để đối chiếu, không giữ giấy tờ gốc.')]),
 # ---------------------------------------------------------------- 1. GIÁ
 dict(slug='gia-thue-giup-viec-ha-noi', lang='vi', service='Giúp việc gia đình',
  title='Giá thuê người giúp việc Hà Nội 2026: bảng lương theo vị trí',
@@ -309,7 +402,8 @@ def article_page(g, a):
     SITE = g['SITE']; path = '/' + a['slug']; vi = a['lang'] == 'vi'
     crumbs = [('Trang chủ', '/'), ('Cẩm nang', '/cam-nang'), (a['h1'].split(':')[0], None)] if vi else \
              [('Home', '/en'), ('Guide', None)]
-    upd = ('Cẩm nang · Cập nhật ' + DATE_VI) if vi else ('Guide · Updated 19 October 2026')
+    d = a.get('date', DATE); d_vi = '/'.join(reversed(d.split('-')))
+    upd = ('Cẩm nang · Cập nhật ' + d_vi) if vi else ('Guide · Updated 19 October 2026')
     by = ('Biên soạn: <b>Đội ngũ Elite Helpers</b> · Hà Nội') if vi else ('Written by <b>the Elite Helpers team</b> · Hanoi')
     qa = 'Trả lời nhanh' if vi else 'Quick answer'
     faq_h = 'Hỏi đáp nhanh' if vi else 'FAQ'
@@ -344,14 +438,15 @@ def article_page(g, a):
     import re
     plain_answer = plain(a['answer'])
     art = {'@type': 'Article', '@id': SITE + path + '#article', 'headline': a['h1'], 'description': a['desc'], 'abstract': plain_answer,
-           'url': SITE + path, 'inLanguage': a['lang'], 'datePublished': DATE, 'dateModified': DATE,
+           'url': SITE + path, 'inLanguage': a['lang'], 'datePublished': d, 'dateModified': d,
            'author': {'@id': SITE + '/#org'}, 'publisher': {'@id': SITE + '/#org'}, 'image': SITE + '/og-giup-viec-elite.jpg',
            'mainEntityOfPage': SITE + path, 'about': {'@type': 'Service', 'name': a['service'], 'provider': {'@id': SITE + '/#org'}, 'areaServed': {'@type': 'City', 'name': 'Hà Nội' if vi else 'Hanoi'}}}
     graph = [art, g['faq_ld'](a['faq'], path)]
     if vi: graph.insert(1, g['crumbs_ld'](crumbs, path))
     ld = {'@context': 'https://schema.org', '@graph': graph}
     if vi:
-        html_ = g['page'](a['title'], a['desc'], path, main + '\n' + g['cta_block'](a['service'], h='Cần người phù hợp cho gia đình?'), ld, og_type='article')
+        cta = WORKER_CTA if a.get('worker') else g['cta_block'](a['service'], h='Cần người phù hợp cho gia đình?')
+        html_ = g['page'](a['title'], a['desc'], path, main + '\n' + cta, ld, og_type='article')
     else:
         import pages_extra as X
         top = X.EN_HEADER
