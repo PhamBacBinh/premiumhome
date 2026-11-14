@@ -31,14 +31,14 @@ dict(ma='EH-GV-2610', trangThai='Đang tuyển', nhan='Mới', thuTu='', ngayDan
      quyenLoi=''),
 dict(ma='EH-BM-2610', trangThai='Đang tuyển', nhan='', thuTu='', ngayDang='2026-10-26', hanTin='2026-11-30',
      tenViTri='Bảo mẫu chăm bé toàn thời gian tại KĐT Gamuda, Hoàng Mai', viTri='Bảo mẫu, chăm bé', hinhThuc='Ở lại cùng gia đình',
-     luongTu='15', luongDen='25', luongGhiChu='Tùy kinh nghiệm và kỹ năng', ngayNghi='Được gộp để về quê, trao đổi cụ thể khi gặp gia đình', thang13='Có',
+     luongTu='', luongDen='', luongGhiChu='75.000–90.000đ/giờ · ca 12 giờ/ngày (theo thoả thuận)', ngayNghi='Được gộp để về quê, trao đổi cụ thể khi gặp gia đình', thang13='Có',
      diaDiem='KĐT Gamuda Gardens, Hoàng Mai, Hà Nội', tinh='Hà Nội', thoiGianCan='', thoiGianLam='Ở lại cùng gia đình, chăm bé toàn thời gian',
      moTa='- Chăm bé ăn uống, giấc ngủ, tắm rửa, vệ sinh cá nhân\n- Chuẩn bị bữa ăn, đồ dùng riêng; giặt, gấp quần áo của bé\n- Chơi cùng bé, đọc sách, rèn nề nếp sinh hoạt theo lứa tuổi\n- Theo dõi sức khỏe, thói quen của bé và trao đổi với bố mẹ mỗi ngày',
      yeuCau='- Đã có kinh nghiệm chăm trẻ toàn thời gian, vững nghề\n- Sức khỏe tốt, sạch sẽ, kiên nhẫn, yêu trẻ\n- Trung thực, sẵn sàng gắn bó lâu dài',
      quyenLoi='- Bao ăn ở\n- Môi trường văn minh, an toàn'),
 dict(ma='EH-BM-2510', trangThai='Đang tuyển', nhan='Tuyển gấp', thuTu='', ngayDang='2026-10-25', hanTin='2026-11-30',
      tenViTri='Bảo mẫu chăm bé sơ sinh tại Vinhomes Ocean Park 2', viTri='Bảo mẫu, chăm bé', hinhThuc='Ở lại cùng gia đình',
-     luongTu='18', luongDen='25', luongGhiChu='Tùy năng lực', ngayNghi='Được gộp để về quê, trao đổi cụ thể khi phỏng vấn', thang13='Có',
+     luongTu='', luongDen='', luongGhiChu='75.000–90.000đ/giờ · ca 12 giờ/ngày (theo thoả thuận)', ngayNghi='Được gộp để về quê, trao đổi cụ thể khi phỏng vấn', thang13='Có',
      diaDiem='Vinhomes Ocean Park 2, Văn Giang, Hưng Yên (gần Gia Lâm, Hà Nội)', tinh='Hưng Yên', thoiGianCan='', thoiGianLam='Ở lại cùng gia đình',
      moTa='Gia đình 2 vợ chồng và 1 bé. Bố mẹ làm việc tại nhà nên luôn có người hỗ trợ; nhà có máy móc hỗ trợ dọn dẹp và người dọn theo giờ hằng tuần.\n- Chăm bé sơ sinh 1 tháng tuổi theo phương pháp EASY\n- Rèn nếp sinh hoạt, chuẩn bị ăn dặm khi bé lớn hơn\n- Nấu 2 bữa trưa, tối cho gia đình',
      yeuCau='- Có kinh nghiệm chăm trẻ sơ sinh, thành thạo phương pháp EASY\n- Nấu ăn ngon\n- Yêu trẻ, quý động vật (nhà có 2 bé mèo)',
@@ -52,7 +52,7 @@ OLD_SLUGS = {'tuyen-bao-mau-cham-be-so-sinh-ocean-park-2': 'EH-BM-2510',
 # Vị trí tuyển thường xuyên (không gắn gia đình cụ thể)
 REGULAR = [
     ('Giúp việc gia đình', 'Giúp việc gia đình', 'Ở lại hoặc theo giờ: dọn dẹp, giặt là, đi chợ, nấu ăn.', '10–25 triệu đồng/tháng'),
-    ('Bảo mẫu, chăm bé', 'Bảo mẫu, chăm bé', 'Chăm trẻ sơ sinh, trẻ nhỏ; ưu tiên người đã có con, có kinh nghiệm.', '10–25 triệu đồng/tháng'),
+    ('Bảo mẫu, chăm bé', 'Bảo mẫu, chăm bé', 'Chăm trẻ sơ sinh, trẻ nhỏ; ưu tiên người đã có con, có kinh nghiệm.', '75.000–90.000đ/giờ, ca 12 giờ/ngày'),
     ('Chăm sóc người già', 'Chăm sóc người già', 'Hỗ trợ sinh hoạt, ăn uống, nhắc thuốc, đưa đi khám cho ông bà.', '10–25 triệu đồng/tháng'),
     ('Quản gia', 'Quản gia', 'Điều phối việc nhà ở biệt thự, dinh thự; ưu tiên biết tiếng Anh.', '18–40 triệu đồng/tháng'),
     ('Đầu bếp gia đình', 'Đầu bếp gia đình', 'Nấu món Việt, Á, Âu; lên thực đơn, nấu tiệc tại nhà.', '15–35 triệu đồng/tháng'),
@@ -74,7 +74,12 @@ def salary(j):
     if a and b: return f'{a}–{b} triệu/tháng'
     if a: return f'Từ {a} triệu/tháng'
     if b: return f'Đến {b} triệu/tháng'
-    return 'Thỏa thuận'
+    # Lương theo giờ (bảo mẫu): để trống Lương từ/đến, ghi mức lương vào "Ghi chú lương"
+    return (j.get('luongGhiChu') or '').strip() or 'Thỏa thuận'
+
+def salary_note(j):
+    """Ghi chú hiển thị dưới mức lương (bỏ trống khi ghi chú đã là mức lương)."""
+    return '' if salary(j) == (j.get('luongGhiChu') or '').strip() else (j.get('luongGhiChu') or '')
 
 def is_open(j, today=None):
     today = today or date.today().isoformat()

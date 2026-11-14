@@ -17,7 +17,7 @@ dict(slug='gia-thue-giup-viec-ha-noi', lang='vi', service='Giúp việc gia đì
  answer='''Mức lương tham khảo tại Elite Helpers năm 2026 (người giúp việc nhận, theo tháng):
 <ul>
 <li><strong>Giúp việc gia đình:</strong> 10–25 triệu đồng</li>
-<li><strong>Bảo mẫu, chăm bé:</strong> 10–25 triệu đồng</li>
+<li><strong>Bảo mẫu, chăm bé:</strong> 75.000–90.000đ/giờ, ca 12 giờ/ngày (theo thoả thuận)</li>
 <li><strong>Chăm sóc người già:</strong> 10–25 triệu đồng</li>
 <li><strong>Đầu bếp gia đình:</strong> 15–35 triệu đồng</li>
 <li><strong>Quản gia:</strong> 18–40 triệu đồng</li>
@@ -30,7 +30,7 @@ Mức lương có thể thay đổi theo nhu cầu của gia đình: ở lại h
 <thead><tr><th>Vị trí</th><th>Lương tham khảo/tháng</th><th>Phù hợp với</th></tr></thead>
 <tbody>
 <tr><td><a href="/giup-viec-gia-dinh">Giúp việc gia đình</a></td><td>10–25 triệu đồng</td><td>Căn hộ, nhà phố, biệt thự cần dọn dẹp, giặt là, đi chợ, nấu ăn</td></tr>
-<tr><td><a href="/bao-mau-cham-be">Bảo mẫu, chăm bé</a></td><td>10–25 triệu đồng</td><td>Gia đình có trẻ sơ sinh, trẻ nhỏ</td></tr>
+<tr><td><a href="/bao-mau-cham-be">Bảo mẫu, chăm bé</a></td><td>75.000–90.000đ/giờ, ca 12 giờ/ngày (theo thoả thuận)</td><td>Gia đình có trẻ sơ sinh, trẻ nhỏ</td></tr>
 <tr><td><a href="/cham-soc-nguoi-gia">Chăm sóc người già</a></td><td>10–25 triệu đồng</td><td>Ông bà cần hỗ trợ sinh hoạt, ăn uống, đi khám</td></tr>
 <tr><td><a href="/dau-bep-gia-dinh">Đầu bếp gia đình</a></td><td>15–35 triệu đồng</td><td>Gia đình cần bữa ăn chuẩn vị, thực đơn tuần, tiệc tại nhà</td></tr>
 <tr><td><a href="/quan-gia">Quản gia</a></td><td>18–40 triệu đồng</td><td>Biệt thự, dinh thự, gia đình nhiều nhân sự</td></tr>
@@ -72,7 +72,7 @@ Mức lương có thể thay đổi theo nhu cầu của gia đình: ở lại h
 <li>Luôn gặp mặt và cho làm thử vài ngày trước khi ký hợp đồng.</li>
 </ul>''',
  faq=[
-  ('Thuê người giúp việc ở Hà Nội bao nhiêu tiền một tháng?', 'Tại Elite Helpers, lương tham khảo năm 2026 cho giúp việc gia đình là 10–25 triệu đồng/tháng, bảo mẫu 10–25 triệu, chăm sóc người già 10–25 triệu, đầu bếp 15–35 triệu, quản gia 18–40 triệu. Mức cụ thể tùy kinh nghiệm, hình thức và khối lượng công việc.'),
+  ('Thuê người giúp việc ở Hà Nội bao nhiêu tiền một tháng?', 'Tại Elite Helpers, lương tham khảo năm 2026 cho giúp việc gia đình là 10–25 triệu đồng/tháng, bảo mẫu 75.000–90.000đ/giờ (ca 12 giờ/ngày), chăm sóc người già 10–25 triệu, đầu bếp 15–35 triệu, quản gia 18–40 triệu. Mức cụ thể tùy kinh nghiệm, hình thức và khối lượng công việc.'),
   ('Lương trả cho ai?', 'Lương trả trực tiếp cho người giúp việc theo hợp đồng lao động giữa gia đình và người giúp việc.'),
   ('Ngoài lương còn khoản nào bắt buộc không?', 'Có. Gia đình trả thêm khoản tiền tương ứng mức đóng bảo hiểm xã hội bắt buộc và bảo hiểm y tế cùng kỳ lương để người giúp việc tự tham gia, theo Bộ luật Lao động và Nghị định 283/2026/NĐ-CP.'),
   ('Vì sao mức lương của Elite Helpers cao hơn mặt bằng?', 'Vì ứng viên được xác minh lý lịch, phỏng vấn trực tiếp, chọn theo đúng nếp nhà của từng gia đình và được theo dõi trong suốt quá trình làm việc.'),
@@ -144,7 +144,7 @@ dict(slug='kinh-nghiem-thue-bao-mau', lang='vi', service='Bảo mẫu, chăm bé
 <h2 id="hop-dong">Bước 6: Ký hợp đồng đúng luật</h2>
 <p>Hợp đồng với người giúp việc gia đình phải bằng văn bản. Gia đình cũng cần thông báo UBND cấp xã khi bắt đầu và khi kết thúc hợp đồng. Xem đủ các bước tại {LEGAL} và <a href="/mau-hop-dong-giup-viec-gia-dinh.docx" download>tải mẫu hợp đồng</a>.</p>''',
  faq=[
-  ('Lương bảo mẫu ở Hà Nội bao nhiêu?', 'Tại Elite Helpers, lương tham khảo cho bảo mẫu, người chăm bé năm 2026 là 10–25 triệu đồng/tháng, tùy kinh nghiệm, độ tuổi của bé, hình thức ở lại hay theo giờ và yêu cầu ngoại ngữ.'),
+  ('Lương bảo mẫu ở Hà Nội bao nhiêu?', 'Tại Elite Helpers, lương tham khảo cho bảo mẫu, người chăm bé năm 2026 là 75.000–90.000đ/giờ, ca 12 giờ/ngày (theo thoả thuận), tùy kinh nghiệm, độ tuổi của bé và yêu cầu ngoại ngữ.'),
   ('Nên chọn bảo mẫu đã có con hay chưa có con?', 'Nên ưu tiên người đã có con và có kinh nghiệm chăm trẻ cùng độ tuổi, vì họ hiểu nhịp sinh hoạt của trẻ và bình tĩnh hơn khi bé ốm, quấy khóc.'),
   ('Có nên cho bảo mẫu làm thử không?', 'Có. Gia đình nên cho làm thử vài ngày khi có người lớn ở nhà để quan sát cách chăm bé và phản ứng của bé trước khi ký hợp đồng.'),
   ('Bao lâu thì tìm được bảo mẫu qua Elite Helpers?', 'Thường từ vài ngày đến khoảng một tuần, tùy yêu cầu. Gia đình nhận hồ sơ ứng viên đã được xác minh, phỏng vấn trước khi gặp mặt.'),
@@ -243,7 +243,7 @@ dict(slug='hiring-helper-hanoi-expat-guide', lang='en', service='Household staff
  answer='''To hire household staff in Hanoi in 2026: agree the duties and schedule, interview and trial the candidate, sign a <strong>written contract</strong> (required by Article 162 of the 2019 Labour Code), <strong>notify the commune-level People's Committee</strong> when employment starts and ends, and pay the helper the <strong>social and health insurance amounts</strong> with the salary. Reference monthly salaries with Elite Helpers:
 <ul>
 <li><strong>Housekeeper:</strong> 10–25 million VND</li>
-<li><strong>Nanny:</strong> 10–25 million VND</li>
+<li><strong>Nanny:</strong> 75,000–90,000 VND/hour, 12-hour shift (by agreement)</li>
 <li><strong>Elderly caregiver:</strong> 10–25 million VND</li>
 <li><strong>Family cook:</strong> 15–35 million VND</li>
 <li><strong>House manager:</strong> 18–40 million VND</li>
@@ -254,7 +254,7 @@ dict(slug='hiring-helper-hanoi-expat-guide', lang='en', service='Household staff
 <thead><tr><th>Role</th><th>Monthly salary (paid to the helper)</th></tr></thead>
 <tbody>
 <tr><td>Housekeeper (live-in or part-time)</td><td>10–25 million VND</td></tr>
-<tr><td>Nanny</td><td>10–25 million VND</td></tr>
+<tr><td>Nanny</td><td>75,000–90,000 VND/hour, 12-hour shift (by agreement)</td></tr>
 <tr><td>Elderly caregiver</td><td>10–25 million VND</td></tr>
 <tr><td>Family cook</td><td>15–35 million VND</td></tr>
 <tr><td>House manager</td><td>18–40 million VND</td></tr>
@@ -288,7 +288,7 @@ dict(slug='hiring-helper-hanoi-expat-guide', lang='en', service='Household staff
 </ul>
 <p><a href="/en">Learn more about Elite Helpers in English</a> or send a request through our English form.</p>''',
  faq=[
-  ('How much does a housekeeper cost in Hanoi?', 'With Elite Helpers, reference monthly salaries in 2026 are 10–25 million VND for a housekeeper, 10–25 million for a nanny, 10–25 million for an elderly caregiver, 15–35 million for a family cook and 18–40 million for a house manager.'),
+  ('How much does a housekeeper cost in Hanoi?', 'With Elite Helpers, reference monthly salaries in 2026 are 10–25 million VND for a housekeeper, 75,000–90,000 VND/hour (12-hour shift) for a nanny, 10–25 million for an elderly caregiver, 15–35 million for a family cook and 18–40 million for a house manager.'),
   ('Do I need a contract with my helper in Vietnam?', 'Yes. Article 162 of the 2019 Labour Code requires a written contract with a domestic worker, and employers must notify the commune-level People\'s Committee when employment starts and ends.'),
   ('Can I find an English-speaking nanny in Hanoi?', 'Yes. Elite Helpers introduces nannies, housekeepers and house managers with basic to good English, checked at interview.'),
   ('Which areas of Hanoi do you cover?', 'Central Hanoi, including Tay Ho, Ba Dinh, Hoan Kiem, Dong Da, Cau Giay, Nam Tu Liem and Long Bien, plus nearby Bac Ninh and Hung Yen.'),

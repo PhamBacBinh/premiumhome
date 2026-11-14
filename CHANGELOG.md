@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261027a (mới nhất) | **bản 19** | Form ứng viên khai đủ các mục như hồ sơ trong Kho; CV ghi đủ nơi ở (web vẫn chạy với bản 18, nhưng các mục mới chưa vào Kho) |
+| 20261114a (mới nhất) | **bản 19** | Bảng giá dịch vụ; lương bảo mẫu theo giờ (không cần đổi Apps Script) |
+| 20261027a | **bản 19** | Form ứng viên khai đủ các mục như hồ sơ trong Kho; CV ghi đủ nơi ở (web vẫn chạy với bản 18, nhưng các mục mới chưa vào Kho) |
 | 20261026h | **bản 18** | Tin tuyển dụng sửa được trên /quan-tri; thẻ tin gọn, trang chi tiết /viec-lam (web vẫn chạy với bản 17, hiện tin in sẵn, chưa sửa được) |
 | 20261026g | **bản 17** | Tin tuyển dụng ứng tuyển trực tiếp; trang Tin tức riêng |
 | 20261026f | **bản 17** | Kho khách hàng; form ứng viên chuẩn hóa |
@@ -33,6 +34,12 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261114a] – 14/11/2026 · Bảng giá dịch vụ, lương bảo mẫu theo giờ (không cần đổi Apps Script)
+- Khối **Bảng giá dịch vụ** (#bang-gia): trang chủ ngay dưới banner, /dich-vu ở đầu trang. Phí 01 tháng lương NLĐ; khách mới -15% (thanh toán 85%); thanh toán 50% ngày làm việc đầu tiên, 50% khi hết thử việc (tối đa 06 ngày làm việc, khoản 4 Điều 25 BLLĐ 2019); bảo hành thay 01 NLĐ trong thử việc/tháng đầu. Nút "Đăng ký tư vấn" mở form #tim-nguoi. Banner trang chủ có thẻ nhắc "-15% khách mới" dẫn xuống bảng giá.
+- Nội dung khối giá sửa tại `nguon-ma/v2/content.py` (PRICE_BLOCK, PRICE_TEASER).
+- Lương bảo mẫu: 75.000–90.000đ/giờ, ca 12 giờ/ngày (theo thoả thuận) — trang /bao-mau-cham-be, /dich-vu, Hỏi đáp trang chủ, bài cẩm nang giá thuê/kinh nghiệm thuê bảo mẫu, bản EN, vị trí tuyển thường xuyên, tin mẫu EH-BM-2510, EH-BM-2610.
+- Tin tuyển dụng: để trống "Lương từ/đến" thì web hiển thị nội dung ô "Ghi chú lương" làm mức lương (dùng cho lương theo giờ). Trang quản trị không đổi.
 
 ## [20261027a] – 27/10/2026 · Form ứng viên đầy đủ như hồ sơ Kho (cần Apps Script bản 19)
 - Form "Hồ sơ ứng tuyển" (#ung-tuyen) làm lại theo đúng các mục của "Sửa hồ sơ" trên /quan-tri, 4 bước:

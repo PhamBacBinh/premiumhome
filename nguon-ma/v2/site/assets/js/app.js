@@ -769,7 +769,8 @@
     const FORM_POS = ['Giúp việc gia đình', 'Bảo mẫu, chăm bé', 'Chăm sóc người già', 'Quản gia', 'Đầu bếp gia đình'];
     const today = (() => { const d = new Date(Date.now() + 7 * 3600e3); return d.toISOString().slice(0, 10); })();
     const num = (v) => { const f = parseFloat(String(v == null ? '' : v).replace(',', '.')); return isNaN(f) ? '' : String(+f.toFixed(2)).replace('.', ','); };
-    const salary = (j) => { const a = num(j.luongTu), b = num(j.luongDen); return a && b ? `${a}–${b} triệu/tháng` : a ? `Từ ${a} triệu/tháng` : b ? `Đến ${b} triệu/tháng` : 'Thỏa thuận'; };
+    const salary = (j) => { const a = num(j.luongTu), b = num(j.luongDen); return a && b ? `${a}–${b} triệu/tháng` : a ? `Từ ${a} triệu/tháng` : b ? `Đến ${b} triệu/tháng` : (String(j.luongGhiChu || '').trim() || 'Thỏa thuận'); };
+    const salNote = (j) => (salary(j) === String(j.luongGhiChu || '').trim() ? '' : j.luongGhiChu);
     const isOpen = (j) => j.trangThai === 'Đang tuyển' && (!j.hanTin || j.hanTin >= today);
     const dateVi = (iso) => (iso && iso.length >= 10 ? `${iso.slice(8, 10)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}` : '');
     const has13 = (j) => /^c[oó]/i.test(String(j.thang13 || '').trim());
@@ -841,7 +842,7 @@
       title.textContent = j.tenViTri;
       const fact = (k, v, sub, wide) => `<li${wide ? ' class="w"' : ''}><span>${k}</span><b>${esc(v || ASK)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</li>`;
       top.innerHTML = `<ul class="jd-facts" role="list">
-        ${fact('Mức lương', salary(j), j.luongGhiChu)}
+        ${fact('Mức lương', salary(j), salNote(j))}
         ${fact('Ngày nghỉ', j.ngayNghi)}
         ${fact('Tháng lương 13', j.thang13)}
         ${fact('Thời gian cần', j.thoiGianCan)}
@@ -863,7 +864,7 @@
       if (op) {
         const ld = { '@context': 'https://schema.org', '@type': 'JobPosting', title: j.tenViTri,
           description: [rich(j.moTa), j.yeuCau ? '<p><b>Yêu cầu:</b></p>' + rich(j.yeuCau) : '', j.quyenLoi ? '<p><b>Quyền lợi:</b></p>' + rich(j.quyenLoi) : '',
-            `<p>Mức lương: ${esc(salary(j))}${j.luongGhiChu ? ' (' + esc(j.luongGhiChu) + ')' : ''}. Elite Helpers không thu phí người lao động.</p>`].join(''),
+            `<p>Mức lương: ${esc(salary(j))}${salNote(j) ? ' (' + esc(salNote(j)) + ')' : ''}. Elite Helpers không thu phí người lao động.</p>`].join(''),
           identifier: { '@type': 'PropertyValue', name: 'Elite Helpers', value: j.ma }, datePosted: j.ngayDang || today,
           employmentType: 'FULL_TIME', directApply: true, hiringOrganization: { '@type': 'Organization', name: 'Elite Helpers', sameAs: 'https://giupviecelite.vn', logo: 'https://giupviecelite.vn/logo-square-512.png' },
           jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', addressLocality: j.diaDiem || j.tinh || 'Hà Nội', addressRegion: j.tinh || 'Hà Nội', addressCountry: 'VN' } } };

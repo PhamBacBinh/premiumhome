@@ -28,7 +28,7 @@ SERVICES = [
   related=['bao-mau-cham-be', 'dau-bep-gia-dinh', 'ho-tro-ngan-han'],
  ),
  dict(
-  slug='bao-mau-cham-be', salary='10–25 triệu đồng/tháng', name='Bảo mẫu, chăm bé', img='bao-mau', tag='Sơ sinh & trẻ nhỏ',
+  slug='bao-mau-cham-be', salary='75.000–90.000đ/giờ, ca 12 giờ/ngày (theo thoả thuận)', name='Bảo mẫu, chăm bé', img='bao-mau', tag='Sơ sinh & trẻ nhỏ',
   title='Bảo mẫu, người chăm bé tại nhà Hà Nội | Elite Helpers',
   h1='Bảo mẫu chăm bé tại nhà ở Hà Nội',
   desc='Bảo mẫu chăm trẻ sơ sinh, trẻ nhỏ tại nhà ở Hà Nội, có người nói tiếng Anh. Xác minh lý lịch, phỏng vấn trực tiếp, gia đình gặp mặt và cho làm thử.',
@@ -104,3 +104,26 @@ SERVICES = [
  ),
 ]
 SVC = {s['slug']: s for s in SERVICES}
+
+# ---------------- BẢNG GIÁ DỊCH VỤ (trang chủ: ngay dưới banner; /dich-vu: đầu trang) ----------------
+# Thử việc tối đa 06 ngày làm việc: khoản 4 Điều 25 Bộ luật Lao động 2019 (công việc không yêu cầu trình độ trung cấp trở lên).
+PRICE_BLOCK = '''<section id="bang-gia" class="price-sec on-light" aria-labelledby="bg-title">
+  <div class="shell">
+    <div class="price-card">
+      <div class="price-main">
+        <p class="price-eyebrow">Bảng giá dịch vụ</p>
+        <h2 id="bg-title" class="price-h">Phí dịch vụ <span>01 tháng lương</span></h2>
+        <p class="price-sub">của người lao động, tính một lần khi gia đình nhận người.</p>
+        <p class="price-deal"><span class="price-tag">-15% khách mới</span> Khách hàng mới chỉ thanh toán <b>85% phí</b>.</p>
+        <a class="btn btn-brass price-cta" href="#tim-nguoi" data-open="khach" data-track="price_cta">Đăng ký tư vấn</a>
+      </div>
+      <ul class="price-terms" role="list">
+        <li><span class="price-ic" aria-hidden="true">1</span><div><b>Thanh toán 2 đợt</b><p>50% vào ngày làm việc đầu tiên; 50% còn lại khi kết thúc thử việc (thử việc tối đa 06 ngày làm việc).</p></div></li>
+        <li><span class="price-ic" aria-hidden="true">2</span><div><b>Bảo hành thay người</b><p>Trong thời gian thử việc hoặc tháng làm việc đầu tiên, nếu người lao động nghỉ việc vì bất kỳ lý do gì, Elite Helpers tuyển thay thế miễn phí 01 người phù hợp.</p></div></li>
+        <li><span class="price-ic" aria-hidden="true">3</span><div><b>Lương bảo mẫu tham khảo</b><p>75.000–90.000đ/giờ, ca 12 giờ/ngày (theo thoả thuận với gia đình).</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>'''
+
+PRICE_TEASER = '<a class="price-teaser" href="#bang-gia"><span class="price-tag">-15% khách mới</span><span>Phí dịch vụ 01 tháng lương · Bảo hành thay người</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>'

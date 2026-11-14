@@ -2,7 +2,7 @@
 """Build giupviecelite.vn v2: subpages, JSON-LD, llms.txt, sitemap, flat dist/."""
 import os, re, json, shutil, html, hashlib
 from bs4 import BeautifulSoup
-from content import SERVICES, SVC, PROCESS, SITE
+from content import SERVICES, SVC, PROCESS, SITE, PRICE_BLOCK, PRICE_TEASER
 import pages_extra as X
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -10,10 +10,10 @@ SRC = os.path.join(ROOT, 'site')
 GEN = os.path.join(ROOT, 'gen')          # generated pages (structured paths)
 DIST = os.path.join(ROOT, 'dist')        # flat output for GitHub upload
 TODAY = '2026-10-27'
-VER = '20261112a'
+VER = '20261114a'
 E = html.escape
 
-home = open(os.path.join(SRC, 'index.html'), encoding='utf-8').read()
+home = open(os.path.join(SRC, 'index.html'), encoding='utf-8').read().replace('<!--PRICE_BLOCK-->', PRICE_BLOCK).replace('<!--PRICE_TEASER-->', PRICE_TEASER)
 
 # ---------------- shared chunks from home ----------------
 body_start = home.index('<body>') + len('<body>')
