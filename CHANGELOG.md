@@ -43,6 +43,7 @@ Apps Script mới luôn chạy được với web cũ (tương thích ngược).
 ## [20261114a] – 14/11/2026 · Bảng giá dịch vụ, lương bảo mẫu theo giờ (không cần đổi Apps Script)
 - Khối **Bảng giá dịch vụ** (#bang-gia): trang chủ ngay dưới banner, /dich-vu ở đầu trang. Phí 01 tháng lương NLĐ; khách mới -15% (thanh toán 85%); thanh toán 50% ngày làm việc đầu tiên, 50% khi hết thử việc (tối đa 06 ngày làm việc, khoản 4 Điều 25 BLLĐ 2019); bảo hành thay 01 NLĐ trong thử việc/tháng đầu. Nút "Đăng ký tư vấn" mở form #tim-nguoi. Banner trang chủ có thẻ nhắc "-15% khách mới" dẫn xuống bảng giá.
 - 14/11 chiều: làm rõ "Phí dịch vụ trả 01 lần duy nhất, bằng 01 tháng lương NLĐ, không phải phí hằng tháng" + ví dụ 25 triệu → 21,25 triệu cho khách mới.
+- 14/11 18h: nhãn "-15% khách mới" đổi thành "Giảm 15% cho các khách hàng mới".
 - 14/11 tối: bố cục mới — dải "Cam kết với người lao động: không thu bất kỳ khoản phí nào" đầu khối giá; tiêu đề "Gia đình thanh toán phí dịch vụ 01 lần duy nhất"; bảng ví dụ 25 triệu → 21,25 triệu; chip cam kết trên đầu /tuyen-dung và /viec-lam (PLEDGE_CHIP).
 - Nội dung khối giá sửa tại `nguon-ma/v2/content.py` (PRICE_BLOCK, PRICE_TEASER).
 - Lương bảo mẫu: 75.000–90.000đ/giờ, ca 12 giờ/ngày (theo thoả thuận) — trang /bao-mau-cham-be, /dich-vu, Hỏi đáp trang chủ, bài cẩm nang giá thuê/kinh nghiệm thuê bảo mẫu, bản EN, vị trí tuyển thường xuyên, tin mẫu EH-BM-2510, EH-BM-2610.

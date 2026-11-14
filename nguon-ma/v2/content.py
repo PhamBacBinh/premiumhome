@@ -125,7 +125,7 @@ PRICE_BLOCK = f'''<section id="bang-gia" class="price-sec on-light" aria-labelle
             <tbody>
               <tr><th scope="row">Lương thoả thuận</th><td>25 triệu/tháng</td></tr>
               <tr><th scope="row">Phí dịch vụ (gia đình trả 1 lần)</th><td>25 triệu</td></tr>
-              <tr class="price-ex-new"><th scope="row"><span class="price-tag">-15% khách mới</span></th><td><b>21,25 triệu</b></td></tr>
+              <tr class="price-ex-new"><th scope="row">Giảm 15% cho các khách hàng mới</th><td><b>21,25 triệu</b></td></tr>
             </tbody>
           </table>
           <p class="price-deal">Gia đình sử dụng dịch vụ lần đầu chỉ thanh toán <b>85% phí</b>.</p>
@@ -141,7 +141,7 @@ PRICE_BLOCK = f'''<section id="bang-gia" class="price-sec on-light" aria-labelle
   </div>
 </section>'''
 
-PRICE_TEASER = '<a class="price-teaser" href="#bang-gia"><span class="price-tag">-15% khách mới</span><span>Phí trả 1 lần · Không thu phí người lao động</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>'
+PRICE_TEASER = '<a class="price-teaser" href="#bang-gia"><span class="price-tag">Giảm 15% cho các khách hàng mới</span><span>Phí trả 1 lần · Không thu phí người lao động</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>'
 
 # Chip cam kết trên đầu trang Tuyển dụng / chi tiết tin (nền tối)
 PLEDGE_CHIP = f'<p class="pledge-chip"><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Cam kết:</b> {PLEDGE_TEXT}</span></p>'

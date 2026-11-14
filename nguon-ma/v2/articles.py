@@ -40,7 +40,7 @@ dict(slug='phi-dich-vu-giup-viec-bao-mau', lang='vi', service='Bảo mẫu chăm
 <tbody>
 <tr><td>Lương thoả thuận</td><td>25 triệu/tháng</td></tr>
 <tr><td>Phí dịch vụ (gia đình trả 1 lần)</td><td>25 triệu</td></tr>
-<tr><td>Khách hàng mới (-15%)</td><td><strong>21,25 triệu</strong></td></tr>
+<tr><td>Giảm 15% cho các khách hàng mới</td><td><strong>21,25 triệu</strong></td></tr>
 </tbody></table></div>
 
 <h2 id="thanh-toan">3. Thanh toán 2 đợt</h2>
