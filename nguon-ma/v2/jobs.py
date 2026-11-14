@@ -176,6 +176,7 @@ def detail_page(g):
     {g['crumbs_html'](crumbs)}
     <span class="eyebrow" data-job-eyebrow>Tin tuyển dụng</span>
     <h1 id="pg-title" class="t-display mt-4 jd-title" data-job-title>Đang tải tin tuyển dụng…</h1>
+    {__import__('content').PLEDGE_CHIP}
     <div data-job-top></div>
   </div>
 </section>

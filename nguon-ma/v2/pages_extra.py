@@ -23,6 +23,7 @@ def recruit_page(g):
     {g['crumbs_html'](crumbs)}
     <span class="eyebrow">Việc làm cho người lao động</span>
     <h1 id="pg-title" class="t-display mt-4" style="max-width:22ch">Tuyển giúp việc, bảo mẫu, chăm sóc người già tại Hà Nội</h1>
+    {__import__('content').PLEDGE_CHIP}
     <p class="t-lead mt-6 max-w-[56ch] text-mist">Làm việc cho gia đình Việt Nam, gia đình người nước ngoài và đại sứ quán tại Hà Nội. Có hợp đồng, công việc ổn định, không thu phí người lao động.</p>
     <div class="mt-9 flex flex-wrap gap-3">
       <a class="btn btn-brass" href="#viec-dang-tuyen">Xem việc đang tuyển</a>
