@@ -5,6 +5,52 @@ import html
 E = html.escape
 
 POSTS = [
+dict(no=6, slug='nghi-le-24-11-tet-2027-nguoi-giup-viec', date='2026-11-19', date_vi='19/11/2026',
+     tag='Nghỉ lễ, Tết',
+     title='Nghỉ 24/11 và Tết Đinh Mùi 2027: chị em giúp việc được nghỉ thế nào, đi làm được trả lương ra sao?',
+     sapo='Ngày Văn hóa Việt Nam 24/11 năm nay là ngày nghỉ hưởng nguyên lương đầu tiên, còn Tết Đinh Mùi 2027 đã có lịch nghỉ chính thức. Elite Helpers tóm tắt lịch nghỉ và cách tính lương khi chị em đồng ý ở lại làm cùng gia đình.',
+     src_short='Chinhphu.vn, Dân trí, VTV, Tuổi Trẻ',
+     body='''
+<h2>Ngày 24/11: lần đầu có thêm một ngày nghỉ hưởng lương</h2>
+<p>Theo Cổng Chính sách (Chinhphu.vn, 18/11/2026), Quốc hội đã thông qua Nghị quyết về phát triển văn hóa Việt Nam ngày 24/4/2026, xác định ngày 24/11 hằng năm là “Ngày Văn hóa Việt Nam”, người lao động được nghỉ và hưởng nguyên lương.</p>
+<ul>
+<li><strong>Năm 2026:</strong> nghỉ 1 ngày vào <strong>thứ Ba, 24/11/2026</strong>, không hoán đổi ngày làm việc.</li>
+<li><strong>Năm 2027:</strong> 24/11 rơi vào thứ Tư, tiếp tục nghỉ 1 ngày (Tuổi Trẻ, 14/10/2026).</li>
+<li>Chị em giúp việc nên trao đổi sớm với gia đình: nghỉ trọn ngày, hoặc đồng ý đi làm và nhận lương ngày lễ như mục dưới.</li>
+</ul>
+
+<h2>Lịch nghỉ Tết Nguyên đán Đinh Mùi 2027</h2>
+<p>Văn phòng Chính phủ đã thông báo phương án nghỉ Tết 7 ngày cho cán bộ, công chức (VTV, 2/10/2026). Với người lao động làm cho gia đình, doanh nghiệp, Bộ luật Lao động 2019 quy định 5 ngày nghỉ Tết hưởng nguyên lương; lịch cụ thể do hai bên thỏa thuận.</p>
+<table>
+<tr><th>Nội dung</th><th>Thời gian</th></tr>
+<tr><td>Nghỉ Tết của cán bộ, công chức</td><td>Thứ Năm 4/2/2027 (28 tháng Chạp) đến hết thứ Tư 10/2/2027 (mùng 5 Tết), <strong>7 ngày</strong></td></tr>
+<tr><td>Ngày nghỉ Tết hưởng lương theo luật</td><td><strong>5 ngày</strong> Tết âm lịch</td></tr>
+<tr><td>Ví dụ doanh nghiệp nghỉ dài</td><td>Một số công ty cho nghỉ 9–12 ngày, như từ 3/2 đến hết 14/2/2027 (Dân trí, 7/11/2026)</td></tr>
+</table>
+
+<h2>Đi làm ngày lễ, Tết: lương ít nhất 300%</h2>
+<p>Theo Dân trí (19/11/2026), làm việc vào ngày lễ, Tết cần có <strong>sự đồng ý của người lao động</strong>. Khi đó, chị em được trả ít nhất <strong>300% tiền lương</strong> của ngày làm việc bình thường, chưa kể tiền lương ngày lễ vẫn được hưởng (Điều 98 Bộ luật Lao động 2019). Làm ban đêm (22h–6h) được trả thêm ít nhất 30%.</p>
+<p><strong>Ví dụ minh họa của Elite Helpers:</strong> lương 9 triệu đồng/tháng, giả sử tính 26 ngày công, mỗi ngày khoảng 346.000 đồng. Ở lại làm mùng 1 Tết, chị em nhận thêm ít nhất khoảng <strong>1,04 triệu đồng</strong> cho ngày đó, ngoài lương tháng.</p>
+
+<h2>Thưởng Tết: nên ghi rõ từ đầu</h2>
+<p>Theo Điều 104 Bộ luật Lao động 2019 (Dân trí dẫn lại), thưởng là khoản do người sử dụng lao động quyết định, không bắt buộc. Vì vậy, cách chắc chắn nhất là thỏa thuận ngay trong hợp đồng:</p>
+<ol>
+<li><strong>Lịch nghỉ Tết:</strong> nghỉ từ ngày nào đến ngày nào, ngày nào quay lại.</li>
+<li><strong>Lương những ngày ở lại làm:</strong> ghi mức cụ thể, tối thiểu theo luật.</li>
+<li><strong>Thưởng Tết, tiền tàu xe về quê:</strong> số tiền và thời điểm trả, tốt nhất trước kỳ nghỉ.</li>
+<li><strong>Người làm thay:</strong> nếu gia đình cần người trong những ngày chị em nghỉ, thống nhất sớm để cả hai bên yên tâm.</li>
+</ol>
+
+<div class="note"><strong>Ở Elite Helpers:</strong> chị em không phải trả bất kỳ khoản phí nào, được ký hợp đồng bằng văn bản ghi rõ lương, ngày nghỉ lễ, Tết và lương làm thêm; được gặp gia đình trước khi nhận việc. Elite Helpers hỗ trợ trao đổi lịch nghỉ Tết với gia đình từ sớm. Xem thêm phần <a href="/tuyen-dung#tim-viec-an-toan">Tìm việc an toàn</a>.</div>
+''',
+     sources=[('Ngày Văn hóa Việt Nam 24/11: Người lao động được nghỉ, hưởng nguyên lương – Chinhphu.vn, 18/11/2026', 'https://xaydungchinhsach.chinhphu.vn/ngay-24-11-hang-nam-la-ngay-van-hoa-viet-nam-nguoi-lao-dong-duoc-nghi-huong-nguyen-luong-119260113152642414.htm'),
+              ('Điều kiện lương, thưởng với người lao động trong ngày Văn hóa VN 24/11 – Dân trí, 19/11/2026', 'https://dantri.com.vn/lao-dong-viec-lam/dieu-kien-luong-thuong-voi-nguoi-lao-dong-trong-ngay-van-hoa-vn-2411-20261118150708522.htm'),
+              ('Thương lượng với doanh nghiệp về thời gian nghỉ Tết, tiền thưởng – Dân trí, 7/11/2026', 'https://dantri.com.vn/lao-dong-viec-lam/thuong-luong-voi-doanh-nghiep-ve-thoi-gian-nghi-tet-tien-thuong-20261107085307504.htm'),
+              ('Chính phủ chốt nghỉ Tết Nguyên đán 7 ngày: có nơi nghỉ 12 ngày – Tuổi Trẻ, 14/10/2026', 'https://tuoitre.vn/chinh-phu-chot-nghi-tet-nguyen-dan-7-ngay-co-noi-nghi-12-ngay-100261013223051997.htm'),
+              ('Chốt nghỉ 7 ngày dịp Tết Nguyên đán năm 2027, nghỉ Quốc khánh 4 ngày – VTV, 2/10/2026', 'https://vtv.vn/chot-nghi-7-ngay-dip-tet-nguyen-dan-nam-2027-nghi-quoc-khanh-4-ngay-100261002184331043.htm')],
+     cover=dict(big='Ít nhất 300%', label='tiền lương khi chị em đồng ý đi làm ngày lễ, Tết, chưa kể lương ngày lễ được hưởng', note='Ngày Văn hóa Việt Nam 24/11 · Tết Đinh Mùi 2027', tone='green'),
+     prompt='KÊNH: WEBSITE – BẢN TIN. Photorealistic 16:9 photo: a cheerful Vietnamese woman in her mid-40s with shoulder-length wavy hair, wearing a burgundy knit cardigan over a cream blouse, standing at the front door of a modern Hanoi apartment with a small navy rolling suitcase, about to go home for Lunar New Year; an elderly Vietnamese couple in warm sweaters smile and hand her a small wrapped gift box; a blooming pink peach-blossom branch in a ceramic vase and a bowl of kumquats on a side table, soft late-afternoon light, warm grateful mood, cream, deep green and soft gold tones, no readable text, no logo.'),
+
 dict(no=5, slug='bhxh-tu-nguyen-2027-nguoi-giup-viec', date='2026-11-12', date_vi='12/11/2026',
      tag='Bảo hiểm',
      title='BHXH tự nguyện từ 1/1/2027: mức đóng thấp nhất 484.000 đồng, chị em giúp việc nên biết gì?',
