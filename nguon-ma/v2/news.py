@@ -5,6 +5,50 @@ import html
 E = html.escape
 
 POSTS = [
+dict(no=7, slug='ngoai-40-tuoi-tim-viec-giup-viec-gia-dinh', date='2026-11-26', date_vi='26/11/2026',
+     tag='Thị trường việc làm',
+     title='Ngoài 40 tuổi tìm việc: kinh nghiệm chăm nhà là lợi thế với nghề giúp việc gia đình',
+     sapo='Nhiều lao động trung niên đang tìm hướng đi mới, trong khi gia đình thành phố ngày càng cần người chăm nhà, chăm trẻ và người cao tuổi. Elite Helpers tóm tắt bức tranh mới nhất và gợi ý cách chị em biến kinh nghiệm của mình thành một công việc ổn định.',
+     src_short='VnExpress, Tiền Phong',
+     body='''
+<h2>Lao động trung niên đang tìm hướng đi mới</h2>
+<p>Theo Tiền Phong (26/11/2026), dẫn số liệu của Sở Nội vụ TP.HCM, tính đến 25/10 năm nay Trung tâm Dịch vụ việc làm thành phố đã tiếp nhận hơn <strong>191.300 hồ sơ</strong> đề nghị hưởng trợ cấp thất nghiệp, tăng 6,47% so với cùng kỳ năm 2025. Trong đó, lao động trung niên chiếm <strong>hơn 50%</strong> và tỷ lệ nữ cao hơn nam.</p>
+<ul>
+<li>Nhiều doanh nghiệp ưu tiên nhân sự trẻ, yêu cầu thêm ngoại ngữ và kỹ năng số.</li>
+<li>Trung tâm Dịch vụ việc làm TP.HCM khuyến khích người lao động học các khóa ngắn hạn như nấu ăn, pha chế, trang điểm để mở rộng cơ hội.</li>
+<li>Chuyên gia nhân sự khuyên người lao động chủ động học kỹ năng mới và sẵn sàng thử một lĩnh vực khác.</li>
+</ul>
+
+<h2>Giúp việc gia đình: nghề cần sự chín chắn</h2>
+<p>Trong một bài viết trên VnExpress (24/11/2026), tác giả Khánh Hưng cho rằng dọn nhà, nấu ăn, chăm trẻ hay làm theo giờ có thể giúp lao động ngoài 40 tuổi tiếp tục có thu nhập. Nhu cầu ổn định vì ngày càng nhiều gia đình có cả vợ và chồng đi làm toàn thời gian. Tác giả viết: “Tôi nghĩ giúp việc gia đình là một lựa chọn việc làm đáng được nhìn nhận nghiêm túc hơn.”</p>
+<p>Bài viết cũng nêu điều kiện để nghề phát triển bền vững: có đơn vị kết nối lao động, chương trình đào tạo kỹ năng, tiêu chuẩn công việc và thỏa thuận tiền công minh bạch. Đây cũng là những điều chị em nên tìm khi chọn nơi nhận việc.</p>
+
+<h2>Kinh nghiệm nào của chị em là lợi thế?</h2>
+<p>Gợi ý của Elite Helpers để chị em tự đối chiếu trước khi ứng tuyển:</p>
+<table>
+<tr><th>Kinh nghiệm sẵn có</th><th>Vị trí phù hợp</th><th>Nên bổ sung</th></tr>
+<tr><td>Nấu cơm gia đình nhiều năm, quen chợ búa</td><td>Giúp việc nấu ăn, quản gia</td><td>Thực đơn theo tuần, an toàn thực phẩm, món ăn cho trẻ nhỏ</td></tr>
+<tr><td>Đã nuôi con nhỏ, chăm cháu</td><td>Bảo mẫu, đưa đón trẻ</td><td>Sơ cứu cơ bản, nề nếp sinh hoạt của trẻ</td></tr>
+<tr><td>Từng chăm ông bà, cha mẹ</td><td>Chăm sóc người cao tuổi</td><td>Hỗ trợ di chuyển an toàn, theo dõi giờ uống thuốc theo chỉ dẫn của gia đình</td></tr>
+<tr><td>Gọn gàng, quen việc nhà</td><td>Giúp việc theo giờ, dọn dẹp</td><td>Dùng máy móc gia dụng hiện đại, phân loại đồ giặt, vệ sinh đồ đạc cao cấp</td></tr>
+</table>
+
+<h2>Chuẩn bị gì trước buổi gặp gia đình?</h2>
+<ol>
+<li><strong>Kể kinh nghiệm bằng việc cụ thể:</strong> ví dụ “nấu cơm cho gia đình 5 người trong 15 năm”, “chăm mẹ chồng sau mổ 6 tháng”.</li>
+<li><strong>Nói rõ mong muốn:</strong> làm cả ngày hay theo giờ, ở lại hay về trong ngày, khu vực thuận tiện đi lại.</li>
+<li><strong>Hỏi rõ phạm vi công việc:</strong> mấy người trong nhà, có trẻ nhỏ hay người cao tuổi không, giờ giấc mỗi ngày.</li>
+<li><strong>Thống nhất bằng văn bản:</strong> lương, ngày nghỉ, cách tính làm thêm giờ, ngày lễ, Tết.</li>
+<li><strong>Tự giữ giấy tờ tùy thân:</strong> chỉ cung cấp bản sao khi cần làm hợp đồng.</li>
+</ol>
+
+<div class="note"><strong>Ở Elite Helpers:</strong> chị em không phải trả bất kỳ khoản phí nào, được ký hợp đồng bằng văn bản ghi rõ lương, giờ làm, ngày nghỉ và được gặp gia đình trước khi nhận việc. Kinh nghiệm chăm nhà, chăm trẻ, chăm người cao tuổi của chị em được trân trọng; Elite Helpers giới thiệu vị trí phù hợp với sở trường và khu vực sinh sống tại Hà Nội. Xem các vị trí đang tuyển tại <a href="/tuyen-dung">trang Tuyển dụng</a>.</div>
+''',
+     sources=[('Nhiều người cần tuyển giúp việc đưa đón con, nấu cơm, dọn nhà lương 5 triệu – VnExpress, 24/11/2026', 'https://vnexpress.net/tuyen-dung-nguoi-giup-viec-tra-luong-5-trieu-dong-mot-thang-5148387.html'),
+              ('Có bằng cấp, nhiều kinh nghiệm, vì sao khó xin việc? – Tiền Phong, 26/11/2026', 'https://tienphong.vn/co-bang-cap-nhieu-kinh-nghiem-vi-sao-kho-xin-viec-post1897325.tpo')],
+     cover=dict(big='Ngoài 40 tuổi', label='kinh nghiệm nấu ăn, chăm trẻ, chăm người cao tuổi là lợi thế khi tìm việc giúp việc gia đình', note='VnExpress 24/11 · Tiền Phong 26/11/2026', tone='gold'),
+     prompt='KÊNH: WEBSITE – BẢN TIN. Photorealistic 16:9 photo: a confident Vietnamese woman in her late 40s with a short layered bob and small pearl earrings, wearing a teal polo shirt and a beige linen apron, plating a colourful home-cooked meal (braised fish, stir-fried greens, soup) in a bright modern kitchen of a Hanoi apartment; a young Vietnamese mother in office wear holding a laptop bag pauses beside her and smiles approvingly, a 5-year-old boy in a school uniform peeks at the food; morning sunlight through large windows, potted herbs on the counter, warm cream, soft gold and deep green tones, no readable text, no logo.'),
+
 dict(no=6, slug='nghi-le-24-11-tet-2027-nguoi-giup-viec', date='2026-11-19', date_vi='19/11/2026',
      tag='Nghỉ lễ, Tết',
      title='Nghỉ 24/11 và Tết Đinh Mùi 2027: chị em giúp việc được nghỉ thế nào, đi làm được trả lương ra sao?',

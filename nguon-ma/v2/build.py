@@ -10,7 +10,7 @@ SRC = os.path.join(ROOT, 'site')
 GEN = os.path.join(ROOT, 'gen')          # generated pages (structured paths)
 DIST = os.path.join(ROOT, 'dist')        # flat output for GitHub upload
 TODAY = '2026-10-27'
-VER = '20261119a'
+VER = '20261126a'
 E = html.escape
 
 home = open(os.path.join(SRC, 'index.html'), encoding='utf-8').read().replace('<!--PRICE_BLOCK-->', PRICE_BLOCK).replace('<!--PRICE_TEASER-->', PRICE_TEASER)
