@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261127b (mới nhất) | **bản 19** | Bỏ -15%, thanh toán 1 lần ngày thứ 3, bảo hành mới |
+| 20261127c (mới nhất) | **bản 19** | Bảng giá lên đầu trang chủ |
+| 20261127b | **bản 19** | Bỏ -15%, thanh toán 1 lần ngày thứ 3, bảo hành mới |
 | 20261127a | **bản 19** | Phí dịch vụ cố định theo vị trí (không cần đổi Apps Script) |
 | 20261114a | **bản 19** | Bảng giá dịch vụ; lương bảo mẫu theo giờ (không cần đổi Apps Script) |
 | 20261027a | **bản 19** | Form ứng viên khai đủ các mục như hồ sơ trong Kho; CV ghi đủ nơi ở (web vẫn chạy với bản 18, nhưng các mục mới chưa vào Kho) |
@@ -36,6 +37,10 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261127c] – 27/11/2026 · Bảng giá lên đầu trang chủ
+- Trang chủ: khối Bảng giá (cam kết NLĐ, phí theo vị trí, thanh toán, bảo hành, lương thử việc) đặt ngay đầu trang, trên banner; nền tối để header đọc rõ (marker `<!--PRICE_BLOCK_HOME-->` trong site/index.html, build.py).
+- Bỏ thẻ nhắc giá trong banner (trùng với khối giá phía trên); banner giảm khoảng cách trên.
 
 ## [20261127b] – 27/11/2026 · Bỏ ưu đãi 15%, thanh toán 1 lần, bảo hành mới
 - Bỏ ưu đãi giảm 15% khách mới (khối giá, thẻ nhắc trên banner, bài phí dịch vụ). Thẻ nhắc banner: "Phí dịch vụ từ 5 triệu đồng".

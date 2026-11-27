@@ -10,10 +10,10 @@ SRC = os.path.join(ROOT, 'site')
 GEN = os.path.join(ROOT, 'gen')          # generated pages (structured paths)
 DIST = os.path.join(ROOT, 'dist')        # flat output for GitHub upload
 TODAY = '2026-10-27'
-VER = '20261127b'
+VER = '20261127c'
 E = html.escape
 
-home = open(os.path.join(SRC, 'index.html'), encoding='utf-8').read().replace('<!--PRICE_BLOCK-->', PRICE_BLOCK).replace('<!--PRICE_TEASER-->', PRICE_TEASER)
+home = open(os.path.join(SRC, 'index.html'), encoding='utf-8').read().replace('<!--PRICE_BLOCK_HOME-->', PRICE_BLOCK.replace('class="price-sec on-light"', 'class="price-sec on-light" style="background:var(--color-lacquer);padding-top:calc(84px + 1.5rem)"', 1)).replace('<!--PRICE_TEASER-->', PRICE_TEASER)
 
 # ---------------- shared chunks from home ----------------
 body_start = home.index('<body>') + len('<body>')
