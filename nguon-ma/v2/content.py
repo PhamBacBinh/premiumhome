@@ -119,13 +119,15 @@ PRICE_BLOCK = f'''<section id="bang-gia" class="price-sec on-light" aria-labelle
         <div class="price-main">
           <p class="price-eyebrow">Bảng giá dịch vụ · dành cho gia đình</p>
           <h2 id="bg-title" class="price-h">Gia đình thanh toán phí dịch vụ <span>01 lần duy nhất</span></h2>
-          <div class="price-fig"><b>= 01 tháng lương</b><span>đã thoả thuận với người lao động. Không phải phí hằng tháng.</span></div>
+          <div class="price-fig"><b>Từ 5 triệu đồng</b><span>Phí cố định theo vị trí, trả 1 lần. Không phải phí hằng tháng.</span></div>
           <table class="price-ex">
-            <caption>Ví dụ tính phí</caption>
+            <caption>Phí dịch vụ theo vị trí (gia đình trả 1 lần)</caption>
             <tbody>
-              <tr><th scope="row">Lương thoả thuận</th><td>25 triệu/tháng</td></tr>
-              <tr><th scope="row">Phí dịch vụ (gia đình trả 1 lần)</th><td>25 triệu</td></tr>
-              <tr class="price-ex-new"><th scope="row">Giảm 15% cho các khách hàng mới</th><td><b>21,25 triệu</b></td></tr>
+              <tr><th scope="row">Giúp việc gia đình</th><td>5 triệu</td></tr>
+              <tr><th scope="row">Bảo mẫu, chăm bé</th><td>5 triệu</td></tr>
+              <tr><th scope="row">Chăm sóc người già</th><td>5 triệu</td></tr>
+              <tr><th scope="row">Đầu bếp gia đình</th><td>8 triệu</td></tr>
+              <tr><th scope="row">Quản gia</th><td>15 triệu</td></tr>
             </tbody>
           </table>
           <p class="price-deal">Gia đình sử dụng dịch vụ lần đầu chỉ thanh toán <b>85% phí</b>.</p>

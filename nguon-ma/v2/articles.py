@@ -22,25 +22,27 @@ ARTICLES = [
 # ---------------------------------------------------------------- 14/11/2026 · PHÍ DỊCH VỤ
 dict(slug='phi-dich-vu-giup-viec-bao-mau', lang='vi', service='Bảo mẫu chăm bé', date='2026-11-14',
  title='Phí dịch vụ giúp việc, bảo mẫu tại Elite Helpers tính thế nào?',
- desc='Gia đình trả phí dịch vụ 01 lần, bằng 01 tháng lương người lao động; khách mới giảm 15%; thanh toán 2 đợt; bảo hành thay người. Không thu phí người lao động.',
+ desc='Gia đình trả phí dịch vụ 01 lần, cố định theo vị trí: giúp việc, bảo mẫu, chăm sóc người già 5 triệu; đầu bếp 8 triệu; quản gia 15 triệu. Khách mới giảm 15%, thanh toán 2 đợt, bảo hành thay người.',
  h1='Phí dịch vụ giúp việc, bảo mẫu tại Elite Helpers tính thế nào?',
- card='Gia đình trả phí 01 lần bằng 01 tháng lương, khách mới giảm 15%, thanh toán 2 đợt, bảo hành thay người. Kèm ví dụ tính phí.',
- answer='<p>Gia đình (khách hàng) thanh toán phí dịch vụ <strong>01 lần duy nhất</strong>, bằng <strong>01 tháng lương</strong> đã thoả thuận với người lao động. Khách hàng mới được <strong>giảm 15%</strong>. Phí chia <strong>2 đợt</strong> và có <strong>bảo hành thay người</strong>. Elite Helpers không thu bất kỳ khoản phí nào của người lao động.</p>',
+ card='Phí trả 01 lần, cố định theo vị trí: 5 triệu (giúp việc, bảo mẫu, chăm sóc người già), 8 triệu (đầu bếp), 15 triệu (quản gia). Khách mới giảm 15%.',
+ answer='<p>Gia đình (khách hàng) thanh toán phí dịch vụ <strong>01 lần duy nhất</strong>, cố định theo vị trí: <strong>5 triệu đồng</strong> cho giúp việc gia đình, bảo mẫu, chăm sóc người già; <strong>8 triệu đồng</strong> cho đầu bếp gia đình; <strong>15 triệu đồng</strong> cho quản gia. Khách hàng mới được <strong>giảm 15%</strong>. Phí chia <strong>2 đợt</strong> và có <strong>bảo hành thay người</strong>. Elite Helpers không thu bất kỳ khoản phí nào của người lao động.</p>',
  body='''
 <h2 id="ai-tra">1. Ai trả phí, trả bao nhiêu?</h2>
 <ul>
 <li>Gia đình (khách hàng) là bên trả phí dịch vụ.</li>
-<li>Mức phí bằng 01 tháng lương đã thoả thuận với người lao động.</li>
+<li>Mức phí cố định theo vị trí, không phụ thuộc mức lương thoả thuận với người lao động.</li>
 <li>Phí trả một lần khi nhận người, không phải phí hằng tháng. Lương hằng tháng của người lao động là khoản riêng, theo hợp đồng giữa gia đình và người lao động.</li>
 </ul>
 
-<h2 id="vi-du">2. Ví dụ tính phí</h2>
+<h2 id="vi-du">2. Bảng phí dịch vụ theo vị trí</h2>
 <div class="tbl-wrap"><table>
-<thead><tr><th>Nội dung</th><th>Số tiền</th></tr></thead>
+<thead><tr><th>Vị trí</th><th>Phí dịch vụ (trả 1 lần)</th><th>Khách mới (giảm 15%)</th></tr></thead>
 <tbody>
-<tr><td>Lương thoả thuận</td><td>25 triệu/tháng</td></tr>
-<tr><td>Phí dịch vụ (gia đình trả 1 lần)</td><td>25 triệu</td></tr>
-<tr><td>Giảm 15% cho các khách hàng mới</td><td><strong>21,25 triệu</strong></td></tr>
+<tr><td>Giúp việc gia đình</td><td>5 triệu</td><td><strong>4,25 triệu</strong></td></tr>
+<tr><td>Bảo mẫu, chăm bé</td><td>5 triệu</td><td><strong>4,25 triệu</strong></td></tr>
+<tr><td>Chăm sóc người già</td><td>5 triệu</td><td><strong>4,25 triệu</strong></td></tr>
+<tr><td>Đầu bếp gia đình</td><td>8 triệu</td><td><strong>6,8 triệu</strong></td></tr>
+<tr><td>Quản gia</td><td>15 triệu</td><td><strong>12,75 triệu</strong></td></tr>
 </tbody></table></div>
 
 <h2 id="thanh-toan">3. Thanh toán 2 đợt</h2>
@@ -64,6 +66,7 @@ dict(slug='phi-dich-vu-giup-viec-bao-mau', lang='vi', service='Bảo mẫu chăm
 ''',
  faq=[('Phí dịch vụ có phải trả hằng tháng không?', 'Không. Gia đình chỉ trả một lần, chia 2 đợt: 50% vào ngày làm việc đầu tiên và 50% khi kết thúc thử việc.'),
       ('Người lao động có phải trả phí cho Elite Helpers không?', 'Không. Elite Helpers không thu bất kỳ khoản phí nào của người lao động.'),
+      ('Phí dịch vụ của Elite Helpers là bao nhiêu?', 'Phí trả 1 lần, cố định theo vị trí: 5 triệu đồng cho giúp việc gia đình, bảo mẫu, chăm sóc người già; 8 triệu đồng cho đầu bếp gia đình; 15 triệu đồng cho quản gia.'),
       ('Khách hàng mới được ưu đãi thế nào?', 'Gia đình sử dụng dịch vụ lần đầu được giảm 15%, chỉ thanh toán 85% phí dịch vụ.'),
       ('Lương bảo mẫu hiện nay bao nhiêu?', 'Tham khảo 75.000–90.000đ/giờ, ca 12 giờ/ngày, tùy thoả thuận với gia đình.')]),
 # ---------------------------------------------------------------- 14/11/2026 · NGƯỜI LAO ĐỘNG

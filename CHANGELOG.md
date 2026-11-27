@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261114a (mới nhất) | **bản 19** | Bảng giá dịch vụ; lương bảo mẫu theo giờ (không cần đổi Apps Script) |
+| 20261127a (mới nhất) | **bản 19** | Phí dịch vụ cố định theo vị trí (không cần đổi Apps Script) |
+| 20261114a | **bản 19** | Bảng giá dịch vụ; lương bảo mẫu theo giờ (không cần đổi Apps Script) |
 | 20261027a | **bản 19** | Form ứng viên khai đủ các mục như hồ sơ trong Kho; CV ghi đủ nơi ở (web vẫn chạy với bản 18, nhưng các mục mới chưa vào Kho) |
 | 20261026h | **bản 18** | Tin tuyển dụng sửa được trên /quan-tri; thẻ tin gọn, trang chi tiết /viec-lam (web vẫn chạy với bản 17, hiện tin in sẵn, chưa sửa được) |
 | 20261026g | **bản 17** | Tin tuyển dụng ứng tuyển trực tiếp; trang Tin tức riêng |
@@ -34,6 +35,11 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261127a] – 27/11/2026 · Bảng phí dịch vụ cố định theo vị trí
+- Phí dịch vụ (gia đình trả 1 lần) đổi từ "01 tháng lương NLĐ" sang **phí cố định theo vị trí**: giúp việc gia đình, bảo mẫu chăm bé, chăm sóc người già **5 triệu**; đầu bếp gia đình **8 triệu**; quản gia **15 triệu**.
+- Sửa khối Bảng giá (#bang-gia, `content.py` PRICE_BLOCK) và bài /phi-dich-vu-giup-viec-bao-mau (`articles.py`: mô tả, trả lời nhanh, bảng phí + cột khách mới -15%, thêm câu hỏi "Phí dịch vụ là bao nhiêu?").
+- Giữ nguyên: giảm 15% khách mới, thanh toán 2 đợt, bảo hành thay người, lương tham khảo.
 
 ## [20261114b] – 14/11/2026 · Cẩm nang: 2 bài mới
 - /phi-dich-vu-giup-viec-bao-mau (gia đình): phí 01 lần = 01 tháng lương, -15% khách mới, 2 đợt, bảo hành.
