@@ -7,7 +7,8 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 
 | Phiên bản web | Cần Apps Script | Ghi chú |
 |---|---|---|
-| 20261127a (mới nhất) | **bản 19** | Phí dịch vụ cố định theo vị trí (không cần đổi Apps Script) |
+| 20261127b (mới nhất) | **bản 19** | Bỏ -15%, thanh toán 1 lần ngày thứ 3, bảo hành mới |
+| 20261127a | **bản 19** | Phí dịch vụ cố định theo vị trí (không cần đổi Apps Script) |
 | 20261114a | **bản 19** | Bảng giá dịch vụ; lương bảo mẫu theo giờ (không cần đổi Apps Script) |
 | 20261027a | **bản 19** | Form ứng viên khai đủ các mục như hồ sơ trong Kho; CV ghi đủ nơi ở (web vẫn chạy với bản 18, nhưng các mục mới chưa vào Kho) |
 | 20261026h | **bản 18** | Tin tuyển dụng sửa được trên /quan-tri; thẻ tin gọn, trang chi tiết /viec-lam (web vẫn chạy với bản 17, hiện tin in sẵn, chưa sửa được) |
@@ -35,6 +36,12 @@ Mã phiên bản web (`v=…`) nằm trong đường dẫn `app.css?v=…` / `ap
 Apps Script mới luôn chạy được với web cũ (tương thích ngược). Khi khôi phục web cũ **không cần** hạ Apps Script.
 
 ---
+
+## [20261127b] – 27/11/2026 · Bỏ ưu đãi 15%, thanh toán 1 lần, bảo hành mới
+- Bỏ ưu đãi giảm 15% khách mới (khối giá, thẻ nhắc trên banner, bài phí dịch vụ). Thẻ nhắc banner: "Phí dịch vụ từ 5 triệu đồng".
+- Thanh toán: phí dịch vụ trả 01 lần duy nhất vào ngày làm việc thứ 3 của người lao động (thay cho 2 đợt 50/50).
+- Bảo hành: trong thời gian thử việc (tối đa 06 ngày làm việc) và 06 ngày làm việc tiếp theo, thay miễn phí 01 người phù hợp.
+- Thêm: trong thời gian thử việc, gia đình trả lương cho người lao động theo ngày công thực tế.
 
 ## [20261127a] – 27/11/2026 · Bảng phí dịch vụ cố định theo vị trí
 - Phí dịch vụ (gia đình trả 1 lần) đổi từ "01 tháng lương NLĐ" sang **phí cố định theo vị trí**: giúp việc gia đình, bảo mẫu chăm bé, chăm sóc người già **5 triệu**; đầu bếp gia đình **8 triệu**; quản gia **15 triệu**.

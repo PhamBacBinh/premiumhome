@@ -130,20 +130,20 @@ PRICE_BLOCK = f'''<section id="bang-gia" class="price-sec on-light" aria-labelle
               <tr><th scope="row">Quản gia</th><td>15 triệu</td></tr>
             </tbody>
           </table>
-          <p class="price-deal">Gia đình sử dụng dịch vụ lần đầu chỉ thanh toán <b>85% phí</b>.</p>
           <a class="btn btn-brass price-cta" href="#tim-nguoi" data-open="khach" data-track="price_cta">Đăng ký tư vấn</a>
         </div>
         <ul class="price-terms" role="list">
-          <li><span class="price-ic" aria-hidden="true">1</span><div><b>Thanh toán 2 đợt</b><p>Gia đình thanh toán 50% vào ngày làm việc đầu tiên, 50% còn lại khi kết thúc thử việc (thử việc tối đa 06 ngày làm việc).</p></div></li>
-          <li><span class="price-ic" aria-hidden="true">2</span><div><b>Bảo hành thay người</b><p>Trong thời gian thử việc hoặc tháng làm việc đầu tiên, nếu người lao động nghỉ việc vì bất kỳ lý do gì, Elite Helpers tuyển thay thế miễn phí 01 người phù hợp.</p></div></li>
-          <li><span class="price-ic" aria-hidden="true">3</span><div><b>Lương bảo mẫu tham khảo</b><p>75.000–90.000đ/giờ, ca 12 giờ/ngày (theo thoả thuận với gia đình).</p></div></li>
+          <li><span class="price-ic" aria-hidden="true">1</span><div><b>Thanh toán 1 lần</b><p>Gia đình thanh toán phí dịch vụ 01 lần duy nhất vào ngày làm việc thứ 3 của người lao động.</p></div></li>
+          <li><span class="price-ic" aria-hidden="true">2</span><div><b>Bảo hành thay người</b><p>Trong thời gian thử việc (tối đa 06 ngày làm việc) và 06 ngày làm việc tiếp theo, nếu người lao động nghỉ việc vì bất kỳ lý do gì, Elite Helpers tuyển thay thế miễn phí 01 người phù hợp.</p></div></li>
+          <li><span class="price-ic" aria-hidden="true">3</span><div><b>Lương thời gian thử việc</b><p>Trong thời gian thử việc, gia đình trả lương cho người lao động theo số ngày công làm việc thực tế.</p></div></li>
+          <li><span class="price-ic" aria-hidden="true">4</span><div><b>Lương bảo mẫu tham khảo</b><p>75.000–90.000đ/giờ, ca 12 giờ/ngày (theo thoả thuận với gia đình).</p></div></li>
         </ul>
       </div>
     </div>
   </div>
 </section>'''
 
-PRICE_TEASER = '<a class="price-teaser" href="#bang-gia"><span class="price-tag">Giảm 15% cho các khách hàng mới</span><span>Phí trả 1 lần · Không thu phí người lao động</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>'
+PRICE_TEASER = '<a class="price-teaser" href="#bang-gia"><span class="price-tag">Phí dịch vụ từ 5 triệu đồng</span><span>Phí trả 1 lần · Không thu phí người lao động</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>'
 
 # Chip cam kết trên đầu trang Tuyển dụng / chi tiết tin (nền tối)
 PLEDGE_CHIP = f'<p class="pledge-chip"><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Cam kết:</b> {PLEDGE_TEXT}</span></p>'
